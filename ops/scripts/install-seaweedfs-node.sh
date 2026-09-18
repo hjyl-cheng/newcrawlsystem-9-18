@@ -12,8 +12,10 @@ sudo install -d -m 0755 /opt/seaweedfs /etc/seaweedfs
 if [[ ! -x /opt/seaweedfs/weed ]]; then
   sudo tar -xzf "$ARCHIVE" -C /opt/seaweedfs
 fi
-sudo chown root:seaweedfs /srv/crawlsystem
-sudo chmod 0750 /srv/crawlsystem
+# Shared parent must remain traversable by Kafka and other service users.
+# Each service owns only its own 0750 data directory.
+sudo chown root:root /srv/crawlsystem
+sudo chmod 0755 /srv/crawlsystem
 sudo chown seaweedfs:seaweedfs /srv/crawlsystem/seaweedfs
 sudo install -d -o seaweedfs -g seaweedfs -m 0750 \
   /srv/crawlsystem/seaweedfs/master \

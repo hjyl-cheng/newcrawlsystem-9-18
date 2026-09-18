@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: crawl-validation
+  namespace: argocd
+spec:
+  description: Infrastructure validation from the new crawl system repository
+  sourceRepos:
+    - https://github.com/hjyl-cheng/newcrawlsystem-9-18.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: crawl-validation
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Service
+    - group: apps
+      kind: DaemonSet
