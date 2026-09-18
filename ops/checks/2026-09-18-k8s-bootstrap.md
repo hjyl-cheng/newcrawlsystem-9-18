@@ -29,6 +29,7 @@ A1 本机监听 `*:6443`，本机 API 健康，A1 的 UFW 未启用；问题位�
 | TCP 6443 | A1/A2/A3 内网 IP | Kubernetes API Server |
 | TCP 2379-2380 | A1/A2/A3 内网 IP | 三控制面 etcd |
 | TCP 10250 | A1/A2/A3 内网 IP | kubelet API |
-| IP protocol 4 或 Calico 对应 VXLAN 端口 | A1/A2/A3 | Pod 跨节点网络 |
+| TCP 179 | A1/A2/A3 内网 IP | Calico BGP（当前清单使用 bird） |
+| IP protocol 4 | A1/A2/A3 内网 IP | Calico IP-in-IP（当前清单 `CALICO_IPV4POOL_IPIP=Always`） |
 
 放行后重新验证 `10.4.4.12:6443`，再继续 A2/A3 加入；没有放行前不重复执行 kubeadm join。
