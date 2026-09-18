@@ -1,16 +1,16 @@
 name: Runtime image
 on:
   pull_request:
-    paths: ['services/**', 'test/**', 'package*.json', 'tsconfig.json', '.node-version', 'Dockerfile', '.dockerignore', '.github/workflows/runtime-image.yml']
+    paths: ['services/**', 'test/**', 'package*.json', 'tsconfig.json', '.node-version', '.npmrc', 'Dockerfile', '.dockerignore', '.github/workflows/runtime-image.yml']
   push:
     branches: [main]
-    paths: ['services/**', 'test/**', 'package*.json', 'tsconfig.json', '.node-version', 'Dockerfile', '.dockerignore', '.github/workflows/runtime-image.yml']
+    paths: ['services/**', 'test/**', 'package*.json', 'tsconfig.json', '.node-version', '.npmrc', 'Dockerfile', '.dockerignore', '.github/workflows/runtime-image.yml']
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
   group: runtime-image-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest
