@@ -30,7 +30,7 @@ kubectl apply -f deploy/argocd/bootstrap/project.yaml
 kubectl apply -f deploy/argocd/bootstrap/infra-smoke.yaml
 ```
 
-AppProject 只允许新仓库向 `crawl-validation` 部署 ConfigMap、Service、DaemonSet，
+AppProject 只允许新仓库向 `crawl-validation` 部署 ConfigMap、Service、DaemonSet、Deployment，
 禁止管理集群级资源。Application 自动同步、自动修复漂移并清理旧资源。
 引导清单由管理机应用；探针工作负载完全由 Argo CD 从 Git 创建。
 
@@ -63,3 +63,30 @@ Argo CD 同步这个新的回滚提交。不要直接修改线上 Pod 或执行 
 
 `Synced / Healthy` 表示声明已同步且 Kubernetes 就绪检查通过；
 跨节点 Pod、DNS、Service 和存储访问仍需独立实测。
+
+## 应用镜像部署
+
+`services/runtime-smoke` 是第一个自有应用骨架，与 BusyBox 基础设施探针分开。
+GitHub Actions 完成测试并构建 GHCR 镜像后，把镜像 digest 写入
+`deploy/overlays/validation/runtime-smoke/kustomization.yaml`，提交并推送。
+可执行 `python3 ops/scripts/pin-runtime-image.py <完整源码提交SHA>` 自动解析摘要、
+核对镜像内 Git revision 和版本，再生成 overlay；拉取失败不会生成配置。
+首次创建 GHCR 包时，在该包的 Package settings 中检查可见性；当前公开源码的验证镜像采用公开拉取。
+若改为私有镜像，需要另外配置只读拉取凭据，不能将 Token 提交到 Git。
+
+首次引导（必须先确认指定 digest 可拉取）：
+
+```bash
+kubectl kustomize deploy/overlays/validation/runtime-smoke
+kubectl apply -f deploy/argocd/bootstrap/project.yaml
+kubectl apply -f deploy/argocd/bootstrap/runtime-smoke.yaml
+kubectl get application crawl-runtime-validation -n argocd
+kubectl rollout status deployment/runtime-smoke -n crawl-validation --timeout=180s
+python3 ops/scripts/check-runtime.py <镜像对应的完整源码提交SHA>
+```
+
+默认两个副本，按 hostname 分散调度；Service 仅集群内可见。
+每副本请求 25m CPU / 64Mi 内存，上限 250m / 128Mi，仅适用于空骨架验证。
+发布应用只改 overlay 的 digest，不用 latest，也不依赖逐台服务器手工更新代码。
+回滚通过 `git revert <更新digest的提交>` 后推送，由 Argo CD 恢复旧镜像。
+源码提交与部署提交可以不同，`/version` 的 revision 必须匹配构建镜像时的源码提交。

@@ -17,3 +17,4 @@ ops/checks/*.raw.txt
 node_modules/
 dist/
 coverage/
+__pycache__/

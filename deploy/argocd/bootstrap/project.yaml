@@ -4,7 +4,7 @@ metadata:
   name: crawl-validation
   namespace: argocd
 spec:
-  description: Infrastructure validation from the new crawl system repository
+  description: Infrastructure and application validation from the new crawl system repository
   sourceRepos:
     - https://github.com/hjyl-cheng/newcrawlsystem-9-18.git
   destinations:
@@ -18,3 +18,5 @@ spec:
       kind: Service
     - group: apps
       kind: DaemonSet
+    - group: apps
+      kind: Deployment

@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: crawl-validation
+resources:
+  - ../../../base/runtime-smoke
+images:
+  - name: ghcr.io/hjyl-cheng/newcrawlsystem-runtime
+    digest: sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88
