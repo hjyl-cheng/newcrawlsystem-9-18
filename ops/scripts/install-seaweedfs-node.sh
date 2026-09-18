@@ -74,7 +74,7 @@ Requires=seaweedfs-master.service
 [Service]
 User=seaweedfs
 Group=seaweedfs
-ExecStart=/opt/seaweedfs/weed filer -ip=$NODE_IP -ip.bind=$NODE_IP -port=8888 -dir=/srv/crawlsystem/seaweedfs/filer -master=$MASTER_LIST
+ExecStart=/opt/seaweedfs/weed filer -ip=$NODE_IP -ip.bind=$NODE_IP -port=8888 -defaultStoreDir=/srv/crawlsystem/seaweedfs/filer -master=$MASTER_LIST
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=1048576
