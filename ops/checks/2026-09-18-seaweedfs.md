@@ -20,7 +20,15 @@ SeaweedFS 只承接大 Raw、恢复对象和超大 Submission；普通结构化 
 
 ## 当前状态
 
-服务已暂时停止。SeaweedFS Master gRPC 和 Volume 端口尚未在轻量云防火墙放通，三节点无法完成 Master/Volume 互联。
+防火墙端口已应用，SeaweedFS 已通过验证：
+
+- 三台 Master 已组成 quorum，S1 `10.4.4.2:9333` 为当前 Leader。
+- 三台 Volume 已注册到 Master，`/dir/status` 显示三个 DataNode。
+- S3 Filer `10.4.4.5:8888` 正常。
+- S3 Gateway `10.4.4.5:8333` 正常返回 S3 API。
+- Filer REST 和 S3 API 的上传、读取、删除探针均成功。
+
+验证期只在 S3 运行一个 Filer/S3 入口；生产前需要按对象元数据 HA 方案扩展 Filer，并将入口放到稳定 VIP/负载均衡。
 
 放通以下内网入站端口后再启动：
 
@@ -32,5 +40,4 @@ SeaweedFS 只承接大 Raw、恢复对象和超大 Submission；普通结构化 
 | 18080/TCP | Volume gRPC |
 | 8888/TCP | Filer HTTP |
 | 8333/TCP | S3 Gateway |
-
-来源统一为 `10.4.4.0/22`，应用到 S1/S2/S3。
+为 `10.4.4.0/22`，应用到 S1/S2/S3。
