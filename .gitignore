@@ -1,0 +1,16 @@
+# Local credentials and secrets
+SERVER_INVENTORY.local.md
+.env
+.env.*
+!.env.example
+secrets/
+
+# Local raw diagnostics and temporary files
+ops/checks/*.raw.txt
+*.tmp
+*.log
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
