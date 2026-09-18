@@ -16,7 +16,7 @@ SeaweedFS 只承接大 Raw、恢复对象和超大 Submission；普通结构化 
 
 - 三台节点已安装 SeaweedFS 4.47。
 - Master、Volume、Filer、S3 的 systemd 单元和固定数据目录已写入安装脚本。
-- 修正了 `/srv/crawlsystem` 的 `seaweedfs` 用户属组和遍历权限。
+- 共享父目录 `/srv/crawlsystem` 保持 root:root 0755，SeaweedFS 私有子目录由 seaweedfs 用户管理；避免影响 Kafka 的目录访问。
 
 ## 当前状态
 
@@ -30,7 +30,7 @@ SeaweedFS 只承接大 Raw、恢复对象和超大 Submission；普通结构化 
 
 验证期只在 S3 运行一个 Filer/S3 入口；生产前需要按对象元数据 HA 方案扩展 Filer，并将入口放到稳定 VIP/负载均衡。
 
-放通以下内网入站端口后再启动：
+当前内网入站端口：
 
 | 端口 | 用途 |
 |---:|---|
@@ -40,4 +40,5 @@ SeaweedFS 只承接大 Raw、恢复对象和超大 Submission；普通结构化 
 | 18080/TCP | Volume gRPC |
 | 8888/TCP | Filer HTTP |
 | 8333/TCP | S3 Gateway |
-为 `10.4.4.0/22`，应用到 S1/S2/S3。
+
+来源为 `10.4.4.0/22`，应用到 S1/S2/S3。

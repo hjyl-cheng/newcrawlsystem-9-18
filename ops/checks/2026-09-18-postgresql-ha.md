@@ -22,7 +22,7 @@ S1 10.4.4.2  PostgreSQL 17.11 Primary + PgBouncer :6432
 
 ## 当前限制
 
-当前 PgBouncer 只部署在 S1，是验证期入口；S1 故障切换和稳定 VIP/HAProxy 尚未完成。S2 → S1 的 `6432` 仍需要轻量云防火墙内网入站规则，应用节点接入前必须验证该端口。
+当前 PgBouncer 只部署在 S1，是验证期入口；S1 故障切换和稳定 VIP/HAProxy 尚未完成。内网 `6432` 已放通：S2 认证连接成功，A1/A2/A3 的探针 Pod 均通过 TCP 连通性检查。
 
 生产前还需补齐：
 

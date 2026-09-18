@@ -2,9 +2,9 @@
 
 日期：2026-09-18
 
-## 当前发现
+## 历史阻断与当前状态
 
-S1 PostgreSQL 17 Primary 已启动并监听 `10.4.4.2:5432`。S2 到 S1 的 TCP `5432` 连接超时，说明控制面防火墙规则已经生效，但数据面端口尚未加入轻量云防火墙模板。
+初次安装时 S2 到 S1 的 TCP `5432` 超时。后续规则已放通，PG 主备、Kafka、SeaweedFS、ClickHouse 和 PgBouncer 的基础验收已通过，最新证据见 `2026-09-18-infrastructure-gitops.md`。
 
 ## 轻量云防火墙规则
 
@@ -15,11 +15,14 @@ S1 PostgreSQL 17 Primary 已启动并监听 `10.4.4.2:5432`。S2 到 S1 的 TCP 
 | TCP | 5432 | PostgreSQL Primary/Standby |
 | TCP | 9092-9093 | Kafka Broker/Controller |
 | TCP | 9333 | SeaweedFS Master |
-| TCP | 8888 | SeaweedFS Volume |
+| TCP | 19333 | SeaweedFS Master gRPC |
+| TCP | 8080 | SeaweedFS Volume HTTP |
+| TCP | 18080 | SeaweedFS Volume gRPC |
+| TCP | 8888 | SeaweedFS Filer HTTP |
 | TCP | 8333 | SeaweedFS S3 API |
 | TCP | 8123 | ClickHouse HTTP |
 | TCP | 9000 | ClickHouse Native |
-| TCP | 6432 | PgBouncer（后续） |
+| TCP | 6432 | PgBouncer |
 
 不应把这些数据面端口开放到公网。
 
@@ -29,8 +32,8 @@ S1 PostgreSQL 17 Primary 已启动并监听 `10.4.4.2:5432`。S2 到 S1 的 TCP 
 # 在 S2 上执行
 timeout 4 bash -c '</dev/tcp/10.4.4.2/5432'
 
-# 在任意一台管理机执行
-kubectl ... # 业务服务接入前暂不使用
+# 在当前工作目录执行（需 kubectl 管理权限）
+python3 ops/scripts/check-cluster-network.py
 ```
 
 当前 PostgreSQL 主备安装脚本已设置 `PGCONNECT_TIMEOUT=10`，防止端口未放行时无限等待。

@@ -39,4 +39,4 @@ A1 本机监听 `*:6443`，本机 API 健康，A1 的 UFW 未启用；原问题�
 - 云防火墙模板已允许内网网段 `10.4.4.0/22` 的控制面端口。
 - Argo CD v2.13.5 已迁移到 `argocd` 命名空间，全部 Pod Ready；`default` 中无 Argo CD Pod。
 
-生产前仍需把 `k8s-api.crawl.internal` 从当前指向 A1 的验证入口，改为腾讯云内网负载均衡或经过验证的 VIP；同时完成 UDP `4789` 的跨节点实测。
+UDP `4789` 规则补齐后，三节点探针已完成双向 Pod、DNS、Service 实测，详见 `2026-09-18-infrastructure-gitops.md`。生产前仍需把 `k8s-api.crawl.internal` 从当前指向 A1 的验证入口，改为腾讯云内网负载均衡或经过验证的 VIP。
