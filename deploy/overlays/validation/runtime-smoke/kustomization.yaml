@@ -5,4 +5,4 @@ resources:
   - ../../../base/runtime-smoke
 images:
   - name: ghcr.io/hjyl-cheng/newcrawlsystem-runtime
-    digest: sha256:686519af6766a49dc9a0410debc8d57b862dec416c5fee544a7dd595a0a6e74e
+    digest: sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88
