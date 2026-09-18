@@ -14,3 +14,6 @@ ops/checks/*.raw.txt
 .DS_Store
 .idea/
 .vscode/
+node_modules/
+dist/
+coverage/
