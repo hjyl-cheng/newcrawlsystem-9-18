@@ -29,11 +29,11 @@ spec:
         - protocol: TCP
           port: 53
     - to:
-        - ipBlock:
-            cidr: 10.4.4.2/32
+        - podSelector:
+            matchLabels: {app: postgresql-entry}
       ports:
         - protocol: TCP
-          port: 5432
+          port: 6432
     - to:
         - ipBlock:
             cidr: 10.4.4.2/32

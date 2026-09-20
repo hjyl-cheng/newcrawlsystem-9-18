@@ -36,6 +36,6 @@ spec:
         - {protocol: UDP, port: 53}
         - {protocol: TCP, port: 53}
     - to:
-        - ipBlock: {cidr: 10.4.4.2/32}
+        - podSelector: {matchLabels: {app: postgresql-entry}}
       ports:
         - {protocol: TCP, port: 5432}

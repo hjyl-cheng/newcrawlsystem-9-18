@@ -1,0 +1,33 @@
+# Temporary operations probe; apply explicitly, delete after verification.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pg-ha-probe
+  namespace: crawl-validation
+  labels: {postgres-client: "true"}
+spec:
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  tolerations:
+    - {key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    seccompProfile: {type: RuntimeDefault}
+  containers:
+    - name: probe
+      image: ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:0c7f06781034ec89cad90cd0e0a4d8bbc1894503fe22a012360c45a78ae8302e
+      command: [node, -e, "setTimeout(()=>{},3600000)"]
+      envFrom:
+        - secretRef: {name: data-ingestor-database}
+      env:
+        - {name: PGHOST, value: postgres-rw.crawl-validation.svc}
+        - {name: PGPORT, value: "6432"}
+      resources:
+        requests: {cpu: 10m, memory: 32Mi}
+        limits: {cpu: 100m, memory: 128Mi}
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: {drop: [ALL]}

@@ -12,7 +12,7 @@ persistence:
       sql:
         pluginName: postgres12
         databaseName: temporal_validation
-        connectAddr: 10.4.4.2:5432
+        connectAddr: postgres-rw.crawl-validation.svc:5432
         connectProtocol: tcp
         user: '{{ env "SQL_USER" }}'
         password: '{{ env "SQL_PASSWORD" }}'
@@ -23,7 +23,7 @@ persistence:
       sql:
         pluginName: postgres12
         databaseName: temporal_visibility_validation
-        connectAddr: 10.4.4.2:5432
+        connectAddr: postgres-rw.crawl-validation.svc:5432
         connectProtocol: tcp
         user: '{{ env "SQL_USER" }}'
         password: '{{ env "SQL_PASSWORD" }}'

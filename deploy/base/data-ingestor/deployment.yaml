@@ -50,6 +50,8 @@ spec:
             - secretRef:
                 name: data-ingestor-database
           env:
+            - {name: PGHOST, value: postgres-rw.crawl-validation.svc}
+            - {name: PGPORT, value: "6432"}
             - name: KAFKA_BROKERS
               value: "10.4.4.2:9092,10.4.4.8:9092,10.4.4.5:9092"
             - name: RESULT_TOPIC
