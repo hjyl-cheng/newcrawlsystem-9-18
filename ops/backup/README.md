@@ -1,6 +1,6 @@
 # 外围备份与恢复运行手册
 
-本目录只包含基础设施脚本，不开发采集业务。当前覆盖 PostgreSQL 全集群、Kubernetes etcd、六台机器关键配置和运维凭据。Kafka/SeaweedFS/ClickHouse 的实际数据备份和异地灾备尚未完成。
+本目录只包含基础设施脚本，不开发采集业务。当前覆盖 PostgreSQL 全集群、Kubernetes etcd、六台机器关键配置和运维凭据。SeaweedFS 已另行完成小规模停写维护基线备份和独立服务恢复，见 `ops/seaweedfs/README.md`；其持续在线备份、Kafka/ClickHouse 的实际数据备份及异地灾备仍待完成。
 
 ## PostgreSQL
 

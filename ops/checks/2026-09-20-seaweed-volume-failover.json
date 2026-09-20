@@ -1,0 +1,51 @@
+{
+  "status": "PASSED",
+  "fault": "One volume service stopped; master and single filer remain running",
+  "fileBytes": 262144,
+  "sha256": "2312394bd99545d9de131c24efb781e765ac1aec243f2ed9347597a793a415e9",
+  "startedAt": 1789905247.585648,
+  "paths": [
+    "/crawlsystem-validation/infra-volume-fd308737990a4938b79032f2a4d804e2-before.bin",
+    "/crawlsystem-validation/infra-volume-fd308737990a4938b79032f2a4d804e2-during.bin"
+  ],
+  "beforeLocations": [
+    {
+      "volumeId": "5",
+      "hosts": [
+        "10.4.4.2",
+        "10.4.4.8"
+      ]
+    }
+  ],
+  "stoppedHost": "10.4.4.2",
+  "stopSeconds": 10.547,
+  "remainingLocations": [
+    {
+      "volumeId": "5",
+      "hosts": [
+        "10.4.4.8"
+      ]
+    }
+  ],
+  "writtenDuringOutageLocations": [
+    {
+      "volumeId": "6",
+      "hosts": [
+        "10.4.4.8",
+        "10.4.4.5"
+      ]
+    }
+  ],
+  "restoreSeconds": 0.79,
+  "restoredLocations": [
+    {
+      "volumeId": "5",
+      "hosts": [
+        "10.4.4.8",
+        "10.4.4.2"
+      ]
+    }
+  ],
+  "readBeforeAndDuringFilesAfterRecovery": "PASSED",
+  "finishedAt": 1789905260.5261898
+}

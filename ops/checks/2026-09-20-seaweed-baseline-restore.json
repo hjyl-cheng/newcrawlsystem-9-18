@@ -1,0 +1,63 @@
+{
+  "status": "PASSED",
+  "archive": "seaweed-baseline-20260920T114802Z.tar.gpg",
+  "objects": [
+    {
+      "path": "/topics/.system/log/2026-09-18/11-07.15492715",
+      "bytes": 2472,
+      "sha256": "2aa67662e37d41f22f8e01359f072e6d665891128ed55faf206b9f587e56c63f"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-18/12-04.15492715",
+      "bytes": 1300,
+      "sha256": "6937a3370502f2845c39a471941fa915721781f099ae479fce70a19513f05ec2"
+    }
+  ],
+  "isolation": "new directories, loopback-only master 19334 / volume 18081 / filer 18889; separate grpc ports",
+  "topology": {
+    "Topology": {
+      "Max": 24,
+      "Free": 17,
+      "DataCenters": [
+        {
+          "Id": "DefaultDataCenter",
+          "Racks": [
+            {
+              "Id": "DefaultRack",
+              "DataNodes": [
+                {
+                  "Url": "127.0.0.1:18081",
+                  "PublicUrl": "127.0.0.1:18081",
+                  "Volumes": 7,
+                  "EcShards": 0,
+                  "Max": 24,
+                  "VolumeIds": " 1-7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Layouts": [
+        {
+          "replication": "000",
+          "ttl": "",
+          "writables": [
+            3,
+            5,
+            4,
+            6,
+            1,
+            2,
+            7
+          ],
+          "collection": "",
+          "diskType": "hdd"
+        }
+      ]
+    },
+    "TopologyId": "cdf21429-f43a-48d9-9c66-bd798fba5dcf",
+    "Version": "30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3"
+  },
+  "cleanup": "isolated services stopped, timer removed, temporary directories removed"
+}

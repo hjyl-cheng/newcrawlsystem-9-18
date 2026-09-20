@@ -1,0 +1,140 @@
+{
+  "status": "PASSED",
+  "replication": "001",
+  "meaning": "two copies on different servers in the same rack",
+  "before": {
+    "Topology": {
+      "Max": 24,
+      "Free": 17,
+      "DataCenters": [
+        {
+          "Id": "DefaultDataCenter",
+          "Racks": [
+            {
+              "Id": "DefaultRack",
+              "DataNodes": [
+                {
+                  "Url": "10.4.4.2:8080",
+                  "PublicUrl": "10.4.4.2:8080",
+                  "Volumes": 3,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 3-5"
+                },
+                {
+                  "Url": "10.4.4.5:8080",
+                  "PublicUrl": "10.4.4.5:8080",
+                  "Volumes": 3,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 1-2 7"
+                },
+                {
+                  "Url": "10.4.4.8:8080",
+                  "PublicUrl": "10.4.4.8:8080",
+                  "Volumes": 1,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 6"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Layouts": [
+        {
+          "replication": "000",
+          "ttl": "",
+          "writables": [
+            3,
+            5,
+            4,
+            6,
+            2,
+            7,
+            1
+          ],
+          "collection": "",
+          "diskType": "hdd"
+        }
+      ]
+    },
+    "TopologyId": "4a7ffbbd-b8fa-4b38-a6cb-03775cb1c71e",
+    "Version": "30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3"
+  },
+  "after": {
+    "Topology": {
+      "Max": 24,
+      "Free": 10,
+      "DataCenters": [
+        {
+          "Id": "DefaultDataCenter",
+          "Racks": [
+            {
+              "Id": "DefaultRack",
+              "DataNodes": [
+                {
+                  "Url": "10.4.4.2:8080",
+                  "PublicUrl": "10.4.4.2:8080",
+                  "Volumes": 5,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 1-5"
+                },
+                {
+                  "Url": "10.4.4.5:8080",
+                  "PublicUrl": "10.4.4.5:8080",
+                  "Volumes": 4,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 1-2 6-7"
+                },
+                {
+                  "Url": "10.4.4.8:8080",
+                  "PublicUrl": "10.4.4.8:8080",
+                  "Volumes": 5,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 3-7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Layouts": [
+        {
+          "replication": "001",
+          "ttl": "",
+          "writables": [
+            3,
+            5,
+            4,
+            6,
+            2,
+            1,
+            7
+          ],
+          "collection": "",
+          "diskType": "hdd"
+        }
+      ]
+    },
+    "TopologyId": "4a7ffbbd-b8fa-4b38-a6cb-03775cb1c71e",
+    "Version": "30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3"
+  },
+  "volumeListBefore": "Topology volumeSizeLimit:30720 MB hdd(volume:7/24 active:7 free:17 remote:0)\n  DataCenter DefaultDataCenter hdd(volume:7/24 active:7 free:17 remote:0)\n    Rack DefaultRack hdd(volume:7/24 active:7 free:17 remote:0)\n      DataNode 10.4.4.2:8080 hdd(volume:3/8 active:3 free:5 remote:0)\n        Disk hdd(volume:3/8 active:3 free:5 remote:0) id:0\n          volume Id:3, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:4, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789730454 \n          volume Id:5, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:24 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.2:8080 {Size:24 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 hdd(volume:3/8 active:3 free:5 remote:0)\n        Disk hdd(volume:3/8 active:3 free:5 remote:0) id:0\n          volume Id:1, Size:3872, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:2, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789733111 \n          volume Id:2, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:7, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:3888 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 {Size:3888 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 hdd(volume:1/8 active:1 free:7 remote:0)\n        Disk hdd(volume:1/8 active:1 free:7 remote:0) id:0\n          volume Id:6, Size:8, ReplicaPlacement:000, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:8 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 {Size:8 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n    Rack DefaultRack {Size:3920 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n  DataCenter DefaultDataCenter {Size:3920 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \ntotal size:3920 file_count:2 \n",
+  "migrationOutput": "volume 3 replication 001, but under replicated +1\nvolume 5 replication 001, but under replicated +1\nvolume 4 replication 001, but under replicated +1\nvolume 6 replication 001, but under replicated +1\nvolume 2 replication 001, but under replicated +1\nvolume 1 replication 001, but under replicated +1\nvolume 7 replication 001, but under replicated +1\nreplicating volume 3 001 from 10.4.4.2:8080 to dataNode 10.4.4.8:8080 ...\nreplicating volume 5 001 from 10.4.4.2:8080 to dataNode 10.4.4.8:8080 ...\nreplicating volume 4 001 from 10.4.4.2:8080 to dataNode 10.4.4.8:8080 ...\nreplicating volume 6 001 from 10.4.4.8:8080 to dataNode 10.4.4.5:8080 ...\nreplicating volume 2 001 from 10.4.4.5:8080 to dataNode 10.4.4.2:8080 ...\nreplicating volume 1 001 from 10.4.4.5:8080 to dataNode 10.4.4.2:8080 ...\nreplicating volume 7 001 from 10.4.4.5:8080 to dataNode 10.4.4.8:8080 ...\nTopology volumeSizeLimit:30720 MB hdd(volume:14/24 active:14 free:10 remote:0)\n  DataCenter DefaultDataCenter hdd(volume:14/24 active:14 free:10 remote:0)\n    Rack DefaultRack hdd(volume:14/24 active:14 free:10 remote:0)\n      DataNode 10.4.4.2:8080 hdd(volume:5/8 active:5 free:3 remote:0)\n        Disk hdd(volume:5/8 active:5 free:3 remote:0) id:0\n          volume Id:1, Size:3872, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:2, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789733111 \n          volume Id:2, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:3, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:4, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789730454 \n          volume Id:5, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:3904 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.2:8080 {Size:3904 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 hdd(volume:4/8 active:4 free:4 remote:0)\n        Disk hdd(volume:4/8 active:4 free:4 remote:0) id:0\n          volume Id:1, Size:3872, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:2, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789733111 \n          volume Id:2, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:6, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:7, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:3896 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 {Size:3896 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 hdd(volume:5/8 active:5 free:3 remote:0)\n        Disk hdd(volume:5/8 active:5 free:3 remote:0) id:0\n          volume Id:3, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:4, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789730454 \n          volume Id:5, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:6, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:7, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:40 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 {Size:40 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n    Rack DefaultRack {Size:7840 FileCount:4 DeletedFileCount:0 DeletedBytes:0} \n  DataCenter DefaultDataCenter {Size:7840 FileCount:4 DeletedFileCount:0 DeletedBytes:0} \ntotal size:7840 file_count:4 \n",
+  "volumeListAfter": "Topology volumeSizeLimit:30720 MB hdd(volume:14/24 active:14 free:10 remote:0)\n  DataCenter DefaultDataCenter hdd(volume:14/24 active:14 free:10 remote:0)\n    Rack DefaultRack hdd(volume:14/24 active:14 free:10 remote:0)\n      DataNode 10.4.4.2:8080 hdd(volume:5/8 active:5 free:3 remote:0)\n        Disk hdd(volume:5/8 active:5 free:3 remote:0) id:0\n          volume Id:1, Size:3872, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:2, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789733111 \n          volume Id:2, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:3, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:4, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789730454 \n          volume Id:5, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:3904 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.2:8080 {Size:3904 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 hdd(volume:4/8 active:4 free:4 remote:0)\n        Disk hdd(volume:4/8 active:4 free:4 remote:0) id:0\n          volume Id:1, Size:3872, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:2, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789733111 \n          volume Id:2, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:6, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:7, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:3896 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.5:8080 {Size:3896 FileCount:2 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 hdd(volume:5/8 active:5 free:3 remote:0)\n        Disk hdd(volume:5/8 active:5 free:3 remote:0) id:0\n          volume Id:3, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:4, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789730454 \n          volume Id:5, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:6, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n          volume Id:7, Size:8, ReplicaPlacement:001, Collection:, Version:3, Ttl:, FileCount:0, DeleteCount:0, DeletedByteCount:0, ReadOnly:false, ModifiedAtSecond:1789729675 \n        Disk hdd {Size:40 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n      DataNode 10.4.4.8:8080 {Size:40 FileCount:0 DeletedFileCount:0 DeletedBytes:0} \n    Rack DefaultRack {Size:7840 FileCount:4 DeletedFileCount:0 DeletedBytes:0} \n  DataCenter DefaultDataCenter {Size:7840 FileCount:4 DeletedFileCount:0 DeletedBytes:0} \ntotal size:7840 file_count:4 \n",
+  "oldVolumeIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "deletionAllowed": false
+}

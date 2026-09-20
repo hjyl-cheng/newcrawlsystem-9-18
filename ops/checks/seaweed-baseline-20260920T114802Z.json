@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "file": "seaweed-baseline-20260920T114802Z.tar.gpg",
+  "bytes": 7800,
+  "sha256": "68334cb7e3047804f2b64cf8d0853f94f604005fef5e559d1400ee26fd258c5d",
+  "copies": [
+    "a1-protected-staging",
+    "s2",
+    "s3"
+  ],
+  "decryptionAndArchiveChecksums": "PASSED",
+  "independentServiceRestore": "NOT_YET_TESTED",
+  "manifest": {
+    "createdAt": "20260920T114802Z",
+    "scope": "Cold volume files and S3 local filer metadata; no live master raft snapshot",
+    "sourceRevision": "15ab59914b5ecba0b789938d26edaf5a929614e7",
+    "sha256": {
+      "s1.tar.gz": "459e247e4370cb6ec1cbe9262e726a3c407e9b372dc611e742af6ddac7ce975f",
+      "s2.tar.gz": "c321d6c5cd564f7a10a5793e194d325e495d72ae028529e3c8199e320e3dd7cf",
+      "s3.tar.gz": "ad694005e9ee4d86392bd22e9a177e071e7bb3583e63596e5308c56e17a0216e"
+    }
+  }
+}

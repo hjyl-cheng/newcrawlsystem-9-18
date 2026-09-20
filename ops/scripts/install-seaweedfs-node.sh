@@ -39,7 +39,7 @@ Wants=network-online.target
 [Service]
 User=seaweedfs
 Group=seaweedfs
-ExecStart=/opt/seaweedfs/weed master -ip=$NODE_IP -ip.bind=$NODE_IP -port=9333 -mdir=/srv/crawlsystem/seaweedfs/master -peers=$MASTER_LIST
+ExecStart=/opt/seaweedfs/weed master -ip=$NODE_IP -ip.bind=$NODE_IP -port=9333 -mdir=/srv/crawlsystem/seaweedfs/master -peers=$MASTER_LIST -defaultReplication=001
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=1048576
@@ -51,7 +51,7 @@ sudo tee /etc/systemd/system/seaweedfs-volume.service >/dev/null <<UNIT
 [Unit]
 Description=SeaweedFS Volume
 After=seaweedfs-master.service
-Requires=seaweedfs-master.service
+Wants=network-online.target
 [Service]
 User=seaweedfs
 Group=seaweedfs
@@ -72,11 +72,11 @@ if [[ "$NODE_NAME" == s3 ]]; then
 [Unit]
 Description=SeaweedFS Filer
 After=seaweedfs-master.service
-Requires=seaweedfs-master.service
+Wants=network-online.target
 [Service]
 User=seaweedfs
 Group=seaweedfs
-ExecStart=/opt/seaweedfs/weed filer -ip=$NODE_IP -ip.bind=$NODE_IP -port=8888 -defaultStoreDir=/srv/crawlsystem/seaweedfs/filer -master=$MASTER_LIST
+ExecStart=/opt/seaweedfs/weed filer -ip=$NODE_IP -ip.bind=$NODE_IP -port=8888 -defaultStoreDir=/srv/crawlsystem/seaweedfs/filer -master=$MASTER_LIST -defaultReplicaPlacement=001
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=1048576
@@ -87,7 +87,7 @@ UNIT
 [Unit]
 Description=SeaweedFS S3 Gateway
 After=seaweedfs-filer.service
-Requires=seaweedfs-filer.service
+Wants=network-online.target
 [Service]
 User=seaweedfs
 Group=seaweedfs
