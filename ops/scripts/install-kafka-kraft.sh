@@ -61,7 +61,9 @@ User=kafka
 Group=kafka
 Environment="KAFKA_HEAP_OPTS=-Xms256m -Xmx512m"
 ExecStart=/opt/kafka/bin/kafka-server-start.sh /etc/kafka/server.properties
-ExecStop=/opt/kafka/bin/kafka-server-stop.sh
+KillMode=mixed
+TimeoutStopSec=120
+SuccessExitStatus=143
 Restart=on-failure
 RestartSec=5
 LimitNOFILE=1048576

@@ -1,0 +1,4096 @@
+{
+  "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7",
+  "startedAt": "2026-09-20T11:34:20.948Z",
+  "topic": "crawler.infra.failover.3d7f51d4-6167-4be9-a6b1-aac4f656bcd7",
+  "strictTopic": "crawler.infra.strict-isr.3d7f51d4-6167-4be9-a6b1-aac4f656bcd7",
+  "fault": "Controlled systemctl stop of current KRaft leader (combined broker/controller), not host power loss",
+  "status": "FAILED",
+  "events": [
+    {
+      "name": "baseline-passed",
+      "at": "2026-09-20T11:34:25.901Z",
+      "acked": 30,
+      "target": "10.4.4.2"
+    },
+    {
+      "name": "stopping-service",
+      "at": "2026-09-20T11:34:26.192Z",
+      "target": "10.4.4.2"
+    },
+    {
+      "name": "failed",
+      "at": "2026-09-20T11:34:29.641Z",
+      "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'failed'\n- 'inactive'\n"
+    }
+  ],
+  "acked": [
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:0",
+      "phase": "before",
+      "partition": 0,
+      "offset": "0",
+      "atMs": 1789904065354,
+      "latencyMs": 481,
+      "sha256": "ff7c0fbb8889259ed75af1613935e5daebed0be1ea3f75789e35c87d615d0308"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:1",
+      "phase": "before",
+      "partition": 1,
+      "offset": "0",
+      "atMs": 1789904065367,
+      "latencyMs": 12,
+      "sha256": "a85f5762c512bdd6ea0dc7064eb8cd3f42b00d12e2810b788f578a6b7141d732"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:2",
+      "phase": "before",
+      "partition": 2,
+      "offset": "0",
+      "atMs": 1789904065378,
+      "latencyMs": 11,
+      "sha256": "36e4f800f07618715df9d2a5704047c09a4b43cb22071ab8c5191f5294f3e681"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:3",
+      "phase": "before",
+      "partition": 0,
+      "offset": "1",
+      "atMs": 1789904065386,
+      "latencyMs": 8,
+      "sha256": "9fdb3099b5f94d7977aba3acecb4e0449de61e8ca18971bb0534a5cdd5f11d9f"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:4",
+      "phase": "before",
+      "partition": 1,
+      "offset": "1",
+      "atMs": 1789904065394,
+      "latencyMs": 7,
+      "sha256": "ef5c9674dc3e3d2c6a18451f9a57e85384b9fafd9dea90c0893b9e506fa150dd"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:5",
+      "phase": "before",
+      "partition": 2,
+      "offset": "1",
+      "atMs": 1789904065402,
+      "latencyMs": 8,
+      "sha256": "5437ee968df177d694730725f7e2d2bf6ef9cf1701e41e262acbea78c1bf27b0"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:6",
+      "phase": "before",
+      "partition": 0,
+      "offset": "2",
+      "atMs": 1789904065410,
+      "latencyMs": 8,
+      "sha256": "55a6d551ce0e31c7b6927bcf67db1641ae1254cffd63ee204a5ac970d683f969"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:7",
+      "phase": "before",
+      "partition": 1,
+      "offset": "2",
+      "atMs": 1789904065418,
+      "latencyMs": 8,
+      "sha256": "6e4ad1bb5b2e5e34bafaf39514629f651ac29059618dbc2e9427b5675190d7a5"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:8",
+      "phase": "before",
+      "partition": 2,
+      "offset": "2",
+      "atMs": 1789904065427,
+      "latencyMs": 9,
+      "sha256": "9b415dd80f1cfb56a2897d0a5eca8bf703209d3411d056c4640ea09adafbe321"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:9",
+      "phase": "before",
+      "partition": 0,
+      "offset": "3",
+      "atMs": 1789904065435,
+      "latencyMs": 8,
+      "sha256": "4f995bb9bb4672fba361dd5a4ba83b55eaaf27f7aa801ccd2003c76d2aa5d493"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:10",
+      "phase": "before",
+      "partition": 1,
+      "offset": "3",
+      "atMs": 1789904065443,
+      "latencyMs": 8,
+      "sha256": "8d3cfb7dc61ed035c5bb366ab1ba9523804dbf0b2039386c26412fdfe4a9d7e0"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:11",
+      "phase": "before",
+      "partition": 2,
+      "offset": "3",
+      "atMs": 1789904065451,
+      "latencyMs": 8,
+      "sha256": "1b6f4ba5d1aa3155f600f8ac97aef72f6cbf35388c63fb925d363decab008b6d"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:12",
+      "phase": "before",
+      "partition": 0,
+      "offset": "4",
+      "atMs": 1789904065459,
+      "latencyMs": 8,
+      "sha256": "deb6d6fb1d22932330b0bb282b6fbeac093029b7aeef642096a47f5dac7699d4"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:13",
+      "phase": "before",
+      "partition": 1,
+      "offset": "4",
+      "atMs": 1789904065469,
+      "latencyMs": 10,
+      "sha256": "ff3e1baef9b2340a23c5a11ec45024bed3755bd3d5031bf0f735f219a3844fb8"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:14",
+      "phase": "before",
+      "partition": 2,
+      "offset": "4",
+      "atMs": 1789904065477,
+      "latencyMs": 8,
+      "sha256": "8335b1c94732de2ce27851c7d88298b2574badb8edfc9cd66cdbb3fc3e8e32f0"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:15",
+      "phase": "before",
+      "partition": 0,
+      "offset": "5",
+      "atMs": 1789904065485,
+      "latencyMs": 8,
+      "sha256": "fb8d95cd5b373076e962cf46be22b04978db3234927565731545300562d484e0"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:16",
+      "phase": "before",
+      "partition": 1,
+      "offset": "5",
+      "atMs": 1789904065494,
+      "latencyMs": 9,
+      "sha256": "ff2362f81aa3180e13fed790b062104dbd9e76d993c3937cc933b56730064d04"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:17",
+      "phase": "before",
+      "partition": 2,
+      "offset": "5",
+      "atMs": 1789904065501,
+      "latencyMs": 7,
+      "sha256": "4a06b9b11e9b9d0eba29c6d1d66649bf1454192aa9f906691e5ed6d9e8902805"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:18",
+      "phase": "before",
+      "partition": 0,
+      "offset": "6",
+      "atMs": 1789904065509,
+      "latencyMs": 8,
+      "sha256": "1bbe14c246e9b20f46686ed0ffc1c299f4ba8c32f4791ae21d83a9a56144072e"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:19",
+      "phase": "before",
+      "partition": 1,
+      "offset": "6",
+      "atMs": 1789904065518,
+      "latencyMs": 9,
+      "sha256": "f323ee6a5c15d9c5be63dab37f48e81236c3bfb401bb33f38c3895a6c796d959"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:20",
+      "phase": "before",
+      "partition": 2,
+      "offset": "6",
+      "atMs": 1789904065526,
+      "latencyMs": 8,
+      "sha256": "9ba5774688bd53c3bdce84bd87ae30ebecf14cf9aba464ee74bf7acb05663c43"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:21",
+      "phase": "before",
+      "partition": 0,
+      "offset": "7",
+      "atMs": 1789904065533,
+      "latencyMs": 7,
+      "sha256": "f82c8e1d2dbd2735de56bf1b91fa65944facd2d5b1cc72bedab8d85cccb41f03"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:22",
+      "phase": "before",
+      "partition": 1,
+      "offset": "7",
+      "atMs": 1789904065542,
+      "latencyMs": 8,
+      "sha256": "7c5830d1817b0e6cfd7227b03ce17c59029c9b8d1148f825674fa53b72ecd8a5"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:23",
+      "phase": "before",
+      "partition": 2,
+      "offset": "7",
+      "atMs": 1789904065549,
+      "latencyMs": 7,
+      "sha256": "910a067ce64b7763d54e1643c42dea9445023f3dea194ec588d854c41b56afb0"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:24",
+      "phase": "before",
+      "partition": 0,
+      "offset": "8",
+      "atMs": 1789904065557,
+      "latencyMs": 8,
+      "sha256": "4c9fe945143944600ce036882b97a7ed3242a10a66f174a9b7dfc20b60a52d7e"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:25",
+      "phase": "before",
+      "partition": 1,
+      "offset": "8",
+      "atMs": 1789904065565,
+      "latencyMs": 8,
+      "sha256": "4d4b857b32e6e37b8bdeba308c25df74df8c4f1f00902376a6bb9d2eacef7210"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:26",
+      "phase": "before",
+      "partition": 2,
+      "offset": "8",
+      "atMs": 1789904065573,
+      "latencyMs": 8,
+      "sha256": "8870bb8653e59dd8057dcdb348009b6e9908d08feab4181e73ebed7a19eb603b"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:27",
+      "phase": "before",
+      "partition": 0,
+      "offset": "9",
+      "atMs": 1789904065583,
+      "latencyMs": 10,
+      "sha256": "61a068a7cf9d4be7bbb0f62f3d09c0cd474aaf78b2347d3a3c630b0056d4400b"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:28",
+      "phase": "before",
+      "partition": 1,
+      "offset": "9",
+      "atMs": 1789904065593,
+      "latencyMs": 10,
+      "sha256": "47bee90e79cf8aeee88092f03758810bb6fda794e52e54065f28753944bac6bc"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:29",
+      "phase": "before",
+      "partition": 2,
+      "offset": "9",
+      "atMs": 1789904065601,
+      "latencyMs": 8,
+      "sha256": "1acfc03ba5adc90d839ffaf11cdef71336ec5e81f638973a76e3aafd3ec8b5d4"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:30",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "10",
+      "atMs": 1789904066201,
+      "latencyMs": 9,
+      "sha256": "6851373ca1ed9233958c36f9bffdd0409bab86982b2179548eac90f1ccd1e497"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:31",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "10",
+      "atMs": 1789904066361,
+      "latencyMs": 9,
+      "sha256": "71700c11c1f10db3b730d901fea77394fa34cc3d6ad8a1f04ebb35f4aebca920"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:32",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "10",
+      "atMs": 1789904066519,
+      "latencyMs": 8,
+      "sha256": "c6fcee5936495fe43cc8c2ab4d673662a6e7facfca9839b8ccf67b725101bf79"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:33",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "11",
+      "atMs": 1789904066685,
+      "latencyMs": 16,
+      "sha256": "1d7a68e28134c1bd65dd01cd4a544fe05c9d508b662612057316dff13ab5966a"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:34",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "11",
+      "atMs": 1789904067144,
+      "latencyMs": 308,
+      "sha256": "93773bfa12a11a062e0eb57cfbf0dc250c23b471b75f2be50403ab0852b82b9c"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:35",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "11",
+      "atMs": 1789904067306,
+      "latencyMs": 12,
+      "sha256": "9f73d8e56df9a2864ecdd6cb3968260290ee5916dab48adc025bce787d59f5a7"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:36",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "12",
+      "atMs": 1789904067467,
+      "latencyMs": 11,
+      "sha256": "51ee75344eb5450af539f101262d9afba503fb0b901095beda27cede78edef7a"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:37",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "12",
+      "atMs": 1789904067626,
+      "latencyMs": 9,
+      "sha256": "460bd0b68448ada584cd6c9b21ac24f2488ade544a6a156dd05acc05dcc347ad"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:38",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "12",
+      "atMs": 1789904067785,
+      "latencyMs": 8,
+      "sha256": "5d911184f24015322543ce76c7b83ba106e587103c555c81755d8874107b3893"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:39",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "13",
+      "atMs": 1789904067944,
+      "latencyMs": 8,
+      "sha256": "bf3bbe626344d23305c896e61a9866f46e1abe91a92090f6c184bd96ce030e06"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:40",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "13",
+      "atMs": 1789904068102,
+      "latencyMs": 8,
+      "sha256": "b45537b1e51598ad48f0db2c2353f05eeb883970e0d8a80cad113e101b9fbf23"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:41",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "13",
+      "atMs": 1789904068261,
+      "latencyMs": 8,
+      "sha256": "6abc0b55392654b8967e351c13f3c2c9005ac1135bf0bb0ac3d6d04b85eeacf9"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:42",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "14",
+      "atMs": 1789904068420,
+      "latencyMs": 9,
+      "sha256": "a8da4462548f80ad9f4c50019cda31698691a296b9279221da6dd05b3f25b00f"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:43",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "14",
+      "atMs": 1789904068578,
+      "latencyMs": 8,
+      "sha256": "74a51b3808e247c11c3889a8707d224d65e5183bc604c4b4e837bd9e631859a5"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:44",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "14",
+      "atMs": 1789904068736,
+      "latencyMs": 8,
+      "sha256": "b39bda5ca8830dc6fc5f5e30fe60958634ba242ec7c672a0d222e2a4ba790681"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:45",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "15",
+      "atMs": 1789904068895,
+      "latencyMs": 9,
+      "sha256": "43e54f86c68400d8e67ae4dcafa236b4663dbf7bbf3433f1a40c8ba93d0d5ac4"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:46",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "15",
+      "atMs": 1789904069053,
+      "latencyMs": 8,
+      "sha256": "8ef4a79d574239747ffe90731f30250baba6bcf648c9f6fa9d2ca3b230e13e95"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:47",
+      "phase": "transition",
+      "partition": 2,
+      "offset": "15",
+      "atMs": 1789904069210,
+      "latencyMs": 8,
+      "sha256": "803068bbe2b1aabed6e73f28809118504277c1211c803b288ff428c63ee49523"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:48",
+      "phase": "transition",
+      "partition": 0,
+      "offset": "16",
+      "atMs": 1789904069370,
+      "latencyMs": 8,
+      "sha256": "cada2b5cc562aa1dd219d404f692cc6bfcd34bffd45f686f2378903817635254"
+    },
+    {
+      "id": "3d7f51d4-6167-4be9-a6b1-aac4f656bcd7:49",
+      "phase": "transition",
+      "partition": 1,
+      "offset": "16",
+      "atMs": 1789904069529,
+      "latencyMs": 9,
+      "sha256": "fc1d1a2211f6530d605aed9c138196df44031d437dd9a55aa0b3e9ead820da75"
+    }
+  ],
+  "cleanup": [
+    "Kafka active; independent recovery timer removed",
+    "Probe cleanup requires attention: Error in DeleteGroups"
+  ],
+  "beforeTopics": [
+    {
+      "name": "crawler.results.validation.v1",
+      "topicId": {
+        "mostSignificantBits": "471087877468342858",
+        "leastSignificantBits": "-5610567857188045662",
+        "base64": "Bomj7bp+SkqyI0JCjBT8og"
+      },
+      "isInternal": false,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            3,
+            1,
+            2
+          ],
+          "isrNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            1,
+            2,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            3,
+            1
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "crawler.infra.strict-isr.dd048a26-57b5-48b1-974b-193291d813e1",
+      "topicId": {
+        "mostSignificantBits": "-1371176905535566792",
+        "leastSignificantBits": "-5599012204029837008",
+        "base64": "7PiZ3oVVTDiyTFAQtbmBMA"
+      },
+      "isInternal": false,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            3,
+            1
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            3,
+            1,
+            2
+          ],
+          "isrNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            1,
+            2,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "crawler.publication.v1",
+      "topicId": {
+        "mostSignificantBits": "-8905161696193065727",
+        "leastSignificantBits": "-7718669789728885864",
+        "base64": "hGqCnm7/TQGU4ca4tKuzmA"
+      },
+      "isInternal": false,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "__consumer_offsets",
+      "topicId": {
+        "mostSignificantBits": "-6929771203302110281",
+        "leastSignificantBits": "-4884097875609919444",
+        "base64": "n9SBzlxyS7e8ODLb9AfgLA"
+      },
+      "isInternal": true,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 3,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 4,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 5,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 6,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 7,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 8,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 9,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 10,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 11,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 12,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 13,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 14,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 15,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 16,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 17,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 18,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 19,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 20,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 21,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 22,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 23,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 24,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 25,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 26,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 27,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 28,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 29,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 30,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 31,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 32,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 33,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 34,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 35,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 36,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 37,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 38,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 39,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 40,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 41,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 42,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 43,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 44,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 45,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 46,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            2,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 47,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 48,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            1,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 49,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            3,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            1,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quorumBefore": {
+    "leader": 1,
+    "raw": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               1\nLeaderEpoch:            44\nHighWatermark:          343427\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   0\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []"
+  },
+  "target": {
+    "id": 1,
+    "ip": "10.4.4.2"
+  },
+  "probeBefore": [
+    {
+      "name": "crawler.infra.failover.3d7f51d4-6167-4be9-a6b1-aac4f656bcd7",
+      "topicId": {
+        "mostSignificantBits": "-6491319037865014551",
+        "leastSignificantBits": "-4992057579697629880",
+        "base64": "peozukBTSum6uKYUj9OVSA"
+      },
+      "isInternal": false,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            3,
+            1,
+            2
+          ],
+          "isrNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            1,
+            2,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            3,
+            1
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "crawler.infra.strict-isr.3d7f51d4-6167-4be9-a6b1-aac4f656bcd7",
+      "topicId": {
+        "mostSignificantBits": "8807873413074406407",
+        "leastSignificantBits": "-7120433051653133442",
+        "base64": "ejvaM/zoTAedLyPdfUOrfg"
+      },
+      "isInternal": false,
+      "partitions": [
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 0,
+          "leader": 1,
+          "leaderNode": {
+            "id": 1,
+            "host": "10.4.4.2",
+            "port": 9092
+          },
+          "replicas": [
+            1,
+            2,
+            3
+          ],
+          "replicaNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            1,
+            2,
+            3
+          ],
+          "isrNodes": [
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 1,
+          "leader": 2,
+          "leaderNode": {
+            "id": 2,
+            "host": "10.4.4.8",
+            "port": 9092
+          },
+          "replicas": [
+            2,
+            3,
+            1
+          ],
+          "replicaNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            2,
+            3,
+            1
+          ],
+          "isrNodes": [
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            },
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            }
+          ]
+        },
+        {
+          "partitionErrorCode": 0,
+          "partitionId": 2,
+          "leader": 3,
+          "leaderNode": {
+            "id": 3,
+            "host": "10.4.4.5",
+            "port": 9092
+          },
+          "replicas": [
+            3,
+            1,
+            2
+          ],
+          "replicaNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ],
+          "isr": [
+            3,
+            1,
+            2
+          ],
+          "isrNodes": [
+            {
+              "id": 3,
+              "host": "10.4.4.5",
+              "port": 9092
+            },
+            {
+              "id": 1,
+              "host": "10.4.4.2",
+              "port": 9092
+            },
+            {
+              "id": 2,
+              "host": "10.4.4.8",
+              "port": 9092
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "strictOffsetsBefore": [
+    {
+      "partition": 0,
+      "offset": "1",
+      "high": "1",
+      "low": "0"
+    },
+    {
+      "partition": 1,
+      "offset": "0",
+      "high": "0",
+      "low": "0"
+    },
+    {
+      "partition": 2,
+      "offset": "0",
+      "high": "0",
+      "low": "0"
+    }
+  ],
+  "stopRequestedMs": 1789904066192,
+  "error": {
+    "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'failed'\n- 'inactive'\n",
+    "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'failed'\n- 'inactive'\n\n    at file:///home/ubuntu/workspace/newcrawlSystem/ops/kafka/verify-broker-failover.mjs:129:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+  },
+  "finishedAt": "2026-09-20T11:34:30.678Z"
+}
