@@ -1,0 +1,1 @@
+{"status": "PASSED", "file": "control-20260920T120218Z.tar.gpg", "sha256": "8568d8e93e8c7db7f039db8bee1bb7091d4a90b69ed991291a12ffc1136d2bce", "bytes": 25102788, "copies": ["a1", "s2"], "etcdSnapshot": {"hash": 1198216625, "revision": 358455, "totalKey": 2065, "totalSize": 13623296}, "pgEtcdSnapshot": {"hash": 3153616386, "revision": 5711, "totalKey": 3645, "totalSize": 1839104}}

@@ -42,3 +42,7 @@
 已确定接下来的实现方向：目录元数据放入现有 crawler 数据库的独立 `object_metadata` schema；多 Filer/S3 Gateway 配合跨 A 节点的稳定入口，详见 `ops/seaweedfs/README.md`。这是 24.4 对象存储实现细化，不新增数据库服务器、不改变 Business DB。
 
 继续前需在轻量云防火墙向 S1/S2/S3 允许来源 `10.4.4.0/22` 的 **TCP 18888**。规则应用后复测双向 Filer 通信，再继续迁移与验收；不把现有双副本结果记成外围第 4 项整体完成。
+
+## 变更后配置备份
+
+提交 `9ac00a0` 推送后生成加密 control backup `control-20260920T120218Z.tar.gpg`，A1/S2 两份，包含当前 SeaweedFS systemd drop-in 与配置；摘要见 `2026-09-20-seaweed-config-backup.json`。这份配置备份不替代前述对象字节/LevelDB 基线。最终 Kafka 只读巡检通过，五个 Argo Application 均 Synced/Healthy，三机 Master/Volume/Kafka/Patroni 及 S3 Filer/Gateway 均 active。
