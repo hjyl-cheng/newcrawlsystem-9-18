@@ -71,3 +71,6 @@ Temporal (两个 Pod)
 本次物理 PG HA 与稳定入口已实施；24.4 的 Debezium logical failover slot/CDC 还没有实现，目前 wal_level=replica，不存在 Debezium Connector，不能宣称 Publication 已 HA。Temporal 单独使用会话通道，符合不能强行套事务池的约束。现场以专用 systemd 服务实施 Patroni/etcd，而非引入整套 Pigsty；稳定入口用 Kubernetes Service/HAProxy，避免假设轻量云支持 VIP。
 
 下一外围项：Kubernetes API 的稳定入口与 Argo CD 可用性；随后按 24.12 处理 Kafka/SeaweedFS/ClickHouse、CDC、监控告警和安全加固。业务代码继续暂停。
+
+
+最终收尾复核（同日）：完整新版 Ingestor 已通过连接池重新执行 3 条新结果、3 条重复、3 条隔离消息验证，各分区 offset 到 57 并追平。最终控制备份 `control-20260920T102351Z.tar.gpg` 在 A1/S2 校验一致，独立恢复 9 份文件、Kubernetes registry 667 / Secrets 11 / Deployments 12、PG 协调键 10，认证保留。临时 Pod、端口转发和故障注入规则已清理；所有服务与备份定时器正常。三台 S 当前可用内存约 5.3～6.2 GiB（小数据空闲状态采样，不作为负载容量承诺）。
