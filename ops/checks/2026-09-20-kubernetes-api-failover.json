@@ -1,0 +1,12 @@
+{
+  "status": "PASSED",
+  "fault": "A1 API static Pod stopped; OS/etcd/workloads remain running",
+  "clients": {
+    "a1": "readyz and 3 nodes read",
+    "a2": "readyz and 3 nodes read",
+    "a3": "readyz and 3 nodes read"
+  },
+  "writeFrom": "a2",
+  "readFrom": "a3",
+  "elapsedSeconds": 7.75
+}

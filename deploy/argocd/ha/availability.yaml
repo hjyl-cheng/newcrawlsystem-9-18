@@ -24,3 +24,21 @@ spec:
   minAvailable: 1
   selector:
     matchLabels: {app.kubernetes.io/name: argocd-application-controller}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: argocd-redis-ha-server
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels: {app.kubernetes.io/name: argocd-redis-ha}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: argocd-redis-ha-haproxy
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: {app.kubernetes.io/name: argocd-redis-ha-haproxy}

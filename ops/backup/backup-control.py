@@ -74,7 +74,7 @@ def main():
                                        str(work / 'pg-etcd.db'), '-w', 'json'], capture_output=True, text=True).stdout)
             for node, ip in NODES.items():
                 paths = ['etc/hosts', 'etc/systemd/system', 'etc/sysctl.d', 'etc/security/limits.d', 'etc/chrony']
-                paths += (['etc/kubernetes', 'etc/containerd', 'etc/cni/net.d'] if node.startswith('a') else
+                paths += (['etc/kubernetes', 'etc/containerd', 'etc/cni/net.d', 'etc/crawl-kube-api'] if node.startswith('a') else
                           ['etc/postgresql', 'etc/pgbackrest', 'etc/kafka', 'etc/seaweedfs',
                            'etc/pgbouncer', 'etc/clickhouse-server', 'usr/local/libexec',
                            'etc/crawl-pg-etcd', 'etc/crawl-patroni', 'etc/udev/rules.d',
