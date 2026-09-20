@@ -1,0 +1,26 @@
+[Unit]
+Description=Local Kubernetes API endpoint with healthy control-plane backends
+Wants=network-online.target
+After=network-online.target
+Before=kubelet.service
+
+[Service]
+User=haproxy
+Group=haproxy
+RuntimeDirectory=crawl-kube-api
+RuntimeDirectoryMode=0700
+ExecStartPre=/usr/sbin/haproxy -c -f /etc/crawl-kube-api/haproxy.cfg
+ExecStart=/usr/sbin/haproxy -Ws -f /etc/crawl-kube-api/haproxy.cfg
+ExecReload=/bin/kill -USR2 $MAINPID
+Type=notify
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+LimitNOFILE=65536
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target

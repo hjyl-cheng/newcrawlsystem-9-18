@@ -1,0 +1,107 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+resources:
+- vendor/install.yaml
+- availability.yaml
+images:
+- name: quay.io/argoproj/argocd
+  digest: sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658
+- name: ghcr.io/dexidp/dex
+  digest: sha256:bc7cfce7c17f52864e2bb2a4dc1d2f86a41e3019f6d42e81d92a301fad0c8a1d
+- name: public.ecr.aws/docker/library/redis
+  newName: docker.io/library/redis
+  digest: sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2
+- name: public.ecr.aws/docker/library/haproxy
+  newName: docker.io/library/haproxy
+  digest: sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9
+patches:
+- target:
+    kind: Deployment
+    name: argocd-applicationset-controller
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-applicationset-controller\n\
+    spec:\n  replicas: 1\n  template:\n    spec:\n      containers:\n      - name:\
+    \ argocd-applicationset-controller\n        resources:\n          requests:\n\
+    \            cpu: 10m\n            memory: 32Mi\n          limits:\n         \
+    \   cpu: 250m\n            memory: 192Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: Deployment
+    name: argocd-dex-server
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-dex-server\n\
+    spec:\n  replicas: 1\n  template:\n    spec:\n      containers:\n      - name:\
+    \ dex\n        resources:\n          requests:\n            cpu: 10m\n       \
+    \     memory: 32Mi\n          limits:\n            cpu: 250m\n            memory:\
+    \ 192Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane: ''\n\
+    \      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n    \
+    \    operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: Deployment
+    name: argocd-notifications-controller
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-notifications-controller\n\
+    spec:\n  replicas: 1\n  template:\n    spec:\n      containers:\n      - name:\
+    \ argocd-notifications-controller\n        resources:\n          requests:\n \
+    \           cpu: 10m\n            memory: 32Mi\n          limits:\n          \
+    \  cpu: 250m\n            memory: 192Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: Deployment
+    name: argocd-redis-ha-haproxy
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-redis-ha-haproxy\n\
+    spec:\n  replicas: 2\n  template:\n    spec:\n      containers:\n      - name:\
+    \ haproxy\n        resources:\n          requests:\n            cpu: 10m\n   \
+    \         memory: 16Mi\n          limits:\n            cpu: 100m\n           \
+    \ memory: 64Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: Deployment
+    name: argocd-repo-server
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-repo-server\n\
+    spec:\n  replicas: 2\n  template:\n    spec:\n      containers:\n      - name:\
+    \ argocd-repo-server\n        resources:\n          requests:\n            cpu:\
+    \ 50m\n            memory: 128Mi\n          limits:\n            cpu: 500m\n \
+    \           memory: 512Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: Deployment
+    name: argocd-server
+  patch: "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: argocd-server\n\
+    spec:\n  replicas: 2\n  template:\n    spec:\n      containers:\n      - name:\
+    \ argocd-server\n        resources:\n          requests:\n            cpu: 50m\n\
+    \            memory: 64Mi\n          limits:\n            cpu: 500m\n        \
+    \    memory: 384Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n"
+- target:
+    kind: StatefulSet
+    name: argocd-application-controller
+  patch: "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: argocd-application-controller\n\
+    spec:\n  replicas: 1\n  template:\n    spec:\n      containers:\n      - name:\
+    \ argocd-application-controller\n        resources:\n          requests:\n   \
+    \         cpu: 100m\n            memory: 192Mi\n          limits:\n          \
+    \  cpu: '1'\n            memory: 768Mi\n      nodeSelector:\n        node-role.kubernetes.io/control-plane:\
+    \ ''\n      tolerations:\n      - key: node-role.kubernetes.io/control-plane\n\
+    \        operator: Exists\n        effect: NoSchedule\n      affinity:\n     \
+    \   nodeAffinity:\n          preferredDuringSchedulingIgnoredDuringExecution:\n\
+    \          - weight: 100\n            preference:\n              matchExpressions:\n\
+    \              - key: kubernetes.io/hostname\n                operator: In\n \
+    \               values:\n                - a2\n"
+- target:
+    kind: StatefulSet
+    name: argocd-redis-ha-server
+  patch: "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: argocd-redis-ha-server\n\
+    spec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name:\
+    \ redis\n        resources:\n          requests:\n            cpu: 25m\n     \
+    \       memory: 64Mi\n          limits:\n            cpu: 250m\n            memory:\
+    \ 192Mi\n      - name: sentinel\n        resources:\n          requests:\n   \
+    \         cpu: 10m\n            memory: 16Mi\n          limits:\n            cpu:\
+    \ 100m\n            memory: 64Mi\n      - name: split-brain-fix\n        resources:\n\
+    \          requests:\n            cpu: 5m\n            memory: 8Mi\n         \
+    \ limits:\n            cpu: 100m\n            memory: 32Mi\n      nodeSelector:\n\
+    \        node-role.kubernetes.io/control-plane: ''\n      tolerations:\n     \
+    \ - key: node-role.kubernetes.io/control-plane\n        operator: Exists\n   \
+    \     effect: NoSchedule\n"

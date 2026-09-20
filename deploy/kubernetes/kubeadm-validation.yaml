@@ -1,6 +1,6 @@
 # Validation profile only.
-# k8s-api.crawl.internal currently resolves to A1 (10.4.4.12).
-# Before production, replace this endpoint with a verified internal LB/VIP.
+# Node-local HAProxy must be installed before init/join.
+# Every Kubernetes node resolves k8s-api.crawl.internal to 127.0.0.1.
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 localAPIEndpoint:
@@ -13,7 +13,7 @@ nodeRegistration:
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.31.14
-controlPlaneEndpoint: k8s-api.crawl.internal:6443
+controlPlaneEndpoint: k8s-api.crawl.internal:16443
 networking:
   podSubnet: 192.168.0.0/16
   serviceSubnet: 10.96.0.0/12

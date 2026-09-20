@@ -1,15 +1,7 @@
 # Kubernetes validation bootstrap
 
-`kubeadm-validation.yaml` is the validation profile for the three A control-plane nodes.
+`kubeadm-validation.yaml` pins Kubernetes v1.31.14, containerd CRI, Calico VXLAN, and the three control-plane addresses.
 
-The current internal endpoint is:
+The control endpoint is `https://k8s-api.crawl.internal:16443`. Every Kubernetes node must first install the node-local HAProxy and map this name to 127.0.0.1. HAProxy checks all three private API addresses on TCP 6443. Instructions, prerequisites, rollback boundaries, and node-join requirements are in `ops/kubernetes-ha/README.md`.
 
-```text
-k8s-api.crawl.internal:6443 -> 10.4.4.12
-```
-
-This endpoint is suitable for topology validation only. It is not the production HA endpoint while it resolves to A1. Before production, move the name to a verified internal load balancer or a tested cloud VIP, then renew/update the API server certificate SANs and validate control-plane failover.
-
-The file pins Kubernetes `v1.31.14`, containerd CRI, the Calico pod CIDR, and the three control-plane addresses. Do not edit the cluster by hand without updating this file and the corresponding Argo/Git revision.
-
-The validation profile uses Calico VXLAN (`UDP/4789`) instead of IP-in-IP so the required cross-node rule can be expressed by the Tencent Cloud security-group UI as a normal UDP rule.
+Existing nodes have been migrated in place. Do not rerun kubeadm init. This is not a public load balancer: operators can SSH into any available A node to administer the cluster. Calico VXLAN continues to use internal UDP 4789.
