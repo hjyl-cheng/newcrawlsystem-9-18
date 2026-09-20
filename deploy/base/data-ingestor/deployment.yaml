@@ -15,6 +15,8 @@ spec:
       app: data-ingestor
   template:
     metadata:
+      annotations:
+        validation.crawlsystem/rollout-check: "2026-09-20-1"
       labels:
         app: data-ingestor
     spec:
