@@ -1,0 +1,22 @@
+[Unit]
+Description=Dedicated PostgreSQL coordination etcd
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=crawl-etcd
+Group=crawl-etcd
+ExecStart=/opt/crawl-pg-ha/bin/etcd --config-file=/etc/crawl-pg-etcd/etcd.json
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+LimitNOFILE=65536
+UMask=0077
+Environment=GOMEMLIMIT=128MiB
+MemoryMax=256M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/crawlsystem/pg-ha/etcd
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

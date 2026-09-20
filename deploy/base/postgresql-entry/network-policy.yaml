@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgresql-entry
+spec:
+  podSelector:
+    matchLabels: {app: postgresql-entry}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector: {matchLabels: {app: temporal}}
+        - podSelector: {matchLabels: {app: data-ingestor}}
+        - podSelector: {matchLabels: {postgres-client: "true"}}
+      ports:
+        - {protocol: TCP, port: 5432}
+        - {protocol: TCP, port: 6432}
+  egress:
+    - to:
+        - ipBlock: {cidr: 10.4.4.2/32}
+        - ipBlock: {cidr: 10.4.4.8/32}
+        - ipBlock: {cidr: 10.4.4.5/32}
+      ports:
+        - {protocol: TCP, port: 5432}
+        - {protocol: TCP, port: 6432}
+        - {protocol: TCP, port: 8008}

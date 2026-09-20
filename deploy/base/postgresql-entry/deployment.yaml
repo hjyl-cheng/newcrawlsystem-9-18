@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-entry
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels: {app: postgresql-entry}
+  template:
+    metadata:
+      labels: {app: postgresql-entry}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels: {app: postgresql-entry}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 99
+        runAsGroup: 99
+        fsGroup: 99
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: haproxy
+          image: docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04
+          args: [haproxy, -W, -db, -f, /usr/local/etc/haproxy/haproxy.cfg]
+          ports:
+            - {name: pg, containerPort: 5432}
+            - {name: pg-pool, containerPort: 6432}
+            - {name: health, containerPort: 8404}
+          resources:
+            requests: {cpu: 25m, memory: 32Mi}
+            limits: {cpu: 250m, memory: 128Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+          volumeMounts:
+            - {name: config, mountPath: /usr/local/etc/haproxy, readOnly: true}
+            - {name: check-cert, mountPath: /etc/patroni-check, readOnly: true}
+          readinessProbe:
+            httpGet: {path: /ready, port: health}
+            periodSeconds: 2
+            failureThreshold: 2
+          livenessProbe:
+            httpGet: {path: /live, port: health}
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: config
+          configMap: {name: postgresql-entry-config}
+        - name: check-cert
+          secret: {secretName: patroni-health-client, defaultMode: 0440}

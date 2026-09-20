@@ -1,0 +1,22 @@
+[Unit]
+Description=Patroni for existing crawler PostgreSQL cluster
+Wants=network-online.target crawl-pg-etcd.service
+After=network-online.target crawl-pg-etcd.service
+Conflicts=postgresql@17-main.service
+
+[Service]
+Type=simple
+User=postgres
+Group=postgres
+ExecStartPre=/usr/bin/test -s /var/lib/postgresql/17/main/PG_VERSION
+ExecStart=/usr/bin/patroni /etc/crawl-patroni/patroni.yml
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+TimeoutStopSec=120
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+OOMScoreAdjust=-900
+
+[Install]
+WantedBy=multi-user.target
