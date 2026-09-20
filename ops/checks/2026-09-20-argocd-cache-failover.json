@@ -1,0 +1,10 @@
+{
+  "status": "PASSED",
+  "fault": "graceful Redis master Pod replacement, including upstream preStop failover",
+  "oldMaster": "argocd-redis-ha-server-1",
+  "oldUid": "4b6b9633-90d9-4c0d-8f37-42d7060aa9f6",
+  "newMaster": "argocd-redis-ha-server-0",
+  "newMasterObservedSeconds": 11.73,
+  "stableCacheEntry": "PONG",
+  "quorum": "OK 2 usable Sentinels. Quorum and failover authorization can be reached"
+}

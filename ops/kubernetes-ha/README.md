@@ -40,3 +40,23 @@ kubectl apply --server-side --field-manager=crawl-argocd-ha --force-conflicts -f
 ```
 
 此命令接管官方引导资源的字段管理权；先审查差异，不能用于覆盖运行 Secret 数据。Argo CD 自身回退到旧清单会改变 Redis 地址与副本，需保留旧配置和等待恢复，不直接盲目删除 HA 缓存成员。
+
+
+## DNS 与维护保护
+
+检查发现 CoreDNS 两副本原来均在 A1。已应用 `deploy/kubernetes/coredns-ha-patch.yaml` 强制跨 hostname 分散，并用 `coredns-pdb.yaml` 设置至少保留一份；当前 DNS 在 A2/A3。以后 kubeadm 升级插件后须复核该补丁，不能认为 addon 升级会永久保留本地定制。
+
+```sh
+kubectl -n kube-system patch deployment coredns --type=strategic --patch-file=deploy/kubernetes/coredns-ha-patch.yaml
+kubectl apply -f deploy/kubernetes/coredns-pdb.yaml
+```
+
+## 控制器接管操作边界
+
+进程或 Pod 故障且节点健康时，由 kubelet/StatefulSet 重建；跨节点维护可正常删除并等待旧 Pod 停止后替补。**节点彻底失联时不能只因超时就 force-delete**：必须通过云控制台确认旧机关闭，或隔离旧控制器的 Kubernetes/Redis/目标集群访问，再移除旧 Pod；否则可能出现两个控制器同时执行操作。若无法确认隔离，保持暂停发布，已运行的业务工作负载继续运行。
+
+本轮 `verify-controller-recovery.py` 只演练健康节点上的受控迁移（旧 Pod 正常停止后 A2 → A3），不是无人值守整机故障 fencing。迁移后人为改变一个 infra-smoke ConfigMap，确认新控制器从 Git 自动修复。最终节点重新 uncordon，控制器可保留在 A3，软偏好不会主动搬回 A2。
+
+`verify-api-failover.py` 会临时移走 A1 的 API static Pod manifest，并设 5 分钟自动恢复保障，finally 再恢复；不会关闭整台服务器。可带 `verify-gitops-release.py <探针标记>` 在故障期间进行一次真实的新仓库发布。探针 DaemonSet 逐个退出默认最多等 30 秒，因此完整三节点滚动验证窗口按实际情况设置，不能把发布总时间等同 API 恢复时间。
+
+`verify-argo-cache-failover.py` 为 Redis 主 Pod 的正常替换测试（包含官方 preStop 切换），不等同突然断电；测试客户端故意 NotReady，防止被 Argo Service 选为业务后端。Sentinel 的控制端口依赖官方 NetworkPolicy 隔离；Redis 数据端使用现有认证。后续安全加固须评估完整 TLS、版本升级和更细粒度控制访问。

@@ -1,0 +1,11 @@
+{
+  "status": "PASSED",
+  "mode": "controlled relocation with confirmed normal old-Pod deletion",
+  "from": "a2",
+  "to": "a3",
+  "oldUid": "22041095-e0c6-4098-a559-5852fa11dba0",
+  "newUid": "a6a400e1-1f52-49a8-b129-ddf897aa16f8",
+  "readySeconds": 11.71,
+  "gitDriftRepaired": true,
+  "unattendedLostNodeFailover": false
+}

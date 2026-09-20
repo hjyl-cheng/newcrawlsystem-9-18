@@ -32,7 +32,7 @@ try:
     assert out=='a2'
     during = None
     if len(sys.argv)>1:
-        during = subprocess.run(sys.argv[1:],check=True,capture_output=True,text=True,timeout=220).stdout.strip()
+        during = json.loads(subprocess.run(sys.argv[1:],check=True,capture_output=True,text=True,timeout=220).stdout.strip())
         try:
             with socket.create_connection(('10.4.4.12',6443),timeout=1):pass
         except OSError:pass
