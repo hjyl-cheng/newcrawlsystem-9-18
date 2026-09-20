@@ -3,6 +3,7 @@
 import json
 import subprocess
 import sys
+from pathlib import Path
 
 
 def run(args):
@@ -10,7 +11,7 @@ def run(args):
 
 
 namespace = "crawl-validation"
-expected = sys.argv[1] if len(sys.argv) > 1 else "crawlsystem-infra-validation-v1"
+expected = sys.argv[1] if len(sys.argv) > 1 else (Path(__file__).resolve().parents[2] / "deploy/base/infra-smoke/index.html").read_text().strip()
 pods = json.loads(run([
     "kubectl", "get", "pods", "-n", namespace, "-l", "app=infra-smoke", "-o", "json"
 ]))["items"]

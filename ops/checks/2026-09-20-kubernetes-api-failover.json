@@ -1,4 +1,5 @@
 {
+  "duringFault": "{\"status\": \"PASSED\", \"gitRevision\": \"69d073f483227e1f6ec615cc4bdc60ef988f3356\", \"marker\": \"crawlsystem-infra-validation-ha-20260920-v2\", \"argo\": \"Synced/Healthy\", \"network\": \"all 3 nodes: Pod, DNS, Service and storage TCP\", \"releaseSeconds\": 110.52}",
   "status": "PASSED",
   "fault": "A1 API static Pod stopped; OS/etcd/workloads remain running",
   "clients": {
@@ -8,5 +9,5 @@
   },
   "writeFrom": "a2",
   "readFrom": "a3",
-  "elapsedSeconds": 7.75
+  "elapsedSeconds": 120.39
 }

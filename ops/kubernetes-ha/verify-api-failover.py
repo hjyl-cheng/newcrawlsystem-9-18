@@ -12,7 +12,7 @@ restore=f'if test -f {parked}; then mv {parked} {manifest}; fi'
 run(m['NODES']['a1'],f'sudo -n install -d -m 0700 /etc/kubernetes/ha-test-disabled && sudo -n test ! -e {parked}',capture=True)
 started=time.monotonic();created=False
 try:
-    run(m['NODES']['a1'],'sudo -n systemd-run --quiet --unit='+unit+' --on-active=180s /bin/sh -c '+shlex.quote(restore),capture=True)
+    run(m['NODES']['a1'],'sudo -n systemd-run --quiet --unit='+unit+' --on-active=300s /bin/sh -c '+shlex.quote(restore),capture=True)
     run(m['NODES']['a1'],f'sudo -n mv {manifest} {parked}',capture=True)
     for _ in range(45):
         try:
@@ -32,7 +32,7 @@ try:
     assert out=='a2'
     during = None
     if len(sys.argv)>1:
-        during = subprocess.run(sys.argv[1:],check=True,capture_output=True,text=True,timeout=100).stdout.strip()
+        during = subprocess.run(sys.argv[1:],check=True,capture_output=True,text=True,timeout=220).stdout.strip()
         try:
             with socket.create_connection(('10.4.4.12',6443),timeout=1):pass
         except OSError:pass
