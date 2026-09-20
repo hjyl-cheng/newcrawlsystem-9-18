@@ -1,0 +1,507 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:newcrawlsystem:content-metrics-batch:1-draft.1",
+  "title": "Bounded internal synchronous video metrics apply payload; transport adapter pending",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_id": {
+      "const": "content.metrics.batch/1-draft.1"
+    },
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "frozen_input": {
+      "$ref": "#/$defs/frozen"
+    },
+    "producer_role": {
+      "const": "incremental"
+    },
+    "mode": {
+      "const": "delta"
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    }
+  },
+  "required": [
+    "schema_id",
+    "identity",
+    "frozen_input",
+    "producer_role",
+    "mode",
+    "observations"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9:._/-]*$"
+    },
+    "counter": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "count": {
+      "type": "string",
+      "maxLength": 19,
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "description": "Runtime additionally enforces <=9223372036854775807."
+    },
+    "json": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/json"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json"
+          }
+        }
+      ]
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "exact",
+            "estimated",
+            "unavailable",
+            "unresolved"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "status",
+        "source"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unavailable",
+                  "unresolved"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/count"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "like": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "exact",
+            "zero_from_empty",
+            "unavailable",
+            "unresolved"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "value",
+        "status",
+        "source"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unavailable",
+                  "unresolved"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/count"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "zero_from_empty"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": "0"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "comment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/count"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "exact",
+            "zero_from_empty",
+            "zero_from_surface",
+            "zero_from_upcoming",
+            "disabled",
+            "unavailable",
+            "unresolved"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "\\S"
+        },
+        "disabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "status",
+        "source"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "unavailable",
+                  "unresolved"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/count"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "zero_from_empty",
+                  "zero_from_surface",
+                  "zero_from_upcoming",
+                  "disabled"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "const": "0"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "disabled"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "disabled"
+            ],
+            "properties": {
+              "disabled": {
+                "const": true
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "disabled": {
+                "enum": [
+                  false,
+                  null
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "sort": {
+          "enum": [
+            "TOP_COMMENTS",
+            "NEWEST_FIRST"
+          ]
+        },
+        "collected_at": {
+          "$ref": "#/$defs/time"
+        },
+        "returned_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/$defs/json"
+            }
+          }
+        }
+      },
+      "required": [
+        "version",
+        "sort",
+        "collected_at",
+        "returned_count",
+        "comments"
+      ],
+      "additionalProperties": {
+        "$ref": "#/$defs/json"
+      },
+      "description": "Database also checks returned_count equals array length. Extra page metadata remains JSON; item business schema is not frozen."
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "channelId": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceContentId": {
+          "$ref": "#/$defs/id"
+        },
+        "contentType": {
+          "enum": [
+            "video",
+            "short",
+            "live"
+          ]
+        },
+        "observedAt": {
+          "$ref": "#/$defs/time"
+        },
+        "view": {
+          "$ref": "#/$defs/view"
+        },
+        "like": {
+          "$ref": "#/$defs/like"
+        },
+        "comment": {
+          "$ref": "#/$defs/comment"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/page"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "channelId",
+        "sourceContentId",
+        "contentType",
+        "observedAt"
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "plan_id": {
+          "$ref": "#/$defs/id"
+        },
+        "channel_id": {
+          "$ref": "#/$defs/id"
+        },
+        "logical_batch_key": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "plan_id",
+        "channel_id",
+        "logical_batch_key"
+      ]
+    },
+    "frozen": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "generation": {
+          "$ref": "#/$defs/counter"
+        },
+        "input_revision": {
+          "$ref": "#/$defs/counter"
+        },
+        "input_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "target_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "policy_version": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "generation",
+        "input_revision",
+        "input_hash",
+        "target_hash",
+        "policy_version"
+      ]
+    }
+  }
+}

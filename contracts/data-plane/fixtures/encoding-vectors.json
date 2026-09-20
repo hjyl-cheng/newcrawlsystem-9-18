@@ -1,0 +1,44 @@
+[
+  {
+    "name": "large-integer",
+    "canonical_utf8": "{\"sequence\":\"9007199254740993\"}",
+    "sha256": "8142e70f4af83435770d8a12e92ce6f6ca9340e0a0e7039fa567a51f055163a6",
+    "utf8_bytes": 31
+  },
+  {
+    "name": "utc",
+    "canonical_utf8": "{\"at\":\"2026-09-20T08:00:00.000Z\"}",
+    "sha256": "a0efc2658a5e4de7a34977b997454c3fb4b8fc98626e4c3cf37f1c49188c42c9",
+    "utf8_bytes": 33
+  },
+  {
+    "name": "missing",
+    "canonical_utf8": "{}",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "utf8_bytes": 2
+  },
+  {
+    "name": "null",
+    "canonical_utf8": "{\"value\":null}",
+    "sha256": "1c197daef20de3f47eec5e2f735ec6669869d3180cc29f35be4788511e0af0f8",
+    "utf8_bytes": 14
+  },
+  {
+    "name": "unicode-composed",
+    "canonical_utf8": "{\"text\":\"é\"}",
+    "sha256": "42d3cbf59fdccced04e5dff14433fb52d34d58e385e9770ffd896ff517d63b92",
+    "utf8_bytes": 13
+  },
+  {
+    "name": "unicode-decomposed",
+    "canonical_utf8": "{\"text\":\"é\"}",
+    "sha256": "9b53287cd41955684903378d2b1b4a3ddea9d80d67dcd026319a7c5a9a8a8b42",
+    "utf8_bytes": 14
+  },
+  {
+    "name": "finite-fraction",
+    "canonical_utf8": "{\"ratio\":0.25}",
+    "sha256": "9668680490f5b04f2d1ce30b590659071ec6bb27193f4b5b48642870bc6f35f4",
+    "utf8_bytes": 14
+  }
+]

@@ -9,9 +9,12 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 repository = "hjyl-cheng/newcrawlsystem-runtime"
-if len(sys.argv) != 2 or not re.fullmatch(r"[0-9a-f]{40}", sys.argv[1]):
-    raise SystemExit("Usage: pin-runtime-image.py <full-source-git-sha>")
+if len(sys.argv) not in (2, 3) or not re.fullmatch(r"[0-9a-f]{40}", sys.argv[1]):
+    raise SystemExit("Usage: pin-runtime-image.py <full-source-git-sha> [runtime-smoke|data-ingestor]")
 revision = sys.argv[1]
+service = sys.argv[2] if len(sys.argv) == 3 else "runtime-smoke"
+if service not in ("runtime-smoke", "data-ingestor"):
+    raise SystemExit("Unsupported service")
 
 
 def read(url, headers=None):
@@ -50,13 +53,13 @@ except HTTPError as error:
     raise SystemExit(f"GHCR returned HTTP {error.code}; check package visibility and the completed CI run") from None
 
 root = Path(__file__).resolve().parents[2]
-overlay = root / "deploy/overlays/validation/runtime-smoke/kustomization.yaml"
+overlay = root / f"deploy/overlays/validation/{service}/kustomization.yaml"
 overlay.parent.mkdir(parents=True, exist_ok=True)
 overlay.write_text(
     "apiVersion: kustomize.config.k8s.io/v1beta1\n"
     "kind: Kustomization\n"
     "namespace: crawl-validation\n"
-    "resources:\n  - ../../../base/runtime-smoke\n"
+    f"resources:\n  - ../../../base/{service}\n"
     "images:\n"
     f"  - name: ghcr.io/{repository}\n"
     f"    digest: {digest}\n"

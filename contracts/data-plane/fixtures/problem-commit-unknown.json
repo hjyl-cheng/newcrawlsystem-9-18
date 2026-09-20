@@ -1,0 +1,13 @@
+{
+  "contract_version": "data-plane/1-draft.1",
+  "kind": "SUBMISSION_PROBLEM",
+  "identity": {
+    "plan_id": "example:plan:001",
+    "channel_id": "UC_EXAMPLE",
+    "logical_batch_key": "example:plan:001:video:batch:03",
+    "submission_id": "example:submission:001"
+  },
+  "occurrence_id": "example:issue:001",
+  "code": "DB.COMMIT_UNKNOWN",
+  "recorded_at": "2026-09-20T08:00:00.000Z"
+}

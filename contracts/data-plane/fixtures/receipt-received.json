@@ -1,0 +1,14 @@
+{
+  "contract_version": "data-plane/1-draft.1",
+  "kind": "SUBMISSION_RECEIPT",
+  "identity": {
+    "plan_id": "example:plan:001",
+    "channel_id": "UC_EXAMPLE",
+    "logical_batch_key": "example:plan:001:video:batch:03",
+    "submission_id": "example:submission:001"
+  },
+  "content_sha256": "512ed32accb932bd8beb4fc3e2b3b20c459b7402fd7a75d7709026377aee8849",
+  "receipt_id": "example:receipt:received:001",
+  "status": "RECEIVED",
+  "recorded_at": "2026-09-20T08:00:00.000Z"
+}

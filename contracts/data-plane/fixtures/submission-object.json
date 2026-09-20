@@ -1,0 +1,38 @@
+{
+  "contract_version": "data-plane/1-draft.1",
+  "kind": "SUBMISSION_MANIFEST",
+  "identity": {
+    "plan_id": "example:plan:001",
+    "channel_id": "UC_EXAMPLE",
+    "logical_batch_key": "example:plan:001:video:batch:03",
+    "submission_id": "example:submission:001"
+  },
+  "producer_role": "fullcrawl",
+  "execution": {
+    "scope": "main:UC_EXAMPLE",
+    "execution_epoch": "17"
+  },
+  "frozen_input": {
+    "generation": "1",
+    "input_revision": "9007199254740993",
+    "input_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "target_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "policy_version": "example-policy-v1"
+  },
+  "mode": "bootstrap_snapshot",
+  "created_at": "2026-09-20T08:00:00.000Z",
+  "payload": {
+    "schema_id": "example.result.v1",
+    "hash_profile": "jcs-sha256-v1",
+    "content_sha256": "512ed32accb932bd8beb4fc3e2b3b20c459b7402fd7a75d7709026377aee8849",
+    "wire_sha256": "512ed32accb932bd8beb4fc3e2b3b20c459b7402fd7a75d7709026377aee8849",
+    "uncompressed_bytes": 621,
+    "wire_bytes": 621,
+    "compression": "none",
+    "location": {
+      "kind": "object",
+      "bucket": "example-results",
+      "object_key": "example/plan-001/submission-001/content.jcs"
+    }
+  }
+}

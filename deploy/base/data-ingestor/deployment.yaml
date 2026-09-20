@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-ingestor
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: data-ingestor
+  template:
+    metadata:
+      labels:
+        app: data-ingestor
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: data-ingestor
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: ingestor
+          image: ghcr.io/hjyl-cheng/newcrawlsystem-runtime
+          command: ["node", "dist/services/data-ingestor/src/main.js"]
+          envFrom:
+            - secretRef:
+                name: data-ingestor-database
+          env:
+            - name: KAFKA_BROKERS
+              value: "10.4.4.2:9092,10.4.4.8:9092,10.4.4.5:9092"
+            - name: RESULT_TOPIC
+              value: crawler.results.validation.v1
+            - name: RESULT_GROUP
+              value: crawler-results-apply-validation-v1
+            - name: RESULT_STREAM_ID
+              value: validation-results-20260920-v1
+            - name: NODE_OPTIONS
+              value: --max-old-space-size=192
+          volumeMounts:
+            - name: credentials
+              mountPath: /var/run/ingestor
+              readOnly: true
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 384Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 2
+            failureThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 10
+            failureThreshold: 3
+      volumes:
+        - name: credentials
+          secret:
+            secretName: data-ingestor-identities
+            defaultMode: 0440

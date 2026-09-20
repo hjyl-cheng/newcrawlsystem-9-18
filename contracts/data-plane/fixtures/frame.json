@@ -1,0 +1,9 @@
+{
+  "contract_version": "data-plane/1-draft.1",
+  "kind": "FRAME_DESCRIPTOR",
+  "submission_id": "example:submission:001",
+  "part_index": 0,
+  "wire_offset": 0,
+  "wire_bytes": 621,
+  "wire_sha256": "512ed32accb932bd8beb4fc3e2b3b20c459b7402fd7a75d7709026377aee8849"
+}

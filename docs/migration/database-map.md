@@ -3,6 +3,10 @@
 盘点对象：`oldjiagousys/database/bootstrap/crawler.sql`、`database/bootstrap/business.sql`、`database/reference-snapshots/feature.sql`。  
 状态：只读盘点；新系统必须使用显式 migration 重新建立，不直接复制旧 dump 作为最终 DDL。
 
+2026-09-20 已补充五张采集事实/结果表的逐字段核对：频道 70 列、视频 56 列、Agent 21 列、旧 Finalized 11 列、About 指标快照 15 列，共 173 列。
+明细见根目录 `24.8_采集事实表逐字段映射与约束核对.md`；机器可读映射见 `docs/migration/collection-field-map.json`。
+`24.7_数据库表结构设计_单库与事务边界讨论稿.md` 已同步修正缺失字段、内容身份、Hash 格式和 Raw/在线证据边界。首个 channels/contents migration 随后已在独立验证库通过；正式目标库尚未应用，具体边界见 `database/README.md`。
+
 ## 旧系统观察结果
 
 旧 Crawler SQL 至少包含三个主要 schema：
@@ -57,3 +61,10 @@ Crawler PostgreSQL
 - 让 Read Model 或 ClickHouse 反向授权业务写入；
 - 将普通 Delta、遥测或内部任务结果写入 `publication.outbox`；
 - 用跨库双写替代单逻辑 PG 事务。
+
+2026-09-20 Store 更新：0002 评论证据迁移及三种数量/第一页评论内部合并通过 PG 测试；详细范围见 `docs/migration/content-store.md`。仍未应用正式目标库或接入 Submission/授权/回执。
+
+2026-09-20 受控提交更新：0003 增加 control/ingestion 局部结构，内部授权/Submission/批次检查点/APPLIED 同事务已验证；说明见 `docs/migration/metrics-submission.md`，不等同于完整领域/计划结算。
+
+2026-09-20 Kafka 更新：0004 新增 `ingestion.kafka_record_outcomes`，按 stream/topic/partition/offset 保存 APPLIED 或 QUARANTINED。
+APPLIED 与事实/回执同事务；隔离记录保留原始消息与原因。Results Topic 和 Publication Topic 独立，Debezium 仍仅负责 Publication；详见根目录 24.9。

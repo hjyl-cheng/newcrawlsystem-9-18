@@ -1,0 +1,1579 @@
+{
+  "status": "design-only",
+  "source_commit": "bee141e41b609a583a2b86b34967fce1af404a80",
+  "source_file": "database/bootstrap/crawler.sql",
+  "source_sha256": "ada6a09f1d6468f2fd7f75ad033bd2acbc23ce9d12e7194fb38b09a1665a7197",
+  "scope": [
+    "crawler.channels",
+    "crawler.contents",
+    "crawler.agent_profiles",
+    "crawler.finalized_profiles",
+    "crawler.channel_about_metric_snapshots"
+  ],
+  "column_counts": {
+    "crawler.channels": 70,
+    "crawler.contents": 56,
+    "crawler.agent_profiles": 21,
+    "crawler.finalized_profiles": 11,
+    "crawler.channel_about_metric_snapshots": 15
+  },
+  "columns": [
+    {
+      "source_table": "crawler.channels",
+      "source_column": "channel_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.channel_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "channel_url",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.channel_url",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "handle",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.handle",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "title",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.title",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "subscriber_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channels.subscriber_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "subscriber_count_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.subscriber_count_text",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.lifecycle_status",
+      "decision": "重命名",
+      "reason": "保留 active/dormant/paused/archived/rejected/removed 含义；不是本轮 Plan 是否完成。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "reject_reason",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.reject_reason",
+      "decision": "保留",
+      "reason": "保留拒绝证据；与规范 reason_code 建显式映射，不盲目替换旧字符串。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "priority",
+      "source_type": "integer",
+      "source_nullable": false,
+      "target": "control.channel_preferences.manual_priority",
+      "decision": "迁移归属",
+      "reason": "保留人工/准入优先级输入；不能当成 Feature 最终计算分数。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "ready_for_agent",
+      "source_type": "boolean",
+      "source_nullable": false,
+      "target": "control.agent_requests.input_readiness + read_model.channel_control_state",
+      "decision": "重建语义",
+      "reason": "按请求/输入版本判断最低输入；不再以频道永久布尔值授权每轮 Agent。旧标题/订阅条件需进入对应 input_policy 测试。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "agent_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "control.agent_requests.state",
+      "decision": "迁移归属",
+      "reason": "恢复责任属于具体 Agent 请求；控制台按当前请求投影，旧一行多轮状态不直接导入。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "latest_run_id",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "read_model.channel_control_state.latest_execution_ref",
+      "decision": "派生",
+      "reason": "最近执行从 Plan/执行关联产生；不充当写入授权或唯一当前事实来源。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "source_json",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "crawler.channel_candidate_sources + crawler.channels.evidence_json",
+      "decision": "拆分映射",
+      "reason": "查询/来源血缘进入来源表；其他有界证据保留，未知 key 在迁移时隔离核查而非静默丢弃。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "created_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.channels.created_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "updated_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.channels.updated_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "country",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.country",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "country_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.country_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "agent_attempts",
+      "source_type": "integer",
+      "source_nullable": false,
+      "target": "control.agent_requests.attempts",
+      "decision": "迁移归属",
+      "reason": "恢复责任属于具体 Agent 请求；控制台按当前请求投影，旧一行多轮状态不直接导入。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "agent_next_retry_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "control.agent_requests.next_retry_at",
+      "decision": "迁移归属",
+      "reason": "恢复责任属于具体 Agent 请求；控制台按当前请求投影，旧一行多轮状态不直接导入。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "agent_error_message",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "control.agent_requests.last_error",
+      "decision": "迁移归属",
+      "reason": "恢复责任属于具体 Agent 请求；控制台按当前请求投影，旧一行多轮状态不直接导入。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "country_code",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.country_code",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "country_canonical_name",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.country_canonical_name",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "avatar_url",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.avatar_url",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "summary",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.summary",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "keywords",
+      "source_type": "text[]",
+      "source_nullable": false,
+      "target": "crawler.channels.keywords",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "available_tabs",
+      "source_type": "text[]",
+      "source_nullable": false,
+      "target": "crawler.channels.available_tabs",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "about_description",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.about_description",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "joined_date_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.joined_date_text",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "joined_at",
+      "source_type": "date",
+      "source_nullable": true,
+      "target": "crawler.channels.joined_at",
+      "decision": "保留",
+      "reason": "date + joined_at_precision 保留日期精度，不伪造 UTC 零点的精确加入时刻。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "joined_at_precision",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.joined_at_precision",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "external_links",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "crawler.channels.external_links",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "subscriber_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.subscriber_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "subscriber_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.subscriber_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "subscriber_count_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.subscriber_count_observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_view_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channels.total_view_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_view_count_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.total_view_count_text",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_view_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.total_view_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_view_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.total_view_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_view_count_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.total_view_count_observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_video_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channels.total_video_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_video_count_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.total_video_count_text",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_video_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.total_video_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_video_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.total_video_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "total_video_count_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.total_video_count_observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "about_last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.about_last_observed_at",
+      "decision": "保留",
+      "reason": "沿用明确的原字段名与证据边界；24.7 概要简写不另建第二份同义列。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "about_current_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.about_current_hash",
+      "decision": "保留",
+      "reason": "沿用明确的原字段名与证据边界；24.7 概要简写不另建第二份同义列。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "removed_reason",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.removed_reason",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "removed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.removed_at",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "removed_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.removed_source",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "removed_evidence",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.removed_evidence",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "dormant_reason",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.dormant_reason",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "dormant_since",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.dormant_since",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "dormant_recheck_day",
+      "source_type": "date",
+      "source_nullable": true,
+      "target": "crawler.channels.dormant_recheck_day",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "dormant_last_probe_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.dormant_last_probe_at",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "dormant_cycle",
+      "source_type": "integer",
+      "source_nullable": false,
+      "target": "crawler.channels.dormant_cycle",
+      "decision": "保留",
+      "reason": "保留生命周期原始证据和复查进度；不能仅用 lifecycle_changed_at 代替这些不同含义。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "keywords_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.keywords_status",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "available_tabs_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.available_tabs_status",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "description_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.description_status",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "external_links_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.external_links_status",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "rss_url",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.rss_url",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "vanity_channel_url",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.vanity_channel_url",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "is_family_safe",
+      "source_type": "boolean",
+      "source_nullable": true,
+      "target": "crawler.channels.is_family_safe",
+      "decision": "保留",
+      "reason": "首版概要遗漏，补为明确列；保留原始/规范值或字段质量，不凭空合并删除。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "is_verified",
+      "source_type": "boolean",
+      "source_nullable": true,
+      "target": "crawler.channels.is_verified",
+      "decision": "保留",
+      "reason": "true/false/NULL 与 verified/not_verified/unknown 成组约束，不把未知默认 false。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "is_verified_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channels.is_verified_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "about_identity_last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.about_identity_last_observed_at",
+      "decision": "保留",
+      "reason": "沿用明确的原字段名与证据边界；24.7 概要简写不另建第二份同义列。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "about_identity_current_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channels.about_identity_current_hash",
+      "decision": "保留",
+      "reason": "沿用明确的原字段名与证据边界；24.7 概要简写不另建第二份同义列。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "registry_promotion_candidate_id",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channel_candidates.admitted_plan_id + control.plans.admission_candidate_id",
+      "decision": "迁移归属",
+      "reason": "保留候选晋升身份绑定；candidate/plan 成对并按频道复核，不直接复用旧 run 执行状态。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "registry_promotion_run_id",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channel_candidates.admitted_plan_id + control.plans.admission_candidate_id",
+      "decision": "迁移归属",
+      "reason": "保留候选晋升身份绑定；candidate/plan 成对并按频道复核，不直接复用旧 run 执行状态。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "youtube_business_email_available",
+      "source_type": "boolean",
+      "source_nullable": true,
+      "target": "crawler.channels.youtube_business_email_available",
+      "decision": "保留",
+      "reason": "值与 observed_at 成对，未知不能解释为不存在。"
+    },
+    {
+      "source_table": "crawler.channels",
+      "source_column": "youtube_business_email_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channels.youtube_business_email_observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "content_key",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.content_key",
+      "decision": "保留并审计身份",
+      "reason": "保留不透明稳定主键语义；旧生成式含 channel/type/source，类型修正不能重建实体。新键生成和旧引用适配需身份样例冻结。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "channel_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.channel_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "run_id",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.last_source_plan_id + control.domain_items",
+      "decision": "拆分映射",
+      "reason": "当前值来源与各次计划目标关系分开。旧 run_id 不是新 plan_id，未来导入建立映射，未知来源保留历史引用。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "content_type",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.content_type",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "source_content_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.source_content_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "title",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.title",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "url",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.url",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "thumbnail_url",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.thumbnail_url",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "published_text_raw",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.published_text_raw",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "published_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.published_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "published_at_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.published_at_status",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "published_at_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.published_at_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "length_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.length_text",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "view_count_text",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.view_count_text",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "like_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.contents.like_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "comment_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.contents.comment_count",
+      "decision": "保留",
+      "reason": "选中存量视频依据有效新观察更新数量；缺失保留，明确 disabled 按旧规则为 0，不替换已有正文。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "raw_json",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "crawler.contents.evidence_json + crawler.raw_objects",
+      "decision": "拆分映射",
+      "reason": "字段 observed 标记、发布冲突、采样/来源证据留有界在线结构；大型原始响应才外置。必须审计 JSON 路径，不整体删除。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "first_seen_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.contents.first_seen_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "last_seen_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.contents.last_seen_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "last_enriched_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.last_enriched_at",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "is_recent",
+      "source_type": "boolean",
+      "source_nullable": false,
+      "target": "crawler.contents.is_recent",
+      "decision": "保留并限定",
+      "reason": "旧调用者查询依赖；保留计算规则与参考时刻。它是可重算选择辅助，不是独立权威时间事实。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "view_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.view_count_status",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "like_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.like_count_status",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "is_members_only",
+      "source_type": "boolean",
+      "source_nullable": false,
+      "target": "crawler.contents.is_members_only",
+      "decision": "保留并校验一致性",
+      "reason": "现有读取可能依赖，按受控事实更新维持与 access_status 的兼容；unknown/login_required 不能任意覆盖已知状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "access_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.access_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "access_status_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.access_status_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "content_type_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.content_type_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "position",
+      "source_type": "integer",
+      "source_nullable": true,
+      "target": "control.domain_items.ordinal + crawler.contents.position",
+      "decision": "保留并限定",
+      "reason": "原位置快照用于兼容读取；每次冻结目标的权威顺序在 domain_items，不把 Current position 当所有轮次的顺序。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "duration_seconds",
+      "source_type": "integer",
+      "source_nullable": true,
+      "target": "crawler.contents.duration_seconds",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "duration_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.duration_status",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "comment_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.comment_count_status",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "comments_disabled",
+      "source_type": "boolean",
+      "source_nullable": true,
+      "target": "crawler.contents.comments_disabled",
+      "decision": "保留",
+      "reason": "NULL/false/true 保留；与 count/status 成组校验，但不强行清空原评论正文。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "published_at_precision",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.published_at_precision",
+      "decision": "保留",
+      "reason": "逐字段保留原有枚举及证据规则，不统一成只有 valid/invalid 的布尔状态。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "duration_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.duration_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "view_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.view_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "like_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.like_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "comment_count_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.comment_count_source",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "live_scheduled_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.live_scheduled_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "live_started_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.live_started_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "live_ended_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.live_ended_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "extractor_version",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.extractor_version",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "description",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.description",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "description_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.contents.description_status",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "description_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.description_source",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "hashtags",
+      "source_type": "text[]",
+      "source_nullable": false,
+      "target": "crawler.contents.hashtags",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "keywords",
+      "source_type": "text[]",
+      "source_nullable": false,
+      "target": "crawler.contents.keywords",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "view_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.contents.view_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "playlist_last_seen_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.playlist_last_seen_at",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "player_last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.player_last_observed_at",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "next_last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.contents.next_last_observed_at",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "player_current_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.player_current_hash",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "next_current_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.next_current_hash",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "video_change_probability",
+      "source_type": "double precision",
+      "source_nullable": true,
+      "target": "crawler.contents.video_change_probability",
+      "decision": "保留",
+      "reason": "补齐首版概要未明确字段；保留采样、观察与字段证据语义，不机械改成新名字。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "last_observation_id",
+      "source_type": "uuid",
+      "source_nullable": true,
+      "target": "crawler.contents.last_observation_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "publication_item_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.contents.publication_item_hash",
+      "decision": "保留并版本化",
+      "reason": "这是发布投影内容 Hash，不是 wire/content_sha256；旧格式含 sha256: 前缀，禁止无条件套用裸 64 位规则。"
+    },
+    {
+      "source_table": "crawler.contents",
+      "source_column": "comments_first_page",
+      "source_type": "jsonb",
+      "source_nullable": true,
+      "target": "crawler.contents.comments_first_page",
+      "decision": "保留",
+      "reason": "A 方案 JSONB；已有非空页优先保留，缺失/空页按原规则补齐；页内 collected_at/total_count 属于旧观察。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "channel_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.agent_results.channel_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "agent_mode",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.agent_results.agent_kind",
+      "decision": "重命名并映射",
+      "reason": "basic 等模式必须明确映射，不能把领域 kind 与 API 模型名称混为一谈。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "input_url",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.agent_results.input_url",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "control.agent_requests.outcome + crawler.agent_results.accepted_outcome",
+      "decision": "拆分映射",
+      "reason": "请求失败不能覆盖已接受的历史有效 Current；当前结果和本轮请求分开，需回归旧失败状态展示/发布资格差异。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "metrics_json",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "crawler.agent_results.output_json",
+      "decision": "重命名",
+      "reason": "完整业务输出按版本 Schema 保存，包含 audience_profile_agent 等下游字段；不能缩成几个评分。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "agent_model",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.agent_model",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "error_message",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "control.agent_requests.last_error",
+      "decision": "迁移归属",
+      "reason": "失败属于本次请求，保留原因码/native/有界消息；不覆盖当前有效输出。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "created_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.agent_results.created_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "updated_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.agent_results.updated_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "agent_config_id",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "control.agent_requests.frozen_config_ref + crawler.agent_results.agent_config_id",
+      "decision": "保留并冻结引用",
+      "reason": "旧配置编号作可追踪引用，执行绑定不可变版本/Hash；新库不直接外键指向旧配置库。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "prompt_template_id",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "control.agent_requests.frozen_config_ref + crawler.agent_results.prompt_template_id",
+      "decision": "保留并冻结引用",
+      "reason": "旧配置编号作可追踪引用，执行绑定不可变版本/Hash；新库不直接外键指向旧配置库。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "prompt_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.prompt_hash",
+      "decision": "保留",
+      "reason": "旧字段为裸 64 位 SHA-256；与其他带前缀 Hash 分开处理。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "prompt_variant",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.agent_results.prompt_variant",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "attempts",
+      "source_type": "integer",
+      "source_nullable": false,
+      "target": "control.agent_requests.attempts + control.budget_entries",
+      "decision": "迁移归属",
+      "reason": "分请求保留真实尝试和成本，不按频道无界累加作为本轮预算。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "last_observation_id",
+      "source_type": "uuid",
+      "source_nullable": true,
+      "target": "crawler.agent_results.last_observation_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.agent_results.last_observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "current_output_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.current_output_hash",
+      "decision": "保留并版本化",
+      "reason": "旧值使用 sha256: 前缀及旧规范算法；算法/profile 分开记录，不能仅移除前缀就声称符合新 JCS。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "input_content_ids",
+      "source_type": "text[]",
+      "source_nullable": false,
+      "target": "crawler.agent_results.input_content_ids",
+      "decision": "保留",
+      "reason": "保留有界、有序/规范化的输入内容身份集合；input_hash 不能替代实际可核对输入。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "input_content_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.input_content_hash",
+      "decision": "保留并版本化",
+      "reason": "旧值使用 sha256: 前缀及旧规范算法；算法/profile 分开记录，不能仅移除前缀就声称符合新 JCS。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "taxonomy_version",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.taxonomy_version",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.agent_profiles",
+      "source_column": "agent_version_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.agent_results.agent_version_hash",
+      "decision": "保留并版本化",
+      "reason": "旧值使用 sha256: 前缀及旧规范算法；算法/profile 分开记录，不能仅移除前缀就声称符合新 JCS。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "channel_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "publication.revisions.channel_id + read_model.channel_control_state.channel_id",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "run_id",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "control.plans.plan_id + publication.revisions.plan_id",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "control.plans.outcome + publication readiness + read_model 状态",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "profile_json",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "publication.revisions.payload",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "quality_json",
+      "source_type": "jsonb",
+      "source_nullable": false,
+      "target": "control.domain_receipts.proof_summary + publication readiness reasons",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "finalized_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "control.plans.settled_at / publication.revisions.occurred_at",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "created_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "publication.revisions.created_at",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "updated_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "read_model.channel_control_state.updated_at",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "last_observation_id",
+      "source_type": "uuid",
+      "source_nullable": true,
+      "target": "publication.revisions.source_refs.observation_id",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "last_observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "publication.revisions.source_observed_at",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.finalized_profiles",
+      "source_column": "current_output_hash",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "publication.revisions.result_hash",
+      "decision": "重建边界",
+      "reason": "保留该字段承载的业务事实/证据，但取消独立 Finalize 当前状态表。旧 finalized 不自动等于 Plan Settled、Publication Ready 或 DELIVERED，迁移逐项映射。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "observation_id",
+      "source_type": "uuid",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.observation_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "observed_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.observed_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "channel_id",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.channel_id",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "subscriber_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.subscriber_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "total_view_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.total_view_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "total_video_count",
+      "source_type": "bigint",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.total_video_count",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "subscriber_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.subscriber_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "total_view_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.total_view_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "total_video_count_status",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.total_video_count_status",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "facts_hash",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.facts_hash",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "created_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.created_at",
+      "decision": "保留",
+      "reason": "保留业务值、类型和含义；旧默认值及约束仍需单独核对，不自动照搬。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "snapshot_origin",
+      "source_type": "text",
+      "source_nullable": false,
+      "target": "crawler.channel_about_metric_snapshots.snapshot_origin",
+      "decision": "保留",
+      "reason": "区分真实新观察与历史恢复，恢复时间不能冒充原观察时间。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "evidence_source",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.evidence_source",
+      "decision": "保留",
+      "reason": "区分真实新观察与历史恢复，恢复时间不能冒充原观察时间。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "evidence_ref",
+      "source_type": "text",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.evidence_ref",
+      "decision": "保留",
+      "reason": "区分真实新观察与历史恢复，恢复时间不能冒充原观察时间。"
+    },
+    {
+      "source_table": "crawler.channel_about_metric_snapshots",
+      "source_column": "recovered_at",
+      "source_type": "timestamp with time zone",
+      "source_nullable": true,
+      "target": "crawler.channel_about_metric_snapshots.recovered_at",
+      "decision": "保留",
+      "reason": "区分真实新观察与历史恢复，恢复时间不能冒充原观察时间。"
+    }
+  ]
+}

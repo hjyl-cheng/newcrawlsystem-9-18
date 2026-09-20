@@ -1,0 +1,17 @@
+{
+  "topic": "crawler.results.validation.v1",
+  "consumer_group": "crawler-results-apply-validation-v1",
+  "stream_id": "validation-results-20260920-v1",
+  "partitions": 3,
+  "replication_factor": 3,
+  "config": {
+    "min.insync.replicas": "2",
+    "cleanup.policy": "delete",
+    "retention.ms": "604800000",
+    "retention.bytes": "134217728",
+    "segment.bytes": "16777216",
+    "segment.ms": "3600000",
+    "max.message.bytes": "1100000",
+    "unclean.leader.election.enable": "false"
+  }
+}

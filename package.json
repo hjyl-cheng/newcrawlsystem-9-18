@@ -9,10 +9,24 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test test/*.test.mjs",
-    "start": "node dist/services/runtime-smoke/src/main.js"
+    "start": "node dist/services/runtime-smoke/src/main.js",
+    "db:migrate": "node ops/db/migrate.mjs",
+    "test:db": "npm run build && node --test --test-concurrency=1 test/database/*.test.mjs",
+    "test:kafka": "npm run build && node --test --test-concurrency=1 test/kafka/*.test.mjs",
+    "kafka:provision": "node ops/kafka/provision-results.mjs"
   },
   "devDependencies": {
     "@types/node": "24.13.5",
+    "@types/pg": "8.20.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@confluentinc/kafka-javascript": "1.10.1",
+    "pg": "8.23.0"
+  },
+  "allowScripts": {
+    "@confluentinc/kafka-javascript@1.10.1": true
   }
 }

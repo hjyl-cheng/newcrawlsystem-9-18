@@ -1,0 +1,44 @@
+{
+  "schema_id": "content.metrics.batch/1-draft.1",
+  "identity": {
+    "plan_id": "example:plan:metrics",
+    "channel_id": "UC_EXAMPLE",
+    "logical_batch_key": "example:batch:metrics"
+  },
+  "frozen_input": {
+    "generation": "1",
+    "input_revision": "10000000000000000000",
+    "input_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "target_hash": "9c18e7ec6a28420ceb7b4f529cac841a4354a810117f7f065eb13661416452f6",
+    "policy_version": "metrics-v1"
+  },
+  "producer_role": "incremental",
+  "mode": "delta",
+  "observations": [
+    {
+      "channelId": "UC_EXAMPLE",
+      "sourceContentId": "example:video:1",
+      "contentType": "video",
+      "observedAt": "2026-09-20T01:00:00.000Z",
+      "comment": {
+        "value": "120",
+        "status": "exact",
+        "source": "youtube-comments",
+        "disabled": false
+      },
+      "page": {
+        "version": 1,
+        "sort": "TOP_COMMENTS",
+        "collected_at": "2026-09-20T01:00:00.000Z",
+        "returned_count": 1,
+        "total_count": 120,
+        "comments": [
+          {
+            "id": "example:comment:1",
+            "text": "评论样例"
+          }
+        ]
+      }
+    }
+  ]
+}
