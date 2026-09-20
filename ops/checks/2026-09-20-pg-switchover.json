@@ -1,0 +1,32 @@
+{
+  "mode": "switchover",
+  "oldLeader": "s1",
+  "candidate": "s2",
+  "schema": "ha_verify_cab320f9810d4960",
+  "faultAt": "2026-09-20T10:14:20Z",
+  "response": "Successfully switched over to \"s2\"",
+  "newLeader": "s2",
+  "electionObservedSeconds": 2.15,
+  "roleObservations": [
+    {
+      "elapsed": 2.15,
+      "primary": [
+        "s2"
+      ]
+    }
+  ],
+  "writeProbe": {
+    "phase": "passed",
+    "acknowledged": 257,
+    "errors": 1,
+    "maxGapMs": 4847,
+    "elapsedMs": 70221,
+    "allAcknowledgedPresent": true
+  },
+  "replicaCounts": {
+    "s1": 257,
+    "s2": 257,
+    "s3": 257
+  },
+  "status": "PASSED"
+}

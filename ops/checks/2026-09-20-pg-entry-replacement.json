@@ -1,0 +1,10 @@
+{
+  "phase": "passed",
+  "acknowledged": 78,
+  "errors": 0,
+  "maxGapMs": 412,
+  "elapsedMs": 20253,
+  "allAcknowledgedPresent": true,
+  "deletedPod": "postgresql-entry-6c5664c649-5mfq6",
+  "mode": "entry-pod-replacement"
+}

@@ -1,0 +1,166 @@
+{
+  "mode": "dcs-partition",
+  "oldLeader": "s2",
+  "candidate": "s3",
+  "schema": "ha_verify_ebfcf06c98fa40af",
+  "faultAt": "2026-09-20T10:17:02Z",
+  "newLeader": "s3",
+  "electionObservedSeconds": 31.09,
+  "roleObservations": [
+    {
+      "elapsed": 0.66,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 1.7,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 2.75,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 3.8,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 4.85,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 5.9,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 6.95,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 8.0,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 9.05,
+      "primary": [
+        "s2"
+      ]
+    },
+    {
+      "elapsed": 10.09,
+      "primary": []
+    },
+    {
+      "elapsed": 11.14,
+      "primary": []
+    },
+    {
+      "elapsed": 12.19,
+      "primary": []
+    },
+    {
+      "elapsed": 13.24,
+      "primary": []
+    },
+    {
+      "elapsed": 14.29,
+      "primary": []
+    },
+    {
+      "elapsed": 15.33,
+      "primary": []
+    },
+    {
+      "elapsed": 16.38,
+      "primary": []
+    },
+    {
+      "elapsed": 17.43,
+      "primary": []
+    },
+    {
+      "elapsed": 18.48,
+      "primary": []
+    },
+    {
+      "elapsed": 19.53,
+      "primary": []
+    },
+    {
+      "elapsed": 20.58,
+      "primary": []
+    },
+    {
+      "elapsed": 21.65,
+      "primary": []
+    },
+    {
+      "elapsed": 22.7,
+      "primary": []
+    },
+    {
+      "elapsed": 23.75,
+      "primary": []
+    },
+    {
+      "elapsed": 24.79,
+      "primary": []
+    },
+    {
+      "elapsed": 25.84,
+      "primary": []
+    },
+    {
+      "elapsed": 26.89,
+      "primary": []
+    },
+    {
+      "elapsed": 27.94,
+      "primary": []
+    },
+    {
+      "elapsed": 28.99,
+      "primary": []
+    },
+    {
+      "elapsed": 30.04,
+      "primary": []
+    },
+    {
+      "elapsed": 31.09,
+      "primary": [
+        "s3"
+      ]
+    }
+  ],
+  "oldPrimaryFenced": "read-only standby",
+  "writeProbe": {
+    "phase": "passed",
+    "acknowledged": 176,
+    "errors": 42,
+    "maxGapMs": 25367,
+    "elapsedMs": 70062,
+    "allAcknowledgedPresent": true
+  },
+  "replicaCounts": {
+    "s1": 176,
+    "s2": 176,
+    "s3": 176
+  },
+  "status": "PASSED"
+}

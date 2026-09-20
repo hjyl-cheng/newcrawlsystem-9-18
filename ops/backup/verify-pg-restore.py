@@ -23,6 +23,10 @@ def sql(ip, statement, restored=False, database='postgres'):
     if restored: command += ['-h', socket, '-p', str(port)]
     return run(ip, shlex.join(command), statement, capture=True).stdout.strip()
 
+primaries = [ip for ip in (S1, S2, S3) if sql(ip, 'SELECT pg_is_in_recovery();') == 'f']
+assert len(primaries) == 1, 'Require exactly one writable primary'
+PRIMARY = primaries[0]
+
 started = False
 created = False
 try:
@@ -31,13 +35,13 @@ try:
     backups = info[0].get('backup', [])
     assert backups, 'Run and validate the first full backup before restoring'
     selected = backups[-1]['label']
-    sql(S1, f'CREATE SCHEMA {schema}; CREATE TABLE {schema}.marker(value text PRIMARY KEY); INSERT INTO {schema}.marker VALUES (\'before\');')
+    sql(PRIMARY, f'CREATE SCHEMA {schema}; CREATE TABLE {schema}.marker(value text PRIMARY KEY); INSERT INTO {schema}.marker VALUES (\'before\');')
     created = True
-    before = sql(S1, "SELECT receipt_id,submission_id,content_sha256 FROM ingestion.receipts ORDER BY receipt_id;", database='crawler_validation_ingestor')
-    sql(S1, f"SELECT pg_create_restore_point('{target}');")
-    sql(S1, f"INSERT INTO {schema}.marker VALUES ('after'); SELECT pg_switch_wal();")
+    before = sql(PRIMARY, "SELECT receipt_id,submission_id,content_sha256 FROM ingestion.receipts ORDER BY receipt_id;", database='crawler_validation_ingestor')
+    sql(PRIMARY, f"SELECT pg_create_restore_point('{target}');")
+    sql(PRIMARY, f"INSERT INTO {schema}.marker VALUES ('after'); SELECT pg_switch_wal();")
     run(S2, 'sudo -n -u pgbackrest pgbackrest --stanza=crawler check')
-    assert sql(S1, f'SELECT count(*) FROM {schema}.marker;') == '2'
+    assert sql(PRIMARY, f'SELECT count(*) FROM {schema}.marker;') == '2'
     run(S3, 'sudo -n test ! -e ' + shlex.quote(directory))
     run(S3, f'sudo -n install -d -m 0700 -o postgres -g postgres {directory} {data} {socket}')
     run(S3, shlex.join(['sudo', '-n', '-u', 'postgres', 'pgbackrest', '--stanza=crawler',
@@ -58,6 +62,7 @@ archive_mode = off
 archive_command = ''
 primary_conninfo = ''
 primary_slot_name = ''
+synchronous_standby_names = ''
 """, 'postgres')
     put(S3, directory + '/pg_hba.conf', 'local all all peer\n', 'postgres')
     put(S3, directory + '/pg_ident.conf', '', 'postgres')
@@ -81,4 +86,4 @@ finally:
     # Stop only the isolated directory, retaining evidence; never stop main PG on S3.
     if started:
         run(S3, shlex.join(['sudo', '-n', '-u', 'postgres', '/usr/lib/postgresql/17/bin/pg_ctl', '-D', data, '-m', 'fast', '-w', 'stop']))
-    if created: sql(S1, f'DROP SCHEMA {schema} CASCADE;')
+    if created: sql(PRIMARY, f'DROP SCHEMA {schema} CASCADE;')

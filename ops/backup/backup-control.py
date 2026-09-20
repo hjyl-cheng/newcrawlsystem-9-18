@@ -55,12 +55,33 @@ def main():
                 '--cacert=/certs/ca.crt', '--cert=/certs/healthcheck-client.crt', '--key=/certs/healthcheck-client.key',
                 'snapshot', 'save', '/backup/etcd.db'], network=True)
             status = json.loads(container(work, ['etcdutl', 'snapshot', 'status', '/backup/etcd.db', '-w', 'json']).stdout)
+            pg_bin = Path('/opt/crawlsystem/backup/bin')
+            pg_pki = CONFIG / 'pg-etcd-pki'
+            pg_args = [str(pg_bin / 'etcdctl'), '--command-timeout=20s',
+                       '--cacert=' + str(pg_pki / 'ca.crt'),
+                       '--cert=' + str(pg_pki / 'admin.crt'),
+                       '--key=' + str(pg_pki / 'admin.key')]
+            for pg_ip in [NODES['s1'], NODES['s2'], NODES['s3']]:
+                try:
+                    run([*pg_args, '--endpoints=https://' + pg_ip + ':2379',
+                         'snapshot', 'save', str(work / 'pg-etcd.db')], capture_output=True)
+                    break
+                except subprocess.CalledProcessError:
+                    (work / 'pg-etcd.db.part').unlink(missing_ok=True)
+            else:
+                raise RuntimeError('Cannot snapshot any PG coordination endpoint')
+            pg_status = json.loads(run([str(pg_bin / 'etcdutl'), 'snapshot', 'status',
+                                       str(work / 'pg-etcd.db'), '-w', 'json'], capture_output=True, text=True).stdout)
             for node, ip in NODES.items():
                 paths = ['etc/hosts', 'etc/systemd/system', 'etc/sysctl.d', 'etc/security/limits.d', 'etc/chrony']
                 paths += (['etc/kubernetes', 'etc/containerd', 'etc/cni/net.d'] if node.startswith('a') else
                           ['etc/postgresql', 'etc/pgbackrest', 'etc/kafka', 'etc/seaweedfs',
                            'etc/pgbouncer', 'etc/clickhouse-server', 'usr/local/libexec',
+                           'etc/crawl-pg-etcd', 'etc/crawl-patroni', 'etc/udev/rules.d',
+                           'etc/modules-load.d', 'etc/modprobe.d',
+                           'var/lib/postgresql/.pgpass-patroni',
                            'var/lib/postgresql/.ssh', 'var/lib/postgresql/.pgpass'])
+                if node == 'a1': paths += ['etc/crawl-backup']
                 if node == 's2': paths += ['var/lib/pgbackrest/.ssh']
                 command = ['python3', '-c', REMOTE_TAR, *paths]
                 if node != 'a1': command = SSH + ['ubuntu@' + ip, shlex.join(['sudo', '-n', *command])]
@@ -70,7 +91,7 @@ def main():
                 for path in [SOURCE / 'secrets', SOURCE / 'SERVER_INVENTORY.local.md', Path('/home/ubuntu/.ssh'), Path('/home/ubuntu/.kube')]:
                     if path.exists(): archive.add(path, arcname=str(path).lstrip('/'))
             files = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in work.iterdir() if p.is_file()}
-            manifest = {'createdAt': datetime.now(timezone.utc).isoformat(), 'etcdSnapshot': status,
+            manifest = {'createdAt': datetime.now(timezone.utc).isoformat(), 'etcdSnapshot': status, 'pgEtcdSnapshot': pg_status,
                         'sourceRevision': subprocess.check_output(['git', '-C', str(SOURCE), '-c', 'safe.directory=' + str(SOURCE), 'rev-parse', 'HEAD'], text=True).strip(),
                         'sha256': files, 'scope': 'etcd and configuration; not Kafka/SeaweedFS/ClickHouse data'}
             (work / 'manifest.json').write_text(json.dumps(manifest, indent=2))
@@ -102,7 +123,7 @@ for old in files[:-14]: old.unlink()
         run(['python3', '-c', prune])
         run(SSH + ['ubuntu@' + NODES['s2'], 'sudo -n python3 -c ' + shlex.quote(prune)])
         result = {'status': 'PASSED', 'file': name, 'sha256': expected, 'bytes': final.stat().st_size,
-                  'copies': ['a1', 's2'], 'etcdSnapshot': status}
+                  'copies': ['a1', 's2'], 'etcdSnapshot': status, 'pgEtcdSnapshot': pg_status}
         (DEST / 'last-success.json').write_text(json.dumps(result, indent=2))
         print(json.dumps(result))
 
