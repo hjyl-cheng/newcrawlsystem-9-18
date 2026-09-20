@@ -44,3 +44,6 @@ JSON 证据：`2026-09-20-kubernetes-api-failover.json`、`2026-09-20-argocd-cac
 - 当前改动及脚本都在新仓库；API 原配置在各 A 节点 `/srv/crawlsystem/kubernetes-ha/pre-local-api`。控制备份已包含 `/etc/crawl-kube-api`，Argo 和 DNS 对象由 etcd 快照覆盖。
 
 按 24.12 继续外围工作：本批完成 API 入口、DNS 分散、Argo server/repo/cache 多副本及受控恢复；发布控制器无人值守接管保留明确待办。随后处理 Kafka/SeaweedFS/ClickHouse/CDC 的可靠性，业务开发仍暂停。
+
+
+最新备份：`control-20260920T110653Z.tar.gpg` 已加密保存到 A1/S2，包含新 API 入口配置、Argo HA 与 DNS 对象；源版本 `966da4f`。独立恢复通过：9 份文件校验一致，恢复 Kubernetes registry 1100 / Secrets 11 / Deployments 12、PG 协调键 10，PG 协调认证保持开启。三节点本地入口最终均 active，域名均解析到本机 127.0.0.1，readyz 均返回 ok。
