@@ -37,7 +37,7 @@ spec:
         - name: server
           image: temporalio/server:1.32.0@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae
           command: [temporal-server]
-          args: [--config, /etc/temporal/validation, --env, server, --allow-no-auth, start]
+          args: [--root, /, --config, etc/temporal/validation, --env, server, --allow-no-auth, start]
           envFrom:
             - secretRef: {name: temporal-database}
           env:
