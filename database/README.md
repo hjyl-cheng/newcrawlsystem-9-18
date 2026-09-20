@@ -85,3 +85,8 @@ GitHub 的独立数据库 workflow 使用临时 PostgreSQL 服务，不连接六
 migration 失败时该文件的 DDL 和 ledger 一起回滚；已经成功的更早文件不会自动撤回。
 成功建表后如发现问题，应添加后续 migration 或回退兼容应用，不能改 ledger 或删除有数据的表冒充回滚。
 生产应用前须完成 Store/权限/回执验收与备份恢复准备；本次不提供备份和 HA 达标结论。
+
+## 常驻验证服务数据库
+
+`crawler_validation_ingestor` 使用同一 0001～0004，专供常驻 Data Ingestor，不用作 test:db/test:kafka 的自动清理目标。
+服务使用受限账号而非迁移 owner；权限配置、连接限制和合成数据验收见 [运行手册](../ops/ingestor/README.md)和 [常驻验收](../ops/checks/2026-09-20-ingestor-service.md)。正式 crawler 仍未应用本批。

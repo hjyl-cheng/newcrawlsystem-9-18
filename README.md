@@ -26,8 +26,8 @@ npm test
 npm start
 ```
 
-当前部署的服务只有 `services/runtime-smoke`：验证应用构建、发布和生命周期，尚无真实采集。
-新增内部库 `services/facts-store` 已完成首批指标/评论事务合并；`services/ingestion` 已接最小授权/Submission/检查点/回执原子事务，均通过真实 PG 测试，尚未对外暴露。见 [Store 说明](docs/migration/content-store.md)与[受控提交说明](docs/migration/metrics-submission.md)。
+当前部署包含 `services/runtime-smoke` 和两个 Data Ingestor 验证副本，尚无真实采集 Worker。以下 8080 健康/版本描述适用于原 runtime-smoke 骨架；Data Ingestor 的接口与部署见文末运行手册。
+新增内部库 `services/facts-store` 已完成首批指标/评论事务合并；`services/ingestion` 已接最小授权/Submission/检查点/回执原子事务，均通过真实 PG 测试，并由 Kafka 消费者内部调用。见 [Store 说明](docs/migration/content-store.md)与[受控提交说明](docs/migration/metrics-submission.md)。
 默认监听 8080，提供 `GET /health/live`、`GET /health/ready`、`GET /version`。
 `PORT` 可配置；镜像构建时写入 `APP_REVISION`、`APP_VERSION`。
 SIGTERM 后撤销就绪，等待 3 秒传播，再关闭监听，10 秒内完成退出。

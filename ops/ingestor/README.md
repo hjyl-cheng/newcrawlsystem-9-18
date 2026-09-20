@@ -7,7 +7,7 @@
 ## 凭据与数据库准备
 
 1. `node ops/ingestor/create-validation-credentials.mjs`：仅首次生成。私钥、随机 PG 密码、查询 token 写入忽略目录 `secrets/data-ingestor`，目录 0700、文件 0600；已存在时拒绝覆盖。
-2. `python3 ops/ingestor/bootstrap-validation-database.py`：经既有 SSH 管理通道创建验证 DB/专用账号，配置该账号的 PG HBA 边界。账号不能连接正式 crawler。HBA 原文保留 `.conf.pre-ingestor` 备份；这不是数据库备份。
+2. `python3 ops/ingestor/bootstrap-validation-database.py`：经既有 SSH 管理通道创建验证 DB/专用账号，配置 S1/S2/S3 上该账号的 PG HBA 边界。账号不能连接正式 crawler。HBA 原文保留 `.conf.pre-ingestor` 备份；这不是数据库备份。
 3. 用迁移 owner，设置 PGDATABASE/DB_EXPECTED_NAME 均为 crawler_validation_ingestor，运行 `npm run db:migrate`，再执行 `validation-runtime-grants.sql`。
 4. 将 runtime.env 创建为 Secret `data-ingestor-database`；trusted-keys.json/query-clients.json 创建为 Secret `data-ingestor-identities`，均位于 crawl-validation。**不上传 worker-private.pem、operator.json 或迁移 owner 密码到消费者 Pod。**
 
@@ -61,3 +61,7 @@ owner 凭据仅在受控验证脚本中使用，不注入服务。摘要写在�
 回滚应用采用 Git revert digest/模板提交，让 Argo 同步；不删除 Topic、重建 stream 或回滚数据库 migration。
 首次部署前无旧消费者版本时，可在 Git 将该 Deployment replicas 设为 0，保留队列、库和 Secret。恢复前核对保留窗口和 lag。
 正式 crawler、Business、Temporal 和真实 Worker 不在本次上线范围。
+
+滚动验证可使用 `verify-restart.mjs`，读取上次合成样例并按原身份重发，`REPLAY_ROUNDS` 为 1～100；过程中由 Git 修改非敏感 Pod 模板标记触发更新。查询入口须在滚动期间保持可用（Service/受控验证客户端），不要把固定旧 Pod 的 port-forward 当作稳定服务入口。
+
+已完成的发布与滚动证据见 [2026-09-20 验收记录](../checks/2026-09-20-ingestor-service.md)。
