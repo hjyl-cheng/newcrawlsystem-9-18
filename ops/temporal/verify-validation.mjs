@@ -10,7 +10,10 @@ import { activityInfo } from '@temporalio/activity';
 const address = process.env.TEMPORAL_ADDRESS ?? '127.0.0.1:17233';
 assert.match(address, /^127\.0\.0\.1:[0-9]{1,5}$/);
 const namespace = 'crawl-validation';
-Runtime.install({ logger: new DefaultLogger('WARN') });
+// SDK metadata may contain activity task tokens; report only level/message.
+Runtime.install({ logger: new DefaultLogger('WARN', ({ level, message }) => {
+  console.error(JSON.stringify({ level, message }));
+}) });
 const connection = await Connection.connect({ address, connectTimeout: '10 seconds' });
 let native, worker, run, handle;
 const deadline = setTimeout(() => { console.error('Temporal validation deadline exceeded'); process.exit(1); }, 180_000);
@@ -27,9 +30,19 @@ try {
   const client = new Client({ connection, namespace });
   const marker = 'temporal-validation-' + randomUUID();
   const taskQueue = marker;
-  handle = await client.workflow.start('validationRoundTrip', {
-    workflowId: marker, taskQueue, args: [marker], workflowExecutionTimeout: '2 minutes',
-  });
+  // Namespace registration propagates through server caches asynchronously.
+  // Retry only the definitive "not found" response, using the same workflow ID.
+  for (let i = 0; i < 80; i++) {
+    try {
+      handle = await client.workflow.start('validationRoundTrip', {
+        workflowId: marker, taskQueue, args: [marker], workflowExecutionTimeout: '2 minutes',
+      });
+      break;
+    } catch (error) {
+      if (error.name !== 'NamespaceNotFoundError' || i === 79) throw error;
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+  }
   assert.equal((await handle.describe()).status.name, 'RUNNING');
   console.log(JSON.stringify({ phase: 'queued-without-worker', workflowId: marker }));
 
