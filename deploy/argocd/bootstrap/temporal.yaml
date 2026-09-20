@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crawl-temporal-validation
+  namespace: argocd
+spec:
+  project: crawl-validation
+  source:
+    repoURL: https://github.com/hjyl-cheng/newcrawlsystem-9-18.git
+    targetRevision: main
+    path: deploy/overlays/validation/temporal
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crawl-validation
+  syncPolicy:
+    automated: {prune: true, selfHeal: true}
+    syncOptions: [PruneLast=true]
+    retry:
+      limit: 3
+      backoff: {duration: 5s, factor: 2, maxDuration: 30s}

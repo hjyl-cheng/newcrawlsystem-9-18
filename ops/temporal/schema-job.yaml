@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: temporal-schema-1-32-0
+  namespace: crawl-validation
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: Never
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: schema
+          image: temporalio/admin-tools:1.32.0@sha256:a9f84fb9a374b2374fe2e67c8efc0468ff3f1c66c8a0b14597ec86e349e62bca
+          command: [/bin/sh, -ec]
+          args:
+            - |
+              export SQL_HOST=10.4.4.2 SQL_PORT=5432 SQL_PLUGIN=postgres12
+              for pair in 'temporal_validation temporal' 'temporal_visibility_validation visibility'; do
+                set -- $pair
+                export SQL_DATABASE=$1
+                temporal-sql-tool setup-schema -v 0.0 >/tmp/schema.log 2>&1
+                temporal-sql-tool update-schema -d /etc/temporal/schema/postgresql/v12/$2/versioned >>/tmp/schema.log 2>&1
+                echo "Schema applied: $SQL_DATABASE"
+              done
+          envFrom:
+            - secretRef: {name: temporal-schema-owner}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
