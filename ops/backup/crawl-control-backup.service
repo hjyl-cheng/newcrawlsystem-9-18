@@ -1,0 +1,12 @@
+[Unit]
+Description=Encrypted etcd and configuration backup to A1 and S2
+After=network-online.target containerd.service
+Wants=network-online.target
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/crawlsystem/backup/backup-control.py
+TimeoutStartSec=15min
+Nice=10
+PrivateTmp=true

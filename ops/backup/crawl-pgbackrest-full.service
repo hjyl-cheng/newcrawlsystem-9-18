@@ -1,0 +1,16 @@
+[Unit]
+Description=Crawler PostgreSQL encrypted weekly full backup
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=oneshot
+User=pgbackrest
+Group=pgbackrest
+UMask=0077
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+ExecStart=/usr/bin/pgbackrest --stanza=crawler --type=full backup
+TimeoutStartSec=2h
+NoNewPrivileges=true
+PrivateTmp=true
