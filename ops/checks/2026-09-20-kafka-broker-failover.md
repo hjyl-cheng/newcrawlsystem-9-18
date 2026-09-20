@@ -37,3 +37,7 @@
 没有删除既有 Topic、重置业务消费组或修改现有队列保留配置。保留上限、积压监控要求和恢复边界已写入 `ops/kafka/README.md`；结果验证队列每分区 128 MiB 的限制意味着不能承诺保留满 7 天。新增脚本是手动只读巡检，不是已上线的定时告警。
 
 本轮不是断电、网络分区、磁盘灾难或压力测试；Kafka 数据备份/跨故障域恢复、Broker 认证与加密、集中监控仍待完成。继续按 24.12 推进 SeaweedFS 元数据/对象副本/稳定入口与恢复，再处理 ClickHouse、CDC 及监控；不要把 Kafka 本轮通过等同于外围第 4 项全部完成。
+
+## 变更后配置备份
+
+代码与配置提交 `5b3fbfc` 已推送新仓库 main。随后执行已部署的 control backup，生成 `control-20260920T114101Z.tar.gpg`，25,101,847 bytes，A1/S2 两份；SHA256 `d6a41a76029dc53103286df04860336447280dec9c661cc0a6876a5d3dfe98bc`。归档范围含三机 systemd drop-in、Kafka 配置、Kubernetes etcd 与 PG 协调 etcd，不含 Kafka 消息日志；本轮未重复执行此新快照的独立恢复演练。
