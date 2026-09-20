@@ -31,8 +31,10 @@ try{
     "INSERT INTO control.plans(plan_id) VALUES ('forbidden')",'UPDATE crawler.contents SET title=title WHERE false']){
     await assert.rejects(consumer.query(sql),e=>e.code==='42501');
   }
-  const other=new pg.Client({host:runtime.PGHOST,port:5432,database:'crawler',user:runtime.PGUSER,password:runtime.PGPASSWORD});
-  try{await assert.rejects(other.connect(),e=>e.code==='28000');}finally{await other.end();}
+  for(const host of ['10.4.4.2','10.4.4.8','10.4.4.5']){
+    const other=new pg.Client({host,port:5432,database:'crawler',user:runtime.PGUSER,password:runtime.PGPASSWORD,connectionTimeoutMillis:5000});
+    try{await assert.rejects(other.connect(),e=>e.code==='28000');}finally{await other.end();}
+  }
   await producer.connect();await admin.connect();
   for(const [index,channel] of operator.channels.entries()){
     const prefix='service-validation:'+randomUUID();

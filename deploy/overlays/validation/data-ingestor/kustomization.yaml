@@ -5,4 +5,4 @@ resources:
   - ../../../base/data-ingestor
 images:
   - name: ghcr.io/hjyl-cheng/newcrawlsystem-runtime
-    newTag: pending-verified-build
+    digest: sha256:0c7f06781034ec89cad90cd0e0a4d8bbc1894503fe22a012360c45a78ae8302e

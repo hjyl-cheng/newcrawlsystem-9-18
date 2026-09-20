@@ -33,5 +33,7 @@ if marker not in s:
 PY
 sudo -u postgres psql -X -Atc 'SELECT pg_reload_conf()' >/dev/null
 """
-subprocess.run(ssh+['bash -s'],input=remote,text=True,check=True)
+for address in ['10.4.4.2', '10.4.4.8', '10.4.4.5']:
+    peer = ssh[:-1] + ['ubuntu@'+address]
+    subprocess.run(peer+['bash -s'],input=remote,text=True,check=True)
 print('Dedicated validation database/login prepared; password omitted.')
