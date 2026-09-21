@@ -1,0 +1,24 @@
+{
+  "status": "PASSED",
+  "file": "control-20260921T024837Z.tar.gpg",
+  "sha256": "ba6f5f466fd3556d99f69333398aa706951fbb464180bb3619cdb7fd78b45697",
+  "bytes": 25283549,
+  "copies": [
+    "a1",
+    "s2"
+  ],
+  "etcdSnapshot": {
+    "hash": 3679313133,
+    "revision": 462154,
+    "totalKey": 2096,
+    "totalSize": 13623296
+  },
+  "pgEtcdSnapshot": {
+    "hash": 1424005483,
+    "revision": 48307,
+    "totalKey": 6026,
+    "totalSize": 2154496
+  },
+  "sourceRevision": "74fa1db51cdd52c7c7e457074d23233e84cbf127",
+  "scope": "Encrypted etcd/config/credential backup; not Kafka data or CDC offset disaster recovery"
+}

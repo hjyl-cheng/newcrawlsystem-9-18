@@ -32,3 +32,5 @@ CDC 当前等待两台指定备库，其中一台失联会暂停投递，尚无�
 - `2026-09-21-cdc-health.json`、`2026-09-21-cdc-kafka-health.json`、`2026-09-21-cdc-final-state.json`：收尾健康及切主后备份。
 
 运行/恢复步骤见 `ops/cdc/README.md`。下一阶段接集中监控与告警，在界面可见地覆盖复制、槽保留 WAL、Connect 状态、Kafka 积压及备份新鲜度；其余可靠性和安全遗留继续跟踪，业务代码仍暂停。
+
+收尾配置备份：`control-20260921T024837Z.tar.gpg`，A1/S2 两份密文 SHA256 一致（`ba6f5f466fd3556d99f69333398aa706951fbb464180bb3619cdb7fd78b45697`），源码版本 `74fa1db`。包含当前 etcd、六节点配置和受保护凭据，不代替 Kafka 数据/offset 灾备；证据见 `2026-09-21-cdc-control-backup.json`。
