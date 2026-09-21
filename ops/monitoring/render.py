@@ -185,7 +185,7 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('k
   egress += [{'to':[same('prometheus')],'ports':ports(9090)},{'to':[same('alertmanager')],'ports':ports(9093)},{'to':[ns('crawl-validation','postgresql-entry')],'ports':ports(5432)}]
  if name=='grafana':egress += [{'to':[{'ipBlock':{'cidr':'10.4.4.5/32'}}],'ports':ports(8443)}]
  if name=='kube-state-metrics':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':'10.96.0.1/32'}}],'ports':ports(443,6443)}]
- if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9092,9094)}]
+ if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9094)}]
  if name=='infra-exporter':egress += [{'to':[ns('crawl-validation','kafka-connect')],'ports':ports(8083)},{'to':[ns('crawl-validation','data-ingestor')],'ports':ports(8080)}]
  objects.append(resource('NetworkPolicy',name,{'podSelector':{'matchLabels':{'app':name}},'policyTypes':['Ingress','Egress'],'ingress':ingress,'egress':egress},'networking.k8s.io/v1'))
 (BASE/'resources.yaml').write_text(yaml.safe_dump_all(objects,sort_keys=False))

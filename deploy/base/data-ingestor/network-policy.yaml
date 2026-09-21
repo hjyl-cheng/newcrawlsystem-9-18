@@ -50,6 +50,4 @@ spec:
             cidr: 10.4.4.5/32
       ports:
         - protocol: TCP
-          port: 9092
-        - protocol: TCP
           port: 9094
