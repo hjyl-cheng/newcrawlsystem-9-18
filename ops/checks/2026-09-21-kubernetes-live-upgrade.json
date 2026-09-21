@@ -1,6 +1,6 @@
 {
   "started_at": "2026-09-21T19:15:00+08:00",
-  "status": "IN_PROGRESS",
+  "status": "PASSED",
   "source_revision": "85dfeac79db2a4eae02f11bf2bab36ed2ab79cbe",
   "pre_upgrade_tag": "infra-pre-k8s137-20260921",
   "stages": [
@@ -145,11 +145,38 @@
         "PostgreSQL leader, synchronous standby, and replica remained healthy with zero replay lag",
         "Kafka retained all three voters with zero follower lag and SeaweedFS retained a leader plus two peers"
       ]
+    },
+    {
+      "target": "Kubernetes 1.37.0",
+      "result": "PASSED",
+      "nodes": ["a1", "a2", "a3"],
+      "pre_upgrade_backup": {
+        "file": "control-20260921T130948Z.tar.gpg",
+        "sha256": "f48e07c3535db87c79047a5c40194d9835aae87e99fdaa957346143a566826b0",
+        "copies": ["a1", "s2"]
+      },
+      "addons": {
+        "kube_proxy": "3/3 ready, registry.k8s.io/kube-proxy:v1.37.0",
+        "coredns": "2/2 ready, registry.k8s.io/coredns/coredns:v1.14.6",
+        "calico": "3/3 ready, quay.io/calico/node:v3.32.2",
+        "kubernetes_etcd": "3/3 healthy, etcd 3.7.0 with storage version 3.7.0"
+      },
+      "checks": [
+        "All three nodes Ready on v1.37.0 and all non-completed workload Pods Ready",
+        "Local HA API /readyz returned ok and all three etcd endpoints had matching applied indexes",
+        "Every node-local smoke Pod reached the Service VIP and all three Pod endpoints 100/100 times",
+        "A live cross-node NetworkPolicy test denied an unallowed client and allowed the labeled client",
+        "Argo Redis Service VIP and both HAProxy Pod endpoints passed 100/100 authenticated PING requests",
+        "Eight Argo Applications Synced and Healthy at revision 7ae3f89",
+        "Argo application-controller PDB restored to minAvailable 1",
+        "PostgreSQL leader, synchronous standby, and replica remained healthy with zero replay lag",
+        "Kafka retained all three voters with zero follower lag and SeaweedFS retained a leader plus two peers"
+      ]
     }
   ],
-  "next_target": "Kubernetes 1.37.0",
+  "next_target": "containerd 2.2.1 to 2.3.5",
   "limits": [
-    "This evidence is updated after every gated minor upgrade and is incomplete until status becomes PASSED.",
+    "This evidence covers the Kubernetes and Calico live upgrade; later container runtime and application component upgrades have separate evidence.",
     "Drain temporarily leaves each node-local monitoring PVC Pending on its cordoned owner; the other replica remains available and the local replica returns after uncordon."
   ]
 }
