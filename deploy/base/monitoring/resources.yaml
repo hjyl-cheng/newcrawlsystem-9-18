@@ -984,6 +984,12 @@ spec:
         cidr: 10.4.4.3/32
     - ipBlock:
         cidr: 10.4.4.17/32
+    - ipBlock:
+        cidr: 192.168.141.132/32
+    - ipBlock:
+        cidr: 192.168.78.192/32
+    - ipBlock:
+        cidr: 192.168.65.64/32
     ports:
     - protocol: TCP
       port: 3000

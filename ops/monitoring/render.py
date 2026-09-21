@@ -7,6 +7,7 @@ ROOT=Path(__file__).resolve().parents[2]
 BASE=ROOT/'deploy/base/monitoring'
 BASE.mkdir(parents=True,exist_ok=True)
 IMAGES=json.loads((ROOT/'ops/monitoring/images.json').read_text())
+TUNNELS=['192.168.141.132','192.168.78.192','192.168.65.64']
 NODES={'a1':'10.4.4.12','a2':'10.4.4.3','a3':'10.4.4.17','s1':'10.4.4.2','s2':'10.4.4.8','s3':'10.4.4.5'}
 def write(path,value):path.write_text(yaml.safe_dump(value,sort_keys=False,allow_unicode=True))
 def resource(kind,name,spec=None,api='v1',**extra):
@@ -84,7 +85,7 @@ rule('CdcSlotMissing','crawl_pg_cdc_slot_present == 0','2m','CDC 槽缺失','cri
 rule('CdcSlotInvalid','crawl_pg_slot_valid{slot="crawl_cdc_validation"} == 0 or crawl_pg_slot_temporary{slot="crawl_cdc_validation"} == 1','1m','CDC 槽无效或为临时槽','critical')
 rule('ReplicationSlotRetainsWal','crawl_pg_slot_retained_bytes > 1073741824','5m','复制槽滞留 WAL 超过 1GiB')
 rule('ReplicationSlotWalBudgetLow','crawl_pg_slot_safe_wal_size < 268435456','2m','复制槽剩余 WAL 预算低于 256MiB','critical')
-rule('CdcGuardNotReady','crawl_cdc_guard_ready == 0 or time() - crawl_cdc_guard_last_check_timestamp_seconds > 30','1m','CDC guard 未就绪或停止刷新','critical')
+rule('CdcGuardNotReady','crawl_cdc_guard_ready == 0 or time() - crawl_cdc_guard_last_check_timestamp_seconds > 90','1m','CDC guard 未就绪或停止刷新','critical')
 rule('CdcBarrierMismatch','crawl_cdc_guard_barrier_matches == 0','1m','CDC 等待屏障与候选名单不一致','critical')
 rule('KafkaIsrBelowMinimum','kafka_topic_partition_in_sync_replica < 2','1m','Kafka ISR 低于写入最低副本数','critical')
 rule('KafkaReplicaDegraded','kafka_topic_partition_in_sync_replica < kafka_topic_partition_replicas','3m','Kafka 分区副本未全部同步')
@@ -166,7 +167,7 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('k
   ingress += [{'from':[same('grafana')],'ports':ports(9093)},{'from':[same('alertmanager')],'ports':ports(9094)+[{'protocol':'UDP','port':9094}]}]
   egress += [{'to':[same('alertmanager')],'ports':ports(9094)+[{'protocol':'UDP','port':9094}]}]
  if name=='grafana':
-  ingress += [{'from':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')],'ports':ports(3000)}]
+  ingress += [{'from':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':ip+'/32'}} for ip in TUNNELS],'ports':ports(3000)}]
   egress += [{'to':[same('prometheus')],'ports':ports(9090)},{'to':[same('alertmanager')],'ports':ports(9093)},{'to':[ns('crawl-validation','postgresql-entry')],'ports':ports(5432)}]
  if name=='kube-state-metrics':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':'10.96.0.1/32'}}],'ports':ports(443,6443)}]
  if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9092)}]

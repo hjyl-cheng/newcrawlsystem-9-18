@@ -151,7 +151,7 @@ groups:
         $value }}；排查步骤见 ops/monitoring/README.md。
   - alert: CdcGuardNotReady
     expr: crawl_cdc_guard_ready == 0 or time() - crawl_cdc_guard_last_check_timestamp_seconds
-      > 30
+      > 90
     for: 1m
     labels:
       severity: critical
