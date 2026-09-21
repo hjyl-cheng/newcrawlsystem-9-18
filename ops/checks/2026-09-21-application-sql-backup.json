@@ -1,0 +1,39 @@
+{
+  "control": {
+    "status": "PASSED",
+    "file": "control-20260921T055549Z.tar.gpg",
+    "sha256": "621e14a519dd28069674e1447b1ff74e95a17d89e866a8b7ebc9e81cad7b43fb",
+    "bytes": 25529753,
+    "copies": [
+      "a1",
+      "s2"
+    ],
+    "etcdSnapshot": {
+      "hash": 1717402538,
+      "revision": 486342,
+      "totalKey": 1765,
+      "totalSize": 13623296
+    },
+    "pgEtcdSnapshot": {
+      "hash": 4237243050,
+      "revision": 57424,
+      "totalKey": 3466,
+      "totalSize": 2179072
+    }
+  },
+  "sourceRevision": "e923fb84d7f005ae3d8cdd63c4a6ade40e081a5b",
+  "verification": {
+    "manifestHashes": "all matched",
+    "poolTLS": "require / verify-full on all three",
+    "consoleCredential": "matched operator copy, protected userlists present",
+    "filerTLS": "active and pending config verified on all three",
+    "filerCA": "all matched",
+    "hba": "global TCP plaintext rejection present on all three"
+  },
+  "postgresql": {
+    "label": "20260920-172412F_20260921-135220D",
+    "repositoryDeltaBytes": 3616640,
+    "check": "passed",
+    "backup": "passed"
+  }
+}

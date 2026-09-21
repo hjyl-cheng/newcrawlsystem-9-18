@@ -37,3 +37,11 @@
 Kafka 9092 仍是 PLAINTEXT；Temporal gRPC 和 Seaweed 内部 HTTP/gRPC/S3 HTTP 的认证加密尚未收尾。SQL TLS 不替代这些协议的认证，也不替代持续对象备份、证书维护、控制器整机接管、ClickHouse 磁盘/HA 与异地灾备。下一批优先迁移 Kafka 的客户端/节点通信和权限，仍不恢复业务功能开发。
 
 收尾巡检：8 个 Argo 应用 Synced/Healthy；双 Prometheus 各 14 个 targets 全部 up，本地采集器/两个应用探针正常；CDC/guard/槽检查通过，Kafka 结果队列三个分区 lag=0。维护探针期间出现过诊断日志预算限流告警，按实际状态保留在监控证据中，不调高阈值或隐藏告警；不影响上述确认的业务探针消息。
+
+最终告警复核：LogEventsDiscarded 已在两套 Prometheus 自动解除，仅保留既有 SeaweedContinuousBackupPending；未更改限流或告警规则。
+
+## 收尾备份
+
+- PG check/差异备份通过：`20260920-172412F_20260921-135220D`，仓库本次增量 3616640 字节。
+- 控制面/配置加密备份 `control-20260921T055549Z.tar.gpg` 已保存 A1/S2，25529753 字节，源提交 `e923fb8`。
+- 解密后核验全部 manifest 哈希、三台连接池 TLS/控制台凭据、Filer 当前和 pending 配置/CA、全局 HBA 明文拒绝，以及 operator 凭据副本，全部通过。见 `2026-09-21-application-sql-backup.json`；这是新增配置的备份覆盖核验，不声称又完成一轮全部数据库灾备演练。
