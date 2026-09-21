@@ -5,4 +5,4 @@ resources:
   - ../../../base/data-ingestor
 images:
   - name: ghcr.io/hjyl-cheng/newcrawlsystem-runtime
-    digest: sha256:0c7f06781034ec89cad90cd0e0a4d8bbc1894503fe22a012360c45a78ae8302e
+    digest: sha256:ca4518a071e2878cdd932c5febaec36d36b1ba910c344b6949e10919257a8534
