@@ -8,6 +8,9 @@ class RetentionTests(unittest.TestCase):
  def test_capacity_drops_oldest_to_headroom(self):
   parts=[{'partition':'202609200'+str(i),'bytes':600*1024**2} for i in range(4)]
   self.assertEqual(m.choose(parts,0.5,datetime(2026,9,21,tzinfo=timezone.utc)),['2026092000','2026092001'])
+ def test_expiry_does_not_trigger_capacity_pruning_below_limit(self):
+  parts=[{'partition':'2026091601','bytes':100},{'partition':'2026092001','bytes':800*1024**2},{'partition':'2026092002','bytes':800*1024**2}]
+  self.assertEqual(m.choose(parts,0.5,datetime(2026,9,21,tzinfo=timezone.utc)),['2026091601'])
  def test_invalid_partition_cannot_become_sql(self):
   with self.assertRaises(AssertionError):m.choose([{'partition':"x'; DROP DATABASE crawler_analytics;",'bytes':1}],0.1,datetime.now(timezone.utc))
  def test_low_disk_only_selects_logs(self):

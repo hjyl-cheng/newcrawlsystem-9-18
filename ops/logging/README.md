@@ -44,3 +44,7 @@ Grafana 的数据源和日志面板随现有 `crawl-monitoring` Argo 应用发�
 入口仍使用原 Grafana SSH 隧道，进入“基础设施 / 爬虫平台 · 集中日志”，按服务器、服务、时间和正文关键词查询；默认最多 200 条。Explore 可选择 `Infrastructure Logs`。查询账号没有 INSERT/DDL 或业务表读取权限。
 
 排查时先看日志心跳新鲜度、缓冲量、丢弃/错误计数；再看 `journalctl -u crawl-vector`、S3 `crawl-log-retention` timer 和 ClickHouse。排查输出不得复制受保护配置的明文密码。Grafana 凭据、监控原有密码保持不变。
+
+Grafana 插件连接检查会调整 `max_execution_time`。该账号保持 readonly=1，仅此设置允许在 1–60 秒内修改；单线程、128MiB 查询内存、结果条数/大小上限保持约束。Grafana 请求默认超时 10 秒。该例外不授予写入或 DDL 权限，已做实际拒绝验证。
+
+现场验收：`python3 ops/logging/verify.py --execute`；如首次只在注入故障前中断，可在 30 分钟内用 `--resume-outage` 继续已记录的四个前置阶段后的演练。它只临时阻断 A3 主机到 S3:8443，预装四分钟自动恢复定时器，finally 删除专用规则。`test-buffer-policy.py` 用隔离的极小内存缓冲验证 drop_newest；没有填满线上 512MiB 磁盘缓冲或进行压力测试。

@@ -1,6 +1,6 @@
 # 基础设施监控与平台内告警
 
-范围：外围监控，不含业务开发。Prometheus 规则直接判断实际指标，没有引入 TypeSafe API 或 SQLite。集中日志与外部通知尚未接入。
+范围：外围监控，不含业务开发。Prometheus 规则直接判断实际指标，没有引入 TypeSafe API 或 SQLite。集中日志已按 `ops/logging/README.md` 接入；外部通知尚未接入。
 
 ## 部署与数据位置
 

@@ -40,7 +40,7 @@ sudo systemctl start crawl-clickhouse-backup.service
 sudo python3 /opt/crawlsystem/backup/check-clickhouse.py
 ```
 
-健康检查目前按需运行，尚未接入集中监控或外部告警。A1 停机不会影响在线分析服务，但会暂停新的定时备份；现有 S2 副本仍保留。定时器本身不是 HA 调度器。
+健康检查已接入集中指标与平台内告警；外部通知尚未接入。A1 停机不会影响在线分析服务，但会暂停新的定时备份；现有 S2 副本仍保留。定时器本身不是 HA 调度器。
 
 ## 已验证的独立恢复
 
@@ -59,3 +59,5 @@ sudo python3 /opt/crawlsystem/backup/check-clickhouse.py
 每日备份恢复点取决于最近一次成功快照；快照之后的数据需另行回放来源，目前该业务链尚未落地。A1/S2 均在现有同地域/账号故障域，跨机副本不等于异地灾备。整机损坏恢复、容量压力、外部存储、长期保留、持续告警和生产 RPO/RTO 均仍待验收。
 
 官方参考：https://clickhouse.com/docs/operations/backup 。实际命令在已安装的 26.8.6.5 上完成验证。
+
+2026-09-21 日志增量：S3 现另有 `crawler_logs.events`，承接六节点的有界诊断日志，详见 `ops/logging/README.md`。该短期日志库与 `crawler_analytics` 分离，不在上述业务分析库备份范围；三天 TTL / 2GiB 周期清理阈值不等于独立磁盘或单机 HA。TLS 8443 是日志写入/只读查询入口，原有 Native/HTTP 入口安全边界仍待收尾。

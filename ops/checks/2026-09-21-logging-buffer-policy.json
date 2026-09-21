@@ -1,0 +1,8 @@
+{
+  "status": "PASSED",
+  "isolatedBuffer": "memory/2 events",
+  "producerWriteSeconds": 0.013,
+  "observedDiscardCounterSum": 2000.0,
+  "eventsOffered": 4000,
+  "diskFullNotLoadTested": true
+}
