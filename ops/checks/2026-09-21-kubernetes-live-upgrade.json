@@ -39,9 +39,27 @@
         "Redis Service VIP and both HAProxy Pod endpoints passed 100/100 TCP connections",
         "All non-completed Pods Ready and eight Argo Applications Synced and Healthy"
       ]
+    },
+    {
+      "target": "Kubernetes 1.33.13",
+      "result": "PASSED",
+      "nodes": ["a1", "a2", "a3"],
+      "addons": {
+        "kube_proxy": "3/3 ready, registry.k8s.io/kube-proxy:v1.33.13",
+        "coredns": "2/2 ready, registry.k8s.io/coredns/coredns:v1.12.0",
+        "calico": "3/3 ready, quay.io/calico/node:v3.31.7"
+      },
+      "checks": [
+        "All non-completed Pods Ready",
+        "All three etcd endpoints committed health proposals",
+        "Local HA API /readyz returned ok",
+        "Redis Service VIP and both HAProxy Pod endpoints passed 100/100 TCP connections",
+        "Eight Argo Applications Synced and Healthy at revision 48a4a3d",
+        "PostgreSQL leader and both standbys remained healthy with zero replay lag"
+      ]
     }
   ],
-  "next_target": "Kubernetes 1.33.13",
+  "next_target": "Kubernetes 1.34.11",
   "limits": [
     "This evidence is updated after every gated minor upgrade and is incomplete until status becomes PASSED.",
     "Drain temporarily leaves each node-local monitoring PVC Pending on its cordoned owner; the other replica remains available and the local replica returns after uncordon."
