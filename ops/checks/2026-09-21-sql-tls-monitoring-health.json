@@ -1,0 +1,262 @@
+{
+  "prometheus-0": {
+    "targets": 14,
+    "allUp": true,
+    "firing": [
+      {
+        "__name__": "ALERTS",
+        "alertname": "SeaweedContinuousBackupPending",
+        "alertstate": "firing",
+        "backup": "seaweedfs",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "s3",
+        "instance": "10.4.4.5:9100",
+        "job": "nodes",
+        "node": "s3",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "a2",
+        "instance": "10.4.4.3:9100",
+        "job": "nodes",
+        "node": "a2",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "a1",
+        "instance": "10.4.4.12:9100",
+        "job": "nodes",
+        "node": "a1",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "s2",
+        "instance": "10.4.4.8:9100",
+        "job": "nodes",
+        "node": "s2",
+        "severity": "warning"
+      }
+    ],
+    "logBudgetIncrease1m": [
+      {
+        "metric": {
+          "node": "a1"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s2"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "a3"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s1"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "a2"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s3"
+        },
+        "value": [
+          1789968578.424,
+          "0"
+        ]
+      }
+    ]
+  },
+  "prometheus-1": {
+    "targets": 14,
+    "allUp": true,
+    "firing": [
+      {
+        "__name__": "ALERTS",
+        "alertname": "SeaweedContinuousBackupPending",
+        "alertstate": "firing",
+        "backup": "seaweedfs",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "s3",
+        "instance": "10.4.4.5:9100",
+        "job": "nodes",
+        "node": "s3",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "a2",
+        "instance": "10.4.4.3:9100",
+        "job": "nodes",
+        "node": "a2",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "a1",
+        "instance": "10.4.4.12:9100",
+        "job": "nodes",
+        "node": "a1",
+        "severity": "warning"
+      },
+      {
+        "__name__": "ALERTS",
+        "alertname": "LogEventsDiscarded",
+        "alertstate": "firing",
+        "component": "budget",
+        "exported_node": "s2",
+        "instance": "10.4.4.8:9100",
+        "job": "nodes",
+        "node": "s2",
+        "severity": "warning"
+      }
+    ],
+    "logBudgetIncrease1m": [
+      {
+        "metric": {
+          "node": "a1"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "a2"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s1"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s2"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "a3"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      },
+      {
+        "metric": {
+          "node": "s3"
+        },
+        "value": [
+          1789968581.468,
+          "0"
+        ]
+      }
+    ]
+  },
+  "argo": {
+    "crawl-infra-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-ingestor-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-kafka-connect-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-monitoring": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-postgresql-entry-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-runtime-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-seaweed-s3-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-temporal-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    }
+  }
+}

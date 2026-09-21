@@ -21,7 +21,7 @@
 ## 部署顺序
 
 1. 检查三成员健康、同步备库存在。执行 `python3 ops/postgresql-ha/secure-sql-transport.py servers --execute`。专用 CA/密钥仅放忽略的 `secrets/postgresql-ha/sql-pki/`；各 S 节点只获得自己的服务端密钥与 CA，目录 `/etc/crawl-patroni/sql-pki`，postgres/0700、文件0600。CA 私钥不下发。脚本保存原配置到忽略目录，仅 reload，不 restart PG。
-2. 证书包含节点私网 IP/节点名和固定 Service 的 DNS 名称；有效期一年，CA 五年。脚本检查每台的 IP 和固定 DNS 验证，生成 Grafana 的 `postgresql-sql-ca` Secret。此时旧客户端保持兼容。
+2. 证书包含节点私网 IP/节点名、localhost/回环地址和固定 Service 的 DNS 名称；Patroni 会用 localhost 发起本机复制协议检查，不能遗漏；有效期一年，CA 五年。脚本检查每台的 IP 和固定 DNS 验证，生成 Grafana 的 `postgresql-sql-ca` Secret。此时旧客户端保持兼容。
 3. 执行 `... replication --execute`。逐备库更新 Patroni `authentication.replication` / `rewind` 的 sslmode/sslrootcert，等待真实 WAL receiver 重新连接，再更新主库以备下次降级。确认两个真实 walsender 均使用 TLS 后，在 HBA 最前插入相应角色的 `hostnossl ... reject`，防止下面的宽泛内网规则放行明文。
 4. 提交/推送 `ops/monitoring/render.py` 和生成清单，由 Argo 将两个 Grafana Pod 滚动更新到 verify-full，挂载 CA。一次最多一个不可用。`prepare-cluster.py` 同步保留 hostssl 和 CA 配置，防止重建时降级。
 5. 两 Pod 都 Ready 且 PG 内真实连接全部使用 TLS 后，执行 `... enforce-grafana --execute`，再拒绝 Grafana 明文连接。

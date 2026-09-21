@@ -1,0 +1,555 @@
+{
+  "runId": "0e9c1165f82e42f9ad930fd397476968",
+  "startedAt": "2026-09-21T05:24:51.614119+00:00",
+  "phases": [
+    {
+      "phase": "before-switch",
+      "replication": {
+        "primary": "s1",
+        "senders": [
+          {
+            "name": "s2",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s3",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s2",
+          "s3"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 4,
+      "received": 4
+    },
+    {
+      "phase": "after-switch",
+      "replication": {
+        "primary": "s2",
+        "senders": [
+          {
+            "name": "s3",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s1",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s1",
+          "s3"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 8,
+      "received": 8
+    },
+    {
+      "phase": "original-restored",
+      "replication": {
+        "primary": "s1",
+        "senders": [
+          {
+            "name": "s2",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s3",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s2",
+          "s3"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 12,
+      "received": 12
+    }
+  ],
+  "boundaries": {
+    "s1": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "s2": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "s3": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "grafanaSQL": [
+      {
+        "host": "10.4.4.2",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      },
+      {
+        "host": "10.4.4.8",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      },
+      {
+        "host": "10.4.4.5",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      }
+    ],
+    "grafanaSQLThroughService": [
+      {
+        "host": "postgres-rw.crawl-validation.svc",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      }
+    ]
+  },
+  "switch": {
+    "from": "s1",
+    "to": "s2",
+    "verificationSeconds": 18.41
+  },
+  "status": "PASSED",
+  "acknowledged": 12,
+  "received": 12,
+  "duplicates": 0,
+  "finalPrimary": "s1",
+  "completedAt": "2026-09-21T05:25:54.365507+00:00"
+}

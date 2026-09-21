@@ -7,7 +7,7 @@
 - 六台 A/S 主机：systemd node_exporter 1.12.1，私网 TCP 9100，仅接受专用 CA 的客户端证书。每 30 秒运行只读本地探针，暴露系统服务、PG/槽位、CDC guard、存储与备份摘要，不输出凭据、日志或业务标识。
 - A2/A3：Prometheus 各一份，独立本地 TSDB；保留 3 天或 3GB，5Gi 本地 PV。PV 是目录容量声明，不是磁盘配额。机器故障时另一份继续采集，原节点历史不会自动迁移；没有跨副本历史查询合并。
 - A1/A2/A3：Alertmanager 各一份，本地 1Gi PV，TCP/UDP 9094 私有 Pod 网络组网。两份 Prometheus 删除 replica 告警标签后投递全部三成员，减少重复告警。只展示平台内告警，没有短信、邮件、Webhook 接收器。
-- Grafana 两副本：复用现有 PG HA 的独立逻辑数据库 `crawler_grafana`，专用最小权限角色；通过稳定入口 5432 连接，避开事务池的迁移锁问题。面板/数据源由 Git 配置；SQLite 未启用。数据库链路暂沿用现有私网未加密边界。
+- Grafana 两副本：复用现有 PG HA 的独立逻辑数据库 `crawler_grafana`，专用最小权限角色；通过稳定入口 5432 连接，避开事务池的迁移锁问题。面板/数据源由 Git 配置；SQLite 未启用。数据库连接已使用 verify-full TLS，校验专用 CA 与稳定入口名称；三台 PG 均拒绝 Grafana 角色明文连接。
 - kube-state-metrics、Kafka exporter、只读 HTTP 探针各两副本。副本互斥分散到 A 节点。所有容器有资源上限，镜像 tag/digest 固定在 `images.json`。
 
 配置源：`render.py` → `deploy/base/monitoring` → validation overlay → 独立 Argo Project/Application。监控应用仅管理 `crawl-monitoring`，不能修改集群级 RBAC/PV。`cluster-resources.yaml` 的本地 PV/StorageClass/只读 KSM RBAC 由运维显式引导。Secrets 不入 Git。
@@ -16,7 +16,7 @@
 
 1. 根据 `node-exporter-release.json` 下载并校验官方二进制，保存 `/tmp/crawl-node-exporter`；恢复加密备份内 `secrets/monitoring`（不要重新生成 CA 破坏现有信任）。运行 `python3 ops/monitoring/bootstrap-nodes.py --execute`。
 2. 六台轻量云规则：TCP 9100，来源 `10.4.4.0/22`。无需向公网开放指标/数据库/告警端口。
-3. 在保护文件 `secrets/monitoring/grafana-admin-password` 提供后台初始密码；运行 `python3 ops/monitoring/render.py`、`python3 ops/monitoring/prepare-cluster.py --execute`。初始密码仅影响首次建立管理员，后续改密码使用 Grafana 管理界面。
+3. 先恢复/配置 PG SQL PKI 并完成 `ops/postgresql-ha/SQL-TLS.md` 的 servers 阶段；在保护文件 `secrets/monitoring/grafana-admin-password` 提供后台初始密码；运行 `python3 ops/monitoring/render.py`、`python3 ops/monitoring/prepare-cluster.py --execute`。初始密码仅影响首次建立管理员，后续改密码使用 Grafana 管理界面。
 4. `promtool check rules deploy/base/monitoring/rules.yaml` 和 `promtool test rules ops/monitoring/rules-test.yaml`；`kubectl kustomize deploy/overlays/validation/monitoring` 检查最终清单。
 5. 推送唯一新仓库后，apply `deploy/argocd/bootstrap/monitoring-project.yaml` 与 `monitoring.yaml`；等待全部 Pod Ready、Argo Synced/Healthy。
 6. 检查两份 Prometheus 全部 targets、Grafana PG 健康、三个 Alertmanager 成员；按验收记录做有限故障演练。

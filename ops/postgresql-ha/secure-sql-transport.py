@@ -50,12 +50,18 @@ def pki():
                 '-addext', 'keyUsage=critical,keyCertSign,cRLSign')
     for name, ip in pg['NODES'].items():
         if (PRIVATE / (name + '.crt')).exists():
-            continue
-        openssl('req', '-new', '-newkey', 'ec', '-pkeyopt', 'ec_paramgen_curve:P-256',
-                '-nodes', '-keyout', PRIVATE / (name + '.key'), '-out', PRIVATE / (name + '.csr'),
+            extensions = subprocess.check_output(['openssl', 'x509', '-in', str(PRIVATE / (name + '.crt')),
+                                                 '-noout', '-ext', 'subjectAltName'], text=True)
+            if 'DNS:localhost' in extensions and 'IP Address:127.0.0.1' in extensions:
+                continue
+        if not (PRIVATE / (name + '.key')).exists():
+            openssl('genpkey', '-algorithm', 'EC', '-pkeyopt', 'ec_paramgen_curve:P-256',
+                    '-out', PRIVATE / (name + '.key'))
+        openssl('req', '-new', '-key', PRIVATE / (name + '.key'), '-out', PRIVATE / (name + '.csr'),
                 '-subj', '/CN=crawl-postgresql-' + name)
         ext = ('basicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature\n'
-               'extendedKeyUsage=serverAuth\nsubjectAltName=IP:' + ip + ',DNS:' + name + ',' +
+               'extendedKeyUsage=serverAuth\nsubjectAltName=IP:' + ip + ',DNS:' + name +
+               ',DNS:localhost,IP:127.0.0.1,IP:::1,' +
                ','.join('DNS:' + n for n in DNS) + '\n')
         (PRIVATE / (name + '.ext')).write_text(ext)
         openssl('x509', '-req', '-in', PRIVATE / (name + '.csr'), '-CA', PRIVATE / 'ca.crt',
@@ -104,6 +110,9 @@ def prepare_servers():
             ssl_key_file=REMOTE + '/server.key', ssl_min_protocol_version='TLSv1.2')
         reload_config(node, cfg)
         wait(lambda: pg['sql'](node, 'SHOW ssl_cert_file;') == REMOTE + '/server.crt')
+        pg['sql'](node, 'SELECT pg_reload_conf();')
+        # The path can stay unchanged during same-CA renewal; verify the loaded cert.
+        wait(lambda: local_name_ready(ip))
         print(json.dumps({'node': node, 'serverTLS': handshake(ip),
                           'stableNameTLS': handshake(ip, DNS[2])}), flush=True)
     # CA contains no private key; Secret keeps provisioning separate from public Git.
@@ -112,6 +121,14 @@ def prepare_servers():
            'stringData': {'ca.crt': (PRIVATE / 'ca.crt').read_text()}}
     subprocess.run(['kubectl', 'apply', '-f', '-'], input=json.dumps(obj), text=True,
                    check=True, capture_output=True)
+
+
+def local_name_ready(ip):
+    try:
+        handshake(ip, 'localhost')
+        return True
+    except ssl.SSLCertVerificationError:
+        return False
 
 
 def protected_rules(node, roles):
@@ -150,9 +167,10 @@ def replication():
         if node != pg['leader']():
             wait(lambda: pg['sql'](node, "SELECT count(*) FROM pg_stat_wal_receiver WHERE status='streaming' AND conninfo LIKE '%sslmode=verify-full%' AND conninfo LIKE '%sslrootcert=" + REMOTE + "/ca.crt%';") == '1')
         pg['wait_members']()
+        wait(lambda: bool(pg['api'](node, '/patroni').get('timeline')))
         print(node + ': replication/rewind configured to verify-full', flush=True)
     primary = pg['leader']()
-    wait(lambda: pg['sql'](primary, "SELECT count(*) FROM pg_stat_replication r JOIN pg_stat_ssl s USING(pid) WHERE s.ssl AND r.state='streaming';") == '2')
+    wait(lambda: pg['sql'](primary, "SELECT count(*) FROM pg_stat_replication r JOIN pg_stat_ssl s USING(pid) WHERE s.ssl AND r.state='streaming' AND r.application_name IN ('s1','s2','s3');") == '2')
     for node in pg['NODES']:
         protected_rules(node, ['replicator', 'patroni_rewind'])
     print('Replication and rewind network roles reject plaintext; local socket access unchanged.', flush=True)
