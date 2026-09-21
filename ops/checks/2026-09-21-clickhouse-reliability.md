@@ -16,3 +16,5 @@
 **与 24.4 §23.10 的现场差异：** S3 没有独立数据盘，目前 `/var/lib/clickhouse` 仍在系统盘上，未完成生产 IO/故障域隔离。只增加 CPU/内存不能消除该差异。单节点不具备自动故障接管；没有部署 Keeper/副本，也未实现 analytics outbox 的退避/背压/回填。当前可以验收“备份能恢复”，不能验收“分析层已高可用”或“外围全部完成”。
 
 下一步按 24.12 推进 Kafka Connect/Debezium 基础设施及 PG17 logical failover slot 的配置与恢复验证；用独立运维探针验证传输语义，不提前开发业务 Publication。集中监控、认证/TLS、持续对象备份、Argo 整机失联自动接管仍是后续事项。
+
+收尾配置备份已完成：`control-20260921T021225Z.tar.gpg`，密文保存 A1/S2，SHA256 `e7e1bed96d9c6857718e13ca1833a2188c751cfc83b6f5dc3c312d88d17b4ef2`。包含新增 ClickHouse 配置与 systemd 任务，源码版本 `3e3284f`；不代替分析库原生数据备份。原始证据见 `2026-09-21-clickhouse-control-backup.json`。
