@@ -38,5 +38,16 @@
     }
   ],
   "status": "PASSED",
-  "completedAt": "2026-09-21T03:58:53.358446+00:00"
+  "completedAt": "2026-09-21T03:58:53.358446+00:00",
+  "backups": {
+    "postgresql": "20260920-172412F_20260921-115314D",
+    "control": "control-20260921T035926Z.tar.gpg",
+    "controlSourceRevision": "86cb22cda627fa317a055e9f95950193e22e3d02",
+    "controlCopies": [
+      "a1",
+      "s2"
+    ],
+    "controlManifestChecksumsVerified": true,
+    "monitoringNodeConfigsIncluded": 6
+  }
 }
