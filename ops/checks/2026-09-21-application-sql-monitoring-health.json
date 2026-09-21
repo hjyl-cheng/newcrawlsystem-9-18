@@ -237,5 +237,28 @@
       "sync": "Synced",
       "health": "Healthy"
     }
+  },
+  "finalAlerts": {
+    "checkedAt": "2026-09-21T05:56:44.171427+00:00",
+    "replicas": {
+      "prometheus-0": [
+        {
+          "__name__": "ALERTS",
+          "alertname": "SeaweedContinuousBackupPending",
+          "alertstate": "firing",
+          "backup": "seaweedfs",
+          "severity": "warning"
+        }
+      ],
+      "prometheus-1": [
+        {
+          "__name__": "ALERTS",
+          "alertname": "SeaweedContinuousBackupPending",
+          "alertstate": "firing",
+          "backup": "seaweedfs",
+          "severity": "warning"
+        }
+      ]
+    }
   }
 }
