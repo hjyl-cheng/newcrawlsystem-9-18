@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded compatibility regression after staging the new Kafka listener.
-
-Existing clients still use 9092. This is NOT a secure-client migration test.
-"""
+"""Bounded Ingestor/CDC regression through operator mTLS and the deployed clients."""
 from datetime import datetime, timezone
 import json
 import os
@@ -25,7 +22,7 @@ def main():
     env = dict(os.environ, PGSSLMODE='verify-full', NODE_EXTRA_CA_CERTS=str(ROOT/'secrets/postgresql-ha/sql-pki/ca.crt'),
         PGHOST=c.leader(), PGPORT='5432', PGUSER='crawler', PGPASSWORD=owner['CRAWLER_PASSWORD'],
         PGDATABASE='crawler_validation_ingestor', CONSUMER_PGHOST=c.leader(), CONSUMER_PGPORT='6432')
-    result = {'startedAt': datetime.now(timezone.utc).isoformat(), 'transport': 'Existing 9092 PLAINTEXT compatibility path'}
+    result = {'startedAt': datetime.now(timezone.utc).isoformat(), 'transport': '9094 mTLS; verify deployed application config separately'}
     with sql['forward']('data-ingestor', 18081, 8080):
         result['ingestor'] = sql['node_check']('ops/ingestor/verify-validation.mjs', env)
     print('Existing Ingestor: valid, duplicate and invalid-signature submissions passed', flush=True)
@@ -63,7 +60,7 @@ def main():
     result['kafkaHealth'] = json.loads(subprocess.check_output(['node', str(ROOT/'ops/kafka/check-health.mjs')], text=True, timeout=60))
     result['status'] = 'PASSED'
     result['finishedAt'] = datetime.now(timezone.utc).isoformat()
-    (ROOT/'ops/checks/2026-09-21-kafka-listener-existing-chain.json').write_text(json.dumps(result, indent=2)+'\n')
+    (ROOT/'ops/checks/2026-09-21-kafka-client-chain.json').write_text(json.dumps(result, indent=2)+'\n')
 
 
 if __name__ == '__main__':main()

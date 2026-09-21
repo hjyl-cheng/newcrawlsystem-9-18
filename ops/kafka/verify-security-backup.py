@@ -50,14 +50,16 @@ def main():
                     assert host.extractfile('etc/kafka/tls/node.pem').read() == (ROOT/'secrets/kafka/pki'/(node+'.key')).read_bytes()+(ROOT/'secrets/kafka/pki'/(node+'.crt')).read_bytes()
                     assert not any(name.endswith('/ca.key') for name in host.getnames() if name.startswith('etc/kafka/'))
             with tarfile.open(fileobj=io.BytesIO(outer.extractfile('operator-private.tar.gz').read())) as private:
-                for name in ['ca.key','ca.crt','operator.key','operator.crt']:
+                for name in ['ca.key','ca.crt','operator.key','operator.crt','ingestor.key','ingestor.crt',
+                    'connect.key','connect.crt','monitoring.key','monitoring.crt']:
                     path = ROOT/'secrets/kafka/pki'/name
                     assert private.extractfile(str(path).lstrip('/')).read() == path.read_bytes()
     result = {'control': info, 'sourceRevision': manifest['sourceRevision'], 'verification': {
         'manifestHashes': 'all matched', 'crossHostCiphertext': 'A1/S2 matched',
         'kafkaConfigs': 'three SECURE listeners; old transports explicitly retained',
         'nodeKeysCertificates': 'all match, protected permissions',
-        'operatorCAAndKey': 'present and matched; CA private key absent from host Kafka directories'},
+        'operatorCAAndKey': 'present and matched; CA private key absent from host Kafka directories',
+        'applicationKeysCertificates': 'ingestor/connect/monitoring all present and matched'},
         'scope': 'Configuration/identity recoverability only, not live Kafka messages or joint PG/Kafka disaster recovery'}
     # Print only after every validation succeeds; the caller saves this non-secret result.
     print(json.dumps(result, indent=2))

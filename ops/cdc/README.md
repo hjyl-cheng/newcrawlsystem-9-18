@@ -85,3 +85,6 @@ kubectl -n argocd get applications
 
 
 2026-09-21：Debezium 的 database.sslmode 已改 verify-full，根 CA 由 Pod Secret 挂载；PG 全部 TCP 入口拒绝明文。更新 connector 配置时保留原 offset/slot/publication；应用 SQL TLS 与切主回归见 `ops/checks/2026-09-21-application-sql-tls.md`。Kafka 9092 仍是待迁移的明文通道，不能把 SQL TLS 等同 Kafka 安全已完成。
+
+
+2026-09-21 Kafka客户端TLS补齐：两个Connect Pod已使用独立 `kafka-connect-tls` Secret 经9094连接；worker内部客户端及producer/consumer/admin配置均为SSL+名称验证，Pod不再允许9092出口。原connector、offset、slot/publication保持；4条新确认事件回归全收。Kafka节点内部通道和ACL仍未完成，见 `ops/kafka/SECURITY-MIGRATION.md`。

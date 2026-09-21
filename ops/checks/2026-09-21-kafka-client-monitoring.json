@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-09-21T07:58:52.761451+00:00",
+  "replicas": {
+    "0": {
+      "targets": 14,
+      "allUp": true,
+      "firing": [
+        {
+          "__name__": "ALERTS",
+          "alertname": "SeaweedContinuousBackupPending",
+          "alertstate": "firing",
+          "backup": "seaweedfs",
+          "severity": "warning"
+        },
+        {
+          "__name__": "ALERTS",
+          "alertname": "LogEventsDiscarded",
+          "alertstate": "firing",
+          "component": "budget",
+          "exported_node": "s3",
+          "instance": "10.4.4.5:9100",
+          "job": "nodes",
+          "node": "s3",
+          "severity": "warning"
+        }
+      ]
+    },
+    "1": {
+      "targets": 14,
+      "allUp": true,
+      "firing": [
+        {
+          "__name__": "ALERTS",
+          "alertname": "SeaweedContinuousBackupPending",
+          "alertstate": "firing",
+          "backup": "seaweedfs",
+          "severity": "warning"
+        },
+        {
+          "__name__": "ALERTS",
+          "alertname": "LogEventsDiscarded",
+          "alertstate": "firing",
+          "component": "budget",
+          "exported_node": "s3",
+          "instance": "10.4.4.5:9100",
+          "job": "nodes",
+          "node": "s3",
+          "severity": "warning"
+        }
+      ]
+    }
+  }
+}

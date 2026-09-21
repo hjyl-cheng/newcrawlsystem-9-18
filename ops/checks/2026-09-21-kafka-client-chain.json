@@ -1,164 +1,240 @@
 {
-  "checkedAt": "2026-09-21T07:41:24.691573+00:00",
-  "boundaries": {
-    "s1": {
-      "TLSv1_2": {
-        "tls": "TLSv1.2",
-        "apiVersions": 61,
-        "certificateVerified": true
+  "startedAt": "2026-09-21T07:58:52.787948+00:00",
+  "transport": "9094 mTLS; verify deployed application config separately",
+  "ingestor": {
+    "checks": [
+      "permissions",
+      "receipt-auth",
+      "3-applied",
+      "duplicate-idempotency",
+      "3-quarantined",
+      "offsets-after-durable",
+      "metrics"
+    ],
+    "positions": [
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "84"
       },
-      "TLSv1_3": {
-        "tls": "TLSv1.3",
-        "apiVersions": 61,
-        "certificateVerified": true
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "85"
       },
-      "wrongServerName": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "86"
       },
-      "untrustedServer": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "84"
       },
-      "missingClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "85"
       },
-      "untrustedClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "86"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "84"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "85"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "86"
       }
-    },
-    "s2": {
-      "TLSv1_2": {
-        "tls": "TLSv1.2",
-        "apiVersions": 61,
-        "certificateVerified": true
-      },
-      "TLSv1_3": {
-        "tls": "TLSv1.3",
-        "apiVersions": 61,
-        "certificateVerified": true
-      },
-      "wrongServerName": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
-      },
-      "untrustedServer": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
-      },
-      "missingClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
-      },
-      "untrustedClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
-      }
-    },
-    "s3": {
-      "TLSv1_2": {
-        "tls": "TLSv1.2",
-        "apiVersions": 61,
-        "certificateVerified": true
-      },
-      "TLSv1_3": {
-        "tls": "TLSv1.3",
-        "apiVersions": 61,
-        "certificateVerified": true
-      },
-      "wrongServerName": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
-      },
-      "untrustedServer": {
-        "rejected": true,
-        "reason": "CERTIFICATE_VERIFY_FAILED"
-      },
-      "missingClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
-      },
-      "untrustedClientCertificate": {
-        "rejected": true,
-        "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
-      }
-    }
+    ],
+    "sampleCount": 3
   },
-  "network": {
-    "a1": {
-      "s1": {
-        "tcp": "reachable"
+  "cdc": {
+    "runId": "41e9401ecab74b6caec749da596d05fc",
+    "confirmedEventIds": [
+      "ffedfbd9-d515-46dd-9f61-c7983ebedc44",
+      "cfdb5c18-e383-4396-af45-dca0f86068be",
+      "9aeb2bb2-2f7c-4763-b2e9-b8a69de826e3",
+      "cc4e7669-fb00-4314-ae2a-8654cf8c448e"
+    ],
+    "received": [
+      {
+        "phase": "event",
+        "id": "ffedfbd9-d515-46dd-9f61-c7983ebedc44",
+        "seq": 0,
+        "partition": 0,
+        "offset": "40",
+        "topic": "crawler.publication.validation.v1"
       },
-      "s2": {
-        "tcp": "reachable"
+      {
+        "phase": "event",
+        "id": "cfdb5c18-e383-4396-af45-dca0f86068be",
+        "seq": 1,
+        "partition": 0,
+        "offset": "41",
+        "topic": "crawler.publication.validation.v1"
       },
-      "s3": {
-        "tcp": "reachable"
+      {
+        "phase": "event",
+        "id": "9aeb2bb2-2f7c-4763-b2e9-b8a69de826e3",
+        "seq": 2,
+        "partition": 0,
+        "offset": "42",
+        "topic": "crawler.publication.validation.v1"
+      },
+      {
+        "phase": "event",
+        "id": "cc4e7669-fb00-4314-ae2a-8654cf8c448e",
+        "seq": 3,
+        "partition": 0,
+        "offset": "43",
+        "topic": "crawler.publication.validation.v1"
       }
-    },
-    "a2": {
-      "s1": {
-        "tcp": "reachable"
-      },
-      "s2": {
-        "tcp": "reachable"
-      },
-      "s3": {
-        "tcp": "reachable"
-      }
-    },
-    "a3": {
-      "s1": {
-        "tcp": "reachable"
-      },
-      "s2": {
-        "tcp": "reachable"
-      },
-      "s3": {
-        "tcp": "reachable"
-      }
-    },
-    "s1": {
-      "s1": {
-        "tcp": "reachable"
-      },
-      "s2": {
-        "tcp": "reachable"
-      },
-      "s3": {
-        "tcp": "reachable"
-      }
-    },
-    "s2": {
-      "s1": {
-        "tcp": "reachable"
-      },
-      "s2": {
-        "tcp": "reachable"
-      },
-      "s3": {
-        "tcp": "reachable"
-      }
-    },
-    "s3": {
-      "s1": {
-        "tcp": "reachable"
-      },
-      "s2": {
-        "tcp": "reachable"
-      },
-      "s3": {
-        "tcp": "reachable"
-      }
-    }
+    ],
+    "duplicates": 0,
+    "allConfirmedEventsReceived": true
   },
-  "allHostPathsReachable": true,
-  "status": "PASSED",
-  "scope": "New 9094 listener only; no ACL claim, no client migration, host probes do not prove Pod NetworkPolicy access",
-  "existingKafka": {
-    "checkedAt": "2026-09-21T07:41:29.217Z",
+  "cdcHealth": {
+    "checkedAt": "2026-09-21T07:58:56.869669+00:00",
+    "nodes": {
+      "s1": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": true,
+          "restart_lsn": "1/2D0A22D8",
+          "confirmed_flush_lsn": "1/4007C968",
+          "wal_status": "reserved",
+          "safe_wal_size": 1811378648,
+          "invalidation_reason": null,
+          "retained_bytes": 352217936
+        },
+        "pgWalBytes": 637542790,
+        "guard": {
+          "checked_at": 1789977537.529567,
+          "node": "s1",
+          "state": "READY",
+          "candidates": [
+            "s2",
+            "s3"
+          ],
+          "generation": "5548809c009345cbbc2aa54437ead2e5"
+        }
+      },
+      "s2": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/2D0A22D8",
+          "confirmed_flush_lsn": "1/4007C968",
+          "wal_status": "reserved",
+          "safe_wal_size": 7214202880,
+          "invalidation_reason": null,
+          "retained_bytes": 352218616
+        },
+        "pgWalBytes": 637542788,
+        "guard": {
+          "checked_at": 1789977538.6413941,
+          "node": "s2",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      },
+      "s3": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/2D0A22D8",
+          "confirmed_flush_lsn": "1/4007C968",
+          "wal_status": "reserved",
+          "safe_wal_size": 7214202880,
+          "invalidation_reason": null,
+          "retained_bytes": 352219968
+        },
+        "pgWalBytes": 637542787,
+        "guard": {
+          "checked_at": 1789977540.5698159,
+          "node": "s3",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      }
+    },
+    "connector": {
+      "state": "RUNNING",
+      "tasks": [
+        {
+          "id": 0,
+          "state": "RUNNING",
+          "worker": "192.168.141.186:8083"
+        }
+      ]
+    },
+    "primary": "s1",
+    "publication": "cdc_validation.outbox",
+    "candidateFence": {
+      "leader": {
+        "value": "s1",
+        "revision": "57019"
+      },
+      "policy": {
+        "allowed": [
+          "s2",
+          "s3"
+        ],
+        "floor": "1/2600CF80",
+        "generation": "5548809c009345cbbc2aa54437ead2e5",
+        "owner": "s1",
+        "system_id": "7686815759311573177",
+        "version": 1
+      },
+      "barrier": [
+        "s2",
+        "s3"
+      ]
+    },
+    "connectOffsets": {
+      "offsets": [
+        {
+          "partition": {
+            "server": "crawl_cdc_validation"
+          },
+          "offset": {
+            "lsn_proc": 5402822880,
+            "messageType": "COMMIT",
+            "lsn_commit": 5402822880,
+            "lsn": 5402822880,
+            "txId": 96209,
+            "ts_usec": 1789977536140901
+          }
+        }
+      ]
+    },
+    "status": "PASSED",
+    "issues": [],
+    "scope": "On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery"
+  },
+  "kafkaHealth": {
+    "checkedAt": "2026-09-21T07:59:02.476Z",
     "status": "PASS",
     "topics": [
       {
@@ -174,8 +250,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -185,7 +261,7 @@
         "partitions": [
           {
             "partition": 0,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -193,8 +269,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -204,7 +280,7 @@
         "partitions": [
           {
             "partition": 0,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -212,13 +288,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 1,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -226,8 +302,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -240,8 +316,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -251,7 +327,7 @@
         "partitions": [
           {
             "partition": 0,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -259,8 +335,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -273,13 +349,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 2,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -287,8 +363,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -298,7 +374,7 @@
         "partitions": [
           {
             "partition": 0,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -306,13 +382,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 1,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -320,8 +396,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -334,8 +410,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -353,13 +429,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 1,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -367,13 +443,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 2,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -381,8 +457,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -392,7 +468,7 @@
         "partitions": [
           {
             "partition": 0,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -400,8 +476,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -414,13 +490,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 2,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -428,13 +504,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 3,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -442,8 +518,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -456,8 +532,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -470,13 +546,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 6,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -484,8 +560,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -498,13 +574,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 8,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -512,8 +588,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -526,8 +602,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -540,13 +616,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 11,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -554,13 +630,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 12,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -568,8 +644,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -582,13 +658,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 14,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -596,13 +672,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 15,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -610,8 +686,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -624,8 +700,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -638,13 +714,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 18,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -652,8 +728,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -666,13 +742,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 20,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -680,8 +756,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -694,13 +770,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 22,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -708,8 +784,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -722,8 +798,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -736,13 +812,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 25,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -750,13 +826,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 26,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -764,8 +840,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -778,13 +854,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 28,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -792,13 +868,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 29,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -806,8 +882,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -820,8 +896,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -834,13 +910,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 32,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -848,8 +924,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -862,13 +938,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 34,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -876,8 +952,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -890,13 +966,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 36,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -904,8 +980,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -918,8 +994,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -932,13 +1008,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 39,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -946,8 +1022,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -960,13 +1036,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 41,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -974,8 +1050,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -988,13 +1064,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 43,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -1002,8 +1078,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -1016,13 +1092,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 45,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -1030,8 +1106,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -1044,8 +1120,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -1058,8 +1134,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
@@ -1072,13 +1148,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 49,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               1,
               3,
@@ -1086,8 +1162,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -1105,13 +1181,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 1,
-            "leader": 3,
+            "leader": 1,
             "replicas": [
               3,
               1,
@@ -1119,13 +1195,13 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           },
           {
             "partition": 2,
-            "leader": 2,
+            "leader": 1,
             "replicas": [
               1,
               2,
@@ -1133,8 +1209,8 @@
             ],
             "isr": [
               2,
-              3,
-              1
+              1,
+              3
             ]
           }
         ]
@@ -1146,28 +1222,28 @@
       "partitions": [
         {
           "partition": 0,
-          "offset": "72",
-          "high": "72",
+          "offset": "87",
+          "high": "87",
           "low": "0",
-          "committed": "72",
+          "committed": "87",
           "lag": "0",
           "retentionGap": false
         },
         {
           "partition": 1,
-          "offset": "72",
-          "high": "72",
+          "offset": "87",
+          "high": "87",
           "low": "0",
-          "committed": "72",
+          "committed": "87",
           "lag": "0",
           "retentionGap": false
         },
         {
           "partition": 2,
-          "offset": "72",
-          "high": "72",
+          "offset": "87",
+          "high": "87",
           "low": "0",
-          "committed": "72",
+          "committed": "87",
           "lag": "0",
           "retentionGap": false
         }
@@ -1175,5 +1251,7 @@
     },
     "problems": [],
     "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
-  }
+  },
+  "status": "PASSED",
+  "finishedAt": "2026-09-21T07:59:02.484533+00:00"
 }

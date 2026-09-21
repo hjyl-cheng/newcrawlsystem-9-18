@@ -1,6 +1,6 @@
 # Kafka 运行检查与恢复边界
 
-S1/S2/S3 各运行 Kafka 3.9.1 KRaft broker/controller，客户端使用三个内网地址 `10.4.4.2:9092,10.4.4.8:9092,10.4.4.5:9092`。bootstrap 列表用于发现，之后客户端按 metadata 直连分区 leader；不能用只转发单地址的普通 TCP 代理替换所有 advertised 地址。
+S1/S2/S3 各运行 Kafka 3.9.1 KRaft broker/controller。Ingestor、Connect、exporter与本仓库运维客户端现使用 `10.4.4.2:9094,10.4.4.8:9094,10.4.4.5:9094` 双向TLS入口，应用证书分别下发；operator私钥不进应用Pod。bootstrap 列表用于发现，之后客户端按 metadata 直连分区 leader；不能用只转发单地址的普通 TCP 代理替换所有 advertised 地址。
 
 当前为三副本、默认 minISR=2。结果 Producer 使用 acks=all 和幂等生产。确认写入意味着满足 Kafka 副本确认条件，不代表 PG 已入库，也不代表已经获得异地备份。三成员 KRaft 仅容忍一个成员不可用；不在这个共享部署上同时停止两个服务做破坏性测试。
 
@@ -15,7 +15,7 @@ node ops/kafka/check-health.mjs
 该脚本是一次性巡检，不判断 lag 的持续时间或生产吞吐目标。另已部署双 Prometheus、Kafka exporter、平台内告警与集中日志；参见 `ops/monitoring/`。KRaft quorum 另在任一健康 S 节点运行：
 
 ```sh
-sudo -u kafka /opt/kafka/bin/kafka-metadata-quorum.sh --bootstrap-server 10.4.4.2:9092 describe --status
+sudo -u kafka /opt/kafka/bin/kafka-metadata-quorum.sh --bootstrap-server 10.4.4.2:9094 --command-config /etc/kafka/tls/node-client.properties describe --status
 ```
 
 连接失败时改用健康节点的 broker 地址。检查 leader、三个 voter 和 follower lag；还要通过系统监控检查进程、JVM、磁盘及网络。
@@ -54,4 +54,4 @@ minISR=3 测试是在仅停一台时人为提高专用测试队列要求，验�
 - 磁盘剩余空间和增长速度、JVM 内存/GC、服务重启与生产失败率。
 - 监控采样过期本身也是异常；全局采集准入需响应入库积压和保留风险，不能等数据删掉后才减速。
 
-定时抓取及平台内告警触发/解除已验证；外部通知、生产阈值、最老待处理消息年龄和完整业务背压仍待。当前应用与内部连接仍使用9092/9093 PLAINTEXT；2026-09-21 已增加9094双向TLS兼容入口，跨机端口尚待放通，客户端/副本迁移、控制器加密与ACL尚未完成。步骤和回滚见 [SECURITY-MIGRATION.md](SECURITY-MIGRATION.md)。消息签名不能代替 Broker 访问控制。
+定时抓取及平台内告警触发/解除已验证；外部通知、生产阈值、最老待处理消息年龄和完整业务背压仍待。2026-09-21 已完成9094应用双向TLS迁移及应用9092出口移除；**broker副本复制9092、KRaft控制器9093仍明文，ACL尚未启用**，不能标记Kafka安全收尾完成。步骤和回滚见 [SECURITY-MIGRATION.md](SECURITY-MIGRATION.md)。消息签名、mTLS和应用网络策略各有职责，均不替代尚待配置的Broker最小授权。

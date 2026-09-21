@@ -2,17 +2,19 @@
 
 本轮先增加 `SECURE` 双向 TLS 入口，再迁移调用方。当前仍处在兼容阶段，不能宣称 Kafka 已完成安全加固。业务开发继续暂停。
 
+2026-09-21 后续实装：用户已放通9094，六机到三S的18条TCP路径通过。Ingestor、Connect（worker/producer/consumer/admin）和Kafka exporter各自使用独立证书，均已迁移9094；三份应用NetworkPolicy不再允许9092出口。运维/验证脚本使用本机operator证书。客户端阶段验收见 `ops/checks/2026-09-21-kafka-client-tls.md`；下列副本/控制器/ACL步骤尚未实施。
+
 ## 入口和身份
 
 | 端口 | 节点 | 用途 | 第一阶段处理 |
 |---|---|---|---|
-| TCP 9092 | S1/S2/S3 | 当前应用和 broker 副本复制，PLAINTEXT | 暂留，全部调用方/复制迁移后关闭 |
+| TCP 9092 | S1/S2/S3 | broker 副本复制及迁移期旧探针，PLAINTEXT | 应用已迁出，内部复制迁移后关闭 |
 | TCP 9093 | S1/S2/S3 | 静态 KRaft 三成员选举，PLAINTEXT | 不修改，另行验证控制器迁移步骤 |
 | TCP 9094 | S1/S2/S3 | 新 SECURE broker 入口，TLS 1.2/1.3、强制客户端证书 | 新增，先验收再使用 |
 
 采用 Kafka 原生 mTLS 身份认证，无需另外引入账号数据库或 SASL 服务。服务器证书包含节点内网 IP 与节点名 SAN，节点证书含 serverAuth/clientAuth；客户端必须校验 CA 和服务器名称，不能关闭校验。客户端证书身份随后配合 Kafka StandardAuthorizer 的 ACL 限制主题/消费者组；mTLS 本身不等于已配置授权。
 
-专用 CA 与操作端凭据：忽略目录 `secrets/kafka/pki/`（CA 5 年、节点/操作员证书 1 年）。主机仅下发本节点密钥和公共 CA，目录 `/etc/kafka/tls` 0700、文件 kafka:0600；CA 私钥和 operator 私钥不下发主机。首阶段仅签发三节点和 operator 身份，不提前签发通用应用证书。默认 principal 为 `User:CN=crawl-kafka-<identity>`。
+专用 CA 与操作端凭据：忽略目录 `secrets/kafka/pki/`（CA 5 年、节点/客户端证书 1 年）。主机仅下发本节点密钥和公共 CA，目录 `/etc/kafka/tls` 0700、文件 kafka:0600；CA 私钥和 operator 私钥不下发主机。应用阶段另签发ingestor/connect/monitoring三个clientAuth身份，通过 `prepare-client-tls.py --execute` 按命名空间下发Secret，挂载0440并配置fsGroup。默认 principal 为 `User:CN=crawl-kafka-<identity>`，当前尚无ACL限制其操作范围。
 
 证书轮换/到期告警仍待接入；现有加密 control backup 已包含 `/etc/kafka` 与本地忽略 secrets，但每次变更后须验证新归档实际包含新增文件。
 

@@ -1,0 +1,2238 @@
+{
+  "startedAt": "2026-09-21T07:56:11.936218+00:00",
+  "status": "PASSED",
+  "transport": "9094 mTLS client path; broker/controller traffic still legacy",
+  "beforeCluster": {
+    "health": {
+      "checkedAt": "2026-09-21T07:56:12.051Z",
+      "status": "PASS",
+      "topics": [
+        {
+          "topic": "crawl.connect.validation.configs",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__debezium-heartbeat.crawl_cdc_validation",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.results.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.status",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__consumer_offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 3,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 4,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 5,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 6,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 7,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 8,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 9,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 10,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 11,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 12,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 13,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 14,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 15,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 16,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 17,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 18,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 19,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 20,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 21,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 22,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 23,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 24,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 25,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 26,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 27,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 28,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 29,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 30,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 31,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 32,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 33,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 34,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 35,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 36,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 37,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 38,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 39,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 40,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 41,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 42,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 43,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 44,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 45,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 46,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 47,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 48,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 49,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                3,
+                1
+              ]
+            }
+          ]
+        }
+      ],
+      "consumer": {
+        "groupId": "crawler-results-apply-validation-v1",
+        "members": 2,
+        "partitions": [
+          {
+            "partition": 0,
+            "offset": "78",
+            "high": "78",
+            "low": "0",
+            "committed": "78",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 1,
+            "offset": "78",
+            "high": "78",
+            "low": "0",
+            "committed": "78",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 2,
+            "offset": "78",
+            "high": "78",
+            "low": "0",
+            "committed": "78",
+            "lag": "0",
+            "retentionGap": false
+          }
+        ]
+      },
+      "problems": [],
+      "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+    },
+    "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               2\nLeaderEpoch:            47\nHighWatermark:          491751\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   33\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+  },
+  "beforePods": {
+    "12232fe5-8b99-495f-b50e-f34a03610998": {
+      "name": "data-ingestor-755dddc789-hkrzf",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    },
+    "79f9af4d-6cf3-4839-95e5-86e43b7427c7": {
+      "name": "data-ingestor-755dddc789-l9bg4",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    }
+  },
+  "target": "s3",
+  "degradedReadiness": [
+    {
+      "seconds": 5.06,
+      "allReady": true
+    },
+    {
+      "seconds": 10.12,
+      "allReady": true
+    },
+    {
+      "seconds": 15.17,
+      "allReady": true
+    },
+    {
+      "seconds": 20.24,
+      "allReady": true
+    },
+    {
+      "seconds": 25.3,
+      "allReady": true
+    },
+    {
+      "seconds": 30.36,
+      "allReady": true
+    }
+  ],
+  "degradedIngestor": {
+    "checks": [
+      "permissions",
+      "receipt-auth",
+      "3-applied",
+      "duplicate-idempotency",
+      "3-quarantined",
+      "offsets-after-durable",
+      "metrics"
+    ],
+    "positions": [
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "78"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "79"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "80"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "78"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "79"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "80"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "78"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "79"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "80"
+      }
+    ],
+    "sampleCount": 3
+  },
+  "degradedPods": {
+    "12232fe5-8b99-495f-b50e-f34a03610998": {
+      "name": "data-ingestor-755dddc789-hkrzf",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    },
+    "79f9af4d-6cf3-4839-95e5-86e43b7427c7": {
+      "name": "data-ingestor-755dddc789-l9bg4",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    }
+  },
+  "recoveredCluster": {
+    "health": {
+      "checkedAt": "2026-09-21T07:57:06.740Z",
+      "status": "PASS",
+      "topics": [
+        {
+          "topic": "crawl.connect.validation.configs",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__debezium-heartbeat.crawl_cdc_validation",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.results.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.status",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__consumer_offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 3,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 4,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 5,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 6,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 7,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 8,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 9,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 10,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 11,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 12,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 13,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 14,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 15,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 16,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 17,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 18,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 19,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 20,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 21,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 22,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 23,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 24,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 25,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 26,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 27,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 28,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 29,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 30,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 31,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 32,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 33,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 34,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 35,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 36,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 37,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 38,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 39,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 40,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 41,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 42,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 43,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 44,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 45,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 46,
+              "leader": 2,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 47,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 48,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 49,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                2,
+                1,
+                3
+              ]
+            }
+          ]
+        }
+      ],
+      "consumer": {
+        "groupId": "crawler-results-apply-validation-v1",
+        "members": 2,
+        "partitions": [
+          {
+            "partition": 0,
+            "offset": "81",
+            "high": "81",
+            "low": "0",
+            "committed": "81",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 1,
+            "offset": "81",
+            "high": "81",
+            "low": "0",
+            "committed": "81",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 2,
+            "offset": "81",
+            "high": "81",
+            "low": "0",
+            "committed": "81",
+            "lag": "0",
+            "retentionGap": false
+          }
+        ]
+      },
+      "problems": [],
+      "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+    },
+    "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               2\nLeaderEpoch:            47\nHighWatermark:          492000\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   162\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+  },
+  "recoveredIngestor": {
+    "checks": [
+      "permissions",
+      "receipt-auth",
+      "3-applied",
+      "duplicate-idempotency",
+      "3-quarantined",
+      "offsets-after-durable",
+      "metrics"
+    ],
+    "positions": [
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "81"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "82"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 0,
+        "offset": "83"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "81"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "82"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 2,
+        "offset": "83"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "81"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "82"
+      },
+      {
+        "topic": "crawler.results.validation.v1",
+        "partition": 1,
+        "offset": "83"
+      }
+    ],
+    "sampleCount": 3
+  },
+  "recoveredPods": {
+    "12232fe5-8b99-495f-b50e-f34a03610998": {
+      "name": "data-ingestor-755dddc789-hkrzf",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    },
+    "79f9af4d-6cf3-4839-95e5-86e43b7427c7": {
+      "name": "data-ingestor-755dddc789-l9bg4",
+      "restarts": 0,
+      "ready": true,
+      "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+    }
+  },
+  "rescue": "Kafka restored; ISR3/quorum healthy; rescue timer cancelled",
+  "finishedAt": "2026-09-21T07:57:39.376811+00:00"
+}

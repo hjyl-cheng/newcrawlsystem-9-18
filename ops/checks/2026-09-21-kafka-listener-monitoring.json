@@ -1,20 +1,23 @@
 {
-  "0": {
-    "targets": 14,
-    "allUp": true,
-    "firing": [
-      "SeaweedContinuousBackupPending",
-      "LogEventsDiscarded",
-      "LogEventsDiscarded"
-    ]
-  },
-  "1": {
-    "targets": 14,
-    "allUp": true,
-    "firing": [
-      "SeaweedContinuousBackupPending",
-      "LogEventsDiscarded",
-      "LogEventsDiscarded"
-    ]
+  "checkedAt": "2026-09-21T06:23:19.374028+00:00",
+  "replicas": {
+    "0": {
+      "targets": 14,
+      "allUp": true,
+      "firing": [
+        "SeaweedContinuousBackupPending",
+        "KubernetesContainerRestarting",
+        "KubernetesContainerRestarting"
+      ]
+    },
+    "1": {
+      "targets": 14,
+      "allUp": true,
+      "firing": [
+        "SeaweedContinuousBackupPending",
+        "KubernetesContainerRestarting",
+        "KubernetesContainerRestarting"
+      ]
+    }
   }
 }

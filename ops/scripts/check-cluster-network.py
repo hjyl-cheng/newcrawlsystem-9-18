@@ -31,9 +31,9 @@ for pod in pods:
     assert value == expected, (node, value)
     print(f"{node} -> cluster DNS + Service: PASS")
     # TCP reachability only; database authentication is tested separately.
-    for host, ports in [("10.4.4.2", [5432, 6432, 9092]),
-                        ("10.4.4.8", [5432, 9092]),
-                        ("10.4.4.5", [5432, 9092, 8333, 8123, 9000])]:
+    for host, ports in [("10.4.4.2", [5432, 6432, 9094]),
+                        ("10.4.4.8", [5432, 9094]),
+                        ("10.4.4.5", [5432, 9094, 8333, 8123, 9000])]:
         for port in ports:
             run(prefix + ["sh", "-c", 'nc -w 3 "$1" "$2" < /dev/null > /dev/null',
                           "probe", host, str(port)])

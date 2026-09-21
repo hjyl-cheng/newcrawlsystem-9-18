@@ -1,0 +1,121 @@
+{
+  "checkedAt": "2026-09-21T07:55:12.849079+00:00",
+  "workloads": {
+    "data-ingestor": [
+      {
+        "pod": "data-ingestor-755dddc789-hkrzf",
+        "sockets": {
+          "9094": 10
+        },
+        "identity": "CN=crawl-kafka-ingestor",
+        "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9",
+        "restarts": 0
+      },
+      {
+        "pod": "data-ingestor-755dddc789-l9bg4",
+        "sockets": {
+          "9094": 10
+        },
+        "identity": "CN=crawl-kafka-ingestor",
+        "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9",
+        "restarts": 0
+      }
+    ],
+    "kafka-connect": [
+      {
+        "pod": "kafka-connect-655664cf7c-5h5w6",
+        "sockets": {
+          "9094": 35
+        },
+        "identity": "CN=crawl-kafka-connect",
+        "image": "quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6",
+        "restarts": 0
+      },
+      {
+        "pod": "kafka-connect-655664cf7c-hdzcg",
+        "sockets": {
+          "9094": 29
+        },
+        "identity": "CN=crawl-kafka-connect",
+        "image": "quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6",
+        "restarts": 0
+      }
+    ],
+    "kafka-exporter": [
+      {
+        "pod": "kafka-exporter-5c9c8f7666-cww5p",
+        "sockets": {
+          "9094": 4
+        },
+        "identity": "CN=crawl-kafka-monitoring",
+        "image": "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42",
+        "restarts": 0
+      },
+      {
+        "pod": "kafka-exporter-5c9c8f7666-kkfbw",
+        "sockets": {
+          "9094": 4
+        },
+        "identity": "CN=crawl-kafka-monitoring",
+        "image": "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42",
+        "restarts": 0
+      }
+    ]
+  },
+  "ingestorBoundaries": {
+    "data-ingestor-755dddc789-hkrzf": {
+      "nativeMetadata": "passed",
+      "nodes": {
+        "10.4.4.2": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        },
+        "10.4.4.8": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        },
+        "10.4.4.5": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        }
+      }
+    },
+    "data-ingestor-755dddc789-l9bg4": {
+      "nativeMetadata": "passed",
+      "nodes": {
+        "10.4.4.2": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        },
+        "10.4.4.8": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        },
+        "10.4.4.5": {
+          "tls": "TLSv1.3",
+          "legacyEgress": "timeout",
+          "wrongCA": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+          "wrongName": "ERR_TLS_CERT_ALTNAME_INVALID",
+          "noClientCertificate": "ERR_SSL_SSL/TLS_ALERT_HANDSHAKE_FAILURE"
+        }
+      }
+    }
+  },
+  "status": "PASSED",
+  "scope": "Application mTLS and Ingestor old-port isolation; broker/controller internal encryption and ACL not yet enabled"
+}

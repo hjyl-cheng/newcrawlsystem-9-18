@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-21T07:41:24.691573+00:00",
+  "checkedAt": "2026-09-21T06:17:05.192805+00:00",
   "boundaries": {
     "s1": {
       "TLSv1_2": {
@@ -89,35 +89,44 @@
   "network": {
     "a1": {
       "s1": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s2": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s3": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       }
     },
     "a2": {
       "s1": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s2": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s3": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       }
     },
     "a3": {
       "s1": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s2": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s3": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       }
     },
     "s1": {
@@ -125,40 +134,46 @@
         "tcp": "reachable"
       },
       "s2": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s3": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       }
     },
     "s2": {
       "s1": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s2": {
         "tcp": "reachable"
       },
       "s3": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       }
     },
     "s3": {
       "s1": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s2": {
-        "tcp": "reachable"
+        "tcp": "blocked-or-unreachable",
+        "error": "TimeoutError"
       },
       "s3": {
         "tcp": "reachable"
       }
     }
   },
-  "allHostPathsReachable": true,
-  "status": "PASSED",
+  "allHostPathsReachable": false,
+  "status": "LOCAL_PASSED_NETWORK_BLOCKED",
   "scope": "New 9094 listener only; no ACL claim, no client migration, host probes do not prove Pod NetworkPolicy access",
   "existingKafka": {
-    "checkedAt": "2026-09-21T07:41:29.217Z",
+    "checkedAt": "2026-09-21T06:17:12.703Z",
     "status": "PASS",
     "topics": [
       {
@@ -1146,28 +1161,28 @@
       "partitions": [
         {
           "partition": 0,
-          "offset": "72",
-          "high": "72",
+          "offset": "69",
+          "high": "69",
           "low": "0",
-          "committed": "72",
+          "committed": "69",
           "lag": "0",
           "retentionGap": false
         },
         {
           "partition": 1,
-          "offset": "72",
-          "high": "72",
+          "offset": "69",
+          "high": "69",
           "low": "0",
-          "committed": "72",
+          "committed": "69",
           "lag": "0",
           "retentionGap": false
         },
         {
           "partition": 2,
-          "offset": "72",
-          "high": "72",
+          "offset": "69",
+          "high": "69",
           "low": "0",
-          "committed": "72",
+          "committed": "69",
           "lag": "0",
           "retentionGap": false
         }

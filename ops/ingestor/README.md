@@ -15,7 +15,7 @@
 PG 的 SELECT FOR UPDATE 要求 UPDATE 权限，因此少数控制表仅授一个列的 UPDATE，另以 BEFORE STATEMENT 触发器拒绝该账号的所有实际 UPDATE；已验证零行 UPDATE 也拒绝。此为验证期角色专属授权脚本，后续通用角色模型需版本化，不把它当跨环境自动迁移。
 账号仍是受信服务账号：权限限制不能代替签名、授权与 Store 业务检查，也不宣称数据库可以判断每条 SQL 是否遵循合并策略。
 
-Kafka 仍是现有内网 PLAINTEXT；消息有 Ed25519 签名，Broker SASL/TLS/ACL 尚未部署。HTTP token 仍只用于受限内网，不能直接开放公网；PG 通道已通过原生 PGSSLMODE=verify-full / NODE_EXTRA_CA_CERTS 验证 CA 和入口名称，PgBouncer 前后两段均启用 TLS。见 `ops/postgresql-ha/APPLICATION-SQL-TLS.md`。
+Kafka应用连接已使用9094双向TLS和独立ingestor证书，Pod不再允许9092出口；消息仍有Ed25519签名。Broker内部复制/控制器加密与ACL尚待，不把证书身份等同最小授权。HTTP token 仍只用于受限内网，不能直接开放公网；PG 通道已通过原生 PGSSLMODE=verify-full / NODE_EXTRA_CA_CERTS 验证 CA 和入口名称，PgBouncer 前后两段均启用 TLS。见 `ops/postgresql-ha/APPLICATION-SQL-TLS.md`。
 当前只有一个验证签名身份和一个运维查询身份，限定三个模拟频道；真实 Worker 的自动发证、动态频道权限和轮换流程尚待后续。
 
 ## 构建与 GitOps 部署
@@ -35,7 +35,7 @@ Argo Application 为 crawl-ingestor-validation；Service 为 data-ingestor，Clu
 每副本 requests 100m/128Mi，limits 500m/384Mi，JS heap 192 MiB；包含 Kafka native 内存的实际 RSS 仍须监控，不能把 heap 上限当总内存。
 Pod 跨 hostname 分散，PDB minAvailable=1，滚动 maxUnavailable=0/maxSurge=1。不是完整机房/节点故障 HA 验收。
 
-NetworkPolicy 仅允许同命名空间且带 `ingestor-query-client=true` 的 Pod 访问 HTTP；出口仅 DNS、S1 PG、三 Broker 9092。
+NetworkPolicy 仅允许同命名空间且带 `ingestor-query-client=true` 的 Pod 访问 HTTP；出口仅DNS、固定PG连接池入口和三Broker9094。
 管理员 port-forward 使用 Kubernetes 管理通道；标签和 token 均不应由非可信工作负载随意获得。
 运行时无 K8s API token，以非 root/只读文件系统执行。Secret 中的信任登记和查询客户端在进程启动时加载；变更后需通过 Git 改动 Pod 模板的非敏感版本标记触发滚动。
 
