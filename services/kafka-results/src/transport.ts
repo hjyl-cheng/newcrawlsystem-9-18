@@ -144,6 +144,23 @@ export interface ConsumerOptions {
   handleRecord(record: ResultRecord): Promise<RecordOutcome>;
   onEvent?(event: {kind:'durable'|'retry';partition:number;offset:string;code?:string;disposition?:string}): void;
 }
+
+/** Read this consumer's own group via the consumer OffsetFetch path.
+ * librdkafka 2.15.1 coordinator-targeted Admin requests can abort the process on
+ * connection loss (upstream #5397). Consumer.committed avoids that Admin path;
+ * errors still propagate, so offset validation remains fail-closed.
+ */
+export async function readCommittedOffsets(consumer: Consumer, topic: string, partitions: number[], timeout=5000) {
+  const offsets=await consumer.committed(partitions.map(partition=>({topic,partition})),timeout);
+  // SDK 1.10.1 maps both an unset native offset and numeric zero to null.
+  // Both mean next=0 for this stream; the retained-low check still rejects gaps.
+  ensure(partitions.every(partition=>offsets.some(p=>p.topic===topic&&p.partition===partition&&
+    (p.offset===null||/^-?[0-9]+$/.test(p.offset)))),
+    'KAFKA.COMMITTED_OFFSETS_INCOMPLETE');
+  const normalized=offsets.map(p=>({...p,offset:p.offset??'0'}));
+  ensure(normalized.every(p=>BigInt(p.offset)<=BigInt(Number.MAX_SAFE_INTEGER)),'KAFKA.OFFSET_SDK_RANGE');
+  return normalized;
+}
 export async function startResultConsumer(options: ConsumerOptions) {
   const concurrency = options.partitionsConcurrent ?? 2;
   ensure(Number.isInteger(concurrency) && concurrency >= 1 && concurrency <= 16,'KAFKA.CONCURRENCY_INVALID');
@@ -160,8 +177,7 @@ export async function startResultConsumer(options: ConsumerOptions) {
   // No implicit "jump to earliest" after retention or topic recreation. Check again per batch.
   const verifyOffsets=async()=>{
     const ranges=await admin.fetchTopicOffsets(options.topic);
-    const offsets=await admin.fetchOffsets({groupId:options.groupId,topics:[options.topic]});
-    const committed=offsets.find(t=>t.topic===options.topic)?.partitions ?? [];
+    const committed=await readCommittedOffsets(consumer,options.topic,ranges.map(r=>r.partition));
     for(const range of ranges){
       const saved=committed.find(p=>p.partition===range.partition)?.offset ?? '-1';
       const next=BigInt(saved)<0n ? 0n : BigInt(saved);
@@ -173,8 +189,8 @@ export async function startResultConsumer(options: ConsumerOptions) {
   };
   try {
     await admin.connect();
-    await verifyOffsets();
     await consumer.connect();
+    await verifyOffsets();
     await consumer.subscribe({topic:options.topic});
     await consumer.run({eachBatchAutoResolve:false,partitionsConsumedConcurrently:concurrency,
       eachBatch:async({batch,resolveOffset,isRunning,isStale,pause})=>{

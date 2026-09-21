@@ -3,7 +3,7 @@ import sdk from '@confluentinc/kafka-javascript';
 import { readCredentials } from './config.js';
 import { createIngestorHttp } from './http.js';
 import { querySubmissionReceipt } from '../../ingestion/src/metrics-submission.js';
-import { processResultRecord, startResultConsumer } from '../../kafka-results/src/transport.js';
+import { processResultRecord, startResultConsumer, readCommittedOffsets } from '../../kafka-results/src/transport.js';
 
 const required=(name:string)=>{const value=process.env[name];if(!value)throw new Error('MISSING_'+name);return value;};
 const database=required('PGDATABASE'), expected=required('DB_EXPECTED_NAME');
@@ -46,8 +46,8 @@ async function checkDependencies(){
     const db=(await pool.query('SELECT current_database() AS name,pg_is_in_recovery() AS standby')).rows[0];
     if(db.name!==expected||db.standby)throw new Error('DATABASE_IDENTITY');
     const ranges=await admin.fetchTopicOffsets(topic,{timeout:5000,isolationLevel:sdk.KafkaJS.IsolationLevel.READ_COMMITTED});
-    const offsets=await admin.fetchOffsets({groupId,topics:[topic],timeout:5000});
-    const committed=offsets.find(t=>t.topic===topic)?.partitions??[];
+    if(!runner)throw new Error('CONSUMER_NOT_STARTED');
+    const committed=await readCommittedOffsets(runner.consumer,topic,ranges.map(r=>r.partition));
     lag=ranges.map(r=>{const saved=committed.find(c=>c.partition===r.partition)?.offset??'-1';const next=BigInt(saved)<0n?0n:BigInt(saved);
       return {partition:r.partition,lag:(BigInt(r.high)>next?BigInt(r.high)-next:0n).toString(),gap:next<BigInt(r.low)||next>BigInt(r.high)};});
     // Only local retry state matters; after rebalance discard partitions no longer owned.

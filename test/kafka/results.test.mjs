@@ -49,7 +49,13 @@ async function scenario(){
   await admin.createTopics({topics:[{topic,numPartitions:3,replicationFactor:3,configEntries:[
     {name:'min.insync.replicas',value:'2'},{name:'max.message.bytes',value:'1100000'},{name:'retention.ms',value:'3600000'},
   ]}]});
-  await until(async()=>{try{const [t]=await admin.fetchTopicMetadata({topics:[topic]});return t?.partitions.length===3&&t.partitions.every(p=>p.leader>=0&&p.isr.length===3);}catch{return false;}});
+  // Metadata can advertise all replicas before a newly created leader answers ListOffsets.
+  await until(async()=>{try{
+    const [t]=await admin.fetchTopicMetadata({topics:[topic]});
+    if(t?.partitions.length!==3||!t.partitions.every(p=>p.leader>=0&&p.isr.length===3))return false;
+    const ranges=await admin.fetchTopicOffsets(topic);
+    return ranges.length===3&&ranges.every(p=>BigInt(p.low)===0n&&BigInt(p.high)===0n);
+  }catch{return false;}});
   return {topic,groupId,streamId};
 }
 async function fixture(){
