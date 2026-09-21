@@ -28,6 +28,8 @@ def main():
     parser.parse_args()
     os.umask(0o077)
     private = ROOT / 'secrets/monitoring'
+    sql_ca = ROOT / 'secrets/postgresql-ha/sql-pki/ca.crt'
+    assert sql_ca.exists(), 'Run postgresql-ha/secure-sql-transport.py servers first'
     for name in ['grafana-db-password', 'grafana-secret-key']:
         if not (private / name).exists():
             (private / name).write_text(secrets.token_hex(32))
@@ -44,7 +46,7 @@ def main():
         path = '/etc/postgresql/17/main/pg_hba.conf'
         old = nodes.run(node, 'sudo cat ' + path).stdout
         clean = '\n'.join(l for l in old.splitlines() if 'crawl_grafana' not in l)
-        rules = '\n'.join('host crawler_grafana crawl_grafana ' + ip + '/32 scram-sha-256' for n, ip in nodes.NODES.items() if n.startswith('a'))
+        rules = '\n'.join('hostssl crawler_grafana crawl_grafana ' + ip + '/32 scram-sha-256' for n, ip in nodes.NODES.items() if n.startswith('a'))
         rules += '\nhost all crawl_grafana 0.0.0.0/0 reject\nhost all crawl_grafana ::/0 reject\n'
         nodes.put(node, path, rules + clean + '\n', 'postgres', 0o640)
         pg.sql(node, 'SELECT pg_reload_conf();')
@@ -52,6 +54,7 @@ def main():
     def secret(name, data):
         apply({'apiVersion': 'v1', 'kind': 'Secret', 'metadata': {'name': name, 'namespace': 'crawl-monitoring'}, 'type': 'Opaque', 'stringData': data})
     secret('monitoring-client-tls', {n: (private / n).read_text() for n in ['ca.crt', 'prometheus-client.crt', 'prometheus-client.key']})
+    secret('postgresql-sql-ca', {'ca.crt': sql_ca.read_text()})
     secret('grafana-private', {'GF_DATABASE_PASSWORD': password, 'GF_SECURITY_SECRET_KEY': (private / 'grafana-secret-key').read_text().strip(), 'GF_SECURITY_ADMIN_PASSWORD': admin.read_text().strip()})
     for node in ['a1', 'a2', 'a3']:
         paths = ['/srv/crawlsystem/monitoring/alertmanager']
