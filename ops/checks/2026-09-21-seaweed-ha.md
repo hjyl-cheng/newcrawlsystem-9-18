@@ -39,3 +39,5 @@ S 节点发行版 HAProxy 2.8 不支持 3.2 的 `init-state`：PG 选择器使�
 当前证明小规模拓扑可用、受控单服务故障后接管、计划切主后恢复与维护备份可恢复。未证明整机断电、网络分区、多机故障或生产负载下的恢复指标。11 个卷有跨机双份部署，容量/卷槽位需监控，不能认为增加 Worker 就无限扩容。
 
 后续仍需持续对象备份/保留、生产在线一致恢复、内部接口认证/TLS与告警、外部 Worker 接入方式。ClickHouse 仍单机；CDC、监控安全收尾和 Argo controller 整机失联自动接管仍有待办。下一步按 24.12 继续外围，不恢复业务代码开发。
+
+收尾配置备份：`control-20260921T014400Z.tar.gpg` 已加密保存 A1/S2，包含新增节点服务配置、S3/PG 凭据与集群配置，备份源码版本 `9324701`。SHA256 `06a4fca3b7f6a3f47cf0419b20eb9e6bf0ecb88774805f44bdccf8baaeaeb9c5`；该归档只备份配置，不代替前述文件与元数据备份。原始结果见 `2026-09-21-control-backup.json`。最终 PG strict sync=1、S1 Primary；六个 Argo 应用 Synced/Healthy，Kafka ISR/消费位点巡检通过。
