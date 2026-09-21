@@ -1,0 +1,36 @@
+# Preserve the live VXLAN topology and private interface during the bridge upgrade.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: calico-config
+  namespace: kube-system
+data:
+  calico_backend: vxlan
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: calico-node
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: calico-node
+          env:
+            - name: CLUSTER_TYPE
+              value: k8s
+            - name: IP_AUTODETECTION_METHOD
+              value: interface=eth0
+            - name: CALICO_IPV4POOL_IPIP
+              value: Never
+            - name: CALICO_IPV4POOL_VXLAN
+              value: Always
+            - name: CALICO_IPV4POOL_CIDR
+              value: 192.168.0.0/16
+          livenessProbe:
+            exec:
+              command: [/bin/calico-node, -felix-live]
+          readinessProbe:
+            exec:
+              command: [/bin/calico-node, -felix-ready]

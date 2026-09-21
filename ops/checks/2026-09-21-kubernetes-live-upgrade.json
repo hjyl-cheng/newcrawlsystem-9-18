@@ -1,0 +1,49 @@
+{
+  "started_at": "2026-09-21T19:15:00+08:00",
+  "status": "IN_PROGRESS",
+  "source_revision": "85dfeac79db2a4eae02f11bf2bab36ed2ab79cbe",
+  "pre_upgrade_tag": "infra-pre-k8s137-20260921",
+  "stages": [
+    {
+      "target": "Kubernetes 1.32.13",
+      "result": "PASSED",
+      "nodes": ["a1", "a2", "a3"],
+      "method": "One control-plane node at a time: cordon, drain, kubeadm apply/node, kubelet and kubectl upgrade, readiness gate, uncordon.",
+      "addons": {
+        "kube_proxy": "3/3 ready, registry.k8s.io/kube-proxy:v1.32.13",
+        "coredns": "2/2 ready, registry.k8s.io/coredns/coredns:v1.11.3"
+      },
+      "checks": [
+        "All three kube-apiserver Pods Ready on v1.32.13",
+        "All three etcd endpoints committed health proposals",
+        "All non-completed Pods Ready",
+        "Eight Argo Applications Synced and Healthy at revision 85dfeac",
+        "PostgreSQL leader plus synchronous and asynchronous standbys remained healthy with zero replay lag"
+      ]
+    },
+    {
+      "target": "Calico 3.30.7 bridge",
+      "result": "PASSED",
+      "checks": [
+        "3/3 calico-node Pods Ready",
+        "IP_AUTODETECTION_METHOD remained interface=eth0",
+        "Redis Service VIP and both HAProxy Pod endpoints passed 50/50 TCP connections"
+      ]
+    },
+    {
+      "target": "Calico 3.31.7 bridge",
+      "result": "PASSED",
+      "checks": [
+        "3/3 calico-node Pods Ready",
+        "All Calico node addresses remained on 10.4.4.0/22",
+        "Redis Service VIP and both HAProxy Pod endpoints passed 100/100 TCP connections",
+        "All non-completed Pods Ready and eight Argo Applications Synced and Healthy"
+      ]
+    }
+  ],
+  "next_target": "Kubernetes 1.33.13",
+  "limits": [
+    "This evidence is updated after every gated minor upgrade and is incomplete until status becomes PASSED.",
+    "Drain temporarily leaves each node-local monitoring PVC Pending on its cordoned owner; the other replica remains available and the local replica returns after uncordon."
+  ]
+}

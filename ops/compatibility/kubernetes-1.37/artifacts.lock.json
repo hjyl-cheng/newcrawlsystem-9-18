@@ -106,6 +106,28 @@
     },
     {
       "name": "calico",
+      "version": "3.30.7",
+      "url": "https://raw.githubusercontent.com/projectcalico/calico/v3.30.7/manifests/calico.yaml",
+      "filename": "calico-v3.30.7.yaml",
+      "type": "manifest",
+      "sha256": "ed105288f27c7ba4cae143bcaa3f6425f02d84fa94a4786cc8e3d371412c1a36",
+      "verified_against_upstream": false,
+      "bytes": 541790,
+      "status": "downloaded"
+    },
+    {
+      "name": "calico",
+      "version": "3.31.7",
+      "url": "https://raw.githubusercontent.com/projectcalico/calico/v3.31.7/manifests/calico.yaml",
+      "filename": "calico-v3.31.7.yaml",
+      "type": "manifest",
+      "sha256": "d6d8a489a4ed8e5b8efd8b339047b496ca657b55ee2e3618e791507b0a853e8d",
+      "verified_against_upstream": false,
+      "bytes": 332098,
+      "status": "downloaded"
+    },
+    {
+      "name": "calico",
       "version": "3.32.2",
       "url": "https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/calico.yaml",
       "filename": "calico-v3.32.2.yaml",
