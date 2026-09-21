@@ -56,6 +56,7 @@ spec:
           readOnlyRootFilesystem: true
           capabilities: {drop: [ALL]}
         volumeMounts:
+        - {name: kafka-tls, mountPath: /etc/kafka-tls, readOnly: true}
         - {name: sql-ca, mountPath: /etc/postgresql-sql-tls, readOnly: true}
         - {name: config, mountPath: /etc/connect, readOnly: true}
         - {name: credentials, mountPath: /etc/kafka-secrets, readOnly: true}
@@ -73,6 +74,8 @@ spec:
           periodSeconds: 10
           failureThreshold: 6
       volumes:
+      - name: kafka-tls
+        secret: {secretName: kafka-connect-tls, defaultMode: 0440}
       - name: sql-ca
         secret: {secretName: postgresql-sql-ca}
       - name: config

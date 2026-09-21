@@ -480,13 +480,21 @@ spec:
           periodSeconds: 20
           failureThreshold: 6
         args:
-        - --kafka.server=10.4.4.2:9092
-        - --kafka.server=10.4.4.8:9092
-        - --kafka.server=10.4.4.5:9092
+        - --kafka.server=10.4.4.2:9094
+        - --kafka.server=10.4.4.8:9094
+        - --kafka.server=10.4.4.5:9094
+        - --tls.enabled
+        - --tls.ca-file=/etc/kafka-tls/ca.crt
+        - --tls.cert-file=/etc/kafka-tls/client.crt
+        - --tls.key-file=/etc/kafka-tls/client.key
         - --kafka.version=3.9.0
         - --topic.filter=^(crawler\..*|crawl-connect-.*)$
         - --group.filter=^crawler-results-apply-validation-v1$
         - --refresh.metadata=30s
+        volumeMounts:
+        - name: kafka-monitoring-tls
+          mountPath: /etc/kafka-tls
+          readOnly: true
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -495,6 +503,11 @@ spec:
                 app: kafka-exporter
             topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 60
+      volumes:
+      - name: kafka-monitoring-tls
+        secret:
+          secretName: kafka-monitoring-tls
+          defaultMode: 288
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -1134,6 +1147,8 @@ spec:
     ports:
     - protocol: TCP
       port: 9092
+    - protocol: TCP
+      port: 9094
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

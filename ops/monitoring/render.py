@@ -119,7 +119,8 @@ workload('prometheus','prometheus',9090,stateful=True,mem='640Mi',cpu='500m',hea
 v,m=volume('alertmanager-config','/etc/alertmanager')
 workload('alertmanager','alertmanager',9093,replicas=3,stateful=True,mem='128Mi',health='/-/ready',args=['--config.file=/etc/alertmanager/alertmanager.yaml','--storage.path=/alertmanager','--cluster.listen-address=0.0.0.0:9094','--cluster.advertise-address=$(POD_IP):9094']+['--cluster.peer=alertmanager-'+str(i)+'.alertmanager-headless:9094' for i in range(3)],env=[{'name':'POD_IP','valueFrom':{'fieldRef':{'fieldPath':'status.podIP'}}}],volumes=[v],mounts=[m,{'name':'data','mountPath':'/alertmanager'}])
 workload('kube-state-metrics','kube-state-metrics',8080,mem='192Mi',health='/healthz',args=['--resources=nodes,pods,namespaces,deployments,statefulsets,daemonsets,replicasets,persistentvolumeclaims,persistentvolumes','--namespaces=argocd,crawl-validation,crawl-monitoring,kube-system'],sa='kube-state-metrics')
-workload('kafka-exporter','kafka-exporter',9308,mem='128Mi',health='/metrics',args=['--kafka.server='+NODES[n]+':9092' for n in ['s1','s2','s3']]+['--kafka.version=3.9.0',r'--topic.filter=^(crawler\..*|crawl-connect-.*)$','--group.filter=^crawler-results-apply-validation-v1$','--refresh.metadata=30s'])
+v,m=volume('kafka-monitoring-tls','/etc/kafka-tls','secret');v['secret']['defaultMode']=0o440
+workload('kafka-exporter','kafka-exporter',9308,mem='128Mi',health='/metrics',volumes=[v],mounts=[m],args=['--kafka.server='+NODES[n]+':9094' for n in ['s1','s2','s3']]+['--tls.enabled','--tls.ca-file=/etc/kafka-tls/ca.crt','--tls.cert-file=/etc/kafka-tls/client.crt','--tls.key-file=/etc/kafka-tls/client.key','--kafka.version=3.9.0',r'--topic.filter=^(crawler\..*|crawl-connect-.*)$','--group.filter=^crawler-results-apply-validation-v1$','--refresh.metadata=30s'])
 v,m=volume('infra-exporter-code','/opt/exporter')
 workload('infra-exporter','python',9189,mem='96Mi',health='/health',command=['python3','-B','/opt/exporter/infra-exporter.py'],volumes=[v],mounts=[m])
 
@@ -184,7 +185,7 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('k
   egress += [{'to':[same('prometheus')],'ports':ports(9090)},{'to':[same('alertmanager')],'ports':ports(9093)},{'to':[ns('crawl-validation','postgresql-entry')],'ports':ports(5432)}]
  if name=='grafana':egress += [{'to':[{'ipBlock':{'cidr':'10.4.4.5/32'}}],'ports':ports(8443)}]
  if name=='kube-state-metrics':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':'10.96.0.1/32'}}],'ports':ports(443,6443)}]
- if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9092)}]
+ if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9092,9094)}]
  if name=='infra-exporter':egress += [{'to':[ns('crawl-validation','kafka-connect')],'ports':ports(8083)},{'to':[ns('crawl-validation','data-ingestor')],'ports':ports(8080)}]
  objects.append(resource('NetworkPolicy',name,{'podSelector':{'matchLabels':{'app':name}},'policyTypes':['Ingress','Egress'],'ingress':ingress,'egress':egress},'networking.k8s.io/v1'))
 (BASE/'resources.yaml').write_text(yaml.safe_dump_all(objects,sort_keys=False))
