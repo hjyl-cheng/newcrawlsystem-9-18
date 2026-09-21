@@ -1,0 +1,31 @@
+{
+  "status": "PASSED",
+  "originalLeader": "s1",
+  "currentLeader": "s3",
+  "restartedStandbys": [
+    "s3",
+    "s2"
+  ],
+  "settings": {
+    "s1": [
+      "hot_standby_feedback=on",
+      "synchronized_standby_slots=s2,s3",
+      "sync_replication_slots=on",
+      "wal_level=logical"
+    ],
+    "s2": [
+      "hot_standby_feedback=on",
+      "synchronized_standby_slots=s1,s3",
+      "sync_replication_slots=on",
+      "wal_level=logical"
+    ],
+    "s3": [
+      "hot_standby_feedback=on",
+      "synchronized_standby_slots=s1,s2",
+      "sync_replication_slots=on",
+      "wal_level=logical"
+    ]
+  },
+  "slotOwnership": "native PG17 synchronization; exact validation slot ignored by Patroni",
+  "availabilityBoundary": "CDC waits for both physical standby slots on each primary; an unavailable standby can pause CDC until recovery. Core PG retains strict sync=1."
+}

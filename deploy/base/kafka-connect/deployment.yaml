@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-connect
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels: {app: kafka-connect}
+  template:
+    metadata:
+      labels: {app: kafka-connect, postgres-client: 'true'}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 45
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ''
+      tolerations:
+      - {key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule}
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels: {app: kafka-connect}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+      - name: connect
+        image: quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6
+        command: [/kafka/bin/connect-distributed.sh]
+        args: [/etc/connect/worker.properties]
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef: {fieldPath: status.podIP}
+        - {name: KAFKA_HEAP_OPTS, value: '-Xms128m -Xmx384m'}
+        - {name: KAFKA_LOG4J_OPTS, value: '-Dlog4j2.configurationFile=/etc/connect/log4j2.yaml'}
+        ports:
+        - {name: rest, containerPort: 8083}
+        resources:
+          requests: {cpu: 100m, memory: 512Mi}
+          limits: {cpu: 750m, memory: 1Gi}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: {drop: [ALL]}
+        volumeMounts:
+        - {name: config, mountPath: /etc/connect, readOnly: true}
+        - {name: credentials, mountPath: /etc/kafka-secrets, readOnly: true}
+        - {name: tmp, mountPath: /tmp}
+        - {name: logs, mountPath: /kafka/logs}
+        startupProbe:
+          httpGet: {path: /, port: rest}
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet: {path: /, port: rest}
+          periodSeconds: 5
+        livenessProbe:
+          httpGet: {path: /, port: rest}
+          periodSeconds: 10
+          failureThreshold: 6
+      volumes:
+      - name: config
+        configMap: {name: kafka-connect-config}
+      - name: credentials
+        secret: {secretName: cdc-validation-db, defaultMode: 0440}
+      - name: tmp
+        emptyDir: {sizeLimit: 128Mi}
+      - name: logs
+        emptyDir: {sizeLimit: 64Mi}

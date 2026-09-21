@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: kafka-connect}
+spec:
+  podSelector:
+    matchLabels: {app: kafka-connect}
+  policyTypes: [Ingress, Egress]
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels: {app: kafka-connect}
+    - podSelector:
+        matchLabels: {cdc-admin: 'true'}
+    ports:
+    - {protocol: TCP, port: 8083}
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels: {kubernetes.io/metadata.name: kube-system}
+    ports:
+    - {protocol: UDP, port: 53}
+    - {protocol: TCP, port: 53}
+  - to:
+    - podSelector:
+        matchLabels: {app: kafka-connect}
+    ports:
+    - {protocol: TCP, port: 8083}
+  - to:
+    - podSelector:
+        matchLabels: {app: postgresql-entry}
+    ports:
+    - {protocol: TCP, port: 5432}
+  - to:
+    - ipBlock: {cidr: 10.4.4.2/32}
+    - ipBlock: {cidr: 10.4.4.8/32}
+    - ipBlock: {cidr: 10.4.4.5/32}
+    ports:
+    - {protocol: TCP, port: 9092}
