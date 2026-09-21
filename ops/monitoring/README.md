@@ -25,13 +25,13 @@ node_exporter 的独立 TLS 证书有效期 2 年（CA 5 年），到期前需�
 
 ## 访问与处理
 
-Grafana 保持 ClusterIP 内网入口。在本地电脑建立 SSH 隧道：
+Grafana 保持 ClusterIP 内网入口（当前 `10.107.82.103:3000`）。在本地电脑建立 SSH 隧道：
 
 ```sh
 # 先在 A1 查地址
 kubectl -n crawl-monitoring get svc grafana
-# 再在自己电脑替换下面 GRAFANA_CLUSTER_IP；保持 SSH 窗口开启
-ssh -N -L 3000:GRAFANA_CLUSTER_IP:3000 ubuntu@43.173.68.88
+# 再在自己电脑执行（Service 重建后先核对地址）；保持 SSH 窗口开启
+ssh -N -L 3000:10.107.82.103:3000 ubuntu@43.173.68.88
 ```
 
 浏览器 `http://localhost:3000`，用户 `admin`；初始密码使用用户指定值，明文不写入本文。进入“基础设施 / 爬虫平台 · 基础设施总览”；Alerting 页面可选择外部 Alertmanager 查看活动告警。面板中 `ALERTS` 同样显示告警。
@@ -44,3 +44,5 @@ ssh -N -L 3000:GRAFANA_CLUSTER_IP:3000 ubuntu@43.173.68.88
 - 节点资源：磁盘 <15%、可用内存 <10%、CPU >90% 为起步阈值，本轮不代表压力测试/SLO 定案。
 
 HTTP 探针仅 GET Connect 精确状态与 Ingestor readiness；Connect REST 本身没有只读角色，NetworkPolicy 只能限制来源/端口，需保持 monitoring 命名空间写权限受控。Prometheus/Alertmanager 自身没有公网入口或用户认证；通过命名空间 NetworkPolicy 隔离。Kafka 仍是现有 PLAINTEXT 边界，正式认证/TLS 另行收尾。
+
+Grafana NetworkPolicy 还显式允许三 A 节点的 Calico VXLAN 地址：A1 `192.168.141.132`、A2 `192.168.78.192`、A3 `192.168.65.64`。主机经隧道访问远端 Pod 时可能使用此源地址；没有向整个 Pod 网段放行。重建节点或更换 Calico 地址后，应从 Node 注解重新核对并更新 `render.py` 的 TUNNELS。

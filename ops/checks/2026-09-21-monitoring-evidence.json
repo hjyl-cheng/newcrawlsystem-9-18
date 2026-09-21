@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-09-21T03:56:13.944038+00:00",
+  "phases": [
+    {
+      "phase": "scraping",
+      "prometheusReplicas": 2,
+      "targetsPerReplica": 14,
+      "alertmanagerMembers": 3
+    },
+    {
+      "phase": "grafana",
+      "database": "postgres/crawler_grafana",
+      "anonymousStatus": 401,
+      "dashboardPanels": 16,
+      "datasourcesHealthy": true
+    },
+    {
+      "phase": "alert-fired",
+      "seconds": 78.44,
+      "deduplicatedAlertCount": 1
+    },
+    {
+      "phase": "alert-resolved",
+      "seconds": 30.08
+    },
+    {
+      "phase": "prometheus-replacement",
+      "historicalSampleTimestamp": 1789963033,
+      "historicalValue": "1",
+      "persistentVolume": "crawl-prometheus-a2",
+      "peerContinuedScraping": true
+    },
+    {
+      "phase": "remaining-alerts",
+      "alerts": [
+        "SeaweedContinuousBackupPending"
+      ]
+    }
+  ],
+  "status": "PASSED",
+  "completedAt": "2026-09-21T03:58:53.358446+00:00"
+}
