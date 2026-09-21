@@ -20,7 +20,7 @@ def main():
  for ip in c.NODES.values():
   hba='/etc/postgresql/17/main/pg_hba.conf';text=c.run(ip,'sudo cat '+hba,capture=True).stdout
   if '# CDC validation role' not in text:
-   rules='# CDC validation role: only crawler through private nodes\n'+''.join('host crawler crawl_cdc_validation '+source+'/32 scram-sha-256\n' for source in sources)
+   rules='# CDC validation role: only crawler through private nodes\n'+''.join('hostssl crawler crawl_cdc_validation '+source+'/32 scram-sha-256\n' for source in sources)
    rules+='host all crawl_cdc_validation 0.0.0.0/0 reject\nhost all crawl_cdc_validation ::0/0 reject\n'
    c.put(ip,hba,rules+text,'postgres',0o640)
   c.run(ip,'sudo -u postgres psql -XAt -c "SELECT pg_reload_conf();"',capture=True)

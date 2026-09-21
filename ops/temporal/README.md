@@ -13,13 +13,13 @@
 - 镜像 1.32.0 与旧 docker-builds 的入口不同，没有旧 `/etc/temporal/config/config_template.yaml`。本项目提供自己的配置，已用实际镜像的 `--config ... --env server render-config` 验证模板；不依赖旧镜像自动建库流程。
 - 服务入口 `temporal.crawl-validation.svc.cluster.local:7233`，仅 ClusterIP，无公网入口。原生 gRPC 健康探针检测 WorkflowService。
 - 本验证明确使用 `--allow-no-auth`，没有启用 Temporal mTLS/业务身份授权。NetworkPolicy 仅放行同命名空间 `temporal-client: "true"` 的 Pod 和 Temporal 内部通讯，不能替代生产认证；有该标签的客户端是受信运维/Worker，而非普通业务用户。临时本机验证通过受控 kubectl port-forward。
-- 出站仅允许 DNS、Temporal 同组节点以及 postgresql-entry。数据库使用 `postgres-rw.crawl-validation.svc:5432`，经 HAProxy 直达当前主库，不经过事务连接池。PG 自动切主证据见 PG HA 验收记录；生产安全、监控告警、独立角色扩容仍未完成。
+- 出站仅允许 DNS、Temporal 同组节点以及 postgresql-entry。两个数据库 store 都使用原生 TLS/CA/主机名验证连接 `postgres-rw.crawl-validation.svc:5432`，经 HAProxy 透传到当前主库，不经过事务连接池。PG 自动切主证据见 PG HA 验收记录；生产安全、监控告警、独立角色扩容仍未完成。
 - Temporal 不需要本地持久卷保存任务历史，历史由 PG 保存。这不解决未来采集 Worker 的 Journal 磁盘问题，也没有引入 SQLite。
 
 ## 首次搭建顺序
 
 1. `python3 ops/temporal/bootstrap-validation.py`：准备专用库/账号和 HBA；密码仅写入忽略目录。
-2. 将 owner/runtime env 分别通过 `kubectl create secret generic --from-env-file=... --dry-run=client -o yaml | kubectl apply -f -` 写入 `crawl-validation` 的 `temporal-schema-owner` / `temporal-database`。不在终端打印 Secret。
+2. 先完成 PG SQL PKI 并配置 crawl-validation 的 postgresql-sql-ca Secret；将 owner/runtime env 分别通过 `kubectl create secret generic --from-env-file=... --dry-run=client -o yaml | kubectl apply -f -` 写入 `crawl-validation` 的 `temporal-schema-owner` / `temporal-database`。不在终端打印 Secret。
 3. 单独应用 `ops/temporal/schema-job.yaml`，等待成功。已有 schema 不重复执行 setup-schema；升级需另做版本匹配的 update-schema Job。
 4. 在 S1 以 postgres 执行 `ops/temporal/runtime-grants.sql`。应用只有 DML，schema_version/schema_update_history 只读。未来官方迁移新建表后，重新核对并授予运行权限。
 5. 校验 `kubectl kustomize deploy/overlays/validation/temporal` 及 server dry-run，将部署文件提交推送至唯一新仓库。
@@ -48,3 +48,5 @@ node ops/temporal/verify-validation.mjs
 - 需要暂停服务时，以 Git 将 replicas 设为 0；保留 PG 库、schema 和任务历史。
 - PDB 保护自愿驱逐；两个应用副本之外，PG 已接入 Patroni 同步主备和固定入口；切主期间 SQL 连接会中断并重建，不能承诺零停顿。
 - 本次不创建业务 Planner、采集 Journal、代理管理 UI 或完整任务终态结算。
+
+2026-09-21 SQL 加固后，切主前/后/切回分别完成合成任务验证，见 `ops/checks/2026-09-21-application-sql-tls.md`。这只覆盖数据库链路；上述 Temporal gRPC 无业务认证边界仍保留。

@@ -29,7 +29,7 @@ s=p.read_text()
 marker='# data-ingestor validation login boundary'
 if marker not in s:
     p.with_suffix('.conf.pre-ingestor').write_text(s)
-    p.write_text(marker+'\\nhost crawler_validation_ingestor crawler_ingestor_validation 10.4.4.0/22 scram-sha-256\\nhost all crawler_ingestor_validation 0.0.0.0/0 reject\\nhost all crawler_ingestor_validation ::0/0 reject\\n'+s)
+    p.write_text(marker+'\\nhostssl crawler_validation_ingestor crawler_ingestor_validation 10.4.4.0/22 scram-sha-256\\nhost all crawler_ingestor_validation 0.0.0.0/0 reject\\nhost all crawler_ingestor_validation ::0/0 reject\\n'+s)
 PY
 sudo -u postgres psql -X -Atc 'SELECT pg_reload_conf()' >/dev/null
 """

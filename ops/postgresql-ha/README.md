@@ -23,7 +23,7 @@ Kubernetes 中两个跨节点 HAProxy Pod 提供 `postgres-rw.crawl-validation.s
 - Patroni 租约 TTL 30s、loop_wait 5s、retry_timeout 5s。softdog 必须可用才允许成为主库，超时 20s 早于租约过期。它是 Linux 软件看门狗，不能保证覆盖宿主机/内核彻底冻结等所有失效；不等同云侧硬件 fencing。
 - Patroni REST 强制 mTLS；修改操作另需账号密码。HAProxy 仅有健康证书，没有 REST 管理密码或 DCS 管理凭据。
 - 检测与重连有间隔，不承诺零中断；已提交响应丢失仍需上层幂等处理。实测 RTO/RPO 以 `ops/checks` 为准。
-- 数据库 SQL TLS 已分批迁移：复制/rewind 客户端和 Grafana 已使用 verify-full，三台 PG 拒绝这些角色明文连接；其他 SQL 调用方仍待迁移，见 `SQL-TLS.md`。集中监控/日志已上线，证书到期告警与异地备份仍待；不要把这一项等同全部外围完成。
+- 数据库 SQL TLS 已分批迁移：复制/rewind 客户端和 Grafana 已使用 verify-full，三台 PG 拒绝这些角色明文连接；其余 Temporal、Debezium、Ingestor/PgBouncer、Seaweed 元数据 SQL 链路已在第二批完成，三个 PG/连接池 TCP 入口统一拒绝明文，见 `SQL-TLS.md` 与 `APPLICATION-SQL-TLS.md`。集中监控/日志已上线，证书到期告警与异地备份仍待；不要把这一项等同全部外围完成。
 
 ## 运维命令
 

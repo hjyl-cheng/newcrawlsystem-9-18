@@ -1,0 +1,170 @@
+{
+  "cdc": {
+    "checkedAt": "2026-09-21T05:52:16.342291+00:00",
+    "nodes": {
+      "s1": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": true,
+          "restart_lsn": "1/251487F8",
+          "confirmed_flush_lsn": "1/2607BA08",
+          "wal_status": "reserved",
+          "safe_wal_size": 2145051864,
+          "invalidation_reason": null,
+          "retained_bytes": 17863472
+        },
+        "pgWalBytes": 704651654,
+        "guard": {
+          "checked_at": 1789969936.6210806,
+          "node": "s1",
+          "state": "READY",
+          "candidates": [
+            "s2",
+            "s3"
+          ],
+          "generation": "5548809c009345cbbc2aa54437ead2e5"
+        }
+      },
+      "s2": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/251487F8",
+          "confirmed_flush_lsn": "1/2607BA08",
+          "wal_status": "reserved",
+          "safe_wal_size": 7079985152,
+          "invalidation_reason": null,
+          "retained_bytes": 17863472
+        },
+        "pgWalBytes": 704651652,
+        "guard": {
+          "checked_at": 1789969937.425956,
+          "node": "s2",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      },
+      "s3": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/251487F8",
+          "confirmed_flush_lsn": "1/2607BA08",
+          "wal_status": "reserved",
+          "safe_wal_size": 7079985152,
+          "invalidation_reason": null,
+          "retained_bytes": 32209624
+        },
+        "pgWalBytes": 754983299,
+        "guard": {
+          "checked_at": 1789969939.6316028,
+          "node": "s3",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      }
+    },
+    "connector": {
+      "state": "RUNNING",
+      "tasks": [
+        {
+          "id": 0,
+          "state": "RUNNING",
+          "worker": "192.168.78.241:8083"
+        }
+      ]
+    },
+    "primary": "s1",
+    "publication": "cdc_validation.outbox",
+    "candidateFence": {
+      "leader": {
+        "value": "s1",
+        "revision": "57019"
+      },
+      "policy": {
+        "allowed": [
+          "s2",
+          "s3"
+        ],
+        "floor": "1/2600CF80",
+        "generation": "5548809c009345cbbc2aa54437ead2e5",
+        "owner": "s1",
+        "system_id": "7686815759311573177",
+        "version": 1
+      },
+      "barrier": [
+        "s2",
+        "s3"
+      ]
+    },
+    "connectOffsets": {
+      "offsets": [
+        {
+          "partition": {
+            "server": "crawl_cdc_validation"
+          },
+          "offset": {
+            "lsn_proc": 4933007880,
+            "messageType": "COMMIT",
+            "lsn_commit": 4933007880,
+            "lsn": 4933007880,
+            "txId": 87019,
+            "ts_usec": 1789969660066343
+          }
+        }
+      ]
+    },
+    "status": "PASSED",
+    "issues": [],
+    "scope": "On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery"
+  },
+  "kafka": {
+    "checkedAt": "2026-09-21T05:52:21.273Z",
+    "status": "PASS",
+    "consumer": {
+      "groupId": "crawler-results-apply-validation-v1",
+      "members": 2,
+      "partitions": [
+        {
+          "partition": 0,
+          "offset": "66",
+          "high": "66",
+          "low": "0",
+          "committed": "66",
+          "lag": "0",
+          "retentionGap": false
+        },
+        {
+          "partition": 1,
+          "offset": "66",
+          "high": "66",
+          "low": "0",
+          "committed": "66",
+          "lag": "0",
+          "retentionGap": false
+        },
+        {
+          "partition": 2,
+          "offset": "66",
+          "high": "66",
+          "low": "0",
+          "committed": "66",
+          "lag": "0",
+          "retentionGap": false
+        }
+      ]
+    },
+    "problems": [],
+    "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts",
+    "checkedTopicCount": 8
+  }
+}

@@ -14,6 +14,8 @@ PRIVATE = ROOT / 'secrets/seaweedfs'
 
 if __name__ == '__main__':
     os.umask(0o077)
+    sql_ca = ROOT / 'secrets/postgresql-ha/sql-pki/ca.crt'
+    assert sql_ca.exists(), 'Prepare PostgreSQL SQL TLS before generating Filer metadata settings'
     PRIVATE.mkdir(mode=0o700, exist_ok=True)
     secret = PRIVATE / 'db-password'
     if not secret.exists(): secret.write_text(secrets.token_hex(32) + '\n')
@@ -30,7 +32,7 @@ if __name__ == '__main__':
         hba_path = '/etc/postgresql/17/main/pg_hba.conf'
         old = run(ip, 'sudo cat ' + hba_path, capture=True).stdout
         if '# SeaweedFS metadata role' not in old:
-            prefix = '# SeaweedFS metadata role\n' + ''.join(f'host crawler seaweedfs_filer {source}/32 scram-sha-256\n' for source in ['127.0.0.1',*NODES.values()])
+            prefix = '# SeaweedFS metadata role\n' + ''.join(f'hostssl crawler seaweedfs_filer {source}/32 scram-sha-256\n' for source in ['127.0.0.1',*NODES.values()])
             prefix += 'host all seaweedfs_filer 0.0.0.0/0 reject\nhost all seaweedfs_filer ::0/0 reject\n'
             put(ip, hba_path, prefix + old, 'postgres', 0o640)
         run(ip, 'sudo -u postgres psql -XAt -c "select pg_reload_conf();"', capture=True)
@@ -73,12 +75,14 @@ port = 15432
 username = "seaweedfs_filer"
 password = "{password}"
 database = "crawler"
-sslmode = "disable"
+sslmode = "verify-full"
+sslrootcert = "/etc/seaweedfs/postgresql-ca.crt"
 pgbouncer_compatible = true
 connection_max_idle = 4
 connection_max_open = 0
 connection_max_lifetime_seconds = 60
 enableUpsert = true
 '''
+        put(ip, '/etc/seaweedfs/postgresql-ca.crt', sql_ca.read_text(), 'seaweedfs', 0o600)
         put(ip, '/etc/seaweedfs/filer-postgres.pending.toml', cfg, 'seaweedfs', 0o600)
         print(name + ': metadata account, primary selector and pending config prepared')

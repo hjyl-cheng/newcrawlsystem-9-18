@@ -26,12 +26,12 @@
 5. 两个 Connect Pod 均挂载 CA 后，运行 `python3 ops/cdc/connect-admin.py` 应用仓库中的 connector.json，并检查 connector/task RUNNING；完成后删除临时 cdc-admin-probe。该配置变更通过既有 REST 管理入口应用，Argo 不直接管理 connector REST 资源。
 6. 运行 `python3 ops/postgresql-ha/secure-application-sql.py seaweed --execute`，逐台更新当前与 pending Filer 配置，逐台 restart，验证本机 Filer 目录和主库 PgBouncer 中真实 TLS 连接后再操作下一台。默认 systemd 最长正常停服窗口 90 秒，期间另外两台继续服务，不把长连接退出慢当成需要三台一起重启。
 7. 核对每个应用实际连接和小数据业务探针正常，再运行 `... enforce --execute`。该阶段拒绝在还有明文会话时收紧：PgBouncer 前端改 require，PG HBA 顶部拒绝所有 IPv4/IPv6 的普通 SQL 和 replication 明文连接。本机 Unix socket 继续使用原账号/peer 规则。
-8. 完成真实客户端、明文/错误 CA/错误名称拒绝、事务池行为与应用回归，并在 PG 受控切主/切回后再验证各链路。只用已有合成验证库、Outbox、对象桶，不执行真实采集，不动外部业务库。
+8. 运行 `python3 ops/postgresql-ha/verify-sql-tls.py --application-clients --execute`：完成真实客户端、明文/错误 CA/错误名称拒绝、事务池行为与应用回归，并在 PG 受控切主/切回后再验证各链路。只用已有合成验证库、Outbox、对象桶，不执行真实采集，不动外部业务库。
 9. 生成新的 PG 差异备份与 control 加密备份；验证新增配置/控制台凭据/CA 在备份中。
 
 ## 运维与回滚
 
-本机 SQL 运维命令通过 `python3 ops/postgresql-ha/with-sql-tls.py node <已有脚本>` 运行；已有 PGHOST/PGUSER 等仍由受保护环境提供，不能在命令行拼密码。跨机请复制 CA 到合适的受保护路径并配置对应客户端，不能用 disable/no-verify 临时凑合。
+本机 SQL 运维命令通过 `python3 ops/postgresql-ha/with-sql-tls.py node <已有脚本>` 运行；已有 PGHOST/PGUSER 等仍由受保护环境提供，不能在命令行拼密码。包装器将三台已知 PG 私网地址转换为已有 s1/s2/s3 主机名，使 Node pg 显式校验 DNS servername。Ingestor 验证还应设置 CONSUMER_PGHOST 为当前主库节点名、CONSUMER_PGPORT=6432，避免使用历史 runtime.env 中的初始直连地址。跨机请复制 CA 到合适的受保护路径并配置对应客户端，不能用 disable/no-verify 临时凑合。
 
 首次建库脚本不是当前集群的重复部署命令。`prepare-pgbouncer.py` 检测到 TLS 已接管时会拒绝覆盖，以免重写整份配置降级；日常用本批增量配置脚本。Temporal schema Job 已增加 TLS 和固定入口，但**本批不对已有库重新执行 setup-schema**。后续升级使用同样 TLS 设置的专用 update-schema Job。
 

@@ -1,7 +1,7 @@
 # Data Ingestor 常驻验证服务
 
 唯一代码源为本仓库，服务入口 `services/data-ingestor/src/main.ts`。
-两副本部署于 A 集群，消费 S1/S2/S3 专用 Results Topic；只写 S1 独立 `crawler_validation_ingestor`，不使用正式 crawler，也不复用会被测试清理的 schema_test 库。
+两副本部署于 A 集群，消费 S1/S2/S3 专用 Results Topic；经稳定连接池入口写当前 PG 主库中的独立 `crawler_validation_ingestor`，不使用正式 crawler，也不复用会被测试清理的 schema_test 库。
 本目录的创建/授权脚本只适用于该验证数据库，服务启动不会创建计划、迁移表或自行授权。
 
 ## 凭据与数据库准备
@@ -15,7 +15,7 @@
 PG 的 SELECT FOR UPDATE 要求 UPDATE 权限，因此少数控制表仅授一个列的 UPDATE，另以 BEFORE STATEMENT 触发器拒绝该账号的所有实际 UPDATE；已验证零行 UPDATE 也拒绝。此为验证期角色专属授权脚本，后续通用角色模型需版本化，不把它当跨环境自动迁移。
 账号仍是受信服务账号：权限限制不能代替签名、授权与 Store 业务检查，也不宣称数据库可以判断每条 SQL 是否遵循合并策略。
 
-Kafka 仍是现有内网 PLAINTEXT；消息有 Ed25519 签名，Broker SASL/TLS/ACL 尚未部署。HTTP token 与 PG 连接亦仅用于当前受限内网，不能直接开放公网或作为生产加密验收。
+Kafka 仍是现有内网 PLAINTEXT；消息有 Ed25519 签名，Broker SASL/TLS/ACL 尚未部署。HTTP token 仍只用于受限内网，不能直接开放公网；PG 通道已通过原生 PGSSLMODE=verify-full / NODE_EXTRA_CA_CERTS 验证 CA 和入口名称，PgBouncer 前后两段均启用 TLS。见 `ops/postgresql-ha/APPLICATION-SQL-TLS.md`。
 当前只有一个验证签名身份和一个运维查询身份，限定三个模拟频道；真实 Worker 的自动发证、动态频道权限和轮换流程尚待后续。
 
 ## 构建与 GitOps 部署
@@ -49,7 +49,7 @@ NetworkPolicy 仅允许同命名空间且带 `ingestor-query-client=true` 的 Po
 - `POST /v1/records/lookup`：仅运维 token，请求 `{partition,offset}`；Topic/stream 固定为本实例配置。返回处理结果/原因/原文大小，不直接暴露隔离原文，不提供修改/回放接口。
 
 所有查询 body 上限 4 KiB、并发上限 8；异常不输出凭据、请求正文或 SQL。指标中的 lag 是同组共享视图，抓取两个副本时应按 partition 取 max，不应相加；处理次数包含幂等重放，不等于新增视频数。
-尚未接 Prometheus 抓取/告警，不能将暴露指标等同于已建立生产监控。
+已接基础设施就绪探针、Kafka 积压与平台内告警；本服务专用 metrics 仍需运维 token，未来业务指标按正式业务上线补齐。
 SIGTERM 先撤销就绪并停止消费，等待进行中的回调和查询，50 秒强制退出上限，Pod 宽限 60 秒；未确认 offset 可重放。
 
 ## 真实验证与回滚
@@ -65,3 +65,5 @@ owner 凭据仅在受控验证脚本中使用，不注入服务。摘要写在�
 滚动验证可使用 `verify-restart.mjs`，读取上次合成样例并按原身份重发，`REPLAY_ROUNDS` 为 1～100；过程中由 Git 修改非敏感 Pod 模板标记触发更新。查询入口须在滚动期间保持可用（Service/受控验证客户端），不要把固定旧 Pod 的 port-forward 当作稳定服务入口。
 
 已完成的发布与滚动证据见 [2026-09-20 验收记录](../checks/2026-09-20-ingestor-service.md)。
+
+SQL 运维验证请先配置当前主库身份与 CA，并按 `ops/postgresql-ha/APPLICATION-SQL-TLS.md` 使用 with-sql-tls.py；旧的无 TLS 连接已被拒绝。

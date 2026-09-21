@@ -1,0 +1,1212 @@
+{
+  "runId": "0cc4cfc7fe84476a82a83583f6f35505",
+  "startedAt": "2026-09-21T05:46:17.057984+00:00",
+  "phases": [
+    {
+      "phase": "before-switch",
+      "replication": {
+        "primary": "s1",
+        "senders": [
+          {
+            "name": "s2",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s3",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s2",
+          "s3"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 4,
+      "received": 4,
+      "applications": {
+        "ingestor": {
+          "checks": [
+            "permissions",
+            "receipt-auth",
+            "3-applied",
+            "duplicate-idempotency",
+            "3-quarantined",
+            "offsets-after-durable",
+            "metrics"
+          ],
+          "positions": [
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 0,
+              "offset": "61"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 0,
+              "offset": "62"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 0,
+              "offset": "63"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 2,
+              "offset": "61"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 2,
+              "offset": "62"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 2,
+              "offset": "63"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 1,
+              "offset": "61"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 1,
+              "offset": "62"
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partition": 1,
+              "offset": "63"
+            }
+          ],
+          "sampleCount": 3
+        },
+        "temporal": {
+          "phase": "passed",
+          "namespace": "crawl-validation",
+          "workflowId": "temporal-validation-7fc68431-4a7f-49c7-8a9d-3dd730cd85b8",
+          "activityInvocations": 4,
+          "intentionalFailures": 2,
+          "resultRecovered": true
+        },
+        "objects": {
+          "bytes": 352,
+          "sha256": "205055033c8b58b5fb739afeb1a7ee8baf18248d52527d03430902aa5e0a79a9",
+          "threeGateways": "put/get/list/overwrite passed"
+        },
+        "connections": {
+          "s1": {
+            "pg": [
+              {
+                "usename": "crawl_cdc_validation",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 3
+              },
+              {
+                "usename": "crawler_ingestor_validation",
+                "datname": "crawler_validation_ingestor",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "replicator",
+                "datname": "postgres",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 8
+              },
+              {
+                "usename": "replicator",
+                "datname": null,
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "seaweedfs_filer",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 3
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_visibility_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 8
+              },
+              {
+                "usename": "crawl_grafana",
+                "datname": "crawler_grafana",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 8
+              }
+            ],
+            "poolClients": [
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.8",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.5",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.5",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.12",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.12",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.17",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              }
+            ],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s2": {
+            "pg": [],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s3": {
+            "pg": [],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          }
+        }
+      }
+    },
+    {
+      "phase": "after-switch",
+      "replication": {
+        "primary": "s3",
+        "senders": [
+          {
+            "name": "s2",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s1",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s1",
+          "s2"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 8,
+      "received": 8,
+      "applications": {
+        "ingestor": {
+          "replayed": 3,
+          "receiptsUnchanged": 3,
+          "consumerCaughtUp": true
+        },
+        "temporal": {
+          "phase": "passed",
+          "namespace": "crawl-validation",
+          "workflowId": "temporal-validation-d60fed70-7484-4619-9ae6-aa5c6c2749e1",
+          "activityInvocations": 4,
+          "intentionalFailures": 2,
+          "resultRecovered": true
+        },
+        "objects": {
+          "bytes": 336,
+          "sha256": "59e836e7528d6a15df38a8ec2dfdec3a878850697285af1f61b5a13c637a411c",
+          "threeGateways": "put/get/list/overwrite passed"
+        },
+        "connections": {
+          "s1": {
+            "pg": [
+              {
+                "usename": "crawler_ingestor_validation",
+                "datname": "crawler_validation_ingestor",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 1
+              },
+              {
+                "usename": "seaweedfs_filer",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 1
+              }
+            ],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s2": {
+            "pg": [],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s3": {
+            "pg": [
+              {
+                "usename": "crawl_cdc_validation",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 3
+              },
+              {
+                "usename": "crawler_ingestor_validation",
+                "datname": "crawler_validation_ingestor",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "replicator",
+                "datname": "postgres",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 8
+              },
+              {
+                "usename": "replicator",
+                "datname": null,
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "seaweedfs_filer",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 3
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_visibility_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 1
+              },
+              {
+                "usename": "crawl_grafana",
+                "datname": "crawler_grafana",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 6
+              }
+            ],
+            "poolClients": [
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.5",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.8",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.5",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.17",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.12",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              }
+            ],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          }
+        }
+      }
+    },
+    {
+      "phase": "original-restored",
+      "replication": {
+        "primary": "s1",
+        "senders": [
+          {
+            "name": "s2",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          },
+          {
+            "name": "s3",
+            "ssl": true,
+            "version": "TLSv1.3",
+            "state": "streaming"
+          }
+        ],
+        "guardCandidates": [
+          "s2",
+          "s3"
+        ]
+      },
+      "grafana": {
+        "sslMode": "verify-full",
+        "database": "ok",
+        "connections": [
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.12",
+            "ssl": true,
+            "version": "TLSv1.3"
+          },
+          {
+            "client": "10.4.4.17",
+            "ssl": true,
+            "version": "TLSv1.3"
+          }
+        ],
+        "logsDatasource": "OK",
+        "dashboards": 2
+      },
+      "acknowledged": 12,
+      "received": 12,
+      "applications": {
+        "ingestor": {
+          "replayed": 3,
+          "receiptsUnchanged": 3,
+          "consumerCaughtUp": true
+        },
+        "temporal": {
+          "phase": "passed",
+          "namespace": "crawl-validation",
+          "workflowId": "temporal-validation-401f1d7d-790b-4191-9b77-7e30eb27412b",
+          "activityInvocations": 4,
+          "intentionalFailures": 2,
+          "resultRecovered": true
+        },
+        "objects": {
+          "bytes": 416,
+          "sha256": "e98dc1062467299b01fb91f206b8f4c850e756914fd1ea623ceb8cb1b98de137",
+          "threeGateways": "put/get/list/overwrite passed"
+        },
+        "connections": {
+          "s1": {
+            "pg": [
+              {
+                "usename": "crawl_cdc_validation",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 3
+              },
+              {
+                "usename": "crawler_ingestor_validation",
+                "datname": "crawler_validation_ingestor",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "replicator",
+                "datname": "postgres",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 8
+              },
+              {
+                "usename": "replicator",
+                "datname": null,
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              },
+              {
+                "usename": "seaweedfs_filer",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 4
+              },
+              {
+                "usename": "temporal_validation_runtime",
+                "datname": "temporal_visibility_validation",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 1
+              },
+              {
+                "usename": "crawl_grafana",
+                "datname": "crawler_grafana",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 7
+              }
+            ],
+            "poolClients": [
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.5",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.8",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "seaweedfs_filer",
+                "database": "crawler",
+                "addr": "10.4.4.2",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.12",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              },
+              {
+                "user": "crawler_ingestor_validation",
+                "database": "crawler_validation_ingestor",
+                "addr": "10.4.4.17",
+                "tls": "TLSv1.3/TLS_AES_256_GCM_SHA384"
+              }
+            ],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s2": {
+            "pg": [],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          },
+          "s3": {
+            "pg": [
+              {
+                "usename": "crawler_ingestor_validation",
+                "datname": "crawler_validation_ingestor",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 1
+              },
+              {
+                "usename": "seaweedfs_filer",
+                "datname": "crawler",
+                "ssl": true,
+                "version": "TLSv1.3",
+                "connections": 2
+              }
+            ],
+            "poolClients": [],
+            "poolClientMode": "require",
+            "poolServerMode": "verify-full"
+          }
+        }
+      }
+    }
+  ],
+  "boundaries": {
+    "s1": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "s2": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "s3": {
+      "ip": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "serviceName": {
+        "version": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "notAfter": "Sep 21 05:24:04 2027 GMT"
+      },
+      "wrongName": "rejected",
+      "wrongCA": "rejected",
+      "roles": [
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.2",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.8",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "10.4.4.5",
+          "role": "rewind",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "localhost",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "sql",
+          "tls": "verified",
+          "plaintext": "rejected"
+        },
+        {
+          "host": "127.0.0.1",
+          "role": "replication",
+          "protocol": "physical",
+          "tls": "verified",
+          "plaintext": "rejected"
+        }
+      ]
+    },
+    "grafanaSQL": [
+      {
+        "host": "10.4.4.2",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      },
+      {
+        "host": "10.4.4.8",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      },
+      {
+        "host": "10.4.4.5",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      }
+    ],
+    "grafanaSQLThroughService": [
+      {
+        "host": "postgres-rw.crawl-validation.svc",
+        "ssl": true,
+        "version": "TLSv1.3",
+        "plaintext": "rejected"
+      }
+    ]
+  },
+  "applicationBoundaries": {
+    "s1": {
+      "10.4.4.2": "TLSv1.3",
+      "postgres-rw.crawl-validation.svc": "TLSv1.3",
+      "127.0.0.1": "TLSv1.3"
+    },
+    "s2": {
+      "10.4.4.8": "TLSv1.3",
+      "postgres-rw.crawl-validation.svc": "TLSv1.3",
+      "127.0.0.1": "TLSv1.3"
+    },
+    "s3": {
+      "10.4.4.5": "TLSv1.3",
+      "postgres-rw.crawl-validation.svc": "TLSv1.3",
+      "127.0.0.1": "TLSv1.3"
+    },
+    "ingestorClients": {
+      "data-ingestor-9bb9b89cc-lrkt5": {
+        "frontend": {
+          "authorized": true,
+          "version": "TLSv1.3"
+        },
+        "backend": {
+          "ssl": true,
+          "version": "TLSv1.3"
+        },
+        "negatives": {
+          "plaintext": "rejected",
+          "wrongCA": "rejected",
+          "wrongName": "rejected"
+        },
+        "transactionAndPreparedStatement": "passed"
+      },
+      "data-ingestor-9bb9b89cc-p99lc": {
+        "frontend": {
+          "authorized": true,
+          "version": "TLSv1.3"
+        },
+        "backend": {
+          "ssl": true,
+          "version": "TLSv1.3"
+        },
+        "negatives": {
+          "plaintext": "rejected",
+          "wrongCA": "rejected",
+          "wrongName": "rejected"
+        },
+        "transactionAndPreparedStatement": "passed"
+      }
+    }
+  },
+  "switch": {
+    "from": "s1",
+    "to": "s3",
+    "verificationSeconds": 28.78
+  },
+  "status": "PASSED",
+  "acknowledged": 12,
+  "received": 12,
+  "duplicates": 0,
+  "finalPrimary": "s1",
+  "completedAt": "2026-09-21T05:47:54.537658+00:00",
+  "allListenerPlaintextRejection": [
+    {
+      "node": "s1",
+      "port": 5432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s1",
+      "port": 5432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s1",
+      "port": 6432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s1",
+      "port": 6432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s2",
+      "port": 5432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s2",
+      "port": 5432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s2",
+      "port": 6432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s2",
+      "port": 6432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s3",
+      "port": 5432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s3",
+      "port": 5432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s3",
+      "port": 6432,
+      "user": "crawler",
+      "plaintext": "rejected before password exchange"
+    },
+    {
+      "node": "s3",
+      "port": 6432,
+      "user": "temporal_validation_owner",
+      "plaintext": "rejected before password exchange"
+    }
+  ]
+}

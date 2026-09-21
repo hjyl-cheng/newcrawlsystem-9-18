@@ -162,11 +162,16 @@ print(json.dumps(out))
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--execute', required=True, action='store_true')
-    parser.parse_args()
+    parser.add_argument('--application-clients', action='store_true')
+    args = parser.parse_args()
     os.umask(0o077)
     run_id = uuid.uuid4().hex
     evidence = {'runId': run_id, 'startedAt': datetime.now(timezone.utc).isoformat(), 'phases': []}
     evidence['boundaries'] = boundaries()
+    app_checks = runpy.run_path(str(Path(__file__).with_name('verify-application-sql.py'))) if args.application_clients else None
+    if app_checks:
+        evidence['applicationBoundaries'] = app_checks['boundaries']()
+        evidence['allListenerPlaintextRejection'] = app_checks['plaintext_boundaries']()
     print('All certificate, hostname, role and plaintext boundaries passed.', flush=True)
     original = pg['leader']()
     expected = []
@@ -191,6 +196,8 @@ def main():
         wait(lambda: set(expected).issubset({row['id'] for row in events()}))
         evidence['phases'].append({'phase': name, 'replication': state, 'grafana': grafana(),
                                    'acknowledged': len(expected), 'received': len({row['id'] for row in events()})})
+        if app_checks:
+            evidence['phases'][-1]['applications'] = app_checks['verify_phase'](name)
         print(name + ': ' + str(len(expected)) + ' confirmed CDC events received, Grafana and TLS healthy.', flush=True)
     def restore_original():
         if pg['leader']() == original:
@@ -226,7 +233,7 @@ def main():
     evidence.update(status='PASSED', acknowledged=len(expected), received=len({r['id'] for r in events()}),
                     duplicates=len(events()) - len(expected), finalPrimary=pg['leader'](),
                     completedAt=datetime.now(timezone.utc).isoformat())
-    path = ROOT / 'ops/checks/2026-09-21-postgresql-sql-tls.json'
+    path = ROOT / ('ops/checks/2026-09-21-application-sql-tls.json' if app_checks else 'ops/checks/2026-09-21-postgresql-sql-tls.json')
     path.write_text(json.dumps(evidence, indent=2) + '\n')
     print(str(path), flush=True)
 

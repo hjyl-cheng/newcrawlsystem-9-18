@@ -29,7 +29,7 @@ if marker not in s:
     p.with_suffix('.conf.pre-temporal').write_text(s)
     rules=marker+'\\n'
     for role in ['temporal_validation_owner','temporal_validation_runtime']:
-        rules+='host temporal_validation,temporal_visibility_validation '+role+' 10.4.4.0/22 scram-sha-256\\n'
+        rules+='hostssl temporal_validation,temporal_visibility_validation '+role+' 10.4.4.0/22 scram-sha-256\\n'
         rules+='host all '+role+' 0.0.0.0/0 reject\\nhost all '+role+' ::0/0 reject\\n'
     p.write_text(rules+s)
 PY

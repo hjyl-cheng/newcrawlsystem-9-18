@@ -97,3 +97,6 @@ python3 ops/seaweedfs/backup-pg-objects.py --execute
 `verify-pg-objects-restore.py` 在 S3 新目录启动隔离 PG、Master、Volume、Filer；从备份中每个 volume 选一份完整副本，避免把重复 ID 挂载两次。校验完整元数据表指纹，再通过隔离 Filer 读取冻结前清单中的非内部日志文件。临时服务只监听 loopback，与在线服务无数据目录或数据库连接共享；测试结束删除临时目录。
 
 后续仍需：对象持续备份/保留策略、增长后在线一致恢复、内部 Filer/Volume/Master 的认证与 TLS、外部 Worker 访问方式、容量/延迟/副本告警。S3 身份认证不等于所有内网接口已加固。此轮单服务故障与计划切主通过，不代表任意整机/网络分区/多机故障均已验收，也不代表整个外围计划已完成。
+
+
+2026-09-21 SQL 传输加固：三 Filer 通过本机 15432 选择当前主库的 PgBouncer，使用原生 verify-full + 专用 CA；PgBouncer→PG 也为 verify-full，前端强制 TLS。真实跨节点对象写/读/列举/覆盖以及 PG 切主后恢复通过，见 `ops/postgresql-ha/APPLICATION-SQL-TLS.md` 和 `ops/checks/2026-09-21-application-sql-tls.md`。Seaweed 内部 HTTP/gRPC、S3 HTTP 传输、持续对象备份仍是独立待办。

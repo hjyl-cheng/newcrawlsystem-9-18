@@ -82,3 +82,6 @@ kubectl -n argocd get applications
 - Kafka 仍 PLAINTEXT，PG 传输未启用 TLS，Connect REST 以内部网络/RBAC 为边界；SASL/TLS/ACL、持续告警、长时间断网/整机失联与容量验证仍待。
 
 实现依据：PostgreSQL 17 官方 logical decoding / failover slot 文档、Debezium PostgreSQL Connector / Outbox Event Router 文档。验收证据见 `ops/checks/2026-09-21-cdc-reliability.md`。
+
+
+2026-09-21：Debezium 的 database.sslmode 已改 verify-full，根 CA 由 Pod Secret 挂载；PG 全部 TCP 入口拒绝明文。更新 connector 配置时保留原 offset/slot/publication；应用 SQL TLS 与切主回归见 `ops/checks/2026-09-21-application-sql-tls.md`。Kafka 9092 仍是待迁移的明文通道，不能把 SQL TLS 等同 Kafka 安全已完成。

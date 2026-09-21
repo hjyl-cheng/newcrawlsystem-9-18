@@ -96,7 +96,9 @@ def filer_ready(node):
 def seaweed():
     for node in pg['NODES']:
         snapshot(node, FILER)
-        nodes['put'](node, '/etc/seaweedfs/postgresql-ca.crt', (t['PRIVATE'] / 'ca.crt').read_text(), 'seaweedfs', 0o600)
+        ca = (t['PRIVATE'] / 'ca.crt').read_text()
+        old_ca = nodes['run'](node, 'sudo cat /etc/seaweedfs/postgresql-ca.crt 2>/dev/null || true').stdout
+        nodes['put'](node, '/etc/seaweedfs/postgresql-ca.crt', ca, 'seaweedfs', 0o600)
         old = nodes['run'](node, 'sudo cat ' + FILER).stdout
         # Only change these two keys in the existing [postgres] section; preserve passwords and store settings.
         lines = old.splitlines(); output = []; in_pg = False; changed = False
@@ -117,7 +119,7 @@ def seaweed():
         # systemd bounds the old process shutdown; keep the other two filers serving.
         live = [r for r in pool_admin(pg['leader'](), 'SHOW CLIENTS;')
                 if r['user'] == 'seaweedfs_filer' and r.get('addr') == pg['NODES'][node]]
-        if not live or not all(r.get('tls') for r in live):
+        if old != value or old_ca != ca or not live or not all(r.get('tls') for r in live):
             nodes['run'](node, 'sudo systemctl restart --no-block seaweedfs-filer')
         deadline = time.monotonic() + 150
         while time.monotonic() < deadline:

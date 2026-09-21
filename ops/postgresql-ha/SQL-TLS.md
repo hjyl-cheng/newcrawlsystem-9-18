@@ -39,3 +39,6 @@
 - 服务器证书只证明服务器身份；客户端继续用专用账号和 SCRAM 认证。本批没有要求全部 SQL 客户端证书认证，也没有声称所有 PG 流量已经强制 TLS。
 
 旧首次接管脚本 `prepare-patroni.py` 不是可随意重跑的配置管理器。新增/恢复 PG 节点须先完成既有恢复流程，再安装 SQL PKI、应用本文件的客户端和 HBA 配置，验证后才准入。
+
+
+2026-09-21 第二批更新：上表当时待迁移的 Temporal、Debezium、Ingestor/PgBouncer、Seaweed Filer SQL 链路已全部迁移并通过应用/切主回归；三 PG 和三 PgBouncer 全部 TCP 入口拒绝明文。最终部署顺序、运维与回滚见 `APPLICATION-SQL-TLS.md`。Kafka、Seaweed HTTP/gRPC、Temporal gRPC 的安全边界仍待独立处理。
