@@ -48,3 +48,5 @@ Grafana 的数据源和日志面板随现有 `crawl-monitoring` Argo 应用发�
 Grafana 插件连接检查会调整 `max_execution_time`。该账号保持 readonly=1，仅此设置允许在 1–60 秒内修改；单线程、128MiB 查询内存、结果条数/大小上限保持约束。Grafana 请求默认超时 10 秒。该例外不授予写入或 DDL 权限，已做实际拒绝验证。
 
 现场验收：`python3 ops/logging/verify.py --execute`；如首次只在注入故障前中断，可在 30 分钟内用 `--resume-outage` 继续已记录的四个前置阶段后的演练。它只临时阻断 A3 主机到 S3:8443，预装四分钟自动恢复定时器，finally 删除专用规则。`test-buffer-policy.py` 用隔离的极小内存缓冲验证 drop_newest；没有填满线上 512MiB 磁盘缓冲或进行压力测试。
+
+时间语义：journal / CRI 使用来源事件时间；未结构化 PG/ClickHouse 文件行使用采集时间，原时间文本仍在正文内。多行堆栈按行保存，本轮未建设统一结构化日志协议或 Trace 链路。

@@ -73,5 +73,21 @@
       "Node": "s3",
       "age": 46
     }
-  ]
+  ],
+  "dashboardPanelsQueried": {
+    "logVolume": 200,
+    "logDetails": 200
+  },
+  "backups": {
+    "postgresql": "20260920-172412F_20260921-124610D",
+    "control": "control-20260921T044918Z.tar.gpg",
+    "controlSourceRevision": "a6b6939985ec60cbfd6b09d8b4f2e1c41fb225ed",
+    "copies": [
+      "a1",
+      "s2"
+    ],
+    "sixNodeConfigModesVerified": "0600",
+    "manifestChecksumsVerified": true,
+    "accountAndTlsCoverageVerified": true
+  }
 }
