@@ -34,8 +34,12 @@ spec:
       containers:
       - name: connect
         image: quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6
-        command: [/kafka/bin/connect-distributed.sh]
-        args: [/etc/connect/worker.properties]
+        command: [/bin/sh, -ec]
+        args:
+        - |
+          mkdir -p /tmp/connect-plugins
+          ln -s /kafka/connect/debezium-connector-postgres /tmp/connect-plugins/postgres
+          exec /kafka/bin/connect-distributed.sh /etc/connect/worker.properties
         env:
         - name: POD_IP
           valueFrom:

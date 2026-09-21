@@ -37,6 +37,7 @@
     "transforms.outbox.predicate": "IsOutbox",
     "predicates": "IsOutbox",
     "predicates.IsOutbox.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
-    "predicates.IsOutbox.pattern": "crawl_cdc_validation\\.cdc_validation\\.outbox"
+    "predicates.IsOutbox.pattern": "crawl_cdc_validation\\.cdc_validation\\.outbox",
+    "name": "crawl-publication-validation"
   }
 }
