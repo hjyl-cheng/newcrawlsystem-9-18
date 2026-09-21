@@ -32,3 +32,11 @@
 Temporal、Debezium、Ingestor/PgBouncer、Seaweed Filer 的 SQL 通道尚未完成强制加密/身份验证迁移；部分本机 PgBouncer 后端可能已协商 TLS，但不能等同整段端到端 verify-full。Kafka 仍 PLAINTEXT，Seaweed 内部认证/TLS、证书自动轮换/到期告警仍待。本批没有演练真实时间线分叉后的 pg_rewind，也没有新增整机冻结/联合灾备验收。
 
 持续对象备份、Argo controller 整机失联无人值守接管、ClickHouse 独立数据盘/HA、外部通知与异地灾备仍保留原边界。下一批继续迁移剩余 PG 调用方；不以本批结果宣称外围全部完成。
+
+最终告警复核：上述 LogEventsDiscarded 已在两套 Prometheus 自动解除，只保留已知 SeaweedContinuousBackupPending；未调整规则或限流阈值。
+
+## 收尾备份
+
+- pgBackRest check 与新的差异备份通过：`20260920-172412F_20260921-132632D`，仓库本次增量 3,528,368 字节。
+- 控制面/配置加密备份 `control-20260921T053028Z.tar.gpg` 已落 A1/S2，25,496,020 字节，源提交 `10475eb`。
+- 已解密检查全部 manifest SHA，三节点 postgres/0600 的当前 SQL 证书/密钥、Patroni verify-full、HBA 拒绝规则，以及 operator CA 私钥均与现场一致。详情见 `2026-09-21-sql-tls-backup.json`。这次是新增配置的备份覆盖检查，没有重复全套数据恢复演练。

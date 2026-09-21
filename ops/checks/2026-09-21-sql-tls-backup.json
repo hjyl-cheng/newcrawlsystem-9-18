@@ -1,0 +1,38 @@
+{
+  "control": {
+    "status": "PASSED",
+    "file": "control-20260921T053028Z.tar.gpg",
+    "sha256": "f65673ea643df28760e9ba3b42f3fb698871a12e76c7f614b8300c262d408a16",
+    "bytes": 25496020,
+    "copies": [
+      "a1",
+      "s2"
+    ],
+    "etcdSnapshot": {
+      "hash": 2801568330,
+      "revision": 482833,
+      "totalKey": 1940,
+      "totalSize": 13623296
+    },
+    "pgEtcdSnapshot": {
+      "hash": 386127195,
+      "revision": 56179,
+      "totalKey": 5099,
+      "totalSize": 2174976
+    }
+  },
+  "sourceRevision": "10475eb580199f370bbe696aa441d85bb45c658e",
+  "verification": {
+    "manifestHashes": "all matched",
+    "nodePKI": "all three matched live cert/key bytes with postgres/0600",
+    "patroniClients": "verify-full",
+    "hba": "plaintext reject blocks present",
+    "operatorCAKey": "present and matched"
+  },
+  "postgresql": {
+    "label": "20260920-172412F_20260921-132632D",
+    "repositoryDeltaBytes": 3528368,
+    "check": "passed",
+    "backup": "passed"
+  }
+}
