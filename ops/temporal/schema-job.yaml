@@ -7,6 +7,8 @@ spec:
   backoffLimit: 0
   activeDeadlineSeconds: 600
   template:
+    metadata:
+      labels: {postgres-client: 'true'}
     spec:
       automountServiceAccountToken: false
       restartPolicy: Never
@@ -25,7 +27,8 @@ spec:
           command: [/bin/sh, -ec]
           args:
             - |
-              export SQL_HOST=10.4.4.2 SQL_PORT=5432 SQL_PLUGIN=postgres12
+              export SQL_HOST=postgres-rw.crawl-validation.svc SQL_PORT=5432 SQL_PLUGIN=postgres12
+              export SQL_TLS=true SQL_TLS_CA_FILE=/etc/postgresql-sql-tls/ca.crt SQL_TLS_DISABLE_HOST_VERIFICATION=false
               for pair in 'temporal_validation temporal' 'temporal_visibility_validation visibility'; do
                 set -- $pair
                 export SQL_DATABASE=$1
@@ -35,9 +38,14 @@ spec:
               done
           envFrom:
             - secretRef: {name: temporal-schema-owner}
+          volumeMounts:
+            - {name: sql-ca, mountPath: /etc/postgresql-sql-tls, readOnly: true}
           resources:
             requests: {cpu: 100m, memory: 128Mi}
             limits: {cpu: 500m, memory: 256Mi}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: {drop: [ALL]}
+      volumes:
+        - name: sql-ca
+          secret: {secretName: postgresql-sql-ca}

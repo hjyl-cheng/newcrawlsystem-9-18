@@ -142,7 +142,7 @@ def protected_rules(node, roles):
         del lines[start:stop + 1]
     rules = [marker]
     for role in roles:
-        for db in (['all', 'replication'] if role == 'replicator' else ['all']):
+        for db in (['all', 'replication'] if role in ['replicator', 'all'] else ['all']):
             for network in ['0.0.0.0/0', '::/0']:
                 rules.append('hostnossl ' + db + ' ' + role + ' ' + network + ' reject')
     rules.append(end)

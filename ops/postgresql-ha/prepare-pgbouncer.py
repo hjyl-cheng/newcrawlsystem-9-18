@@ -4,6 +4,10 @@ import runpy
 from pathlib import Path
 m = runpy.run_path(str(Path(__file__).with_name('prepare-patroni.py')))
 root, run, put = (m[k] for k in ('ROOT','run','put'))
+for ip in m['NODES'].values():
+    existing = run(ip, 'sudo cat /etc/pgbouncer/pgbouncer.ini', capture=True).stdout
+    if 'client_tls_sslmode' in existing:
+        raise RuntimeError('TLS-managed pool: use secure-application-sql.py; do not overwrite live pool configuration')
 a = m['envfile'](root/'secrets/data-ingestor/runtime.env')
 b = m['envfile'](root/'secrets/validation-storage.env')
 users = [('crawler', b['CRAWLER_PASSWORD']), (a['PGUSER'], a['PGPASSWORD'])]

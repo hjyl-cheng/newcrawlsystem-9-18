@@ -52,6 +52,8 @@ spec:
           env:
             - {name: PGHOST, value: postgres-rw.crawl-validation.svc}
             - {name: PGPORT, value: "6432"}
+            - {name: PGSSLMODE, value: verify-full}
+            - {name: NODE_EXTRA_CA_CERTS, value: /etc/postgresql-sql-tls/ca.crt}
             - name: KAFKA_BROKERS
               value: "10.4.4.2:9092,10.4.4.8:9092,10.4.4.5:9092"
             - name: RESULT_TOPIC
@@ -63,6 +65,7 @@ spec:
             - name: NODE_OPTIONS
               value: --max-old-space-size=192
           volumeMounts:
+            - {name: sql-ca, mountPath: /etc/postgresql-sql-tls, readOnly: true}
             - name: credentials
               mountPath: /var/run/ingestor
               readOnly: true
@@ -100,6 +103,8 @@ spec:
             periodSeconds: 10
             failureThreshold: 3
       volumes:
+        - name: sql-ca
+          secret: {secretName: postgresql-sql-ca}
         - name: credentials
           secret:
             secretName: data-ingestor-identities

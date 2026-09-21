@@ -57,6 +57,7 @@ spec:
             capabilities: {drop: [ALL]}
           volumeMounts:
             - {name: config, mountPath: /etc/temporal/validation, readOnly: true}
+            - {name: sql-ca, mountPath: /etc/postgresql-sql-tls, readOnly: true}
           startupProbe:
             grpc: {port: 7233, service: temporal.api.workflowservice.v1.WorkflowService}
             periodSeconds: 5
@@ -72,5 +73,7 @@ spec:
             periodSeconds: 15
             failureThreshold: 4
       volumes:
+        - name: sql-ca
+          secret: {secretName: postgresql-sql-ca}
         - name: config
           configMap: {name: temporal-config}
