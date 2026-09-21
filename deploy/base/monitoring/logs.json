@@ -1,0 +1,134 @@
+{
+  "uid": "crawl-logs",
+  "title": "爬虫平台 · 集中日志",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "timezone": "Asia/Shanghai",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "tags": [
+    "infrastructure",
+    "logs"
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "node",
+        "label": "服务器",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "clickhouse-logs"
+        },
+        "query": {
+          "rawSql": "SELECT DISTINCT Node FROM crawler_logs.events ORDER BY Node",
+          "queryType": "sql"
+        },
+        "refresh": 2,
+        "multi": true,
+        "includeAll": true,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "options": []
+      },
+      {
+        "name": "service",
+        "label": "服务",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "clickhouse-logs"
+        },
+        "query": {
+          "rawSql": "SELECT DISTINCT Service FROM crawler_logs.events WHERE $__timeFilter(Timestamp) ORDER BY Service LIMIT 200",
+          "queryType": "sql"
+        },
+        "refresh": 2,
+        "multi": true,
+        "includeAll": true,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "options": []
+      },
+      {
+        "name": "search",
+        "label": "内容包含",
+        "type": "textbox",
+        "query": "",
+        "current": {
+          "text": "",
+          "value": ""
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "日志数量（按级别）",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 7
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-logs"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 0,
+          "rawSql": "SELECT toStartOfInterval(Timestamp, INTERVAL $__interval_s SECOND) AS time, SeverityText AS metric, count() AS count FROM crawler_logs.events WHERE $__timeFilter(Timestamp) AND Node IN (${node:sqlstring}) AND Service IN (${service:sqlstring}) AND positionCaseInsensitiveUTF8(Body, ${search:sqlstring}) > 0 GROUP BY time,metric ORDER BY time"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "日志详情（最近 200 条）",
+      "type": "logs",
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 24,
+        "h": 19
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-logs"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 2,
+          "rawSql": "SELECT Timestamp AS timestamp, Body AS body, SeverityText AS level, Node, Service, Source, Namespace, Pod, Container FROM crawler_logs.events WHERE $__timeFilter(Timestamp) AND Node IN (${node:sqlstring}) AND Service IN (${service:sqlstring}) AND positionCaseInsensitiveUTF8(Body, ${search:sqlstring}) > 0 ORDER BY Timestamp DESC LIMIT 200"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "wrapLogMessage": true,
+        "sortOrder": "Descending",
+        "dedupStrategy": "none",
+        "showLabels": true,
+        "enableLogDetails": true
+      }
+    }
+  ]
+}

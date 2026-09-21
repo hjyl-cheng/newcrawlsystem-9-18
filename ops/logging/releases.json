@@ -1,0 +1,13 @@
+{
+  "vector": {
+    "version": "0.58.0",
+    "url": "https://github.com/vectordotdev/vector/releases/download/v0.58.0/vector-0.58.0-x86_64-unknown-linux-gnu.tar.gz",
+    "sha256": "a4634bea859a7ad7064ff3dd6f6ad7eb0e8dd4493cc41657d84da8dd66f09d09",
+    "binarySHA256": "4b219786ce4ceb437ba85c7644ad5463c01e52c687f66f0d844df9167102fea8"
+  },
+  "grafana-clickhouse": {
+    "version": "4.21.3",
+    "url": "https://grafana.com/api/plugins/grafana-clickhouse-datasource/versions/4.21.3/download?os=linux&arch=amd64",
+    "sha256": "53c0602214e7ca1af1733962779293587386b0b9a8c544ecead80b819e5f560b"
+  }
+}

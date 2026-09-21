@@ -304,6 +304,62 @@ groups:
       summary: 已知待办：SeaweedFS 目前只有维护备份
       description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
         $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogBufferHigh
+    expr: crawl_vector_buffer_size_bytes{component="clickhouse"} > 402653184
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: 日志缓冲超过 75%，请检查接收端
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogEventsDiscarded
+    expr: increase(crawl_vector_component_discarded_events_total[5m]) > 0 or increase(crawl_vector_buffer_discarded_events_total[5m])
+      > 0
+    for: 0s
+    labels:
+      severity: warning
+    annotations:
+      summary: 日志被丢弃：检查限流、解析、缓冲或写入错误
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogSinkErrors
+    expr: increase(crawl_vector_component_errors_total{component="clickhouse"}[5m])
+      > 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: 日志写入端连续报错
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogHeartbeatMissing
+    expr: time() - crawl_logs_last_heartbeat_timestamp_seconds > 180
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: 节点日志心跳未到达中央日志库
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogRetentionStale
+    expr: time() - crawl_logs_retention_checked_timestamp_seconds > 600
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: 日志容量清理任务停止刷新
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LogStorageHigh
+    expr: crawl_logs_active_bytes > 2147483648
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: 集中日志超过容量清理阈值
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
   - alert: AlertmanagerClusterDegraded
     expr: alertmanager_cluster_members < 3
     for: 2m

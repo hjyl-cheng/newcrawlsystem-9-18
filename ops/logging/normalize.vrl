@@ -1,0 +1,44 @@
+# Only allowlisted log sources enter this transform. Never keep arbitrary journal fields.
+body = string(.message) ?? ""
+stamp = timestamp(.timestamp) ?? now()
+service = "collector-heartbeat"
+source = "heartbeat"
+namespace = ""
+pod = ""
+container = ""
+if exists(._SYSTEMD_UNIT) {
+  source = "journal"
+  service = replace(string!(._SYSTEMD_UNIT), r'\.service$', "")
+} else if exists(.file) {
+  path = string!(.file)
+  source = "file"
+  service = "postgresql"
+  if contains(path, "/var/log/pods/") {
+    source = "kubernetes"
+    meta = parse_regex!(path, r'/var/log/pods/(?P<ns>[^_]+)_(?P<pod>[^_]+)_[^/]+/(?P<container>[^/]+)/')
+    namespace = string(meta.ns)
+    pod = string(meta.pod)
+    container = string(meta.container)
+    service = replace(pod, r'-[a-z0-9]{8,10}-[a-z0-9]{5}$', "")
+    service = replace(service, r'-\d+$', "")
+    cri = parse_regex!(body, r'^(?P<time>\S+) (?P<stream>stdout|stderr) (?P<flag>[FP]) (?P<body>.*)$')
+    # Fragment reassembly is intentionally not implemented in this host file reader.
+    if cri.flag != "F" { abort }
+    stamp = parse_timestamp!(string(cri.time), format: "%+")
+    body = string(cri.body)
+  } else if contains(path, "pgbouncer") { service = "pgbouncer" }
+  else if contains(path, "clickhouse") { service = "clickhouse-server" }
+}
+# Reject stale/future timestamps rather than creating unbounded historical partitions.
+age = to_unix_timestamp(now()) - to_unix_timestamp(stamp)
+if age > 259200 || age < -300 { abort }
+if match(body, r'(?i)-----BEGIN .*PRIVATE KEY-----') { body = "[REDACTED PRIVATE KEY RECORD]" }
+body = replace(body, r'(?i)\b(bearer|basic)\s+[A-Za-z0-9+/=._~-]+', "[REDACTED AUTH]")
+body = replace(body, r'(?i)(cookie|set-cookie)\s*[:=][^\r\n]*', "[REDACTED COOKIE]")
+body = replace(body, r'://[^/\s:@]+:[^/\s@]+@', "://[REDACTED]@")
+body = replace(body, r'(?i)["\x27]?(password|passwd|pwd|token|secret|api[_-]?key|access[_-]?key|authorization|proxy-authorization|cookie|set-cookie)["\x27]?\s*[:=]\s*("[^"\r\n]*"|\x27[^\x27\r\n]*\x27|[^\s,;&]+)', "[REDACTED]")
+level = "INFO"
+if match(body, r'(?i)\b(error|fatal|panic)\b') { level = "ERROR" }
+else if match(body, r'(?i)\b(warn|warning)\b') { level = "WARN" }
+else if match(body, r'(?i)\bdebug\b') { level = "DEBUG" }
+. = {"Timestamp": format_timestamp!(stamp, format: "%Y-%m-%d %H:%M:%S%.3f"), "Node": "__NODE__", "Service": service, "Source": source, "Namespace": namespace, "Pod": pod, "Container": container, "SeverityText": level, "Body": truncate(body, limit: 4096, suffix: "[TRUNCATED]"), "EventId": uuid_v4()}

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Render the small, pinned monitoring installation without a Helm dependency."""
-import json
+import json,runpy
 from pathlib import Path
 import yaml
 ROOT=Path(__file__).resolve().parents[2]
 BASE=ROOT/'deploy/base/monitoring'
 BASE.mkdir(parents=True,exist_ok=True)
+runpy.run_path(str(ROOT/'ops/logging/render-dashboard.py'))
 IMAGES=json.loads((ROOT/'ops/monitoring/images.json').read_text())
 TUNNELS=['192.168.141.132','192.168.78.192','192.168.65.64']
 NODES={'a1':'10.4.4.12','a2':'10.4.4.3','a3':'10.4.4.17','s1':'10.4.4.2','s2':'10.4.4.8','s3':'10.4.4.5'}
@@ -102,6 +103,12 @@ rule('BackupMissing','crawl_backup_archive_present == 0','2m','备份归档缺�
 rule('BackupScheduleDisabled','crawl_backup_scheduled{backup!="seaweedfs"} == 0','2m','定时备份未启用','critical')
 rule('BackupLastRunFailed','crawl_backup_last_run_success == 0','2m','最近一次备份任务失败','critical')
 rule('SeaweedContinuousBackupPending','max by(backup)(crawl_backup_scheduled{backup="seaweedfs"}) == 0','1m','已知待办：SeaweedFS 目前只有维护备份')
+rule('LogBufferHigh','crawl_vector_buffer_size_bytes{component="clickhouse"} > 402653184','5m','日志缓冲超过 75%，请检查接收端')
+rule('LogEventsDiscarded','increase(crawl_vector_component_discarded_events_total[5m]) > 0 or increase(crawl_vector_buffer_discarded_events_total[5m]) > 0','0s','日志被丢弃：检查限流、解析、缓冲或写入错误')
+rule('LogSinkErrors','increase(crawl_vector_component_errors_total{component="clickhouse"}[5m]) > 0','1m','日志写入端连续报错')
+rule('LogHeartbeatMissing','time() - crawl_logs_last_heartbeat_timestamp_seconds > 180','2m','节点日志心跳未到达中央日志库')
+rule('LogRetentionStale','time() - crawl_logs_retention_checked_timestamp_seconds > 600','2m','日志容量清理任务停止刷新')
+rule('LogStorageHigh','crawl_logs_active_bytes > 2147483648','10m','集中日志超过容量清理阈值')
 rule('AlertmanagerClusterDegraded','alertmanager_cluster_members < 3','2m','Alertmanager 集群成员不足')
 write(BASE/'rules.yaml',{'groups':[{'name':'crawl-infrastructure','rules':rules}]})
 write(BASE/'alertmanager.yaml',{'global':{'resolve_timeout':'5m'},'route':{'receiver':'platform-only','group_by':['alertname','node','instance'],'group_wait':'15s','group_interval':'1m','repeat_interval':'4h'},'receivers':[{'name':'platform-only'}]})
@@ -117,6 +124,9 @@ v,m=volume('infra-exporter-code','/opt/exporter')
 workload('infra-exporter','python',9189,mem='96Mi',health='/health',command=['python3','-B','/opt/exporter/infra-exporter.py'],volumes=[v],mounts=[m])
 
 write(BASE/'datasources.yaml',{'apiVersion':1,'datasources':[{'name':'Prometheus','uid':'prometheus','type':'prometheus','access':'proxy','url':'http://prometheus:9090','isDefault':True,'editable':False},{'name':'Alertmanager','uid':'alertmanager','type':'alertmanager','access':'proxy','url':'http://alertmanager:9093','jsonData':{'implementation':'prometheus','handleGrafanaManagedAlerts':False},'editable':False}]})
+datasources=yaml.safe_load((BASE/'datasources.yaml').read_text())
+datasources['datasources'].append(yaml.safe_load((ROOT/'ops/logging/grafana-datasource.yaml').read_text()))
+write(BASE/'datasources.yaml',datasources)
 write(BASE/'dashboards.yaml',{'apiVersion':1,'providers':[{'name':'Infrastructure','folder':'基础设施','type':'file','disableDeletion':True,'editable':False,'options':{'path':'/var/lib/grafana/dashboards'}}]})
 panels=[]
 def panel(title,expr,kind='timeseries',unit='short'):
@@ -145,7 +155,9 @@ vols += [{'name':'cache','emptyDir':{}},{'name':'tmp','emptyDir':{}}]
 mounts += [{'name':'cache','mountPath':'/var/lib/grafana'},{'name':'tmp','mountPath':'/tmp'}]
 grafana_env={'GF_DATABASE_TYPE':'postgres','GF_DATABASE_HOST':'postgres-rw.crawl-validation.svc:5432','GF_DATABASE_NAME':'crawler_grafana','GF_DATABASE_USER':'crawl_grafana','GF_DATABASE_SSL_MODE':'disable','GF_DATABASE_MAX_OPEN_CONN':'10','GF_DATABASE_MAX_IDLE_CONN':'2','GF_DATABASE_LOCKING_ATTEMPT_TIMEOUT_SEC':'60','GF_SECURITY_ADMIN_USER':'admin','GF_USERS_ALLOW_SIGN_UP':'false','GF_AUTH_ANONYMOUS_ENABLED':'false','GF_ANALYTICS_REPORTING_ENABLED':'false','GF_ANALYTICS_CHECK_FOR_UPDATES':'false','GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES':'false','GF_PLUGINS_PREINSTALL_DISABLED':'true','GF_UNIFIED_ALERTING_EXECUTE_ALERTS':'false','GF_SERVER_ROOT_URL':'http://localhost:3000/','GF_LOG_MODE':'console'}
 c,p=workload('grafana','grafana',3000,mem='384Mi',cpu='500m',uid=472,health='/api/health',env=envs(grafana_env),volumes=vols,mounts=mounts)
-c['envFrom']=[{'secretRef':{'name':'grafana-private'}}]
+c['envFrom']=[{'secretRef':{'name':'grafana-private'}},{'secretRef':{'name':'grafana-logs-private'}}]
+p['volumes'].append({'name':'clickhouse-plugin','hostPath':{'path':'/opt/crawlsystem/grafana-plugins/4.21.3/grafana-clickhouse-datasource','type':'Directory'}})
+c['volumeMounts'].append({'name':'clickhouse-plugin','mountPath':'/var/lib/grafana/plugins/grafana-clickhouse-datasource','readOnly':True})
 
 # Default deny plus explicit per-component access. No workload receives Secret read RBAC.
 objects.append(resource('NetworkPolicy','default-deny',{'podSelector':{},'policyTypes':['Ingress','Egress']},'networking.k8s.io/v1'))
@@ -169,13 +181,14 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('k
  if name=='grafana':
   ingress += [{'from':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':ip+'/32'}} for ip in TUNNELS],'ports':ports(3000)}]
   egress += [{'to':[same('prometheus')],'ports':ports(9090)},{'to':[same('alertmanager')],'ports':ports(9093)},{'to':[ns('crawl-validation','postgresql-entry')],'ports':ports(5432)}]
+ if name=='grafana':egress += [{'to':[{'ipBlock':{'cidr':'10.4.4.5/32'}}],'ports':ports(8443)}]
  if name=='kube-state-metrics':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('a')]+[{'ipBlock':{'cidr':'10.96.0.1/32'}}],'ports':ports(443,6443)}]
  if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9092)}]
  if name=='infra-exporter':egress += [{'to':[ns('crawl-validation','kafka-connect')],'ports':ports(8083)},{'to':[ns('crawl-validation','data-ingestor')],'ports':ports(8080)}]
  objects.append(resource('NetworkPolicy',name,{'podSelector':{'matchLabels':{'app':name}},'policyTypes':['Ingress','Egress'],'ingress':ingress,'egress':egress},'networking.k8s.io/v1'))
 (BASE/'resources.yaml').write_text(yaml.safe_dump_all(objects,sort_keys=False))
 (BASE/'infra-exporter.py').write_text((ROOT/'ops/monitoring/infra-exporter.py').read_text())
-write(BASE/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','resources':['resources.yaml'],'configMapGenerator':[{'name':n,'files':f} for n,f in [('prometheus-config',['prometheus.yaml','rules.yaml']),('alertmanager-config',['alertmanager.yaml']),('infra-exporter-code',['infra-exporter.py']),('grafana-datasources',['datasources.yaml']),('grafana-dashboard-provider',['dashboards.yaml']),('grafana-dashboards',['overview.json'])]]})
+write(BASE/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','resources':['resources.yaml'],'configMapGenerator':[{'name':n,'files':f} for n,f in [('prometheus-config',['prometheus.yaml','rules.yaml']),('alertmanager-config',['alertmanager.yaml']),('infra-exporter-code',['infra-exporter.py']),('grafana-datasources',['datasources.yaml']),('grafana-dashboard-provider',['dashboards.yaml']),('grafana-dashboards',['overview.json','logs.json'])]]})
 overlay=ROOT/'deploy/overlays/validation/monitoring';overlay.mkdir(parents=True,exist_ok=True)
 write(overlay/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','namespace':'crawl-monitoring','resources':['../../../base/monitoring']})
 project=resource('AppProject','crawl-monitoring',{'sourceRepos':['https://github.com/hjyl-cheng/newcrawlsystem-9-18.git'],'destinations':[{'server':'https://kubernetes.default.svc','namespace':'crawl-monitoring'}],'clusterResourceWhitelist':[],'namespaceResourceWhitelist':[{'group':g,'kind':k} for g,k in [('','ConfigMap'),('','Service'),('','ServiceAccount'),('','PersistentVolumeClaim'),('apps','Deployment'),('apps','StatefulSet'),('networking.k8s.io','NetworkPolicy'),('policy','PodDisruptionBudget')]]},'argoproj.io/v1alpha1');project['metadata']['namespace']='argocd'

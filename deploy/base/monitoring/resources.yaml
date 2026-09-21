@@ -752,9 +752,14 @@ spec:
           mountPath: /var/lib/grafana
         - name: tmp
           mountPath: /tmp
+        - name: clickhouse-plugin
+          mountPath: /var/lib/grafana/plugins/grafana-clickhouse-datasource
+          readOnly: true
         envFrom:
         - secretRef:
             name: grafana-private
+        - secretRef:
+            name: grafana-logs-private
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -777,6 +782,10 @@ spec:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
+      - name: clickhouse-plugin
+        hostPath:
+          path: /opt/crawlsystem/grafana-plugins/4.21.3/grafana-clickhouse-datasource
+          type: Directory
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -1027,6 +1036,12 @@ spec:
     ports:
     - protocol: TCP
       port: 5432
+  - to:
+    - ipBlock:
+        cidr: 10.4.4.5/32
+    ports:
+    - protocol: TCP
+      port: 8443
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

@@ -2,7 +2,7 @@
 """Bounded read-only infrastructure probes -> node_exporter textfile collector.
 Runs as root to read protected backup metadata; exports no credentials or logs.
 """
-import json,os,socket,subprocess,time,urllib.request
+import json,os,re,socket,subprocess,time,urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -29,6 +29,7 @@ class Metrics:
 def services(m):
     units=['kubelet','containerd','crawl-kube-api'] if NODE.startswith('a') else ['crawl-patroni','crawl-pg-etcd','crawl-cdc-guard','pgbouncer','kafka','seaweedfs-master','seaweedfs-volume','seaweedfs-filer','seaweedfs-s3','crawl-seaweed-pg']
     if NODE=='s3':units.append('clickhouse-server')
+    if Path('/etc/crawl-vector/vector.yaml').exists():units.append('crawl-vector')
     for unit in units:
         state=command(['systemctl','show',unit+'.service','-p','ActiveState','--value'])
         m.add('crawl_service_up',state=='active',service=unit)
@@ -112,6 +113,36 @@ def seaweed_backup(m):
     # Explicitly expose the known maintenance-only backup boundary.
     m.add('crawl_backup_scheduled',0,backup='seaweedfs')
 
+def logging_agent(m):
+    # Keep bounded component labels, not file names, pod IDs, errors or message bodies.
+    with urllib.request.urlopen('http://127.0.0.1:9598/metrics',timeout=3) as response:
+        lines=response.read().decode().splitlines()
+    names=['buffer_size_bytes','buffer_size_events','buffer_discarded_events_total',
+           'component_discarded_events_total','component_errors_total','component_sent_events_total']
+    components=['journal','files','heartbeat','normalize','budget','clickhouse']
+    values={(metric,component):0 for metric in names for component in components}
+    for line in lines:
+        found=re.match(r'^vector_([a-z_]+)\{([^}]+)\}\s+([0-9.eE+-]+)',line)
+        if not found:continue
+        metric,labels,value=found.groups()
+        component=re.search(r'(?:^|,)component_id="([a-z]+)"',labels)
+        if component and (metric,component[1]) in values:
+            values[(metric,component[1])]+=float(value)
+    for (metric,component),value in values.items():
+        m.add('crawl_vector_'+metric,value,component=component)
+
+def logging_store(m):
+    query="SELECT Node, toUnixTimestamp(max(IngestedAt)) AS last FROM crawler_logs.events WHERE Source='heartbeat' AND IngestedAt > now()-INTERVAL 1 DAY GROUP BY Node FORMAT JSON"
+    rows=json.loads(command(['clickhouse-client','--query',query],timeout=5))['data']
+    by_node={r['Node']:r['last'] for r in rows}
+    for node in ['a1','a2','a3','s1','s2','s3']:
+        m.add('crawl_logs_last_heartbeat_timestamp_seconds',by_node.get(node,0),source_node=node)
+    value=command(['clickhouse-client','--query',"SELECT coalesce(sum(bytes_on_disk),0) FROM system.parts WHERE database='crawler_logs' AND table='events' AND active"],timeout=5)
+    m.add('crawl_logs_active_bytes',int(value))
+    state=json.loads(Path('/var/lib/crawl-log-retention/status.json').read_text())
+    m.add('crawl_logs_retention_checked_timestamp_seconds',state['checked_at'])
+    m.add('crawl_logs_dropped_partitions_total',state['dropped_partitions_total'])
+
 def main():
     if NODE not in ['a1','a2','a3','s1','s2','s3']:raise RuntimeError('Unknown node')
     m=Metrics();m.section('services',services)
@@ -122,6 +153,8 @@ def main():
         m.section('backup-clickhouse',lambda m:backup_file(m,'clickhouse',Path('/srv/crawlsystem/backups/clickhouse'),'crawl-clickhouse-backup.timer','crawl-clickhouse-backup.service'))
     if NODE=='s2':m.section('backup-postgresql',pg_backup)
     if NODE in ['s2','s3']:m.section('backup-seaweedfs',seaweed_backup)
+    if Path('/etc/crawl-vector/vector.yaml').exists():m.section('logging-agent',logging_agent)
+    if NODE=='s3' and Path('/var/lib/crawl-log-retention').exists():m.section('logging-store',logging_store)
     m.add('crawl_collector_last_run_timestamp_seconds',time.time())
     tmp=DEST.with_suffix('.tmp');tmp.write_text('\n'.join(m.lines)+'\n');os.chmod(tmp,0o644);tmp.replace(DEST)
 

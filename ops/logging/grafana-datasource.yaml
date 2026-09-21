@@ -1,0 +1,30 @@
+name: Infrastructure Logs
+uid: clickhouse-logs
+type: grafana-clickhouse-datasource
+access: proxy
+editable: false
+jsonData:
+  version: 4.21.3
+  host: 10.4.4.5
+  port: 8443
+  protocol: http
+  secure: true
+  tlsSkipVerify: false
+  tlsAuthWithCACert: true
+  username: crawl_logs_grafana
+  defaultDatabase: crawler_logs
+  defaultTable: events
+  queryTimeout: '10'
+  dialTimeout: '5'
+  maxOpenConns: '2'
+  maxIdleConns: '1'
+  logs:
+    defaultDatabase: crawler_logs
+    defaultTable: events
+    timeColumn: Timestamp
+    levelColumn: SeverityText
+    messageColumn: Body
+    contextColumns: [Node, Service, Namespace, Pod, Container]
+secureJsonData:
+  password: $CLICKHOUSE_LOGS_PASSWORD
+  tlsCACert: $CLICKHOUSE_LOGS_CA

@@ -1,0 +1,8 @@
+[Unit]
+Description=Check derived log capacity every five minutes
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=5min
+AccuracySec=10s
+[Install]
+WantedBy=timers.target

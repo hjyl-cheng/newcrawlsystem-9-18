@@ -1,0 +1,13 @@
+[Unit]
+Description=Bound retention of derived infrastructure logs only
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/crawlsystem/logging/retention.py
+TimeoutStartSec=180
+MemoryMax=128M
+CPUQuota=20%
+Nice=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/crawl-log-retention

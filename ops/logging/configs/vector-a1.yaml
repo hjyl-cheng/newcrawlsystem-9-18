@@ -1,0 +1,124 @@
+data_dir: /var/lib/crawl-vector
+sources:
+  journal:
+    type: journald
+    include_units:
+    - kubelet.service
+    - containerd.service
+    - crawl-kube-api.service
+    - crawl-log-probe.service
+    - crawl-metrics-collect.service
+    - crawl-control-backup.service
+    - crawl-clickhouse-backup.service
+    since_now: true
+  heartbeat:
+    type: exec
+    mode: scheduled
+    scheduled:
+      exec_interval_secs: 60
+    command:
+    - /usr/bin/printf
+    - collector heartbeat
+  internal:
+    type: internal_metrics
+    scrape_interval_secs: 15
+  files:
+    type: file
+    include:
+    - /var/log/pods/crawl-validation_*/*/*.log
+    - /var/log/pods/crawl-monitoring_*/*/*.log
+    - /var/log/pods/argocd_*/*/*.log
+    - /var/log/pods/kube-system_*/*/*.log
+    read_from: beginning
+    ignore_older_secs: 3600
+    max_line_bytes: 32768
+    max_read_bytes: 65536
+transforms:
+  normalize:
+    type: remap
+    inputs:
+    - journal
+    - files
+    - heartbeat
+    drop_on_error: true
+    drop_on_abort: true
+    source: "# Only allowlisted log sources enter this transform. Never keep arbitrary\
+      \ journal fields.\nbody = string(.message) ?? \"\"\nstamp = timestamp(.timestamp)\
+      \ ?? now()\nservice = \"collector-heartbeat\"\nsource = \"heartbeat\"\nnamespace\
+      \ = \"\"\npod = \"\"\ncontainer = \"\"\nif exists(._SYSTEMD_UNIT) {\n  source\
+      \ = \"journal\"\n  service = replace(string!(._SYSTEMD_UNIT), r'\\.service$',\
+      \ \"\")\n} else if exists(.file) {\n  path = string!(.file)\n  source = \"file\"\
+      \n  service = \"postgresql\"\n  if contains(path, \"/var/log/pods/\") {\n  \
+      \  source = \"kubernetes\"\n    meta = parse_regex!(path, r'/var/log/pods/(?P<ns>[^_]+)_(?P<pod>[^_]+)_[^/]+/(?P<container>[^/]+)/')\n\
+      \    namespace = string(meta.ns)\n    pod = string(meta.pod)\n    container\
+      \ = string(meta.container)\n    service = replace(pod, r'-[a-z0-9]{8,10}-[a-z0-9]{5}$',\
+      \ \"\")\n    service = replace(service, r'-\\d+$', \"\")\n    cri = parse_regex!(body,\
+      \ r'^(?P<time>\\S+) (?P<stream>stdout|stderr) (?P<flag>[FP]) (?P<body>.*)$')\n\
+      \    # Fragment reassembly is intentionally not implemented in this host file\
+      \ reader.\n    if cri.flag != \"F\" { abort }\n    stamp = parse_timestamp!(string(cri.time),\
+      \ format: \"%+\")\n    body = string(cri.body)\n  } else if contains(path, \"\
+      pgbouncer\") { service = \"pgbouncer\" }\n  else if contains(path, \"clickhouse\"\
+      ) { service = \"clickhouse-server\" }\n}\n# Reject stale/future timestamps rather\
+      \ than creating unbounded historical partitions.\nage = to_unix_timestamp(now())\
+      \ - to_unix_timestamp(stamp)\nif age > 259200 || age < -300 { abort }\nif match(body,\
+      \ r'(?i)-----BEGIN .*PRIVATE KEY-----') { body = \"[REDACTED PRIVATE KEY RECORD]\"\
+      \ }\nbody = replace(body, r'(?i)\\b(bearer|basic)\\s+[A-Za-z0-9+/=._~-]+', \"\
+      [REDACTED AUTH]\")\nbody = replace(body, r'(?i)(cookie|set-cookie)\\s*[:=][^\\\
+      r\\n]*', \"[REDACTED COOKIE]\")\nbody = replace(body, r'://[^/\\s:@]+:[^/\\\
+      s@]+@', \"://[REDACTED]@\")\nbody = replace(body, r'(?i)[\"\\x27]?(password|passwd|pwd|token|secret|api[_-]?key|access[_-]?key|authorization|proxy-authorization|cookie|set-cookie)[\"\
+      \\x27]?\\s*[:=]\\s*(\"[^\"\\r\\n]*\"|\\x27[^\\x27\\r\\n]*\\x27|[^\\s,;&]+)',\
+      \ \"[REDACTED]\")\nlevel = \"INFO\"\nif match(body, r'(?i)\\b(error|fatal|panic)\\\
+      b') { level = \"ERROR\" }\nelse if match(body, r'(?i)\\b(warn|warning)\\b')\
+      \ { level = \"WARN\" }\nelse if match(body, r'(?i)\\bdebug\\b') { level = \"\
+      DEBUG\" }\n. = {\"Timestamp\": format_timestamp!(stamp, format: \"%Y-%m-%d %H:%M:%S%.3f\"\
+      ), \"Node\": \"a1\", \"Service\": service, \"Source\": source, \"Namespace\"\
+      : namespace, \"Pod\": pod, \"Container\": container, \"SeverityText\": level,\
+      \ \"Body\": truncate(body, limit: 4096, suffix: \"[TRUNCATED]\"), \"EventId\"\
+      : uuid_v4()}\n"
+  budget:
+    type: throttle
+    inputs:
+    - normalize
+    threshold: 200
+    window_secs: 10
+    exclude:
+      type: vrl
+      source: .Source == "heartbeat"
+sinks:
+  clickhouse:
+    type: clickhouse
+    inputs:
+    - budget
+    endpoint: https://10.4.4.5:8443
+    database: crawler_logs
+    table: events
+    format: json_each_row
+    skip_unknown_fields: false
+    date_time_best_effort: true
+    compression: gzip
+    auth:
+      strategy: basic
+      user: crawl_logs_a1
+      password: ${CRAWL_LOG_PASSWORD}
+    tls:
+      ca_file: /etc/crawl-vector/ca.crt
+      verify_certificate: true
+      verify_hostname: true
+    batch:
+      max_events: 500
+      max_bytes: 262144
+      timeout_secs: 10
+    buffer:
+      type: disk
+      max_size: 536870912
+      when_full: drop_newest
+    request:
+      concurrency: 1
+      timeout_secs: 10
+      retry_initial_backoff_secs: 1
+      retry_max_duration_secs: 30
+  metrics:
+    type: prometheus_exporter
+    inputs:
+    - internal
+    address: 127.0.0.1:9598
