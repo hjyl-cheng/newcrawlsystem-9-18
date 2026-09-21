@@ -82,9 +82,22 @@
         "PostgreSQL leader, synchronous standby, and replica remained healthy with zero replay lag",
         "Kafka retained all three voters with zero follower lag and SeaweedFS retained a leader plus two peers"
       ]
+    },
+    {
+      "target": "Calico 3.32.2",
+      "result": "PASSED",
+      "nodes": ["a1", "a2", "a3"],
+      "checks": [
+        "3/3 calico-node Pods and calico-kube-controllers Ready on v3.32.2",
+        "IP_AUTODETECTION_METHOD remained interface=eth0 and all VXLAN devices used the private eth0 address",
+        "The existing pool remained 192.168.0.0/16 with VXLAN Always and IPIP Never",
+        "Every node-local smoke Pod reached the Service VIP and all three Pod endpoints 100/100 times",
+        "A temporary cross-node NetworkPolicy test denied an unallowed client and allowed the labeled client",
+        "All non-completed workload Pods Ready and eight Argo Applications remained Synced and Healthy"
+      ]
     }
   ],
-  "next_target": "Calico 3.32.2, then Kubernetes 1.35.8",
+  "next_target": "Kubernetes 1.35.8",
   "limits": [
     "This evidence is updated after every gated minor upgrade and is incomplete until status becomes PASSED.",
     "Drain temporarily leaves each node-local monitoring PVC Pending on its cordoned owner; the other replica remains available and the local replica returns after uncordon."
