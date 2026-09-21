@@ -1,0 +1,64 @@
+---
+- name: Maintain the existing CDC guard until a verified native replacement is available
+  hosts: storage
+  gather_facts: false
+  serial: 1
+  any_errors_fatal: true
+  tasks:
+    - name: Confirm the existing guard service is active
+      ansible.builtin.command: systemctl is-active crawl-cdc-guard
+      changed_when: false
+
+    - name: Deploy the reviewed guard using Ansible atomic file replacement
+      ansible.builtin.copy:
+        src: ../../cdc/ha-guard.py
+        dest: /opt/crawlsystem/cdc/ha-guard.py
+        owner: root
+        group: root
+        mode: '0755'
+        backup: true
+      register: guard_copy
+
+    - name: Restart and check this node before proceeding
+      when: guard_copy.changed
+      block:
+        - name: Restart only the guard, not PostgreSQL or Patroni
+          ansible.builtin.systemd_service:
+            name: crawl-cdc-guard
+            state: restarted
+
+        - name: Wait for a fresh healthy reconciliation
+          ansible.builtin.command:
+            argv:
+              - /usr/bin/python3
+              - -c
+              - >-
+                import json,time,pathlib;
+                p=pathlib.Path('/var/lib/crawl-cdc-guard/status.json');
+                s=json.loads(p.read_text());
+                assert s['state'] in ['READY','STANDBY_READY'] and time.time()-s['checked_at']<10;
+                assert s['checked_at']>pathlib.Path('/opt/crawlsystem/cdc/ha-guard.py').stat().st_mtime;
+                print(s['state'])
+          register: guard_health
+          changed_when: false
+          retries: 10
+          delay: 3
+          until: guard_health.rc == 0
+      rescue:
+        - name: Restore previous guard after failed verification
+          ansible.builtin.copy:
+            src: '{{ guard_copy.backup_file }}'
+            dest: /opt/crawlsystem/cdc/ha-guard.py
+            remote_src: true
+            owner: root
+            group: root
+            mode: '0755'
+
+        - name: Restart restored guard
+          ansible.builtin.systemd_service:
+            name: crawl-cdc-guard
+            state: restarted
+
+        - name: Stop the rollout after rollback
+          ansible.builtin.fail:
+            msg: Guard verification failed; previous file restored. Inspect this node before retrying.

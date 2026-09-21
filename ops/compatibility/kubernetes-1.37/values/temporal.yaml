@@ -1,0 +1,30 @@
+# Template/API checks only. .invalid is intentional; never use live credentials.
+server:
+  config:
+    persistence:
+      defaultStore: default
+      visibilityStore: visibility
+      numHistoryShards: 128
+      datastores:
+        default:
+          sql:
+            pluginName: postgres12
+            databaseName: temporal_compat
+            connectAddr: postgres.compat.invalid:5432
+            user: temporal_compat
+            existingSecret: temporal-compat-db
+            createDatabase: false
+            manageSchema: false
+        visibility:
+          sql:
+            pluginName: postgres12
+            databaseName: temporal_visibility_compat
+            connectAddr: postgres.compat.invalid:5432
+            user: temporal_compat
+            existingSecret: temporal-compat-db
+            createDatabase: false
+            manageSchema: false
+web:
+  enabled: false
+admintools:
+  enabled: false

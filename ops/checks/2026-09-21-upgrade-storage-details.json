@@ -1,0 +1,48 @@
+{
+  "s1": {
+    "kafka": {
+      "process.roles": "broker,controller",
+      "node.id": "1",
+      "inter.broker.listener.name": "PLAINTEXT",
+      "controller.listener.names": "CONTROLLER",
+      "log.dirs": "/srv/crawlsystem/kafka/logs",
+      "log.retention.hours": "168"
+    },
+    "sizes": {
+      "/var/lib/crawl-vector": "8802304\t/var/lib/crawl-vector",
+      "/srv/crawlsystem/kafka/logs": "41000960\t/srv/crawlsystem/kafka/logs",
+      "/srv/crawlsystem/backups": "94208\t/srv/crawlsystem/backups"
+    }
+  },
+  "s2": {
+    "kafka": {
+      "process.roles": "broker,controller",
+      "node.id": "2",
+      "inter.broker.listener.name": "PLAINTEXT",
+      "controller.listener.names": "CONTROLLER",
+      "log.dirs": "/srv/crawlsystem/kafka/logs",
+      "log.retention.hours": "168"
+    },
+    "sizes": {
+      "/srv/crawlsystem/kafka/logs": "40894464\t/srv/crawlsystem/kafka/logs",
+      "/srv/crawlsystem/backups": "506163200\t/srv/crawlsystem/backups",
+      "/var/lib/crawl-vector": "8298496\t/var/lib/crawl-vector"
+    }
+  },
+  "s3": {
+    "kafka": {
+      "process.roles": "broker,controller",
+      "node.id": "3",
+      "inter.broker.listener.name": "PLAINTEXT",
+      "controller.listener.names": "CONTROLLER",
+      "log.dirs": "/srv/crawlsystem/kafka/logs",
+      "log.retention.hours": "168"
+    },
+    "sizes": {
+      "/var/lib/crawl-vector": "15429632\t/var/lib/crawl-vector",
+      "/srv/crawlsystem/kafka/logs": "40931328\t/srv/crawlsystem/kafka/logs",
+      "/var/lib/clickhouse": "782008320\t/var/lib/clickhouse",
+      "/srv/crawlsystem/backups": "57344\t/srv/crawlsystem/backups"
+    }
+  }
+}

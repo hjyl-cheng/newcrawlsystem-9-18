@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k137-monitor-test
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-metrics
+  namespace: k137-monitor-test
+data:
+  metrics: |
+    # HELP crawl_test_metric Kubernetes 1.37 compatibility test metric.
+    # TYPE crawl_test_metric gauge
+    crawl_test_metric 7
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-metrics
+  namespace: k137-monitor-test
+  labels:
+    app: test-metrics
+spec:
+  containers:
+    - name: http
+      image: busybox:1.37.0
+      args: [httpd, -f, -p, "8080", -h, /www]
+      ports:
+        - name: metrics
+          containerPort: 8080
+      volumeMounts:
+        - name: metrics
+          mountPath: /www
+          readOnly: true
+  volumes:
+    - name: metrics
+      configMap:
+        name: test-metrics
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-metrics
+  namespace: k137-monitor-test
+  labels:
+    app: test-metrics
+spec:
+  selector:
+    app: test-metrics
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: test-metrics
+  namespace: k137-monitor-test
+  labels:
+    release: monitoring
+spec:
+  fallbackScrapeProtocol: PrometheusText0.0.4
+  selector:
+    matchLabels:
+      app: test-metrics
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 2s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: test-metric-present
+  namespace: k137-monitor-test
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: k137-compatibility
+      rules:
+        - alert: K137MetricPresent
+          expr: crawl_test_metric == 7
+          for: 0m
+          labels:
+            severity: test
+          annotations:
+            summary: Kubernetes 1.37 monitoring compatibility alert
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: query-client
+  namespace: k137-monitor-test
+spec:
+  containers:
+    - name: client
+      image: busybox:1.37.0
+      args: [sleep, "3600"]

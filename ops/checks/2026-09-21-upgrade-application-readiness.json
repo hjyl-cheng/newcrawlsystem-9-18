@@ -1,0 +1,145 @@
+{
+  "argocd": {
+    "rc": 0,
+    "output": "argocd: v2.13.5+03600ae",
+    "stderr": ""
+  },
+  "argocd-redis": {
+    "rc": 0,
+    "output": "Redis server v=7.0.15 sha=00000000:0 malloc=jemalloc-5.2.1 bits=64 build=ab00a978c3c3246d",
+    "stderr": "Defaulted container \"redis\" out of: redis, sentinel, split-brain-fix, config-init (init)"
+  },
+  "pg-entry-haproxy": {
+    "rc": 0,
+    "output": "HAProxy version 3.2.13-8bd310ca4 2026/02/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2030.\nKnown bugs: http://www.haproxy.org/bugs/bugs-3.2.13.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64",
+    "stderr": ""
+  },
+  "cdc-readiness": {
+    "checkedAt": "2026-09-21T09:09:06.912098+00:00",
+    "nodes": {
+      "s1": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": true,
+          "restart_lsn": "1/4007E160",
+          "confirmed_flush_lsn": "1/420888E0",
+          "wal_status": "reserved",
+          "safe_wal_size": 1895711792,
+          "invalidation_reason": null,
+          "retained_bytes": 268032624
+        },
+        "pgWalBytes": 620765574,
+        "guard": {
+          "checked_at": 1789981747.5169978,
+          "node": "s1",
+          "state": "READY",
+          "candidates": [
+            "s2",
+            "s3"
+          ],
+          "generation": "5548809c009345cbbc2aa54437ead2e5"
+        }
+      },
+      "s2": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/4007E160",
+          "confirmed_flush_lsn": "1/420888E0",
+          "wal_status": "reserved",
+          "safe_wal_size": 7532969984,
+          "invalidation_reason": null,
+          "retained_bytes": 268061416
+        },
+        "pgWalBytes": 603988356,
+        "guard": {
+          "checked_at": 1789981748.3347251,
+          "node": "s2",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      },
+      "s3": {
+        "slot": {
+          "slot": "crawl_cdc_validation",
+          "failover": true,
+          "synced": true,
+          "temporary": false,
+          "active": false,
+          "restart_lsn": "1/4007E160",
+          "confirmed_flush_lsn": "1/420888E0",
+          "wal_status": "reserved",
+          "safe_wal_size": 7532969984,
+          "invalidation_reason": null,
+          "retained_bytes": 268061416
+        },
+        "pgWalBytes": 603988355,
+        "guard": {
+          "checked_at": 1789981749.2816381,
+          "node": "s3",
+          "state": "STANDBY_READY",
+          "leader": "s1"
+        }
+      }
+    },
+    "connector": {
+      "state": "RUNNING",
+      "tasks": [
+        {
+          "id": 0,
+          "state": "RUNNING",
+          "worker": "192.168.141.186:8083"
+        }
+      ]
+    },
+    "primary": "s1",
+    "publication": "cdc_validation.outbox",
+    "candidateFence": {
+      "leader": {
+        "value": "s1",
+        "revision": "57019"
+      },
+      "policy": {
+        "allowed": [
+          "s2",
+          "s3"
+        ],
+        "floor": "1/2600CF80",
+        "generation": "5548809c009345cbbc2aa54437ead2e5",
+        "owner": "s1",
+        "system_id": "7686815759311573177",
+        "version": 1
+      },
+      "barrier": [
+        "s2",
+        "s3"
+      ]
+    },
+    "connectOffsets": {
+      "offsets": [
+        {
+          "partition": {
+            "server": "crawl_cdc_validation"
+          },
+          "offset": {
+            "lsn_proc": 5402822880,
+            "messageType": "COMMIT",
+            "lsn_commit": 5402822880,
+            "lsn": 5402822880,
+            "txId": 96209,
+            "ts_usec": 1789977536140901
+          }
+        }
+      ]
+    },
+    "status": "PASSED",
+    "issues": [],
+    "scope": "On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery"
+  }
+}

@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k137-temporal
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: k137-temporal-local
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: k137-temporal-postgres
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes: [ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: k137-temporal-local
+  local:
+    path: /var/lib/k137-temporal-postgres
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values: [crawl137-w1]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: temporal-postgres
+  namespace: k137-temporal
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: k137-temporal-local
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temporal-postgres
+  namespace: k137-temporal
+spec:
+  selector:
+    app: temporal-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: temporal-postgres
+  namespace: k137-temporal
+spec:
+  serviceName: temporal-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temporal-postgres
+  template:
+    metadata:
+      labels:
+        app: temporal-postgres
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: crawl137-w1
+      securityContext:
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: postgres
+          image: postgres:18.6-bookworm
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              value: temporal
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database
+                  key: password
+          ports:
+            - name: postgres
+              containerPort: 5432
+          readinessProbe:
+            exec:
+              command: [pg_isready, -U, temporal, -d, postgres]
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: temporal-postgres

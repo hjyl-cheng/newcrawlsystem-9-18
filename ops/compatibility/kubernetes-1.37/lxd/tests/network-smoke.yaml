@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k137-network-test
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: server
+  namespace: k137-network-test
+  labels:
+    app: server
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: crawl137-w1
+  containers:
+    - name: server
+      image: busybox:1.37.0
+      command: [sh, -c]
+      args:
+        - mkdir -p /www && printf 'ok\n' > /www/index.html && exec httpd -f -p 8080 -h /www
+      ports:
+        - containerPort: 8080
+          name: http
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+  namespace: k137-network-test
+  labels:
+    access: allowed
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: crawl137-cp
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+  containers:
+    - name: client
+      image: busybox:1.37.0
+      args: [sleep, "3600"]
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  namespace: k137-network-test
+spec:
+  selector:
+    app: server
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

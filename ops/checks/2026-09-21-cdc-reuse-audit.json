@@ -1,0 +1,161 @@
+{
+  "checkedAt": "2026-09-21T08:21:18.104464+00:00",
+  "scope": "Read-only CDC implementation audit; SELECT 1 through original Guard.query with connection parameters observed, no daemon/config/slot changes",
+  "nodes": {
+    "s1": {
+      "node": "s1",
+      "patroni_version": "4.1.5",
+      "guard_sha256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "patroni_slots_sha256": "a6272511d5a9cd0ba5e5ef802d4a645ac9b98e5bed621dfa25ee4efa413df0d1",
+      "native_dynamic_barrier": false,
+      "native_bad_slot_repair": false,
+      "pre_promote": "/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py --pre-promote",
+      "guard_status": {
+        "checked_at": 1789978876.0172908,
+        "node": "s1",
+        "state": "READY",
+        "candidates": [
+          "s2",
+          "s3"
+        ],
+        "generation": "5548809c009345cbbc2aa54437ead2e5"
+      },
+      "guard_service_tls_environment": {},
+      "guard_query_connections": [
+        {
+          "host": "10.4.4.8",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "10.4.4.5",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "/var/run/postgresql",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": false
+        }
+      ],
+      "pg": [
+        "17.11 (Ubuntu 17.11-1.pgdg24.04+2)",
+        "s2,s3",
+        "on",
+        "on"
+      ]
+    },
+    "s2": {
+      "node": "s2",
+      "patroni_version": "4.1.5",
+      "guard_sha256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "patroni_slots_sha256": "a6272511d5a9cd0ba5e5ef802d4a645ac9b98e5bed621dfa25ee4efa413df0d1",
+      "native_dynamic_barrier": false,
+      "native_bad_slot_repair": false,
+      "pre_promote": "/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py --pre-promote",
+      "guard_status": {
+        "checked_at": 1789978877.5742118,
+        "node": "s2",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      },
+      "guard_service_tls_environment": {},
+      "guard_query_connections": [
+        {
+          "host": "10.4.4.2",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "10.4.4.5",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "/var/run/postgresql",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": false
+        }
+      ],
+      "pg": [
+        "17.11 (Ubuntu 17.11-1.pgdg24.04+2)",
+        "s1,s3",
+        "on",
+        "on"
+      ]
+    },
+    "s3": {
+      "node": "s3",
+      "patroni_version": "4.1.5",
+      "guard_sha256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "patroni_slots_sha256": "a6272511d5a9cd0ba5e5ef802d4a645ac9b98e5bed621dfa25ee4efa413df0d1",
+      "native_dynamic_barrier": false,
+      "native_bad_slot_repair": false,
+      "pre_promote": "/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py --pre-promote",
+      "guard_status": {
+        "checked_at": 1789978876.365372,
+        "node": "s3",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      },
+      "guard_service_tls_environment": {},
+      "guard_query_connections": [
+        {
+          "host": "10.4.4.2",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "10.4.4.8",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": true
+        },
+        {
+          "host": "/var/run/postgresql",
+          "sslmode": "prefer",
+          "sslrootcert": null,
+          "ssl_in_use": false
+        }
+      ],
+      "pg": [
+        "17.11 (Ubuntu 17.11-1.pgdg24.04+2)",
+        "s1,s2",
+        "on",
+        "on"
+      ]
+    }
+  },
+  "unitTests": {
+    "command": "python3 -m unittest discover -s ops/cdc -p 'test_*.py' -v",
+    "passed": 18
+  },
+  "upstream": {
+    "patroniRelease": "v4.1.5",
+    "dynamicBarrierMergedAt": "2026-09-03T15:54:36Z",
+    "dynamicBarrierCommit": "a092a75917c5654d6a336648c9853ee9d77c8a72",
+    "masterInspected": "eec38cd0b8f51d23c8a965515bd0df6dd05a5df1",
+    "tagSlotsSHA256": "a6272511d5a9cd0ba5e5ef802d4a645ac9b98e5bed621dfa25ee4efa413df0d1",
+    "cloudNativePG": {
+      "versionInspected": "v1.30.0",
+      "source": "https://github.com/cloudnative-pg/cloudnative-pg/blob/v1.30.0/pkg/management/postgres/configuration.go#L371",
+      "sourceSHA256": "896b93032f865484b60aae6b96c608717a8e23a95c29c7a1db814686767a7ea1",
+      "finding": "Barrier built from InstanceNames excluding current primary; no Ready filter in this block. Not accepted as proof of uninterrupted CDC with an offline member."
+    },
+    "pigsty": {
+      "releaseInspected": "v4.5.0",
+      "status": "candidate for host operations; adoption not tested"
+    },
+    "pg_failover_slots": {
+      "versionInspected": "v1.2.0",
+      "status": "candidate; joint failover safety with current Patroni topology not verified"
+    }
+  }
+}

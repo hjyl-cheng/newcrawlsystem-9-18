@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mock-prometheus-response
+  namespace: k137-keda-test
+data:
+  query: '{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1,"0"]}]}}'

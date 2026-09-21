@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-09-21T19:09:10+08:00",
+  "status": "PASSED",
+  "trigger": "Creating the isolated LXD bridge on A1 exposed Calico's default first-found interface selection.",
+  "observed": {
+    "a1_wrong_calico_node_address": "172.31.137.1/24",
+    "a1_wrong_vxlan_parent": "crawl137br0",
+    "expected_calico_node_address": "10.4.4.12/22",
+    "expected_vxlan_parent": "eth0",
+    "symptom": "Cross-node Pod traffic from A3 to the A1 Redis HAProxy endpoint timed out; Argo Applications intermittently changed from Synced to Unknown."
+  },
+  "diagnosis": {
+    "argo_redis_service": "10.96.133.224:6379",
+    "a1_haproxy_pod": "192.168.141.158:6379",
+    "a3_haproxy_pod": "192.168.65.75:6379",
+    "before_fix": {
+      "service_vip": "timeout",
+      "a1_endpoint_from_a3": "timeout",
+      "a3_endpoint_from_a3": "connected"
+    },
+    "packet_capture": "A1 emitted VXLAN packets with outer source 172.31.137.1 instead of 10.4.4.12."
+  },
+  "change": {
+    "component": "calico-node DaemonSet",
+    "setting": "IP_AUTODETECTION_METHOD=interface=eth0",
+    "rollout": "3 of 3 calico-node Pods available",
+    "a1_calico_node_address_after": "10.4.4.12/22",
+    "a1_vxlan_after": "local 10.4.4.12 dev eth0"
+  },
+  "verification": {
+    "redis_service_connections": "300/300",
+    "a1_haproxy_connections_from_a3": "300/300",
+    "a3_haproxy_connections_from_a3": "300/300",
+    "kubernetes_nodes_ready": "3/3",
+    "argo_applications": "8/8 Synced and Healthy"
+  },
+  "source_of_truth_updated": [
+    "deploy/kubernetes/calico-v3.29.3.yaml",
+    "ops/compatibility/kubernetes-1.37/calico/vxlan.yaml"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "checked_at": "2026-09-21T18:55:37+08:00",
+  "status": "ISOLATED_RUNTIME_PASSED_FOR_TESTED_SCOPE",
+  "scope": "Two-node LXD Kubernetes 1.37.0 cluster on A1. No live-cluster upgrade and no connection to production PostgreSQL, Kafka, credentials, or application data.",
+  "cleanup": {
+    "test_releases_and_namespaces_removed": true,
+    "temporary_postgresql_data_removed": true,
+    "lxd_instances": "stopped",
+    "live_cluster_changed": false
+  },
+  "environment": {
+    "provider": "LXD 5.21.7 LTS",
+    "control_plane": "crawl137-cp / 172.31.137.10 / 2 CPU / 2300 MiB",
+    "worker": "crawl137-w1 / 172.31.137.11 / 2 CPU / 2500 MiB",
+    "kubernetes": "1.37.0",
+    "containerd": "2.4.0",
+    "runc": "1.5.1",
+    "cni_plugins": "1.9.1",
+    "calico": "3.32.2",
+    "helm": "4.3.0",
+    "pod_cidr": "10.244.0.0/16",
+    "service_cidr": "10.120.0.0/16"
+  },
+  "tests": [
+    {
+      "component": "kubernetes-calico",
+      "result": "PASSED",
+      "evidence": [
+        "Both nodes Ready and kube-apiserver /readyz passed",
+        "Cross-node Pod IP, ClusterIP Service, and CoreDNS resolution passed",
+        "Default-deny NetworkPolicy blocked traffic and selected allow restored it"
+      ]
+    },
+    {
+      "component": "argo-cd",
+      "versions": "chart 10.9.2 / application 3.5.3",
+      "result": "PASSED",
+      "evidence": [
+        "Guestbook Application reached Synced and Healthy",
+        "Self-heal restored a manually changed Deployment replica count",
+        "Observed Git revision 8088f4c0d970abb09e250248cc97e35623447cb5"
+      ]
+    },
+    {
+      "component": "cert-manager",
+      "versions": "1.21.2",
+      "result": "PASSED",
+      "evidence": [
+        "Controller, cainjector, and webhook became Ready",
+        "Webhook rejected an invalid sub-hour Certificate",
+        "A valid 1h1m Certificate was issued and naturally renewed from revision 1 to 2"
+      ]
+    },
+    {
+      "component": "strimzi-kafka-connect",
+      "versions": "Strimzi 1.2.0 / Kafka 4.3.1",
+      "result": "PASSED_AFTER_PERSISTENCE_CORRECTION",
+      "evidence": [
+        "TLS client authentication and Simple ACL positive and negative cases passed",
+        "Rejected producer received TOPIC_AUTHORIZATION_FAILED and did not advance the topic offset",
+        "Persistent broker restart changed UID ba008341-a954-4752-9363-3404273bb52f to 9f1cc622-488c-4b37-ba89-bf66f73e14eb while retaining message k137-persistent-1-1789986349 and ACLs",
+        "KafkaConnect became Ready, REST /connectors returned an empty list, and restart changed UID 674198f1-498d-41da-b49f-9d4ea8d05626 to 169b0403-de20-4c94-84ef-a5d0e3d536b9"
+      ],
+      "correction": "The first ephemeral-storage restart correctly lost KRaft metadata and ACLs. The test was replaced by a retained local PersistentVolume before recording a pass."
+    },
+    {
+      "component": "keda",
+      "versions": "2.20.2",
+      "result": "PASSED",
+      "evidence": [
+        "ScaledObject became Ready against an isolated mock Prometheus endpoint",
+        "Metric value 5 scaled the target from 1 to 3 replicas",
+        "Metric value 0 scaled the target back to 1 replica"
+      ]
+    },
+    {
+      "component": "kube-prometheus-stack",
+      "versions": "chart 91.4.1 / Prometheus Operator 0.94.0 / Prometheus 3.14.0 / Alertmanager 0.34.0",
+      "result": "PASSED_AFTER_PROTOCOL_CORRECTION",
+      "evidence": [
+        "ServiceMonitor target was discovered and became UP",
+        "crawl_test_metric returned value 7",
+        "PrometheusRule K137MetricPresent fired and Alertmanager received it"
+      ],
+      "correction": "Prometheus 3 rejected a metrics endpoint with a blank Content-Type until fallbackScrapeProtocol was explicitly set to PrometheusText0.0.4."
+    },
+    {
+      "component": "temporal",
+      "versions": "chart 1.7.0 / server and admin-tools 1.32.0 / PostgreSQL 18.6",
+      "result": "PASSED",
+      "evidence": [
+        "Official schema hooks created default and visibility schemas and namespace k137-test",
+        "Cluster health returned SERVING",
+        "Workflow k137-persistence-1789988053 started with run 01a0c39a-247d-7591-949e-29983360e579 and history length 2",
+        "Restarting frontend, history, matching, and worker changed all four Pod UIDs while preserving the same workflow and history",
+        "Restarting PostgreSQL changed UID 6f2c7c4f-599c-498f-b1a1-88437c9657fe to ac21fbb0-9e48-425a-a9c1-b1e5fa607d06; Temporal returned SERVING and the same workflow history remained readable"
+      ]
+    }
+  ],
+  "limits": [
+    "The worker memory limit was raised from 1500 MiB to 2500 MiB after runtime components showed resource pressure; this is a recorded test-environment correction, not a production sizing result.",
+    "This is a two-node compatibility environment with one control plane and one worker; it does not prove three-control-plane or three-broker host-failure high availability.",
+    "Small isolated payloads validate APIs and behavior, not production throughput, capacity, or six-node disk contention.",
+    "Several upstream support matrices still stop before Kubernetes 1.37; these results are project evidence, not a vendor support statement.",
+    "Live migration still requires fresh backups, restore evidence, sequential Kubernetes minor upgrades, and per-step rollback gates."
+  ]
+}

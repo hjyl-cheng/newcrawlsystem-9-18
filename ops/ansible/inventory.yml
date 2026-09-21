@@ -1,0 +1,29 @@
+all:
+  vars:
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: /home/ubuntu/.ssh/id_ed25519_crawl_infra
+    ansible_become: true
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    application:
+      vars:
+        monitored_units: [kubelet, containerd, crawl-kube-api, crawl-vector]
+      hosts:
+        a1:
+          ansible_connection: local
+          ansible_host: 10.4.4.12
+        a2:
+          ansible_host: 10.4.4.3
+        a3:
+          ansible_host: 10.4.4.17
+    storage:
+      vars:
+        monitored_units: [crawl-patroni, crawl-pg-etcd, crawl-cdc-guard, pgbouncer, kafka, seaweedfs-master, seaweedfs-volume, seaweedfs-filer, seaweedfs-s3, crawl-seaweed-pg, crawl-vector]
+      hosts:
+        s1:
+          ansible_host: 10.4.4.2
+        s2:
+          ansible_host: 10.4.4.8
+        s3:
+          ansible_host: 10.4.4.5
+          monitored_units: [crawl-patroni, crawl-pg-etcd, crawl-cdc-guard, pgbouncer, kafka, seaweedfs-master, seaweedfs-volume, seaweedfs-filer, seaweedfs-s3, crawl-seaweed-pg, crawl-vector, clickhouse-server]

@@ -1,0 +1,19 @@
+redis-ha:
+  enabled: false
+redis:
+  enabled: true
+dex:
+  enabled: false
+notifications:
+  enabled: false
+controller:
+  replicas: 1
+server:
+  replicas: 1
+repoServer:
+  replicas: 1
+applicationSet:
+  replicas: 1
+crds:
+  install: true
+  keep: false

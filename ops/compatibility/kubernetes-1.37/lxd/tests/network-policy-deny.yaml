@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: server-default-deny
+  namespace: k137-network-test
+spec:
+  podSelector:
+    matchLabels:
+      app: server
+  policyTypes: [Ingress]

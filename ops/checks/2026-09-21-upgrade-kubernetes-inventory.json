@@ -1,0 +1,3430 @@
+{
+  "checked_at": "2026-09-21T09:07:01.085032+00:00",
+  "kind": "read-only-kubernetes-inventory",
+  "nodes": [
+    {
+      "name": "a1",
+      "labels": {
+        "node-role": "crawler-control",
+        "node-role.kubernetes.io/control-plane": ""
+      },
+      "version": {
+        "architecture": "amd64",
+        "bootID": "d43e36c7-2d85-4ab1-a5e9-3e17495a6b1b",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "6.8.0-124-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "fd410411419d40079742fdbc36dec028",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.4 LTS",
+        "systemUUID": "718939f0-e36b-415b-b2bd-ec1068e69c33"
+      },
+      "capacity": {
+        "cpu": "4",
+        "ephemeral-storage": "185653816Ki",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7806160Ki",
+        "pods": "110"
+      },
+      "allocatable": {
+        "cpu": "4",
+        "ephemeral-storage": "171098556543",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7703760Ki",
+        "pods": "110"
+      },
+      "taints": [],
+      "ready": "True"
+    },
+    {
+      "name": "a2",
+      "labels": {
+        "node-role": "crawler-control",
+        "node-role.kubernetes.io/control-plane": ""
+      },
+      "version": {
+        "architecture": "amd64",
+        "bootID": "dbf7bcf1-64a9-4f24-bc20-8d9baf306efc",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "6.8.0-124-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "fd410411419d40079742fdbc36dec028",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.4 LTS",
+        "systemUUID": "b6cc01c9-f65a-427e-aa1b-0606a0d1ba36"
+      },
+      "capacity": {
+        "cpu": "2",
+        "ephemeral-storage": "82445124Ki",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7870352Ki",
+        "pods": "110"
+      },
+      "allocatable": {
+        "cpu": "2",
+        "ephemeral-storage": "75981426153",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7767952Ki",
+        "pods": "110"
+      },
+      "taints": [],
+      "ready": "True"
+    },
+    {
+      "name": "a3",
+      "labels": {
+        "node-role": "crawler-control",
+        "node-role.kubernetes.io/control-plane": ""
+      },
+      "version": {
+        "architecture": "amd64",
+        "bootID": "062649a5-dd6c-41d1-b84e-d0ab49caa874",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "6.8.0-124-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "fd410411419d40079742fdbc36dec028",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.4 LTS",
+        "systemUUID": "076e276f-7bd5-4660-908d-b3a14b50dc33"
+      },
+      "capacity": {
+        "cpu": "2",
+        "ephemeral-storage": "82445124Ki",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7806872Ki",
+        "pods": "110"
+      },
+      "allocatable": {
+        "cpu": "2",
+        "ephemeral-storage": "75981426153",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "7704472Ki",
+        "pods": "110"
+      },
+      "taints": [],
+      "ready": "True"
+    }
+  ],
+  "pods": [
+    {
+      "namespace": "argocd",
+      "name": "argocd-application-controller-0",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "argocd-application-controller",
+          "uid": "c961b2f7-21c1-46cf-9d7e-54a72f067b2b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-application-controller",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "memory": "768Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "192Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-application-controller",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-applicationset-controller-8568cfd56b-2d5xq",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-applicationset-controller-8568cfd56b",
+          "uid": "37019acb-e3a0-4d05-b251-4bf8b79037a6"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-applicationset-controller",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-applicationset-controller",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-dex-server-6547fb69d9-cqhkb",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-dex-server-6547fb69d9",
+          "uid": "b0c3d97c-d890-40f7-b78e-4fe0b573e3f4"
+        }
+      ],
+      "containers": [
+        {
+          "name": "dex",
+          "image": "ghcr.io/dexidp/dex@sha256:bc7cfce7c17f52864e2bb2a4dc1d2f86a41e3019f6d42e81d92a301fad0c8a1d",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "dex",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "ghcr.io/dexidp/dex@sha256:bc7cfce7c17f52864e2bb2a4dc1d2f86a41e3019f6d42e81d92a301fad0c8a1d"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-notifications-controller-cc7889c6c-4wtrm",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-notifications-controller-cc7889c6c",
+          "uid": "a42f8f49-5934-40e9-abf5-83ec58603c8a"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-notifications-controller",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-notifications-controller",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-haproxy-c978476c7-8v9qw",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-redis-ha-haproxy-c978476c7",
+          "uid": "55e5f116-8e5b-4211-86e8-d15091b16e3b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy@sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy@sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-haproxy-c978476c7-v8bx6",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-redis-ha-haproxy-c978476c7",
+          "uid": "55e5f116-8e5b-4211-86e8-d15091b16e3b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy@sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy@sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-server-0",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "argocd-redis-ha-server",
+          "uid": "c741e05c-df72-44a9-a32a-4319750d176b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "redis",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "64Mi"
+            }
+          }
+        },
+        {
+          "name": "sentinel",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        },
+        {
+          "name": "split-brain-fix",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "5m",
+              "memory": "8Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "redis",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "sentinel",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "split-brain-fix",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-server-1",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "argocd-redis-ha-server",
+          "uid": "c741e05c-df72-44a9-a32a-4319750d176b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "redis",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "64Mi"
+            }
+          }
+        },
+        {
+          "name": "sentinel",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        },
+        {
+          "name": "split-brain-fix",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "5m",
+              "memory": "8Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "redis",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "sentinel",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "split-brain-fix",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-server-2",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "argocd-redis-ha-server",
+          "uid": "c741e05c-df72-44a9-a32a-4319750d176b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "redis",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "64Mi"
+            }
+          }
+        },
+        {
+          "name": "sentinel",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        },
+        {
+          "name": "split-brain-fix",
+          "image": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "5m",
+              "memory": "8Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "redis",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "sentinel",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        },
+        {
+          "name": "split-brain-fix",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-repo-server-664958444-92jlv",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-repo-server-664958444",
+          "uid": "b6a71ad8-05c8-44a1-b103-c1621c3450bb"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-repo-server",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-repo-server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-repo-server-664958444-q8jwp",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-repo-server-664958444",
+          "uid": "b6a71ad8-05c8-44a1-b103-c1621c3450bb"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-repo-server",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-repo-server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-server-976f7b5b9-872dw",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-server-976f7b5b9",
+          "uid": "93f2094a-f6ea-4c86-a92f-bc85d8706911"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-server",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-server-976f7b5b9-pnkm8",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "argocd-server-976f7b5b9",
+          "uid": "93f2094a-f6ea-4c86-a92f-bc85d8706911"
+        }
+      ],
+      "containers": [
+        {
+          "name": "argocd-server",
+          "image": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "argocd-server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "alertmanager-0",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "alertmanager",
+          "uid": "41a3d85c-21c8-4ad2-b8ed-fb6fc65468c2"
+        }
+      ],
+      "containers": [
+        {
+          "name": "alertmanager",
+          "image": "docker.io/prom/alertmanager:v0.34.1@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "alertmanager",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/prom/alertmanager@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "alertmanager-1",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "alertmanager",
+          "uid": "41a3d85c-21c8-4ad2-b8ed-fb6fc65468c2"
+        }
+      ],
+      "containers": [
+        {
+          "name": "alertmanager",
+          "image": "docker.io/prom/alertmanager:v0.34.1@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "alertmanager",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/prom/alertmanager@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "alertmanager-2",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "alertmanager",
+          "uid": "41a3d85c-21c8-4ad2-b8ed-fb6fc65468c2"
+        }
+      ],
+      "containers": [
+        {
+          "name": "alertmanager",
+          "image": "docker.io/prom/alertmanager:v0.34.1@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "alertmanager",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/prom/alertmanager@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "grafana-5d7c6cfb77-fvpjd",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "grafana-5d7c6cfb77",
+          "uid": "2a0d5846-0d78-49d9-823d-97351e77f6e0"
+        }
+      ],
+      "containers": [
+        {
+          "name": "grafana",
+          "image": "docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "grafana",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/grafana/grafana@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "grafana-5d7c6cfb77-zk9hz",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "grafana-5d7c6cfb77",
+          "uid": "2a0d5846-0d78-49d9-823d-97351e77f6e0"
+        }
+      ],
+      "containers": [
+        {
+          "name": "grafana",
+          "image": "docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "grafana",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/grafana/grafana@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "infra-exporter-5b44b9d9ff-j6lbk",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "infra-exporter-5b44b9d9ff",
+          "uid": "1a8f95e1-8a3b-40ec-bb1b-6e7a1f191e64"
+        }
+      ],
+      "containers": [
+        {
+          "name": "infra-exporter",
+          "image": "docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "infra-exporter",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/python@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "infra-exporter-5b44b9d9ff-xbrw9",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "infra-exporter-5b44b9d9ff",
+          "uid": "1a8f95e1-8a3b-40ec-bb1b-6e7a1f191e64"
+        }
+      ],
+      "containers": [
+        {
+          "name": "infra-exporter",
+          "image": "docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "infra-exporter",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/python@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kafka-exporter-5c9c8f7666-cww5p",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kafka-exporter-5c9c8f7666",
+          "uid": "20034b89-f954-4e63-8fb2-42034475767c"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kafka-exporter",
+          "image": "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kafka-exporter",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/danielqsj/kafka-exporter@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kafka-exporter-5c9c8f7666-kkfbw",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kafka-exporter-5c9c8f7666",
+          "uid": "20034b89-f954-4e63-8fb2-42034475767c"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kafka-exporter",
+          "image": "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kafka-exporter",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/danielqsj/kafka-exporter@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kube-state-metrics-7ffb647d58-487ld",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kube-state-metrics-7ffb647d58",
+          "uid": "d74616dc-bc2d-47b6-94a0-4e563e676700"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-state-metrics",
+          "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-state-metrics",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kube-state-metrics-7ffb647d58-w2snm",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kube-state-metrics-7ffb647d58",
+          "uid": "d74616dc-bc2d-47b6-94a0-4e563e676700"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-state-metrics",
+          "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+          "resources": {
+            "limits": {
+              "cpu": "300m",
+              "memory": "192Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-state-metrics",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "prometheus-0",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "prometheus",
+          "uid": "297c01e2-8451-417a-835c-acf60eb60404"
+        }
+      ],
+      "containers": [
+        {
+          "name": "prometheus",
+          "image": "docker.io/prom/prometheus:v3.14.0@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "640Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "prometheus",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "prometheus-1",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "StatefulSet",
+          "name": "prometheus",
+          "uid": "297c01e2-8451-417a-835c-acf60eb60404"
+        }
+      ],
+      "containers": [
+        {
+          "name": "prometheus",
+          "image": "docker.io/prom/prometheus:v3.14.0@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "640Mi"
+            },
+            "requests": {
+              "cpu": "50m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "prometheus",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "data-ingestor-755dddc789-hkrzf",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "data-ingestor-755dddc789",
+          "uid": "6b1ff104-d77f-43ba-9ee7-81be7bea36a9"
+        }
+      ],
+      "containers": [
+        {
+          "name": "ingestor",
+          "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "ingestor",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "data-ingestor-755dddc789-l9bg4",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "data-ingestor-755dddc789",
+          "uid": "6b1ff104-d77f-43ba-9ee7-81be7bea36a9"
+        }
+      ],
+      "containers": [
+        {
+          "name": "ingestor",
+          "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "384Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "ingestor",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "infra-smoke-h7vv9",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "infra-smoke",
+          "uid": "9296911f-f833-440a-b22e-e623f700672e"
+        }
+      ],
+      "containers": [
+        {
+          "name": "http",
+          "image": "busybox:1.37.0@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "http",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/busybox@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "infra-smoke-lhffc",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "infra-smoke",
+          "uid": "9296911f-f833-440a-b22e-e623f700672e"
+        }
+      ],
+      "containers": [
+        {
+          "name": "http",
+          "image": "busybox:1.37.0@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "http",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/busybox@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "infra-smoke-qbfsr",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "infra-smoke",
+          "uid": "9296911f-f833-440a-b22e-e623f700672e"
+        }
+      ],
+      "containers": [
+        {
+          "name": "http",
+          "image": "busybox:1.37.0@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "32Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "http",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/busybox@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "kafka-connect-655664cf7c-5h5w6",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kafka-connect-655664cf7c",
+          "uid": "35f8a209-c6f1-40b8-865d-0cb86ef6faf9"
+        }
+      ],
+      "containers": [
+        {
+          "name": "connect",
+          "image": "quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6",
+          "resources": {
+            "limits": {
+              "cpu": "750m",
+              "memory": "1Gi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "512Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "connect",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/debezium/connect@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "kafka-connect-655664cf7c-hdzcg",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "kafka-connect-655664cf7c",
+          "uid": "35f8a209-c6f1-40b8-865d-0cb86ef6faf9"
+        }
+      ],
+      "containers": [
+        {
+          "name": "connect",
+          "image": "quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6",
+          "resources": {
+            "limits": {
+              "cpu": "750m",
+              "memory": "1Gi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "512Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "connect",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "quay.io/debezium/connect@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "postgresql-entry-6c5664c649-6jzqw",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "postgresql-entry-6c5664c649",
+          "uid": "179ce495-0181-4f01-9073-7cf654b02d68"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "postgresql-entry-6c5664c649-wglmh",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "postgresql-entry-6c5664c649",
+          "uid": "179ce495-0181-4f01-9073-7cf654b02d68"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "runtime-smoke-7b5fb8b6f-vtsdb",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "runtime-smoke-7b5fb8b6f",
+          "uid": "b1e321e7-7b23-4da5-a6f4-25bf9c471a9a"
+        }
+      ],
+      "containers": [
+        {
+          "name": "runtime",
+          "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "runtime",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "runtime-smoke-7b5fb8b6f-x85jr",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "runtime-smoke-7b5fb8b6f",
+          "uid": "b1e321e7-7b23-4da5-a6f4-25bf9c471a9a"
+        }
+      ],
+      "containers": [
+        {
+          "name": "runtime",
+          "image": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "64Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "runtime",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "seaweed-s3-entry-77c99957c4-cnck9",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "seaweed-s3-entry-77c99957c4",
+          "uid": "076ced74-19c0-413b-bd05-33ed02fc0cfd"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "seaweed-s3-entry-77c99957c4-xbbdw",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "seaweed-s3-entry-77c99957c4",
+          "uid": "076ced74-19c0-413b-bd05-33ed02fc0cfd"
+        }
+      ],
+      "containers": [
+        {
+          "name": "haproxy",
+          "image": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "128Mi"
+            },
+            "requests": {
+              "cpu": "25m",
+              "memory": "32Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "haproxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "temporal-7f8555b9b4-8hspg",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "temporal-7f8555b9b4",
+          "uid": "dabcbb41-b303-460a-9f6e-48456a76ac59"
+        }
+      ],
+      "containers": [
+        {
+          "name": "server",
+          "image": "temporalio/server:1.32.0@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae",
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "memory": "768Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/temporalio/server@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "temporal-7f8555b9b4-vt5pv",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "temporal-7f8555b9b4",
+          "uid": "dabcbb41-b303-460a-9f6e-48456a76ac59"
+        }
+      ],
+      "containers": [
+        {
+          "name": "server",
+          "image": "temporalio/server:1.32.0@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae",
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "memory": "768Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "256Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "server",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/temporalio/server@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae"
+        }
+      ]
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "temporal-schema-1-32-0-tqccb",
+      "node": "a2",
+      "phase": "Succeeded",
+      "owners": [
+        {
+          "apiVersion": "batch/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "Job",
+          "name": "temporal-schema-1-32-0",
+          "uid": "243df135-5b31-472b-b8f1-f12ada6ab3bf"
+        }
+      ],
+      "containers": [
+        {
+          "name": "schema",
+          "image": "temporalio/admin-tools:1.32.0@sha256:a9f84fb9a374b2374fe2e67c8efc0468ff3f1c66c8a0b14597ec86e349e62bca",
+          "resources": {
+            "limits": {
+              "cpu": "500m",
+              "memory": "256Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "128Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "schema",
+          "ready": false,
+          "restarts": 0,
+          "imageID": "docker.io/temporalio/admin-tools@sha256:a9f84fb9a374b2374fe2e67c8efc0468ff3f1c66c8a0b14597ec86e349e62bca"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "calico-kube-controllers-78576cf5c8-rfwpf",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "calico-kube-controllers-78576cf5c8",
+          "uid": "7e4fe14b-a6cb-44f3-9c61-ac983f0465b5"
+        }
+      ],
+      "containers": [
+        {
+          "name": "calico-kube-controllers",
+          "image": "docker.io/calico/kube-controllers:v3.29.3",
+          "resources": {}
+        }
+      ],
+      "status": [
+        {
+          "name": "calico-kube-controllers",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/calico/kube-controllers@sha256:5516ab776c38525fcc985a3030b4f2fd472da68b4170601c23bf6887bfdce703"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "calico-node-6k2nn",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "calico-node",
+          "uid": "bdbbe846-6f1a-48ee-9da6-3db83da8dc2b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "calico-node",
+          "image": "docker.io/calico/node:v3.29.3",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "calico-node",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/calico/node@sha256:eed399f2a727cfc1f374ab5c9cda6123c207e794ed8dc66c7eb6d8db412669e1"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "calico-node-7dptg",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "calico-node",
+          "uid": "bdbbe846-6f1a-48ee-9da6-3db83da8dc2b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "calico-node",
+          "image": "docker.io/calico/node:v3.29.3",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "calico-node",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/calico/node@sha256:eed399f2a727cfc1f374ab5c9cda6123c207e794ed8dc66c7eb6d8db412669e1"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "calico-node-z6fq5",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "calico-node",
+          "uid": "bdbbe846-6f1a-48ee-9da6-3db83da8dc2b"
+        }
+      ],
+      "containers": [
+        {
+          "name": "calico-node",
+          "image": "docker.io/calico/node:v3.29.3",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "calico-node",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "docker.io/calico/node@sha256:eed399f2a727cfc1f374ab5c9cda6123c207e794ed8dc66c7eb6d8db412669e1"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "coredns-79d6b698cc-q728p",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "coredns-79d6b698cc",
+          "uid": "88164563-bdde-4798-82fb-5c182e61a78e"
+        }
+      ],
+      "containers": [
+        {
+          "name": "coredns",
+          "image": "registry.k8s.io/coredns/coredns:v1.11.3",
+          "resources": {
+            "limits": {
+              "memory": "170Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "70Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "coredns",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "coredns-79d6b698cc-vddmn",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "ReplicaSet",
+          "name": "coredns-79d6b698cc",
+          "uid": "88164563-bdde-4798-82fb-5c182e61a78e"
+        }
+      ],
+      "containers": [
+        {
+          "name": "coredns",
+          "image": "registry.k8s.io/coredns/coredns:v1.11.3",
+          "resources": {
+            "limits": {
+              "memory": "170Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "memory": "70Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "coredns",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "etcd-a1",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a1",
+          "uid": "d6a09784-7f73-4fb4-8a90-deda36517a07"
+        }
+      ],
+      "containers": [
+        {
+          "name": "etcd",
+          "image": "registry.k8s.io/etcd:3.5.24-0",
+          "resources": {
+            "requests": {
+              "cpu": "100m",
+              "memory": "100Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "etcd",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/etcd@sha256:251e7e490f64859d329cd963bc879dc04acf3d7195bb52c4c50b4a07bedf37d6"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "etcd-a2",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a2",
+          "uid": "c12b6a95-fe0c-4ef5-8ee8-52a6b11f5074"
+        }
+      ],
+      "containers": [
+        {
+          "name": "etcd",
+          "image": "registry.k8s.io/etcd:3.5.24-0",
+          "resources": {
+            "requests": {
+              "cpu": "100m",
+              "memory": "100Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "etcd",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/etcd@sha256:251e7e490f64859d329cd963bc879dc04acf3d7195bb52c4c50b4a07bedf37d6"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "etcd-a3",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a3",
+          "uid": "f1c70ec1-50bb-42d2-af90-3c2a84b609ef"
+        }
+      ],
+      "containers": [
+        {
+          "name": "etcd",
+          "image": "registry.k8s.io/etcd:3.5.24-0",
+          "resources": {
+            "requests": {
+              "cpu": "100m",
+              "memory": "100Mi"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "etcd",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/etcd@sha256:251e7e490f64859d329cd963bc879dc04acf3d7195bb52c4c50b4a07bedf37d6"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-apiserver-a1",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a1",
+          "uid": "d6a09784-7f73-4fb4-8a90-deda36517a07"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-apiserver",
+          "image": "registry.k8s.io/kube-apiserver:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-apiserver",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-apiserver@sha256:4dad587106d2e96fe12987e525e1d73aeb7fa96c6b84104b259404a18688c5f8"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-apiserver-a2",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a2",
+          "uid": "c12b6a95-fe0c-4ef5-8ee8-52a6b11f5074"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-apiserver",
+          "image": "registry.k8s.io/kube-apiserver:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-apiserver",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-apiserver@sha256:4dad587106d2e96fe12987e525e1d73aeb7fa96c6b84104b259404a18688c5f8"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-apiserver-a3",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a3",
+          "uid": "f1c70ec1-50bb-42d2-af90-3c2a84b609ef"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-apiserver",
+          "image": "registry.k8s.io/kube-apiserver:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "250m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-apiserver",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-apiserver@sha256:4dad587106d2e96fe12987e525e1d73aeb7fa96c6b84104b259404a18688c5f8"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-controller-manager-a1",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a1",
+          "uid": "d6a09784-7f73-4fb4-8a90-deda36517a07"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-controller-manager",
+          "image": "registry.k8s.io/kube-controller-manager:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "200m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-controller-manager",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "registry.k8s.io/kube-controller-manager@sha256:3d50471f4d88ebe2ed5961d0e04afcac5d2c0b7bbf114c550667c3341d9838aa"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-controller-manager-a2",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a2",
+          "uid": "c12b6a95-fe0c-4ef5-8ee8-52a6b11f5074"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-controller-manager",
+          "image": "registry.k8s.io/kube-controller-manager:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "200m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-controller-manager",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-controller-manager@sha256:3d50471f4d88ebe2ed5961d0e04afcac5d2c0b7bbf114c550667c3341d9838aa"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-controller-manager-a3",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a3",
+          "uid": "f1c70ec1-50bb-42d2-af90-3c2a84b609ef"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-controller-manager",
+          "image": "registry.k8s.io/kube-controller-manager:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "200m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-controller-manager",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-controller-manager@sha256:3d50471f4d88ebe2ed5961d0e04afcac5d2c0b7bbf114c550667c3341d9838aa"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-proxy-8pdq5",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "kube-proxy",
+          "uid": "c1fb4abb-b346-4e94-bae6-1f1f082cfa3c"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-proxy",
+          "image": "registry.k8s.io/kube-proxy:v1.31.14",
+          "resources": {}
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-proxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-proxy@sha256:f5f3e526c5f433817fefd0acfe1d602d87af0692358e9d55e4ff9f70f440f018"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-proxy-ddkfb",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "kube-proxy",
+          "uid": "c1fb4abb-b346-4e94-bae6-1f1f082cfa3c"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-proxy",
+          "image": "registry.k8s.io/kube-proxy:v1.31.14",
+          "resources": {}
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-proxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-proxy@sha256:f5f3e526c5f433817fefd0acfe1d602d87af0692358e9d55e4ff9f70f440f018"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-proxy-rnfmg",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "apps/v1",
+          "blockOwnerDeletion": true,
+          "controller": true,
+          "kind": "DaemonSet",
+          "name": "kube-proxy",
+          "uid": "c1fb4abb-b346-4e94-bae6-1f1f082cfa3c"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-proxy",
+          "image": "registry.k8s.io/kube-proxy:v1.31.14",
+          "resources": {}
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-proxy",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-proxy@sha256:f5f3e526c5f433817fefd0acfe1d602d87af0692358e9d55e4ff9f70f440f018"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-scheduler-a1",
+      "node": "a1",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a1",
+          "uid": "d6a09784-7f73-4fb4-8a90-deda36517a07"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "100m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-scheduler",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "registry.k8s.io/kube-scheduler@sha256:0a722e448e65bd6015b51d5fe28a445e6fdc6d539ff7b72e2612549852a60390"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-scheduler-a2",
+      "node": "a2",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a2",
+          "uid": "c12b6a95-fe0c-4ef5-8ee8-52a6b11f5074"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "100m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-scheduler",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-scheduler@sha256:0a722e448e65bd6015b51d5fe28a445e6fdc6d539ff7b72e2612549852a60390"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "kube-scheduler-a3",
+      "node": "a3",
+      "phase": "Running",
+      "owners": [
+        {
+          "apiVersion": "v1",
+          "controller": true,
+          "kind": "Node",
+          "name": "a3",
+          "uid": "f1c70ec1-50bb-42d2-af90-3c2a84b609ef"
+        }
+      ],
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+          "resources": {
+            "requests": {
+              "cpu": "100m"
+            }
+          }
+        }
+      ],
+      "status": [
+        {
+          "name": "kube-scheduler",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "registry.k8s.io/kube-scheduler@sha256:0a722e448e65bd6015b51d5fe28a445e6fdc6d539ff7b72e2612549852a60390"
+        }
+      ]
+    }
+  ],
+  "argo_apps": [
+    {
+      "name": "crawl-infra-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/infra-smoke"
+    },
+    {
+      "name": "crawl-ingestor-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/data-ingestor"
+    },
+    {
+      "name": "crawl-kafka-connect-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/kafka-connect"
+    },
+    {
+      "name": "crawl-monitoring",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/monitoring"
+    },
+    {
+      "name": "crawl-postgresql-entry-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/postgresql-entry"
+    },
+    {
+      "name": "crawl-runtime-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/runtime-smoke"
+    },
+    {
+      "name": "crawl-seaweed-s3-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/seaweed-s3"
+    },
+    {
+      "name": "crawl-temporal-validation",
+      "sync": "Synced",
+      "health": "Healthy",
+      "repo": "https://github.com/hjyl-cheng/newcrawlsystem-9-18.git",
+      "path": "deploy/overlays/validation/temporal"
+    }
+  ],
+  "storage_classes": [
+    {
+      "name": "crawl-monitoring-local",
+      "provisioner": "kubernetes.io/no-provisioner",
+      "binding": "WaitForFirstConsumer"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "crawl-alertmanager-a1",
+      "capacity": {
+        "storage": "1Gi"
+      },
+      "class": "crawl-monitoring-local",
+      "phase": "Bound",
+      "claim": "data-alertmanager-0",
+      "reclaim": "Retain",
+      "local": {
+        "path": "/srv/crawlsystem/monitoring/alertmanager"
+      },
+      "nodeAffinity": {
+        "required": {
+          "nodeSelectorTerms": [
+            {
+              "matchExpressions": [
+                {
+                  "key": "kubernetes.io/hostname",
+                  "operator": "In",
+                  "values": [
+                    "a1"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "crawl-alertmanager-a2",
+      "capacity": {
+        "storage": "1Gi"
+      },
+      "class": "crawl-monitoring-local",
+      "phase": "Bound",
+      "claim": "data-alertmanager-1",
+      "reclaim": "Retain",
+      "local": {
+        "path": "/srv/crawlsystem/monitoring/alertmanager"
+      },
+      "nodeAffinity": {
+        "required": {
+          "nodeSelectorTerms": [
+            {
+              "matchExpressions": [
+                {
+                  "key": "kubernetes.io/hostname",
+                  "operator": "In",
+                  "values": [
+                    "a2"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "crawl-alertmanager-a3",
+      "capacity": {
+        "storage": "1Gi"
+      },
+      "class": "crawl-monitoring-local",
+      "phase": "Bound",
+      "claim": "data-alertmanager-2",
+      "reclaim": "Retain",
+      "local": {
+        "path": "/srv/crawlsystem/monitoring/alertmanager"
+      },
+      "nodeAffinity": {
+        "required": {
+          "nodeSelectorTerms": [
+            {
+              "matchExpressions": [
+                {
+                  "key": "kubernetes.io/hostname",
+                  "operator": "In",
+                  "values": [
+                    "a3"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "crawl-prometheus-a2",
+      "capacity": {
+        "storage": "5Gi"
+      },
+      "class": "crawl-monitoring-local",
+      "phase": "Bound",
+      "claim": "data-prometheus-0",
+      "reclaim": "Retain",
+      "local": {
+        "path": "/srv/crawlsystem/monitoring/prometheus"
+      },
+      "nodeAffinity": {
+        "required": {
+          "nodeSelectorTerms": [
+            {
+              "matchExpressions": [
+                {
+                  "key": "kubernetes.io/hostname",
+                  "operator": "In",
+                  "values": [
+                    "a2"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "crawl-prometheus-a3",
+      "capacity": {
+        "storage": "5Gi"
+      },
+      "class": "crawl-monitoring-local",
+      "phase": "Bound",
+      "claim": "data-prometheus-1",
+      "reclaim": "Retain",
+      "local": {
+        "path": "/srv/crawlsystem/monitoring/prometheus"
+      },
+      "nodeAffinity": {
+        "required": {
+          "nodeSelectorTerms": [
+            {
+              "matchExpressions": [
+                {
+                  "key": "kubernetes.io/hostname",
+                  "operator": "In",
+                  "values": [
+                    "a3"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "pdb": [
+    {
+      "namespace": "argocd",
+      "name": "argocd-application-controller",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-application-controller"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:53:32Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "InsufficientPods",
+            "status": "False",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 1,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 0,
+        "expectedPods": 1,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-haproxy",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-redis-ha-haproxy"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:53:32Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-redis-ha-server",
+      "spec": {
+        "minAvailable": 2,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-redis-ha"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T11:02:47Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 3,
+        "desiredHealthy": 2,
+        "disruptionsAllowed": 1,
+        "expectedPods": 3,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-repo-server",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-repo-server"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:53:42Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "argocd",
+      "name": "argocd-server",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "argocd-server"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:53:37Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "alertmanager",
+      "spec": {
+        "minAvailable": 2,
+        "selector": {
+          "matchLabels": {
+            "app": "alertmanager"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T03:49:10Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 3,
+        "desiredHealthy": 2,
+        "disruptionsAllowed": 1,
+        "expectedPods": 3,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "grafana",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "grafana"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T05:16:12Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "infra-exporter",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "infra-exporter"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T03:48:43Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kafka-exporter",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "kafka-exporter"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T07:49:29Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "kube-state-metrics",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "kube-state-metrics"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T03:48:58Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-monitoring",
+      "name": "prometheus",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "prometheus"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T04:36:02Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "data-ingestor",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "data-ingestor"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T08:01:24Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "kafka-connect",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "kafka-connect"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T02:41:51Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "postgresql-entry",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "postgresql-entry"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T03:08:13Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "seaweed-s3-entry",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "seaweed-s3-entry"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-21T05:47:34Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "crawl-validation",
+      "name": "temporal",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "temporal"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:45:27Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "kube-system",
+      "name": "calico-kube-controllers",
+      "spec": {
+        "maxUnavailable": 1,
+        "selector": {
+          "matchLabels": {
+            "k8s-app": "calico-kube-controllers"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:45:29Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 1,
+        "desiredHealthy": 0,
+        "disruptionsAllowed": 1,
+        "expectedPods": 1,
+        "observedGeneration": 1
+      }
+    },
+    {
+      "namespace": "kube-system",
+      "name": "coredns",
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "k8s-app": "kube-dns"
+          }
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-09-20T10:59:26Z",
+            "message": "",
+            "observedGeneration": 1,
+            "reason": "SufficientPods",
+            "status": "True",
+            "type": "DisruptionAllowed"
+          }
+        ],
+        "currentHealthy": 2,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 2,
+        "observedGeneration": 1
+      }
+    }
+  ],
+  "version": {
+    "clientVersion": {
+      "major": "1",
+      "minor": "31",
+      "gitVersion": "v1.31.14",
+      "gitCommit": "5e00b99bac504844579ec74886b6cc5c9611ca19",
+      "gitTreeState": "clean",
+      "buildDate": "2025-11-11T20:24:51Z",
+      "goVersion": "go1.24.9",
+      "compiler": "gc",
+      "platform": "linux/amd64"
+    },
+    "kustomizeVersion": "v5.4.2",
+    "serverVersion": {
+      "major": "1",
+      "minor": "31",
+      "gitVersion": "v1.31.14",
+      "gitCommit": "5e00b99bac504844579ec74886b6cc5c9611ca19",
+      "gitTreeState": "clean",
+      "buildDate": "2025-11-11T20:18:11Z",
+      "goVersion": "go1.24.9",
+      "compiler": "gc",
+      "platform": "linux/amd64"
+    }
+  },
+  "images": [
+    "busybox:1.37.0@sha256:9db7b59979c38555a39def84a31fb98b5296952f9e3afd4f6f11f05b07adfab0",
+    "docker.io/calico/kube-controllers:v3.29.3",
+    "docker.io/calico/node:v3.29.3",
+    "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42",
+    "docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0",
+    "docker.io/library/haproxy:3.2.13-alpine@sha256:5314c30b9908c0edc608eb9ae99bb1c1a4fcb9e52cebbea8f5ec3df128fc7f04",
+    "docker.io/library/haproxy@sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9",
+    "docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2",
+    "docker.io/library/redis@sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2",
+    "docker.io/prom/alertmanager:v0.34.1@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a",
+    "docker.io/prom/prometheus:v3.14.0@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+    "ghcr.io/dexidp/dex@sha256:bc7cfce7c17f52864e2bb2a4dc1d2f86a41e3019f6d42e81d92a301fad0c8a1d",
+    "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:137b0e05c6631c1726fd92efc66010b2f2a9a6ea951655922020b30efd114d88",
+    "ghcr.io/hjyl-cheng/newcrawlsystem-runtime@sha256:dedbc97c99a60d44596c0eb8b45f4109c3068e429389e0827dbc1617035f9dd9",
+    "quay.io/argoproj/argocd@sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658",
+    "quay.io/debezium/connect:3.6.3.Final@sha256:0e5e4792e278bc1409281985e4e53f02083467dc670c13c7af70b579487d48c6",
+    "registry.k8s.io/coredns/coredns:v1.11.3",
+    "registry.k8s.io/etcd:3.5.24-0",
+    "registry.k8s.io/kube-apiserver:v1.31.14",
+    "registry.k8s.io/kube-controller-manager:v1.31.14",
+    "registry.k8s.io/kube-proxy:v1.31.14",
+    "registry.k8s.io/kube-scheduler:v1.31.14",
+    "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+    "temporalio/admin-tools:1.32.0@sha256:a9f84fb9a374b2374fe2e67c8efc0468ff3f1c66c8a0b14597ec86e349e62bca",
+    "temporalio/server:1.32.0@sha256:c3e752127759616bb1615e0f9ba0e21635aeb5fdeb922de4f371c350955f46ae"
+  ]
+}

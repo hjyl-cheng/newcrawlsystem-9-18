@@ -1,0 +1,152 @@
+# Isolated API fixtures only. They do not configure the live platform.
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: combined
+  namespace: kafka-compat
+  labels:
+    strimzi.io/cluster: compatibility
+spec:
+  replicas: 3
+  roles: [broker, controller]
+  storage:
+    type: persistent-claim
+    size: 10Gi
+    deleteClaim: false
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      memory: 1536Mi
+---
+apiVersion: kafka.strimzi.io/v1
+kind: Kafka
+metadata:
+  name: compatibility
+  namespace: kafka-compat
+spec:
+  kafka:
+    version: 4.3.1
+    listeners:
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+    authorization:
+      type: simple
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: compatibility-events
+  namespace: kafka-compat
+  labels:
+    strimzi.io/cluster: compatibility
+spec:
+  partitions: 3
+  replicas: 3
+  config:
+    retention.ms: 3600000
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaConnect
+metadata:
+  name: compatibility-connect
+  namespace: kafka-compat
+  annotations:
+    strimzi.io/use-connector-resources: "true"
+spec:
+  version: 4.3.1
+  replicas: 2
+  bootstrapServers: compatibility-kafka-bootstrap:9093
+  groupId: compatibility-connect
+  offsetStorageTopic: compatibility-connect-offsets
+  configStorageTopic: compatibility-connect-configs
+  statusStorageTopic: compatibility-connect-status
+  tls:
+    trustedCertificates:
+      - secretName: compatibility-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: compatibility-connect-client
+      certificate: user.crt
+      key: user.key
+  config:
+    offset.storage.replication.factor: 3
+    config.storage.replication.factor: 3
+    status.storage.replication.factor: 3
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compatibility-app
+  namespace: argo-compat
+spec:
+  project: default
+  source:
+    repoURL: https://example.invalid/compatibility.git
+    targetRevision: main
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app-compat
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: compatibility-issuer
+  namespace: cert-compat
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: compatibility-cert
+  namespace: cert-compat
+spec:
+  secretName: compatibility-tls
+  dnsNames: [compatibility.invalid]
+  issuerRef:
+    name: compatibility-issuer
+    kind: Issuer
+---
+apiVersion: crd.projectcalico.org/v1
+kind: IPPool
+metadata:
+  name: compatibility-pool
+spec:
+  cidr: 192.168.0.0/16
+  ipipMode: Never
+  vxlanMode: Always
+  natOutgoing: true
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: compatibility-scaler
+  namespace: keda-compat
+spec:
+  scaleTargetRef:
+    name: compatibility-consumer
+  minReplicaCount: 1
+  maxReplicaCount: 2
+  triggers:
+    - type: cpu
+      metricType: Utilization
+      metadata:
+        value: "70"

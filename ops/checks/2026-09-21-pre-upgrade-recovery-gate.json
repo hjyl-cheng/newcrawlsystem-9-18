@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-09-21T19:11:25+08:00",
+  "status": "PASSED",
+  "scope": "Fresh pre-upgrade Kubernetes etcd, PostgreSQL coordination etcd, host configuration, and PostgreSQL physical backup with isolated restore verification.",
+  "control_backup": {
+    "archive": "control-20260921T111103Z.tar.gpg",
+    "bytes": 26737137,
+    "sha256": "d68b43db26962677d211bf568ef1defe140e38c1b6c231e543e3130cf45c9bf7",
+    "copies": ["a1", "s2"],
+    "copy_hashes_match": true,
+    "kubernetes_etcd": {
+      "revision": 524155,
+      "total_keys_in_snapshot": 1749,
+      "restored_registry_keys": 794,
+      "restored_secret_records": 20,
+      "restored_deployment_records": 18
+    },
+    "postgresql_coordination_etcd": {
+      "revision": 72482,
+      "total_keys_in_snapshot": 4066,
+      "restored_patroni_keys": 11,
+      "authentication_restored": true
+    },
+    "manifest_files_verified": 9,
+    "isolated_restore": "PASSED",
+    "includes_calico_interface_fix": true
+  },
+  "postgresql_backup": {
+    "tool": "pgBackRest 2.59.1",
+    "encryption": "aes-256-cbc",
+    "backup_label": "20260921-190130F",
+    "backup_type": "full",
+    "source_bytes": 84094760,
+    "repository_bytes": 11601312,
+    "repository_status": "ok",
+    "archive_check": "PASSED",
+    "restore_point": "crawl_restore_ed96512c95db4d49",
+    "isolated_directory": "/srv/crawlsystem/restore-check-ed96512c95db4d49",
+    "before_restore_point_recovered": true,
+    "after_restore_point_excluded": true,
+    "ingestion_receipts_match": true,
+    "restored_databases": [
+      "crawler",
+      "crawler_grafana",
+      "crawler_schema_test_20260920_facts01",
+      "crawler_validation_ingestor",
+      "postgres",
+      "temporal_validation",
+      "temporal_visibility_validation"
+    ]
+  },
+  "post_check": {
+    "patroni": "s1 leader; s2 synchronous standby; s3 replica; both replay lags 0",
+    "temporary_schema_count": 0,
+    "pg_archiver_failed_count": 0,
+    "restored_test_instance_stopped": true,
+    "kubernetes_nodes_ready": 3,
+    "unready_noncompleted_pods": 0
+  },
+  "limits": [
+    "Backups are encrypted and copied across A1 and S2 but remain in the same cloud account and region.",
+    "The isolated restore verifies snapshot readability and selected state; it is not a full six-host disaster rebuild.",
+    "The retained PostgreSQL restore directory is stopped evidence, not a serving database."
+  ]
+}

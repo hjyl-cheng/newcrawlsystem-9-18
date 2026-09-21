@@ -1,0 +1,9 @@
+# Keep the operator scoped to its isolated test namespace.
+watchAnyNamespace: false
+replicas: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 512Mi

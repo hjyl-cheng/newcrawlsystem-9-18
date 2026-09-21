@@ -1,0 +1,125 @@
+{
+  "kubernetes": "1.37.0",
+  "purpose": "isolated API compatibility checks, not live deployment",
+  "artifacts": [
+    {
+      "name": "kubeconform-release",
+      "url": "https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz",
+      "sha256": "9bc2bffbf71f261128533edaf912153948b7ff238f9a531ae6d34466ec287883",
+      "filename": "kubeconform-linux-amd64.tar.gz",
+      "type": "tool",
+      "verified_against_upstream": true,
+      "bytes": 7534236,
+      "status": "downloaded"
+    },
+    {
+      "name": "envtest-release",
+      "url": "https://github.com/kubernetes-sigs/controller-tools/releases/download/envtest-v1.37.0/envtest-v1.37.0-linux-amd64.tar.gz",
+      "sha256": "f03faedfc68d2a78cee5cb02618bb44e7f67044f4c5fc957f72d3307fda61a9c",
+      "filename": "envtest-v1.37.0-linux-amd64.tar.gz",
+      "type": "tool",
+      "verified_against_upstream": true,
+      "bytes": 54907240,
+      "status": "downloaded"
+    },
+    {
+      "name": "helm",
+      "url": "https://get.helm.sh/helm-v4.3.0-linux-amd64.tar.gz",
+      "sha256": "86584a54def73570558f66f5111cc53dfed56689637ae32c1201205d494f54fb",
+      "filename": "helm-v4.3.0-linux-amd64.tar.gz",
+      "type": "tool",
+      "verified_against_upstream": true,
+      "bytes": 20321063,
+      "status": "downloaded"
+    },
+    {
+      "name": "argo-cd",
+      "version": "10.9.2",
+      "appVersion": "v3.5.3",
+      "url": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.9.2/argo-cd-10.9.2.tgz",
+      "sha256": "970ced346a0ddc3e475a7ff780e9b9c2fdebc07d9a367d2edb6ef4f49832c24a",
+      "filename": "argo-cd-10.9.2.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 236358,
+      "status": "downloaded"
+    },
+    {
+      "name": "kube-prometheus-stack",
+      "version": "91.4.1",
+      "appVersion": "v0.94.0",
+      "url": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-91.4.1/kube-prometheus-stack-91.4.1.tgz",
+      "sha256": "1bd5e7a88e758ed3ec22db0fe6e72b1352f3f0e7e5a93c79979f7edf361becdb",
+      "filename": "kube-prometheus-stack-91.4.1.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 933672,
+      "status": "downloaded"
+    },
+    {
+      "name": "temporal",
+      "version": "1.7.0",
+      "appVersion": "1.32.0",
+      "url": "https://github.com/temporalio/helm-charts/releases/download/temporal-1.7.0/temporal-1.7.0.tgz",
+      "sha256": "f7b443f637b71fcbddd12900e5be9fe4c18cf741495d7b2cb247670681bf57d4",
+      "filename": "temporal-1.7.0.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 31078,
+      "status": "downloaded"
+    },
+    {
+      "name": "strimzi-kafka-operator",
+      "version": "1.2.0",
+      "appVersion": "1.2.0",
+      "url": "https://github.com/strimzi/strimzi-kafka-operator/releases/download/1.2.0/strimzi-kafka-operator-helm-3-chart-1.2.0.tgz",
+      "sha256": "0f8a50b2f19bd99482f9fd6e17cf42902f72f9e594a136813ac3f0b7af422efd",
+      "filename": "strimzi-kafka-operator-1.2.0.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 126701,
+      "status": "downloaded"
+    },
+    {
+      "name": "cert-manager",
+      "version": "v1.21.2",
+      "appVersion": "v1.21.2",
+      "url": "https://charts.jetstack.io/charts/cert-manager-v1.21.2.tgz",
+      "sha256": "73a56e1728edd6c99f1f31082618c3259d279a76b7ebd3d4bdc5475c2442d34a",
+      "filename": "cert-manager-v1.21.2.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 153322,
+      "status": "downloaded"
+    },
+    {
+      "name": "keda",
+      "version": "2.20.2",
+      "appVersion": "2.20.2",
+      "url": "https://kedacore.github.io/charts/keda-2.20.2.tgz",
+      "sha256": "db60b1fa60f0565fefa4ce2f87e855b6a8854363ee82962fbe28a12a70d64c4c",
+      "filename": "keda-2.20.2.tgz",
+      "type": "chart",
+      "verified_against_upstream": true,
+      "bytes": 116330,
+      "status": "downloaded"
+    },
+    {
+      "name": "calico",
+      "version": "3.32.2",
+      "url": "https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/calico.yaml",
+      "filename": "calico-v3.32.2.yaml",
+      "type": "manifest",
+      "sha256": "a8c828a06a87c629a282ebbc424895b77f3a030251993e41ea400a743675bb02",
+      "verified_against_upstream": false,
+      "bytes": 350324,
+      "status": "downloaded"
+    }
+  ],
+  "kind_candidate": {
+    "version": "0.33.0",
+    "image": "kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
+    "source": "https://github.com/kubernetes-sigs/kind/releases/tag/v0.33.0",
+    "status": "not run"
+  }
+}

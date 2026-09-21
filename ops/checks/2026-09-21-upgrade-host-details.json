@@ -1,0 +1,461 @@
+{
+  "checked_at": "2026-09-21T09:09:07.190199+00:00",
+  "hosts": {
+    "a1": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=83903\nMemoryCurrent=39247872\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=4193714\nMemoryCurrent=9445376\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=2989317\nMemoryCurrent=7897088\nCPUQuotaPerSecUSec=infinity\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-kube-api.service"
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      }
+    },
+    "a2": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=2677058\nMemoryCurrent=40140800\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=2612920\nMemoryCurrent=9269248\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=1712389\nMemoryCurrent=7831552\nCPUQuotaPerSecUSec=infinity\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-kube-api.service"
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      }
+    },
+    "a3": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=2703631\nMemoryCurrent=50364416\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=2656311\nMemoryCurrent=9691136\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=1721912\nMemoryCurrent=7843840\nCPUQuotaPerSecUSec=infinity\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-kube-api.service"
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      }
+    },
+    "s1": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=1350869\nMemoryCurrent=30203904\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=1027296\nMemoryCurrent=82931712\nCPUQuotaPerSecUSec=infinity\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-pg-etcd.service"
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=1021303\nMemoryCurrent=504217600\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-patroni.service"
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=1454591\nMemoryCurrent=564015104\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/kafka.service"
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=1056778\nMemoryCurrent=32788480\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-master.service"
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=1265972\nMemoryCurrent=27033600\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-volume.service"
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=1387398\nMemoryCurrent=45277184\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-filer.service"
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=1265977\nMemoryCurrent=29220864\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-s3.service"
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=1024544\nMemoryCurrent=5025792\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/usr/lib/systemd/system/pgbouncer.service"
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=1311029\nMemoryCurrent=14622720\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-cdc-guard.service"
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=1318664\nMemoryCurrent=8658944\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "etcd Version: 3.5.24\nGit SHA: e72f3c2\nGo Version: go1.24.9\nGo OS/Arch: linux/amd64"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=signal\nExecMainExitTimestamp=Mon 2026-09-21 09:33:29 CST\nExecMainStatus=9\nLoadState=loaded\nActiveState=failed\nSubState=failed\nTransient=yes"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "data_sizes": {
+        "rc": 0,
+        "output": "707444736\t/var/lib/postgresql/17/main\n16384\t/var/lib/kafka\n417792\t/srv/crawlsystem/seaweedfs"
+      },
+      "databases": {
+        "rc": 0,
+        "output": "crawler|7993011\ncrawler_grafana|14317235\ncrawler_schema_test_20260920_facts01|9270963\ncrawler_validation_ingestor|9500339\npostgres|7698099\ntemporal_validation|10360499\ntemporal_visibility_validation|9885363"
+      }
+    },
+    "s2": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=1309231\nMemoryCurrent=29929472\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=986766\nMemoryCurrent=69070848\nCPUQuotaPerSecUSec=infinity\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-pg-etcd.service"
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=1271544\nMemoryCurrent=204652544\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-patroni.service"
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=1354545\nMemoryCurrent=604520448\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/kafka.service"
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=1028715\nMemoryCurrent=31420416\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-master.service"
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=1238029\nMemoryCurrent=25272320\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-volume.service"
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=1340271\nMemoryCurrent=34123776\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-filer.service"
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=1238034\nMemoryCurrent=29691904\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-s3.service"
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=996113\nMemoryCurrent=4542464\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/usr/lib/systemd/system/pgbouncer.service"
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=1276781\nMemoryCurrent=14819328\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-cdc-guard.service"
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=1283173\nMemoryCurrent=8708096\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "etcd Version: 3.5.24\nGit SHA: e72f3c2\nGo Version: go1.24.9\nGo OS/Arch: linux/amd64"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "data_sizes": {
+        "rc": 0,
+        "output": "689254400\t/var/lib/postgresql/17/main\n16384\t/var/lib/kafka\n147456\t/srv/crawlsystem/seaweedfs"
+      },
+      "databases": {
+        "rc": 0,
+        "output": "crawler|7993011\ncrawler_grafana|14341811\ncrawler_schema_test_20260920_facts01|9159183\ncrawler_validation_ingestor|9339407\npostgres|7698099\ntemporal_validation|10273295\ntemporal_visibility_validation|9724431"
+      }
+    },
+    "s3": {
+      "services": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "MainPID=1291770\nMemoryCurrent=32219136\nCPUQuotaPerSecUSec=300ms\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-vector.service"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "MainPID=982290\nMemoryCurrent=67940352\nCPUQuotaPerSecUSec=infinity\nMemoryMax=268435456\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-pg-etcd.service"
+        },
+        "crawl-patroni.service": {
+          "rc": 0,
+          "output": "MainPID=1255403\nMemoryCurrent=473391104\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-patroni.service"
+        },
+        "kafka.service": {
+          "rc": 0,
+          "output": "MainPID=1384578\nMemoryCurrent=651112448\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/kafka.service"
+        },
+        "seaweedfs-master.service": {
+          "rc": 0,
+          "output": "MainPID=1017788\nMemoryCurrent=32415744\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-master.service"
+        },
+        "seaweedfs-volume.service": {
+          "rc": 0,
+          "output": "MainPID=1217843\nMemoryCurrent=28196864\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-volume.service"
+        },
+        "seaweedfs-filer.service": {
+          "rc": 0,
+          "output": "MainPID=1323952\nMemoryCurrent=34951168\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-filer.service"
+        },
+        "seaweedfs-s3.service": {
+          "rc": 0,
+          "output": "MainPID=1217848\nMemoryCurrent=30072832\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/seaweedfs-s3.service"
+        },
+        "pgbouncer.service": {
+          "rc": 0,
+          "output": "MainPID=990435\nMemoryCurrent=4632576\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/usr/lib/systemd/system/pgbouncer.service"
+        },
+        "clickhouse-server.service": {
+          "rc": 0,
+          "output": "MainPID=315578\nMemoryCurrent=2501300224\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/usr/lib/systemd/system/clickhouse-server.service"
+        },
+        "crawl-cdc-guard.service": {
+          "rc": 0,
+          "output": "MainPID=1258776\nMemoryCurrent=14852096\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-cdc-guard.service"
+        },
+        "crawl-node-exporter.service": {
+          "rc": 0,
+          "output": "MainPID=1264562\nMemoryCurrent=8851456\nCPUQuotaPerSecUSec=200ms\nMemoryMax=134217728\nLoadState=loaded\nActiveState=active\nSubState=running\nFragmentPath=/etc/systemd/system/crawl-node-exporter.service"
+        },
+        "crawl-kube-api.service": {
+          "rc": 0,
+          "output": "MainPID=0\nMemoryCurrent=[not set]\nCPUQuotaPerSecUSec=infinity\nMemoryMax=infinity\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath="
+        }
+      },
+      "versions": {
+        "crawl-vector.service": {
+          "rc": 0,
+          "output": "vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26 13:37:07.557544670)"
+        },
+        "crawl-pg-etcd.service": {
+          "rc": 0,
+          "output": "etcd Version: 3.5.24\nGit SHA: e72f3c2\nGo Version: go1.24.9\nGo OS/Arch: linux/amd64"
+        }
+      },
+      "crawl-signal-check.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=success\nExecMainExitTimestamp=\nExecMainStatus=0\nLoadState=not-found\nActiveState=inactive\nSubState=dead\nTransient=no"
+      },
+      "crawl-ch-restore-895d0831361a.service": {
+        "rc": 0,
+        "output": "MainPID=0\nResult=exit-code\nExecMainExitTimestamp=Mon 2026-09-21 09:59:03 CST\nExecMainStatus=143\nLoadState=loaded\nActiveState=failed\nSubState=failed\nTransient=yes"
+      },
+      "data_sizes": {
+        "rc": 0,
+        "output": "689258496\t/var/lib/postgresql/17/main\n16384\t/var/lib/kafka\n696320\t/srv/crawlsystem/seaweedfs"
+      },
+      "databases": {
+        "rc": 0,
+        "output": "crawler|7993011\ncrawler_grafana|14341811\ncrawler_schema_test_20260920_facts01|9159183\ncrawler_validation_ingestor|9339407\npostgres|7698099\ntemporal_validation|10273295\ntemporal_visibility_validation|9724431"
+      }
+    }
+  }
+}

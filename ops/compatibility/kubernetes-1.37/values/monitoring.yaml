@@ -1,0 +1,22 @@
+# API compatibility only: do not create a duplicate node exporter or Grafana.
+nodeExporter:
+  enabled: false
+grafana:
+  enabled: false
+prometheus:
+  prometheusSpec:
+    replicas: 2
+    retention: 6h
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 768Mi
+alertmanager:
+  alertmanagerSpec:
+    replicas: 3
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 128Mi

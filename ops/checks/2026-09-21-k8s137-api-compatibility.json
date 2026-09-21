@@ -1,0 +1,453 @@
+{
+  "checked_at": "2026-09-21T09:34:27.889892+00:00",
+  "status": "API_AND_SCHEMA_PASSED_WITH_CHART_LINT_WARNING",
+  "scope": "No live upgrade. Isolated official envtest API, no kubelet/scheduler/component controllers. Not runtime/network/failover certification.",
+  "server_version": {
+    "major": "1",
+    "minor": "37",
+    "emulationMajor": "1",
+    "emulationMinor": "37",
+    "minCompatibilityMajor": "1",
+    "minCompatibilityMinor": "36",
+    "gitVersion": "v1.37.0",
+    "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+    "gitTreeState": "clean",
+    "buildDate": "2026-08-26T10:44:25Z",
+    "goVersion": "go1.26.6",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  },
+  "tools": {
+    "helm": "4.3.0",
+    "kubeconform": "0.8.0",
+    "kubectl": "1.37.0",
+    "kustomize": "5.8.1",
+    "isolated_etcd": "3.7.0 (envtest bundle, not live etcd)"
+  },
+  "counts": {
+    "rendered_objects": 317,
+    "crds_created_and_established": 58,
+    "non_crd_api_dryruns": 259,
+    "builtin_schema_valid": 211,
+    "builtin_schema_invalid": 0,
+    "builtin_schema_errors": 0,
+    "builtin_schema_skipped": 0,
+    "custom_fixtures": 9,
+    "negative_cases": 2,
+    "existing_overlay_resources": 63
+  },
+  "components": [
+    {
+      "component": "temporal",
+      "objects": 13,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 13,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 13,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "strimzi",
+      "objects": 27,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 17,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 17,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "keda",
+      "objects": 29,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 23,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 23,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "calico",
+      "objects": 38,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 15,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 15,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "argo-cd",
+      "objects": 72,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 69,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 69,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "monitoring",
+      "objects": 90,
+      "custom_objects": 48,
+      "api_dryrun_rc": 0,
+      "api_accepted": 80,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 32,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    {
+      "component": "cert-manager",
+      "objects": 48,
+      "custom_objects": 0,
+      "api_dryrun_rc": 0,
+      "api_accepted": 42,
+      "api_errors": "",
+      "schema_rc": 0,
+      "schema": {
+        "resources": [],
+        "summary": {
+          "valid": 42,
+          "invalid": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    }
+  ],
+  "helm_lint": [
+    {
+      "component": "argo-cd",
+      "rc": 0,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/argo-cd\n\n1 chart(s) linted, 0 chart(s) failed\n"
+    },
+    {
+      "component": "strimzi",
+      "rc": 0,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/strimzi-kafka-operator\n\n1 chart(s) linted, 0 chart(s) failed\n"
+    },
+    {
+      "component": "cert-manager",
+      "rc": 1,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/cert-manager\n[WARNING] Chart.yaml: version 'v1.21.2' is not a valid SemVerV2\n\nError: 1 chart(s) linted, 1 chart(s) failed\n"
+    },
+    {
+      "component": "monitoring",
+      "rc": 0,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/kube-prometheus-stack\n\n1 chart(s) linted, 0 chart(s) failed\n"
+    },
+    {
+      "component": "temporal",
+      "rc": 0,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/temporal\n[INFO] Chart.yaml: icon is recommended\n\n1 chart(s) linted, 0 chart(s) failed\n"
+    },
+    {
+      "component": "keda",
+      "rc": 0,
+      "output": "==> Linting /tmp/crawl-k8s137-compat/charts/keda\n\n1 chart(s) linted, 0 chart(s) failed\n"
+    }
+  ],
+  "cert_manager_non_strict_lint": "==> Linting /tmp/crawl-k8s137-compat/charts/cert-manager\n[WARNING] Chart.yaml: version 'v1.21.2' is not a valid SemVerV2\n\n1 chart(s) linted, 0 chart(s) failed\n",
+  "fixtures": {
+    "positive": {
+      "rc": 0,
+      "accepted": [
+        "kafkanodepool.kafka.strimzi.io/combined",
+        "kafka.kafka.strimzi.io/compatibility",
+        "kafkatopic.kafka.strimzi.io/compatibility-events",
+        "kafkaconnect.kafka.strimzi.io/compatibility-connect",
+        "application.argoproj.io/compatibility-app",
+        "issuer.cert-manager.io/compatibility-issuer",
+        "certificate.cert-manager.io/compatibility-cert",
+        "ippool.crd.projectcalico.org/compatibility-pool",
+        "scaledobject.keda.sh/compatibility-scaler"
+      ],
+      "stderr": ""
+    },
+    "negative": [
+      {
+        "case": "removed-v1beta2",
+        "rejected": true,
+        "returncode": 1,
+        "message": "error: resource mapping not found for name: \"removed-v1beta2\" namespace: \"kafka-compat\" from \"STDIN\": no matches for kind \"KafkaNodePool\" in version \"kafka.strimzi.io/v1beta2\"\nensure CRDs are installed first"
+      },
+      {
+        "case": "invalid-node-role",
+        "rejected": true,
+        "returncode": 1,
+        "message": "The KafkaNodePool \"invalid-node-role\" is invalid: spec.roles[0]: Unsupported value: \"invalid-role\": supported values: \"controller\", \"broker\""
+      }
+    ]
+  },
+  "existing_overlays": [
+    {
+      "name": "kafka-connect",
+      "rc": 0,
+      "accepted": 5,
+      "errors": ""
+    },
+    {
+      "name": "data-ingestor",
+      "rc": 0,
+      "accepted": 4,
+      "errors": ""
+    },
+    {
+      "name": "infra-smoke",
+      "rc": 0,
+      "accepted": 3,
+      "errors": ""
+    },
+    {
+      "name": "temporal",
+      "rc": 0,
+      "accepted": 5,
+      "errors": ""
+    },
+    {
+      "name": "seaweed-s3",
+      "rc": 0,
+      "accepted": 5,
+      "errors": ""
+    },
+    {
+      "name": "monitoring",
+      "rc": 0,
+      "accepted": 34,
+      "errors": ""
+    },
+    {
+      "name": "runtime-smoke",
+      "rc": 0,
+      "accepted": 2,
+      "errors": ""
+    },
+    {
+      "name": "postgresql-entry",
+      "rc": 0,
+      "accepted": 5,
+      "errors": ""
+    }
+  ],
+  "rendered_images": [
+    "ecr-public.aws.com/docker/library/haproxy:3.3.10-alpine",
+    "ecr-public.aws.com/docker/library/redis:8.6.4-alpine",
+    "ghcr.io/dexidp/dex:v2.45.1",
+    "ghcr.io/jkroepke/kube-webhook-certgen:1.8.8",
+    "ghcr.io/kedacore/keda-admission-webhooks:2.20.2",
+    "ghcr.io/kedacore/keda-metrics-apiserver:2.20.2",
+    "ghcr.io/kedacore/keda:2.20.2",
+    "koalaman/shellcheck:v0.11.0",
+    "quay.io/argoproj/argocd:v3.5.3",
+    "quay.io/calico/cni:v3.32.2",
+    "quay.io/calico/kube-controllers:v3.32.2",
+    "quay.io/calico/node:v3.32.2",
+    "quay.io/jetstack/cert-manager-cainjector:v1.21.2",
+    "quay.io/jetstack/cert-manager-controller:v1.21.2",
+    "quay.io/jetstack/cert-manager-startupapicheck:v1.21.2",
+    "quay.io/jetstack/cert-manager-webhook:v1.21.2",
+    "quay.io/prometheus-operator/prometheus-operator:v0.94.0",
+    "quay.io/prometheus/alertmanager:v0.34.0",
+    "quay.io/prometheus/prometheus:v3.14.0-distroless",
+    "quay.io/strimzi/operator:1.2.0",
+    "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0",
+    "temporalio/admin-tools:1.32.0",
+    "temporalio/server:1.32.0"
+  ],
+  "source_sha256": {
+    "ops/compatibility/kubernetes-1.37/artifacts.lock.json": "803ce311420b83dba12ab7b8f9b5a87d95e6216dec4d9ed9e1f14b6c363483e9",
+    "ops/compatibility/kubernetes-1.37/calico/vxlan.yaml": "3964250017ae3c709414fb862199e40c8318be608d93c229601f93ee39de6045",
+    "ops/compatibility/kubernetes-1.37/calico/kustomization.yaml": "5377b77c24f373ffd762eda8e75dd47aad3841e4468871da7f0c7915ab0931dc",
+    "ops/compatibility/kubernetes-1.37/values/temporal.yaml": "cf1928d9d91d82996ced214dc670b5bb34b6a7708c15f60d77533a5858d5016d",
+    "ops/compatibility/kubernetes-1.37/values/strimzi.yaml": "d1590bd2312eea49b481d111862c9e427ee908da5e92c4530db1600114da1bb9",
+    "ops/compatibility/kubernetes-1.37/values/keda.yaml": "3ac4c75e5645211d2adebb8132c27592a492b0614114fbb17c0f976849fb06ca",
+    "ops/compatibility/kubernetes-1.37/values/argo-cd.yaml": "e2d03f23c3c2f8e7fb18d7778778bd4fd05f42ca85afcb8729600fde24ad97bb",
+    "ops/compatibility/kubernetes-1.37/values/monitoring.yaml": "b51a70fb518ea75a1cd6d5d06810c3a517bc77bd811d010ca6d27bd94e7ab9a5",
+    "ops/compatibility/kubernetes-1.37/values/cert-manager.yaml": "24927399d7714ab5063fcc5385d768f5bd4754b3d78590e0f8d5c9659ffadda8",
+    "ops/compatibility/kubernetes-1.37/fixtures/custom-resources.yaml": "fa5d2530e7b626e6c54e5dc7339fc3d10bec11a8e2d0343b35c893390706e120"
+  },
+  "findings": [
+    {
+      "component": "Strimzi KafkaConnect v1",
+      "issue": "Legacy config group.id / *.storage.topic placement does not satisfy v1 required spec fields",
+      "resolution": "Fixture uses spec.groupId/configStorageTopic/statusStorageTopic/offsetStorageTopic; server validation now passes"
+    },
+    {
+      "component": "cert-manager official Chart",
+      "issue": "Helm 4 strict lint treats official Chart version v1.21.2 leading v as SemVer warning",
+      "resolution": "Upstream chart kept unchanged; normal lint, template, schema and server API pass; strict lint warning retained"
+    },
+    {
+      "component": "API-only harness",
+      "issue": "No controller-manager to create default ServiceAccounts; charts span multiple namespaces; CRD schema absent from third-party schema directory",
+      "resolution": "Create isolated default SAs; use declared namespaces; validate all CRDs through real API; schema validator covers builtins with zero skipped"
+    },
+    {
+      "component": "CRD ownership",
+      "issue": "Create-to-SSA rehearsal reported ownership conflict on Strimzi spec.versions",
+      "resolution": "Not bypassed in live cluster; initial successful CRD creation retained as schema evidence. Actual CRD ownership migration remains a separate gate."
+    }
+  ],
+  "pending": [
+    "Full isolated cluster with kubelet and Calico cross-node data plane",
+    "Controller reconciliation, webhooks and TLS renewal",
+    "Kafka messages/ACL/restarts, Connect and actual offset continuity",
+    "Argo sync/HA behavior and full upgrade rehearsal",
+    "Live deployment migration and rollback acceptance"
+  ],
+  "isolation": {
+    "api": "127.0.0.1:26443",
+    "etcd_client": "127.0.0.1:22379",
+    "etcd_peer": "127.0.0.1:22380",
+    "api_memory_max_mib": 1536,
+    "etcd_memory_max_mib": 384,
+    "runtime_limit_seconds": 1800,
+    "ca": "independent temporary two-day CA",
+    "live_credentials_used": false,
+    "full_cluster_prerequisite": "No Docker/Podman installed; direct unprivileged user namespace mapping was denied. Rootless provider readiness not established; no global kernel/network setting changed.",
+    "observed_resources": {
+      "crawl-compat137-api.service": {
+        "MemoryCurrent": "601812992",
+        "MemoryPeak": "789491712",
+        "MemoryMax": "1610612736",
+        "ActiveState": "active"
+      },
+      "crawl-compat137-etcd.service": {
+        "MemoryCurrent": "93409280",
+        "MemoryPeak": "114503680",
+        "MemoryMax": "402653184",
+        "ActiveState": "active"
+      }
+    },
+    "cleanup": {
+      "checked_at": "2026-09-21T09:38:23.573289+00:00",
+      "test_ports_closed": true,
+      "temporary_processes_exited": true,
+      "units_before_reset": {
+        "crawl-compat137-api.service": {
+          "MainPID": "0",
+          "Result": "timeout",
+          "ActiveState": "failed"
+        },
+        "crawl-compat137-etcd.service": {
+          "MainPID": "0",
+          "Result": "success",
+          "ActiveState": "inactive"
+        }
+      },
+      "note": "API and etcd were stopped together; API exceeded systemd stop timeout and was killed by systemd. No graceful shutdown acceptance claimed. Next run must stop API first, then etcd."
+    }
+  },
+  "live_cluster_after": {
+    "checked_at": "2026-09-21T09:35:13.657917+00:00",
+    "nodes": [
+      {
+        "name": "a1",
+        "version": "v1.31.14",
+        "ready": "True"
+      },
+      {
+        "name": "a2",
+        "version": "v1.31.14",
+        "ready": "True"
+      },
+      {
+        "name": "a3",
+        "version": "v1.31.14",
+        "ready": "True"
+      }
+    ],
+    "apps": [
+      {
+        "name": "crawl-infra-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-ingestor-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-kafka-connect-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-monitoring",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-postgresql-entry-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-runtime-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-seaweed-s3-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      },
+      {
+        "name": "crawl-temporal-validation",
+        "sync": "Synced",
+        "health": "Healthy"
+      }
+    ],
+    "not_ready": []
+  }
+}

@@ -1,0 +1,6 @@
+# Optional component; an API pass does not establish scaler/runtime compatibility.
+prometheus:
+  metricServer:
+    enabled: false
+  operator:
+    enabled: false

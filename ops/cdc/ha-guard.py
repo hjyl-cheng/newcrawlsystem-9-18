@@ -99,8 +99,11 @@ class Guard:
         import psycopg2
         options={'dbname':db,'connect_timeout':2,'options':'-c statement_timeout=2000 -c lock_timeout=1000'}
         if node and node!=self.name:
-            options.update(host=NODES[node],user=self.cfg['postgresql']['authentication']['replication']['username'],
-                password=self.cfg['postgresql']['authentication']['replication']['password'])
+            auth=self.cfg['postgresql']['authentication']['replication']
+            require(auth.get('sslmode')=='verify-full' and auth.get('sslrootcert'),
+                'Replication SQL identity must configure verify-full and a trusted CA')
+            options.update(host=NODES[node],user=auth['username'],password=auth['password'],
+                sslmode=auth['sslmode'],sslrootcert=auth['sslrootcert'])
         else:options.update(host='/var/run/postgresql',user='postgres')
         connection=psycopg2.connect(**options)
         try:

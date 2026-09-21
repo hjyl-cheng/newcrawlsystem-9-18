@@ -1,0 +1,67 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: connect-client
+  namespace: kafka-compat
+  labels:
+    strimzi.io/cluster: k137-kafka
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      - operations: [Create, Read, Write, Describe]
+        resource:
+          type: topic
+          name: k137-connect-
+          patternType: prefix
+      - operations: [Read, Describe]
+        resource:
+          type: group
+          name: k137-connect
+          patternType: literal
+      - operations: [Describe]
+        resource:
+          type: cluster
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaConnect
+metadata:
+  name: k137-connect
+  namespace: kafka-compat
+  annotations:
+    strimzi.io/use-connector-resources: "true"
+spec:
+  version: 4.3.1
+  replicas: 1
+  bootstrapServers: k137-kafka-kafka-bootstrap:9093
+  groupId: k137-connect
+  configStorageTopic: k137-connect-configs
+  offsetStorageTopic: k137-connect-offsets
+  statusStorageTopic: k137-connect-status
+  tls:
+    trustedCertificates:
+      - secretName: k137-kafka-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+    type: tls
+    certificateAndKey:
+      secretName: connect-client
+      certificate: user.crt
+      key: user.key
+  config:
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
+    offset.storage.partitions: 1
+    status.storage.partitions: 1
+  jvmOptions:
+    -Xms: 128m
+    -Xmx: 256m
+  resources:
+    requests:
+      cpu: 100m
+      memory: 384Mi
+    limits:
+      memory: 640Mi

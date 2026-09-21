@@ -1,0 +1,505 @@
+{
+  "checked_at": "2026-09-21T09:07:42.517418+00:00",
+  "kind": "read-only-host-inventory",
+  "hosts": {
+    "a1": {
+      "hostname": {
+        "rc": 0,
+        "output": "a1"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 4,
+      "memory": {
+        "MemTotal": 7993507840,
+        "MemAvailable": 5463056384,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem        1B-blocks        Avail Mounted on\n/dev/vda2      190109507584 163041771520 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 193273528320,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 193271414272,\n               \"mountpoints\": [\n                   \"/var/lib/kubelet/pods/6d62a9e7-158a-4af1-b654-83114b3e779f/volumes/kubernetes.io~local-volume/crawl-alertmanager-a1\", \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "containerd 2.2.1-0ubuntu1~24.04.3\nhaproxy 2.8.16-0ubuntu0.24.04.3\nkubeadm 1.31.14-1.1\nkubectl 1.31.14-1.1\nkubelet 1.31.14-1.1\nrunc 1.3.4-0ubuntu1~24.04.1\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching postgresql-17\ndpkg-query: no packages found matching postgresql-18\ndpkg-query: no packages found matching patroni\ndpkg-query: no packages found matching etcd-server\ndpkg-query: no packages found matching pgbouncer\ndpkg-query: no packages found matching pgbackrest\ndpkg-query: no packages found matching clickhouse-server"
+      },
+      "services": {
+        "rc": 0,
+        "output": "containerd.service              loaded active   running containerd container runtime\ncrawl-clickhouse-backup.service loaded inactive dead    Native ClickHouse backup encrypted on A1 and copied to S2\ncrawl-control-backup.service    loaded inactive dead    Encrypted etcd and configuration backup to A1 and S2\ncrawl-kube-api.service          loaded active   running Local Kubernetes API endpoint with healthy control-plane backends\ncrawl-metrics-collect.service   loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service     loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-vector.service            loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkubelet.service                 loaded active   running kubelet: The Kubernetes Node Agent"
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:07:46 CST  5s Mon 2026-09-21 17:07:16 CST 24s ago crawl-metrics-collect.timer   crawl-metrics-collect.service\nTue 2026-09-22 03:12:41 CST 10h Mon 2026-09-21 03:14:38 CST 13h ago crawl-control-backup.timer    crawl-control-backup.service\nTue 2026-09-22 04:10:11 CST 11h -                                 - crawl-clickhouse-backup.timer crawl-clickhouse-backup.service"
+      },
+      "versions": {
+        "containerd": {
+          "rc": 0,
+          "output": "containerd github.com/containerd/containerd/v2 2.2.1"
+        },
+        "runc": {
+          "rc": 0,
+          "output": "runc version 1.3.4-0ubuntu1~24.04.1\nspec: 1.2.1\ngo: go1.24.4\nlibseccomp: 2.5.5"
+        },
+        "kubeadm": {
+          "rc": 0,
+          "output": "v1.31.14"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": null,
+      "kafka_broker_jar": [],
+      "pg_role": null,
+      "failed_units": {
+        "rc": 0,
+        "output": ""
+      }
+    },
+    "a2": {
+      "hostname": {
+        "rc": 0,
+        "output": "a2"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 2,
+      "memory": {
+        "MemTotal": 8059240448,
+        "MemAvailable": 5691609088,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem       1B-blocks       Avail Mounted on\n/dev/vda2      84423806976 64003076096 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 85899345920,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 85897231872,\n               \"mountpoints\": [\n                   \"/var/lib/kubelet/pods/bd858e29-2e91-4776-b49e-e68a340d8387/volumes/kubernetes.io~local-volume/crawl-prometheus-a2\", \"/var/lib/kubelet/pods/d73b10b2-5ea6-4ac2-aa1e-701d5c79fd2b/volumes/kubernetes.io~local-volume/crawl-alertmanager-a2\", \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "containerd 2.2.1-0ubuntu1~24.04.3\nhaproxy 2.8.16-0ubuntu0.24.04.3\nkubeadm 1.31.14-1.1\nkubectl 1.31.14-1.1\nkubelet 1.31.14-1.1\nrunc 1.3.4-0ubuntu1~24.04.1\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching postgresql-17\ndpkg-query: no packages found matching postgresql-18\ndpkg-query: no packages found matching patroni\ndpkg-query: no packages found matching etcd-server\ndpkg-query: no packages found matching pgbouncer\ndpkg-query: no packages found matching pgbackrest\ndpkg-query: no packages found matching clickhouse-server"
+      },
+      "services": {
+        "rc": 0,
+        "output": "containerd.service            loaded active   running containerd container runtime\ncrawl-kube-api.service        loaded active   running Local Kubernetes API endpoint with healthy control-plane backends\ncrawl-metrics-collect.service loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service   loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-vector.service          loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkubelet.service               loaded active   running kubelet: The Kubernetes Node Agent"
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:07:48 CST 7s Mon 2026-09-21 17:07:18 CST 22s ago crawl-metrics-collect.timer crawl-metrics-collect.service"
+      },
+      "versions": {
+        "containerd": {
+          "rc": 0,
+          "output": "containerd github.com/containerd/containerd/v2 2.2.1"
+        },
+        "runc": {
+          "rc": 0,
+          "output": "runc version 1.3.4-0ubuntu1~24.04.1\nspec: 1.2.1\ngo: go1.24.4\nlibseccomp: 2.5.5"
+        },
+        "kubeadm": {
+          "rc": 0,
+          "output": "v1.31.14"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": null,
+      "kafka_broker_jar": [],
+      "pg_role": null,
+      "failed_units": {
+        "rc": 0,
+        "output": ""
+      }
+    },
+    "a3": {
+      "hostname": {
+        "rc": 0,
+        "output": "a3"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 2,
+      "memory": {
+        "MemTotal": 7994236928,
+        "MemAvailable": 5411475456,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem       1B-blocks       Avail Mounted on\n/dev/vda2      84423806976 65089720320 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 85899345920,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 85897231872,\n               \"mountpoints\": [\n                   \"/var/lib/kubelet/pods/093d21dc-5dd0-45ad-b0d6-1dae3903c9d8/volumes/kubernetes.io~local-volume/crawl-prometheus-a3\", \"/var/lib/kubelet/pods/0e8c64a0-cb5d-4401-97ea-20f4556245f0/volumes/kubernetes.io~local-volume/crawl-alertmanager-a3\", \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "containerd 2.2.1-0ubuntu1~24.04.3\nhaproxy 2.8.16-0ubuntu0.24.04.3\nkubeadm 1.31.14-1.1\nkubectl 1.31.14-1.1\nkubelet 1.31.14-1.1\nrunc 1.3.4-0ubuntu1~24.04.1\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching postgresql-17\ndpkg-query: no packages found matching postgresql-18\ndpkg-query: no packages found matching patroni\ndpkg-query: no packages found matching etcd-server\ndpkg-query: no packages found matching pgbouncer\ndpkg-query: no packages found matching pgbackrest\ndpkg-query: no packages found matching clickhouse-server"
+      },
+      "services": {
+        "rc": 0,
+        "output": "containerd.service            loaded active   running containerd container runtime\ncrawl-kube-api.service        loaded active   running Local Kubernetes API endpoint with healthy control-plane backends\ncrawl-metrics-collect.service loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service   loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-vector.service          loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkubelet.service               loaded active   running kubelet: The Kubernetes Node Agent"
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:07:58 CST 17s Mon 2026-09-21 17:07:28 CST 12s ago crawl-metrics-collect.timer crawl-metrics-collect.service"
+      },
+      "versions": {
+        "containerd": {
+          "rc": 0,
+          "output": "containerd github.com/containerd/containerd/v2 2.2.1"
+        },
+        "runc": {
+          "rc": 0,
+          "output": "runc version 1.3.4-0ubuntu1~24.04.1\nspec: 1.2.1\ngo: go1.24.4\nlibseccomp: 2.5.5"
+        },
+        "kubeadm": {
+          "rc": 0,
+          "output": "v1.31.14"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": null,
+      "kafka_broker_jar": [],
+      "pg_role": null,
+      "failed_units": {
+        "rc": 0,
+        "output": ""
+      }
+    },
+    "s1": {
+      "hostname": {
+        "rc": 0,
+        "output": "s1"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 2,
+      "memory": {
+        "MemTotal": 7994236928,
+        "MemAvailable": 6367088640,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem       1B-blocks       Avail Mounted on\n/dev/vda2      84423806976 72794034176 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 85899345920,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 85897231872,\n               \"mountpoints\": [\n                   \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "etcd-server \nhaproxy 2.8.16-0ubuntu0.24.04.3\npatroni 4.1.5-1.pgdg24.04+1\npgbackrest 2.59.1-1.pgdg24.04+1\npgbouncer 1.25.2-1.pgdg24.04+1\npostgresql-17 17.11-1.pgdg24.04+2\ndpkg-query: no packages found matching kubeadm\ndpkg-query: no packages found matching kubelet\ndpkg-query: no packages found matching kubectl\ndpkg-query: no packages found matching containerd\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching runc\ndpkg-query: no packages found matching postgresql-18\ndpkg-query: no packages found matching clickhouse-server"
+      },
+      "services": {
+        "rc": 0,
+        "output": "crawl-cdc-guard.service       loaded active   running CDC candidate barrier and native slot recovery guard\ncrawl-metrics-collect.service loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service   loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-patroni.service         loaded active   running Patroni for existing crawler PostgreSQL cluster\ncrawl-pg-etcd.service         loaded active   running Dedicated PostgreSQL coordination etcd\ncrawl-seaweed-pg.service      loaded active   running SeaweedFS local PostgreSQL primary selector\ncrawl-signal-check.service    loaded failed   failed  /usr/bin/sleep 10\ncrawl-vector.service          loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkafka.service                 loaded active   running Apache Kafka KRaft broker\npgbouncer.service             loaded active   running connection pooler for PostgreSQL\nseaweedfs-filer.service       loaded active   running SeaweedFS shared-PG Filer\nseaweedfs-master.service      loaded active   running SeaweedFS Master\nseaweedfs-s3.service          loaded active   running SeaweedFS authenticated S3 Gateway\nseaweedfs-volume.service      loaded active   running SeaweedFS Volume"
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:07:46 CST 5s Mon 2026-09-21 17:07:16 CST 24s ago crawl-metrics-collect.timer crawl-metrics-collect.service"
+      },
+      "versions": {
+        "postgres": {
+          "rc": 0,
+          "output": "postgres (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)"
+        },
+        "patroni": {
+          "rc": 0,
+          "output": "patroni 4.1.5"
+        },
+        "pgbouncer": {
+          "rc": 0,
+          "output": "PgBouncer 1.25.2\nlibevent 2.1.12-stable\nadns: c-ares 1.27.0\ntls: OpenSSL 3.0.13 30 Jan 2024\nsystemd: yes"
+        },
+        "pgbackrest": {
+          "rc": 0,
+          "output": "pgBackRest 2.59.1"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "seaweedfs": {
+          "rc": 0,
+          "output": "version 30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3 linux amd64\n\nFor enterprise users, please visit https://seaweedfs.com for the SeaweedFS Enterprise Edition,\nwhich has advanced features, including data recovery, self-healing storage, customizable erasure coding, EC vacuum and repair, etc."
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": "/opt/kafka_2.13-3.9.1",
+      "kafka_broker_jar": [
+        "kafka_2.13-3.9.1.jar"
+      ],
+      "pg_role": {
+        "rc": 0,
+        "output": "PostgreSQL 17.11 (Ubuntu 17.11-1.pgdg24.04+2) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit|f"
+      },
+      "failed_units": {
+        "rc": 0,
+        "output": "crawl-signal-check.service loaded failed failed /usr/bin/sleep 10"
+      }
+    },
+    "s2": {
+      "hostname": {
+        "rc": 0,
+        "output": "s2"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 2,
+      "memory": {
+        "MemTotal": 7994236928,
+        "MemAvailable": 6383939584,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem       1B-blocks       Avail Mounted on\n/dev/vda2      84423806976 72362758144 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 85899345920,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 85897231872,\n               \"mountpoints\": [\n                   \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "etcd-server \nhaproxy 2.8.16-0ubuntu0.24.04.3\npatroni 4.1.5-1.pgdg24.04+1\npgbackrest 2.59.1-1.pgdg24.04+1\npgbouncer 1.25.2-1.pgdg24.04+1\npostgresql-17 17.11-1.pgdg24.04+2\ndpkg-query: no packages found matching kubeadm\ndpkg-query: no packages found matching kubelet\ndpkg-query: no packages found matching kubectl\ndpkg-query: no packages found matching containerd\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching runc\ndpkg-query: no packages found matching postgresql-18\ndpkg-query: no packages found matching clickhouse-server"
+      },
+      "services": {
+        "rc": 0,
+        "output": "crawl-cdc-guard.service       loaded active   running CDC candidate barrier and native slot recovery guard\ncrawl-metrics-collect.service loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service   loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-patroni.service         loaded active   running Patroni for existing crawler PostgreSQL cluster\ncrawl-pg-etcd.service         loaded active   running Dedicated PostgreSQL coordination etcd\ncrawl-pgbackrest-diff.service loaded inactive dead    Crawler PostgreSQL encrypted daily differential backup\ncrawl-pgbackrest-full.service loaded inactive dead    Crawler PostgreSQL encrypted weekly full backup\ncrawl-seaweed-pg.service      loaded active   running SeaweedFS local PostgreSQL primary selector\ncrawl-vector.service          loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkafka.service                 loaded active   running Apache Kafka KRaft broker\npgbouncer.service             loaded active   running connection pooler for PostgreSQL\nseaweedfs-filer.service       loaded active   running SeaweedFS shared-PG Filer\nseaweedfs-master.service      loaded active   running SeaweedFS Master\nseaweedfs-s3.service          loaded active   running SeaweedFS authenticated S3 Gateway\nseaweedfs-volume.service      loaded active   running S"
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:07:55 CST    14s Mon 2026-09-21 17:07:25 CST 15s ago crawl-metrics-collect.timer crawl-metrics-collect.service\nTue 2026-09-22 03:31:47 CST    10h Mon 2026-09-21 03:32:25 CST 13h ago crawl-pgbackrest-diff.timer crawl-pgbackrest-diff.service\nSun 2026-09-27 03:31:45 CST 5 days -                                 - crawl-pgbackrest-full.timer crawl-pgbackrest-full.service"
+      },
+      "versions": {
+        "postgres": {
+          "rc": 0,
+          "output": "postgres (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)"
+        },
+        "patroni": {
+          "rc": 0,
+          "output": "patroni 4.1.5"
+        },
+        "pgbouncer": {
+          "rc": 0,
+          "output": "PgBouncer 1.25.2\nlibevent 2.1.12-stable\nadns: c-ares 1.27.0\ntls: OpenSSL 3.0.13 30 Jan 2024\nsystemd: yes"
+        },
+        "pgbackrest": {
+          "rc": 0,
+          "output": "pgBackRest 2.59.1"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "seaweedfs": {
+          "rc": 0,
+          "output": "version 30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3 linux amd64\n\nFor enterprise users, please visit https://seaweedfs.com for the SeaweedFS Enterprise Edition,\nwhich has advanced features, including data recovery, self-healing storage, customizable erasure coding, EC vacuum and repair, etc."
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": "/opt/kafka_2.13-3.9.1",
+      "kafka_broker_jar": [
+        "kafka_2.13-3.9.1.jar"
+      ],
+      "pg_role": {
+        "rc": 0,
+        "output": "PostgreSQL 17.11 (Ubuntu 17.11-1.pgdg24.04+2) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit|t"
+      },
+      "failed_units": {
+        "rc": 0,
+        "output": ""
+      }
+    },
+    "s3": {
+      "hostname": {
+        "rc": 0,
+        "output": "s3"
+      },
+      "os": {
+        "PRETTY_NAME": "\"Ubuntu 24.04.4 LTS\"",
+        "NAME": "\"Ubuntu\"",
+        "VERSION_ID": "\"24.04\"",
+        "VERSION": "\"24.04.4 LTS (Noble Numbat)\"",
+        "VERSION_CODENAME": "noble",
+        "ID": "ubuntu",
+        "ID_LIKE": "debian",
+        "HOME_URL": "\"https://www.ubuntu.com/\"",
+        "SUPPORT_URL": "\"https://help.ubuntu.com/\"",
+        "BUG_REPORT_URL": "\"https://bugs.launchpad.net/ubuntu/\"",
+        "PRIVACY_POLICY_URL": "\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"",
+        "UBUNTU_CODENAME": "noble",
+        "LOGO": "ubuntu-logo"
+      },
+      "cpus": 2,
+      "memory": {
+        "MemTotal": 8059363328,
+        "MemAvailable": 5510537216,
+        "SwapTotal": 0
+      },
+      "disk": {
+        "rc": 0,
+        "output": "Filesystem       1B-blocks       Avail Mounted on\n/dev/vda2      84423806976 69928382464 /"
+      },
+      "block_devices": {
+        "rc": 0,
+        "output": "{\n   \"blockdevices\": [\n      {\n         \"name\": \"sr0\",\n         \"type\": \"rom\",\n         \"size\": 122669056,\n         \"mountpoints\": [\n             null\n         ]\n      },{\n         \"name\": \"vda\",\n         \"type\": \"disk\",\n         \"size\": 85899345920,\n         \"mountpoints\": [\n             null\n         ],\n         \"children\": [\n            {\n               \"name\": \"vda1\",\n               \"type\": \"part\",\n               \"size\": 1048576,\n               \"mountpoints\": [\n                   null\n               ]\n            },{\n               \"name\": \"vda2\",\n               \"type\": \"part\",\n               \"size\": 85897231872,\n               \"mountpoints\": [\n                   \"/\"\n               ]\n            }\n         ]\n      }\n   ]\n}"
+      },
+      "packages": {
+        "rc": 1,
+        "output": "clickhouse-server 26.8.6.5\netcd-server \nhaproxy 2.8.16-0ubuntu0.24.04.3\npatroni 4.1.5-1.pgdg24.04+1\npgbackrest 2.59.1-1.pgdg24.04+1\npgbouncer 1.25.2-1.pgdg24.04+1\npostgresql-17 17.11-1.pgdg24.04+2\ndpkg-query: no packages found matching kubeadm\ndpkg-query: no packages found matching kubelet\ndpkg-query: no packages found matching kubectl\ndpkg-query: no packages found matching containerd\ndpkg-query: no packages found matching containerd.io\ndpkg-query: no packages found matching runc\ndpkg-query: no packages found matching postgresql-18"
+      },
+      "services": {
+        "rc": 0,
+        "output": "clickhouse-server.service             loaded active   running ClickHouse Server (analytic DBMS for big data)\ncrawl-cdc-guard.service               loaded active   running CDC candidate barrier and native slot recovery guard\ncrawl-ch-restore-895d0831361a.service loaded failed   failed  /usr/bin/clickhouse server --config-file=/srv/crawlsystem/restore-check-ch-373959044f2f4de1921f895d0831361a/config.xml\ncrawl-log-retention.service           loaded inactive dead    Bound retention of derived infrastructure logs only\ncrawl-metrics-collect.service         loaded inactive dead    Read-only local infrastructure probes\ncrawl-node-exporter.service           loaded active   running Node and infrastructure metrics (mTLS, private network only)\ncrawl-patroni.service                 loaded active   running Patroni for existing crawler PostgreSQL cluster\ncrawl-pg-etcd.service                 loaded active   running Dedicated PostgreSQL coordination etcd\ncrawl-seaweed-pg.service              loaded active   running SeaweedFS local PostgreSQL primary selector\ncrawl-vector.service                  loaded active   running Bounded infrastructure log collection to private ClickHouse HTTPS\nkafka.service                         loaded active   running Apache Kafka KRaft broker\npgbouncer.service                     loaded active   running connection pooler for PostgreSQL\nseaweedfs-filer.service       "
+      },
+      "timers": {
+        "rc": 0,
+        "output": "Mon 2026-09-21 17:08:01 CST      19s Mon 2026-09-21 17:07:31 CST      10s ago crawl-metrics-collect.timer crawl-metrics-collect.service\nMon 2026-09-21 17:09:11 CST 1min 30s Mon 2026-09-21 17:04:11 CST 3min 29s ago crawl-log-retention.timer   crawl-log-retention.service"
+      },
+      "versions": {
+        "postgres": {
+          "rc": 0,
+          "output": "postgres (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)"
+        },
+        "patroni": {
+          "rc": 0,
+          "output": "patroni 4.1.5"
+        },
+        "pgbouncer": {
+          "rc": 0,
+          "output": "PgBouncer 1.25.2\nlibevent 2.1.12-stable\nadns: c-ares 1.27.0\ntls: OpenSSL 3.0.13 30 Jan 2024\nsystemd: yes"
+        },
+        "pgbackrest": {
+          "rc": 0,
+          "output": "pgBackRest 2.59.1"
+        },
+        "haproxy": {
+          "rc": 0,
+          "output": "HAProxy version 2.8.16-0ubuntu0.24.04.3 2026/06/19 - https://haproxy.org/\nStatus: long-term supported branch - will stop receiving fixes around Q2 2028.\nKnown bugs: http://www.haproxy.org/bugs/bugs-2.8.16.html\nRunning on: Linux 6.8.0-124-generic #124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026 x86_64"
+        },
+        "seaweedfs": {
+          "rc": 0,
+          "output": "version 30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3 linux amd64\n\nFor enterprise users, please visit https://seaweedfs.com for the SeaweedFS Enterprise Edition,\nwhich has advanced features, including data recovery, self-healing storage, customizable erasure coding, EC vacuum and repair, etc."
+        },
+        "clickhouse": {
+          "rc": 0,
+          "output": "ClickHouse server version 26.8.6.5 (official build)."
+        },
+        "node_exporter": {
+          "rc": 0,
+          "output": "node_exporter, version 1.12.1 (branch: HEAD, revision: 6044da783597cc3b57aef7580ddcdcff58a4ee99)\n  build user:       root@3a6b59999579\n  build date:       20260714-12:05:11\n  go version:       go1.26.5\n  platform:         linux/amd64\n  tags:             unknown"
+        }
+      },
+      "kafka_install": "/opt/kafka_2.13-3.9.1",
+      "kafka_broker_jar": [
+        "kafka_2.13-3.9.1.jar"
+      ],
+      "pg_role": {
+        "rc": 0,
+        "output": "PostgreSQL 17.11 (Ubuntu 17.11-1.pgdg24.04+2) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit|t"
+      },
+      "failed_units": {
+        "rc": 0,
+        "output": "crawl-ch-restore-895d0831361a.service loaded failed failed /usr/bin/clickhouse server --config-file=/srv/crawlsystem/restore-check-ch-373959044f2f4de1921f895d0831361a/config.xml"
+      }
+    }
+  }
+}

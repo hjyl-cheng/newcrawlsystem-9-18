@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k137-keda-test
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mock-prometheus-response
+  namespace: k137-keda-test
+data:
+  query: '{"status":"success","data":{"resultType":"vector","result":[{"metric":{},"value":[1,"5"]}]}}'
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mock-prometheus
+  namespace: k137-keda-test
+  labels:
+    app: mock-prometheus
+spec:
+  containers:
+    - name: http
+      image: busybox:1.37.0
+      args: [httpd, -f, -p, "8080", -h, /www]
+      ports:
+        - name: http
+          containerPort: 8080
+      volumeMounts:
+        - name: response
+          mountPath: /www/api/v1
+          readOnly: true
+  volumes:
+    - name: response
+      configMap:
+        name: mock-prometheus-response
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mock-prometheus
+  namespace: k137-keda-test
+spec:
+  selector:
+    app: mock-prometheus
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaled-worker
+  namespace: k137-keda-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaled-worker
+  template:
+    metadata:
+      labels:
+        app: scaled-worker
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.37.0
+          args: [sleep, "3600"]
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: scaled-worker
+  namespace: k137-keda-test
+spec:
+  scaleTargetRef:
+    name: scaled-worker
+  pollingInterval: 2
+  cooldownPeriod: 5
+  minReplicaCount: 1
+  maxReplicaCount: 3
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 15
+        scaleDown:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Percent
+              value: 100
+              periodSeconds: 15
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://mock-prometheus.k137-keda-test.svc:8080
+        metricName: queue_depth
+        query: queue_depth
+        threshold: "1"
+        activationThreshold: "0"

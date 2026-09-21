@@ -1,0 +1,345 @@
+{
+  "queried_at": "2026-09-21T09:03:31.568754+00:00",
+  "scope": "Official release metadata and published compatibility; no deployment or runtime compatibility acceptance performed",
+  "components": [
+    {
+      "component": "Kubernetes",
+      "tag": "v1.37.0",
+      "published_at": "2026-08-26T16:29:12Z",
+      "prerelease": false,
+      "url": "https://github.com/kubernetes/kubernetes/releases/tag/v1.37.0",
+      "api": "https://api.github.com/repos/kubernetes/kubernetes/releases/latest"
+    },
+    {
+      "component": "containerd",
+      "tag": "v2.4.0",
+      "published_at": "2026-09-16T20:08:21Z",
+      "prerelease": false,
+      "url": "https://github.com/containerd/containerd/releases/tag/v2.4.0",
+      "api": "https://api.github.com/repos/containerd/containerd/releases/latest"
+    },
+    {
+      "component": "runc",
+      "tag": "v1.5.1",
+      "published_at": "2026-07-14T01:36:25Z",
+      "prerelease": false,
+      "url": "https://github.com/opencontainers/runc/releases/tag/v1.5.1",
+      "api": "https://api.github.com/repos/opencontainers/runc/releases/latest"
+    },
+    {
+      "component": "Calico",
+      "tag": "v3.32.2",
+      "published_at": "2026-08-30T16:29:23Z",
+      "prerelease": false,
+      "url": "https://github.com/projectcalico/calico/releases/tag/v3.32.2",
+      "api": "https://api.github.com/repos/projectcalico/calico/releases/latest"
+    },
+    {
+      "component": "Argo CD",
+      "tag": "v3.5.3",
+      "published_at": "2026-09-14T07:58:59Z",
+      "prerelease": false,
+      "url": "https://github.com/argoproj/argo-cd/releases/tag/v3.5.3",
+      "api": "https://api.github.com/repos/argoproj/argo-cd/releases/latest"
+    },
+    {
+      "component": "Helm",
+      "tag": "v4.3.0",
+      "published_at": "2026-09-09T23:51:48Z",
+      "prerelease": false,
+      "url": "https://github.com/helm/helm/releases/tag/v4.3.0",
+      "api": "https://api.github.com/repos/helm/helm/releases/latest"
+    },
+    {
+      "component": "Kustomize",
+      "tag": "kustomize/v5.8.1",
+      "published_at": "2026-02-09T16:40:16Z",
+      "prerelease": false,
+      "url": "https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize/v5.8.1",
+      "api": "https://api.github.com/repos/kubernetes-sigs/kustomize/releases/latest"
+    },
+    {
+      "component": "Pigsty",
+      "tag": "v4.5.0",
+      "published_at": "2026-08-14T23:01:04Z",
+      "prerelease": false,
+      "url": "https://github.com/pgsty/pigsty/releases/tag/v4.5.0",
+      "api": "https://api.github.com/repos/pgsty/pigsty/releases/latest"
+    },
+    {
+      "component": "Patroni",
+      "tag": "v4.1.5",
+      "published_at": "2026-08-12T15:26:25Z",
+      "prerelease": false,
+      "url": "https://github.com/patroni/patroni/releases/tag/v4.1.5",
+      "api": "https://api.github.com/repos/patroni/patroni/releases/latest"
+    },
+    {
+      "component": "etcd",
+      "tag": "v3.7.1",
+      "published_at": "2026-07-23T19:37:53Z",
+      "prerelease": false,
+      "url": "https://github.com/etcd-io/etcd/releases/tag/v3.7.1",
+      "api": "https://api.github.com/repos/etcd-io/etcd/releases/latest"
+    },
+    {
+      "component": "PgBouncer",
+      "tag": "pgbouncer_1_25_2",
+      "published_at": "2026-05-08T16:59:38Z",
+      "prerelease": false,
+      "url": "https://github.com/pgbouncer/pgbouncer/releases/tag/pgbouncer_1_25_2",
+      "api": "https://api.github.com/repos/pgbouncer/pgbouncer/releases/latest"
+    },
+    {
+      "component": "pgBackRest",
+      "tag": "release/2.59.1",
+      "published_at": "2026-08-17T09:30:25Z",
+      "prerelease": false,
+      "url": "https://github.com/pgbackrest/pgbackrest/releases/tag/release/2.59.1",
+      "api": "https://api.github.com/repos/pgbackrest/pgbackrest/releases/latest"
+    },
+    {
+      "component": "Strimzi",
+      "tag": "1.2.0",
+      "published_at": "2026-08-20T08:05:38Z",
+      "prerelease": false,
+      "url": "https://github.com/strimzi/strimzi-kafka-operator/releases/tag/1.2.0",
+      "api": "https://api.github.com/repos/strimzi/strimzi-kafka-operator/releases/latest"
+    },
+    {
+      "component": "Temporal",
+      "tag": "v1.32.0",
+      "published_at": "2026-09-11T16:10:29Z",
+      "prerelease": false,
+      "url": "https://github.com/temporalio/temporal/releases/tag/v1.32.0",
+      "api": "https://api.github.com/repos/temporalio/temporal/releases/latest"
+    },
+    {
+      "component": "SeaweedFS",
+      "tag": "4.47",
+      "published_at": "2026-09-14T01:31:59Z",
+      "prerelease": false,
+      "url": "https://github.com/seaweedfs/seaweedfs/releases/tag/4.47",
+      "api": "https://api.github.com/repos/seaweedfs/seaweedfs/releases/latest"
+    },
+    {
+      "component": "ClickHouse",
+      "tag": "v26.8.9.10-lts",
+      "published_at": "2026-09-20T13:47:21Z",
+      "prerelease": false,
+      "url": "https://github.com/ClickHouse/ClickHouse/releases/tag/v26.8.9.10-lts",
+      "api": "https://api.github.com/repos/ClickHouse/ClickHouse/releases/latest"
+    },
+    {
+      "component": "cert-manager",
+      "tag": "v1.21.2",
+      "published_at": "2026-09-11T07:51:11Z",
+      "prerelease": false,
+      "url": "https://github.com/cert-manager/cert-manager/releases/tag/v1.21.2",
+      "api": "https://api.github.com/repos/cert-manager/cert-manager/releases/latest"
+    },
+    {
+      "component": "step-ca",
+      "tag": "v0.30.2",
+      "published_at": "2026-03-23T00:17:17Z",
+      "prerelease": false,
+      "url": "https://github.com/smallstep/certificates/releases/tag/v0.30.2",
+      "api": "https://api.github.com/repos/smallstep/certificates/releases/latest"
+    },
+    {
+      "component": "step CLI",
+      "tag": "v0.30.6",
+      "published_at": "2026-06-10T20:55:18Z",
+      "prerelease": false,
+      "url": "https://github.com/smallstep/cli/releases/tag/v0.30.6",
+      "api": "https://api.github.com/repos/smallstep/cli/releases/latest"
+    },
+    {
+      "component": "Prometheus Operator",
+      "tag": "v0.94.0",
+      "published_at": "2026-09-09T11:31:02Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.94.0",
+      "api": "https://api.github.com/repos/prometheus-operator/prometheus-operator/releases/latest"
+    },
+    {
+      "component": "Prometheus",
+      "tag": "v3.14.0",
+      "published_at": "2026-08-18T08:49:40Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus/prometheus/releases/tag/v3.14.0",
+      "api": "https://api.github.com/repos/prometheus/prometheus/releases/latest"
+    },
+    {
+      "component": "Alertmanager",
+      "tag": "v0.34.1",
+      "published_at": "2026-09-17T08:12:07Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus/alertmanager/releases/tag/v0.34.1",
+      "api": "https://api.github.com/repos/prometheus/alertmanager/releases/latest"
+    },
+    {
+      "component": "Grafana",
+      "tag": "v13.2.2",
+      "published_at": "2026-09-15T12:21:32Z",
+      "prerelease": false,
+      "url": "https://github.com/grafana/grafana/releases/tag/v13.2.2",
+      "api": "https://api.github.com/repos/grafana/grafana/releases/latest"
+    },
+    {
+      "component": "node_exporter",
+      "tag": "v1.12.1",
+      "published_at": "2026-07-14T12:34:45Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus/node_exporter/releases/tag/v1.12.1",
+      "api": "https://api.github.com/repos/prometheus/node_exporter/releases/latest"
+    },
+    {
+      "component": "postgres_exporter",
+      "tag": "v0.20.1",
+      "published_at": "2026-07-08T02:06:53Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus-community/postgres_exporter/releases/tag/v0.20.1",
+      "api": "https://api.github.com/repos/prometheus-community/postgres_exporter/releases/latest"
+    },
+    {
+      "component": "JMX exporter",
+      "tag": "1.6.0",
+      "published_at": "2026-06-05T01:28:19Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus/jmx_exporter/releases/tag/1.6.0",
+      "api": "https://api.github.com/repos/prometheus/jmx_exporter/releases/latest"
+    },
+    {
+      "component": "Blackbox Exporter",
+      "tag": "v0.28.0",
+      "published_at": "2025-12-06T13:32:18Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.28.0",
+      "api": "https://api.github.com/repos/prometheus/blackbox_exporter/releases/latest"
+    },
+    {
+      "component": "JSON Exporter",
+      "tag": "v0.8.0",
+      "published_at": "2026-08-13T11:58:42Z",
+      "prerelease": false,
+      "url": "https://github.com/prometheus-community/json_exporter/releases/tag/v0.8.0",
+      "api": "https://api.github.com/repos/prometheus-community/json_exporter/releases/latest"
+    },
+    {
+      "component": "Vector",
+      "tag": "v0.58.0",
+      "published_at": "2026-08-26T14:39:15Z",
+      "prerelease": false,
+      "url": "https://github.com/vectordotdev/vector/releases/tag/v0.58.0",
+      "api": "https://api.github.com/repos/vectordotdev/vector/releases/latest",
+      "note": "已排除同仓库 vdev 开发工具的发布标签"
+    },
+    {
+      "component": "restic",
+      "tag": "v0.19.1",
+      "published_at": "2026-07-05T08:13:33Z",
+      "prerelease": false,
+      "url": "https://github.com/restic/restic/releases/tag/v0.19.1",
+      "api": "https://api.github.com/repos/restic/restic/releases/latest"
+    },
+    {
+      "component": "KEDA",
+      "tag": "v2.20.2",
+      "published_at": "2026-07-31T08:14:38Z",
+      "prerelease": false,
+      "url": "https://github.com/kedacore/keda/releases/tag/v2.20.2",
+      "api": "https://api.github.com/repos/kedacore/keda/releases/latest"
+    },
+    {
+      "component": "Traefik",
+      "tag": "v3.7.13",
+      "published_at": "2026-09-04T12:40:17Z",
+      "prerelease": false,
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.13",
+      "api": "https://api.github.com/repos/traefik/traefik/releases/latest"
+    },
+    {
+      "component": "PostgreSQL",
+      "tag": "18.6",
+      "url": "https://www.postgresql.org/support/versioning/",
+      "note": "现有 17.11 仍受支持；升到 18 是大版本迁移，不是普通补丁"
+    },
+    {
+      "component": "HAProxy",
+      "tag": "3.4.4 LTS",
+      "url": "https://www.haproxy.org/",
+      "note": "排除 3.5-dev"
+    },
+    {
+      "component": "Apache Kafka / Kafka Connect",
+      "tag": "4.3.1",
+      "url": "https://kafka.apache.org/community/downloads/",
+      "note": "Strimzi 1.2.0 明确包含此 Kafka 版本"
+    },
+    {
+      "component": "Debezium",
+      "tag": "3.6.3.Final",
+      "url": "https://debezium.io/releases/3.6/",
+      "note": "排除 3.7 开发线；官方测试 PG 14–18"
+    },
+    {
+      "component": "Ansible Core",
+      "tag": "2.21.4",
+      "url": "https://pypi.org/project/ansible-core/",
+      "note": "已安装隔离工具环境；尚未执行接管"
+    },
+    {
+      "component": "Ubuntu LTS",
+      "tag": "26.04.1 LTS",
+      "url": "https://releases.ubuntu.com/",
+      "note": "当前服务器升级 OS 须单独计划；24.04 系列页面列为 24.04.5，不是重装指令"
+    },
+    {
+      "component": "kube-prometheus-stack Helm Chart",
+      "tag": "91.4.1",
+      "url": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-91.4.1/kube-prometheus-stack-91.4.1.tgz",
+      "note": "appVersion=v0.94.0；Chart 版本与程序版本分开记录"
+    },
+    {
+      "component": "argo-cd Helm Chart",
+      "tag": "10.9.2",
+      "url": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.9.2/argo-cd-10.9.2.tgz",
+      "note": "appVersion=v3.5.3；Chart 版本与程序版本分开记录"
+    },
+    {
+      "component": "temporal Helm Chart",
+      "tag": "1.7.0",
+      "url": "https://github.com/temporalio/helm-charts/releases/download/temporal-1.7.0/temporal-1.7.0.tgz",
+      "note": "appVersion=1.32.0；Chart 版本与程序版本分开记录"
+    }
+  ],
+  "compatibility": [
+    {
+      "component": "Calico 3.32",
+      "tested_kubernetes": "1.34–1.36",
+      "url": "https://docs.tigera.io/calico/latest/getting-started/kubernetes/requirements"
+    },
+    {
+      "component": "Argo CD 3.5",
+      "tested_kubernetes": "1.33–1.36",
+      "url": "https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/"
+    },
+    {
+      "component": "Strimzi 1.2.0",
+      "tested_kubernetes": "1.30–1.36",
+      "kafka": "4.2.0,4.2.1,4.3.0,4.3.1",
+      "url": "https://strimzi.io/downloads/"
+    },
+    {
+      "component": "cert-manager 1.21",
+      "supported_and_tested_kubernetes": "1.33–1.36",
+      "url": "https://cert-manager.io/docs/releases/"
+    },
+    {
+      "component": "KEDA 2.20",
+      "kubernetes_matrix": "1.33–1.35",
+      "url": "https://keda.sh/docs/2.20/operate/cluster/"
+    }
+  ]
+}

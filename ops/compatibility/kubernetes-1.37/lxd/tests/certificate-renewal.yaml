@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k137-cert-test
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: k137-selfsigned
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k137-short-lived
+  namespace: k137-cert-test
+spec:
+  secretName: k137-short-lived-tls
+  duration: 1h1m
+  renewBefore: 1h
+  privateKey:
+    rotationPolicy: Always
+  dnsNames:
+    - k137-cert-test.example.invalid
+  issuerRef:
+    name: k137-selfsigned
+    kind: ClusterIssuer
