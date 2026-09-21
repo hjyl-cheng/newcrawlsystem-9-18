@@ -1,0 +1,5 @@
+1
+# be_id be_name srv_id srv_name srv_addr srv_op_state srv_admin_state srv_uweight srv_iweight srv_time_since_last_change srv_check_status srv_check_result srv_check_health srv_check_state srv_agent_state bk_f_forced_id srv_f_forced_id srv_fqdn srv_port srvrecord srv_use_ssl srv_check_port srv_check_addr srv_agent_addr srv_agent_port
+3 current_primary_pool 1 s1 10.4.4.2 0 0 1 1 0 17 2 0 6 0 0 0 - 6432 - 0 8008 - - 8008
+3 current_primary_pool 2 s2 10.4.4.8 0 0 1 1 0 17 2 0 6 0 0 0 - 6432 - 0 8008 - - 8008
+3 current_primary_pool 3 s3 10.4.4.5 0 0 1 1 0 17 2 0 6 0 0 0 - 6432 - 0 8008 - - 8008

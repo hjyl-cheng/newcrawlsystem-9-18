@@ -7,6 +7,9 @@ root, run, put = (m[k] for k in ('ROOT','run','put'))
 a = m['envfile'](root/'secrets/data-ingestor/runtime.env')
 b = m['envfile'](root/'secrets/validation-storage.env')
 users = [('crawler', b['CRAWLER_PASSWORD']), (a['PGUSER'], a['PGPASSWORD'])]
+seaweed_password = root/'secrets/seaweedfs/db-password'
+if seaweed_password.exists():
+    users.append(('seaweedfs_filer', seaweed_password.read_text().strip()))
 assert all('"' not in v and '\n' not in v and '\\' not in v for pair in users for v in pair)
 primaries = [ip for ip in m['NODES'].values() if run(ip, 'sudo -n -u postgres psql -XAt -c "select pg_is_in_recovery();"', capture=True).stdout.strip() == 'f']
 assert len(primaries) == 1, 'Require exactly one writable primary'

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweed-s3
+spec:
+  selector:
+    app: seaweed-s3-entry
+  ports:
+  - name: s3
+    port: 8333
+    targetPort: s3

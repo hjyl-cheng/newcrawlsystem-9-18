@@ -1,0 +1,47 @@
+{
+  "status": "PASSED",
+  "store": "crawler.object_metadata.filemeta",
+  "beforeEntries": 17,
+  "afterEntries": 18,
+  "allOriginalPathsPresent": true,
+  "files": [
+    {
+      "path": "/buckets/.system/owners/.complete",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/crawlsystem-validation/metadata-migration-20260921T010949Z.bin",
+      "size": 262144,
+      "sha256": "2312394bd99545d9de131c24efb781e765ac1aec243f2ed9347597a793a415e9"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-18/11-07.15492715",
+      "size": 2472,
+      "sha256": "2aa67662e37d41f22f8e01359f072e6d665891128ed55faf206b9f587e56c63f"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-18/12-04.15492715",
+      "size": 1300,
+      "sha256": "6937a3370502f2845c39a471941fa915721781f099ae479fce70a19513f05ec2"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-20/11-53.5a7d18f5",
+      "size": 323,
+      "sha256": "2c1f52379c6d049799fa5c6c63ccafb52c776824b693db36b860898ef603e343"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-20/11-54.5a7d18f5",
+      "size": 1616,
+      "sha256": "581f9c058a73d6f3ffd0c83322aab2ad2d04b19c5dffc76ec234f0a42dee2db0"
+    },
+    {
+      "path": "/topics/.system/log/2026-09-21/01-09.5a7d18f5",
+      "size": 349,
+      "sha256": "2cdde1035b051b903d5cd973f1c9441d299438f00d036ad00062037245eed93f"
+    }
+  ],
+  "exactLogExports": 8,
+  "protectedSourceBackup": "/srv/crawlsystem/seaweedfs/migration-20260921T010949Z",
+  "importCompletion": "trailing existing directory forces file completion before EOF"
+}

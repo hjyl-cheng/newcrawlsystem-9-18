@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: seaweed-s3-entry
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: seaweed-s3-entry
