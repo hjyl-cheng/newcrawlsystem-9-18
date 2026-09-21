@@ -6,13 +6,13 @@ h=runpy.run_path(str(ROOT/'ops/backup/bootstrap-pgbackrest.py'))
 run,put=h['run'],h['put']
 NODES={'s1':'10.4.4.2','s2':'10.4.4.8','s3':'10.4.4.5'}
 PRIVATE=ROOT/'secrets/postgresql-ha'
-def api(node,path,body=None,method=None):
+def api(node,path,body=None,method=None,timeout=60):
  c=ssl.create_default_context(cafile=str(PRIVATE/'rest-pki/ca.crt'))
  c.load_cert_chain(str(PRIVATE/'rest-pki/client.crt'),str(PRIVATE/'rest-pki/client.key'))
  headers={}
  if body is not None:headers={'Content-Type':'application/json','Authorization':'Basic '+base64.b64encode(('operator:'+(PRIVATE/'rest-password').read_text().strip()).encode()).decode()}
  req=urllib.request.Request('https://'+NODES[node]+':8008'+path,method=method,headers=headers,data=json.dumps(body).encode() if body is not None else None)
- with urllib.request.urlopen(req,context=c,timeout=60) as r:
+ with urllib.request.urlopen(req,context=c,timeout=timeout) as r:
   text=r.read().decode()
   try:return json.loads(text)
   except json.JSONDecodeError:return text

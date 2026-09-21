@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read-only CDC readiness/WAL inspection. Does not delete slots or send alerts."""
-import json,subprocess
+import json,subprocess,time,shlex
 from datetime import datetime,timezone
 import common as c
 NAME='crawl-publication-validation'
@@ -21,6 +21,13 @@ def main():
   result['nodes'][name]={'slot':slot,'pgWalBytes':int(c.sql(name,'SELECT coalesce(sum(size),0) FROM pg_ls_waldir();'))}
   if not slot or not slot['failover'] or slot['temporary'] or slot['invalidation_reason'] or slot['wal_status'] not in ['reserved','extended'] or (name!=primary and not slot['synced']):issues.append(name+': failover slot is not ready')
   if slot and (slot.get('retained_bytes') or 0)>1024**3:issues.append(name+': retained WAL exceeds 1 GiB warning threshold')
+  guard=json.loads(c.run(c.NODES[name],'sudo cat /var/lib/crawl-cdc-guard/status.json',capture=True).stdout)
+  result['nodes'][name]['guard']=guard
+  if time.time()-guard['checked_at']>15 or guard['state']!=('READY' if name==primary else 'STANDBY_READY'):issues.append(name+': CDC guard is not ready or status is stale')
+ command="import runpy,json;m=runpy.run_path('/opt/crawlsystem/cdc/ha-guard.py');g=m['Guard']();s=g.dcs.snapshot();print(json.dumps({'leader':s['leader'],'policy':s['policy'],'barrier':sorted(g.barrier())}))"
+ fence=json.loads(c.run(c.NODES[primary],'sudo -u postgres python3 -c '+shlex.quote(command),capture=True).stdout)
+ result['candidateFence']=fence
+ if not fence['policy'] or fence['leader']['value']!=primary or fence['policy']['owner']!=primary or set(fence['policy']['allowed'])!=set(fence['barrier']):issues.append('Primary CDC policy and active WAL barrier do not match')
  result['connectOffsets']=rest('/connectors/'+NAME+'/offsets')
  result['status']='ATTENTION' if issues else 'PASSED';result['issues']=issues
  result['scope']='On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery'

@@ -1,0 +1,29 @@
+{
+  "status": "PASSED",
+  "primary": "s1",
+  "guards": {
+    "s1": {
+      "checked_at": 1789959808.0712736,
+      "node": "s1",
+      "state": "READY",
+      "candidates": [
+        "s2",
+        "s3"
+      ],
+      "generation": "495ec43a453649428c8ca73a452390d7"
+    },
+    "s2": {
+      "checked_at": 1789959808.5868902,
+      "node": "s2",
+      "state": "STANDBY_READY",
+      "leader": "s1"
+    },
+    "s3": {
+      "checked_at": 1789959809.5342894,
+      "node": "s3",
+      "state": "STANDBY_READY",
+      "leader": "s1"
+    }
+  },
+  "scope": "Three reconciliation services plus Patroni pre_promote fencing; no PG restart"
+}

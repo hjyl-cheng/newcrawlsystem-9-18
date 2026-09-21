@@ -46,4 +46,4 @@ Node pg 的 `statement_timeout` 与 `idle_in_transaction_session_timeout` 启动
 
 ## 与 24.4 的实施对应
 
-保持一个逻辑采集 PG，不分片；同步模式、稳定入口、事务池兼容均按现场冻结。采用独立 systemd Patroni/etcd 与集群内 HAProxy，不新装整套 Pigsty，也不假设云网络支持漂移 VIP。Temporal 保留会话语义，使用 5432 直连通道。**2026-09-21 已进一步启用 wal_level=logical、PG17 原生 failover slot 同步和双副本 Connect**，隔离 outbox 的计划切主/Pod 替换投递验证通过。CDC 等待两台指定备库，单备库失联可能暂停；首次旧主退为备库发生同名槽冲突，已受控人工修复。故仍不能把物理 PG HA 写成完整无人值守 CDC/Publication HA。配置、槽恢复和边界见 `ops/cdc/README.md` 与 `ops/checks/2026-09-21-cdc-reliability.md`。
+保持一个逻辑采集 PG，不分片；同步模式、稳定入口、事务池兼容均按现场冻结。采用独立 systemd Patroni/etcd 与集群内 HAProxy，不新装整套 Pigsty，也不假设云网络支持漂移 VIP。Temporal 保留会话语义，使用 5432 直连通道。**2026-09-21 已进一步启用 wal_level=logical、PG17 原生 failover slot 同步和双副本 Connect**。后续又部署三节点 CDC guard 和 Patroni `pre_promote` 检查，解决固定等待失联备库及旧主非同步槽冲突；普通/同步备库停服和主库 DCS 隔离下的自动继续投递通过，32 条探针事件全收。guard 用 etcd CAS 名单与 WAL 屏障共同约束晋升，不能跳过 hook 或手工清空屏障；无安全候选/槽失效仍须保护性停止。实际算法、独立槽修复测试范围及回滚见 `ops/cdc/HA-GUARD.md`、`ops/checks/2026-09-21-cdc-guard-recovery.md`。正式 Publication 及联合灾备仍未完成，物理 PG HA 不代替业务全链路 HA。

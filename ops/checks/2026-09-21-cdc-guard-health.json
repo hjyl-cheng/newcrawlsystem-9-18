@@ -1,0 +1,128 @@
+{
+  "checkedAt": "2026-09-21T03:10:24.970232+00:00",
+  "nodes": {
+    "s1": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": true,
+        "restart_lsn": "0/F8040E60",
+        "confirmed_flush_lsn": "0/F901D760",
+        "wal_status": "reserved",
+        "safe_wal_size": 2147159520,
+        "invalidation_reason": null,
+        "retained_bytes": 16835520
+      },
+      "pgWalBytes": 754979006,
+      "guard": {
+        "checked_at": 1789960225.1230335,
+        "node": "s1",
+        "state": "READY",
+        "candidates": [
+          "s2",
+          "s3"
+        ],
+        "generation": "1fa6038455594c9687debdf9d3438a0d"
+      }
+    },
+    "s2": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": false,
+        "restart_lsn": "0/F8040E60",
+        "confirmed_flush_lsn": "0/F901D760",
+        "wal_status": "reserved",
+        "safe_wal_size": 6325010432,
+        "invalidation_reason": null,
+        "retained_bytes": 16836208
+      },
+      "pgWalBytes": 754979004,
+      "guard": {
+        "checked_at": 1789960225.9768343,
+        "node": "s2",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      }
+    },
+    "s3": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": false,
+        "restart_lsn": "0/F8040E60",
+        "confirmed_flush_lsn": "0/F901D760",
+        "wal_status": "reserved",
+        "safe_wal_size": 6325010432,
+        "invalidation_reason": null,
+        "retained_bytes": 33289352
+      },
+      "pgWalBytes": 754979003,
+      "guard": {
+        "checked_at": 1789960227.6304371,
+        "node": "s3",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      }
+    }
+  },
+  "connector": {
+    "state": "RUNNING",
+    "tasks": [
+      {
+        "id": 0,
+        "state": "RUNNING",
+        "worker": "192.168.141.170:8083"
+      }
+    ]
+  },
+  "primary": "s1",
+  "publication": "cdc_validation.outbox",
+  "candidateFence": {
+    "leader": {
+      "value": "s1",
+      "revision": "49290"
+    },
+    "policy": {
+      "allowed": [
+        "s2",
+        "s3"
+      ],
+      "floor": "0/F90134E0",
+      "generation": "1fa6038455594c9687debdf9d3438a0d",
+      "owner": "s1",
+      "system_id": "7686815759311573177",
+      "version": 1
+    },
+    "barrier": [
+      "s2",
+      "s3"
+    ]
+  },
+  "connectOffsets": {
+    "offsets": [
+      {
+        "partition": {
+          "server": "crawl_cdc_validation"
+        },
+        "offset": {
+          "lsn_proc": 4177647456,
+          "messageType": "COMMIT",
+          "lsn_commit": 4177647456,
+          "lsn": 4177647456,
+          "txId": 74894,
+          "ts_usec": 1789960131310918
+        }
+      }
+    ]
+  },
+  "status": "PASSED",
+  "issues": [],
+  "scope": "On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery"
+}

@@ -38,7 +38,7 @@ S1/S2/S3 Kafka：crawler.publication.validation.v1
 
 `synchronized_standby_slots` 配置的是**物理备库槽名**：S1 为 `s2,s3`，S2 为 `s1,s3`，S3 为 `s1,s2`，不是逻辑槽名。逻辑槽 `crawl_cdc_validation` 开启 failover，Patroni 精确 ignore 此槽，由 PostgreSQL 原生同步，不混用两套槽位复制机制。
 
-这是保守配置：CDC 等待两个指定备库接收 WAL，任一个离线时投递可能暂停；PG 普通写入仍采用严格同步 1 备库。尚未实现随安全晋升候选变化而调整等待集合的自动策略，不能宣称整机故障下 CDC 持续可用。计划切换前检查候选槽 `synced=true`、`temporary=false`、无 invalidation 且进度达到主库采样位置；同步槽进度存在刷新间隔。
+这三组值现在是保守启动默认值。**2026-09-21 后续已部署动态候选 guard 与 Patroni 晋升检查**：正常等待两台；单备库离线时，先在 etcd 持久排除其晋升资格，再解除 CDC 对它的等待。恢复节点在永久同步槽有效且追上准入 WAL 后重新加入；PG 普通写入仍严格同步 1 备库。实际值由 guard 通过 `ALTER SYSTEM` 覆盖，使用 `SHOW synchronized_standby_slots` 查看。普通备库停服、同步备库停服及主库 DCS 隔离自动接管验证通过；算法、边界和回滚见 `ops/cdc/HA-GUARD.md`。这不代表任意双节点故障或整个系统均已无人值守 HA。
 
 `max_slot_wal_keep_size=2GB` 在检查点约束槽保留 WAL，**不是整个 pg_wal 目录的即时硬上限**。超限可能使槽失效；不能通过自动删槽/跳 LSN 换取“健康”。只读检查在保留 WAL 超 1 GiB 时报告异常，集中采集/告警尚未接入。长时间无被捕获表变更、其他库持续写入时的位点推进及告警，还需单独验收，不能仅凭配置了 heartbeat.interval.ms 判定解决。
 
@@ -63,7 +63,7 @@ kubectl -n argocd get applications
 
 ## 旧主退为备库后的槽恢复
 
-首次创建逻辑槽的主机 S3 退为备库时，原来 `synced=false` 的同名本地槽阻止原生同步。本轮按以下受控流程修复，不能记为无人值守恢复：
+首次创建逻辑槽的主机 S3 退为备库时，原来 `synced=false` 的同名本地槽阻止原生同步。**以下是首次人工恢复记录；后续已部署自动处理，并用独立探针复现验证，见 `HA-GUARD.md`。** 首次按以下受控流程修复，不能将那次人工处理追记为自动恢复：
 
 1. 确认问题节点只读，主库原槽 active/failover/非临时/未失效，主库确认位点不落后于旧槽。
 2. 将问题节点 Patroni `nofailover=true` 并等待集群观察到，先排除晋升候选。
@@ -71,7 +71,7 @@ kubectl -n argocd get applications
 4. 等待 PG 原生重建。初期可能为 temporary，需源端正常解码推进，不能手工推进 LSN。本轮添加隔离探针事件及主库 CHECKPOINT 后转为永久同步槽。
 5. 核对槽进度达到主库采样位点、角色未改变，恢复原 nofailover 值并确认生效。
 
-工具 `repair-demoted-slot.py --node s3 --execute` 实施上述保护；只适用于已确认的这种故障。现在各槽健康，不要再运行修复。工具新增受保护的 `secrets/cdc/slot-repair-<node>.json`，在修改前保留原晋升标记；超时保留排除状态及记录。检查问题并等待原生同步后，可用同一命令加 `--resume` 只完成检查/恢复标记，**resume 不会再次删槽**。首次现场修复发生在加入该记录功能之前，采用人工核对后恢复标记，独立证据如实记录；新增断点继续分支仅通过 mock 安全测试，未人为制造第二次故障。
+工具 `repair-demoted-slot.py --node s3 --execute` 保留作人工维护入口，不应与常驻 guard 并发操作同一槽；使用前遵循 `HA-GUARD.md` 的维护隔离要求。它保留 `secrets/cdc/slot-repair-<node>.json` 原始标记，超时不恢复晋升；`--resume` 只核对同步并恢复标记，不再删槽。首次现场人工修复与后续独立探针自动修复分别留有证据。
 
 ## 灾难恢复与尚未完成项
 

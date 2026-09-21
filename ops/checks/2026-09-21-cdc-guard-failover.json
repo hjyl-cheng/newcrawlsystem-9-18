@@ -1,0 +1,440 @@
+{
+  "runId": "7418e9ba1dc44b38a1cbdb82ce5c5db3",
+  "status": "PASSED",
+  "phases": [
+    {
+      "phase": "healthy",
+      "acknowledged": 4,
+      "uniqueReceived": 4,
+      "primary": "s1"
+    },
+    {
+      "phase": "async-standby-offline",
+      "acknowledged": 8,
+      "uniqueReceived": 8,
+      "primary": "s1"
+    },
+    {
+      "phase": "async-standby-returned",
+      "acknowledged": 12,
+      "uniqueReceived": 12,
+      "primary": "s1"
+    },
+    {
+      "phase": "sync-standby-offline",
+      "acknowledged": 16,
+      "uniqueReceived": 16,
+      "primary": "s1"
+    },
+    {
+      "phase": "sync-standby-returned",
+      "acknowledged": 20,
+      "uniqueReceived": 20,
+      "primary": "s1"
+    },
+    {
+      "phase": "primary-dcs-isolated",
+      "acknowledged": 24,
+      "uniqueReceived": 24,
+      "primary": "s2"
+    },
+    {
+      "phase": "old-primary-rejoined",
+      "acknowledged": 28,
+      "uniqueReceived": 28,
+      "primary": "s2"
+    },
+    {
+      "phase": "preferred-primary-restored",
+      "acknowledged": 32,
+      "uniqueReceived": 32,
+      "primary": "s1"
+    }
+  ],
+  "faults": [
+    {
+      "kind": "asynchronous-standby-service-stop",
+      "node": "s2",
+      "observedRecoverySeconds": 3.27,
+      "barrier": "s3",
+      "guard": {
+        "checked_at": 1789960032.308504,
+        "node": "s1",
+        "state": "READY",
+        "candidates": [
+          "s3"
+        ],
+        "generation": "bf51e44793824c769df82f5beb8eda28"
+      }
+    },
+    {
+      "kind": "synchronous-standby-service-stop",
+      "node": "s3",
+      "observedRecoverySeconds": 8.64,
+      "barrier": "s2",
+      "guard": {
+        "checked_at": 1789960046.9114482,
+        "node": "s1",
+        "state": "READY",
+        "candidates": [
+          "s2"
+        ],
+        "generation": "5ec6f02b9ab94ea2804294a84c1b64c5"
+      }
+    },
+    {
+      "kind": "leader-DCS-network-partition",
+      "from": "s1",
+      "to": "s2",
+      "oldPrimaryFenced": "read-only standby",
+      "observedRecoverySeconds": 40.56,
+      "guard": {
+        "checked_at": 1789960097.449395,
+        "node": "s2",
+        "state": "READY",
+        "candidates": [
+          "s3"
+        ],
+        "generation": "835e43d84e3247ddb0227aa90bc44bde"
+      }
+    }
+  ],
+  "repairProbeBefore": {
+    "s1": {
+      "recovery": false,
+      "synced": false,
+      "temporary": false,
+      "invalid": null,
+      "active": false,
+      "confirmed": "0/F70606C0"
+    },
+    "s2": {
+      "recovery": true,
+      "synced": true,
+      "temporary": false,
+      "invalid": null,
+      "active": false,
+      "confirmed": "0/F70606C0"
+    },
+    "s3": {
+      "recovery": true,
+      "synced": true,
+      "temporary": false,
+      "invalid": null,
+      "active": false,
+      "confirmed": "0/F70606C0"
+    }
+  },
+  "repairProbe": {
+    "node": "s1",
+    "slot": "crawl_cdc_repair_probe_7418e9ba",
+    "stale": {
+      "recovery": true,
+      "synced": false,
+      "temporary": false,
+      "invalid": null,
+      "active": false,
+      "confirmed": "0/F70606C0"
+    },
+    "automaticRepairOutput": [
+      {
+        "time": 1789960101.8445349,
+        "event": "demoted_local_slot_removed",
+        "node": "s1",
+        "upstream": "s2",
+        "confirmed": "0/F70606C0"
+      },
+      {
+        "state": "WAITING_FOR_NATIVE_SLOT_SYNC"
+      }
+    ],
+    "after": {
+      "s1": {
+        "recovery": true,
+        "synced": true,
+        "temporary": false,
+        "invalid": null,
+        "active": false,
+        "confirmed": "0/F80319B8"
+      },
+      "s2": {
+        "recovery": false,
+        "synced": true,
+        "temporary": false,
+        "invalid": null,
+        "active": false,
+        "confirmed": "0/F80319B8"
+      },
+      "s3": {
+        "recovery": true,
+        "synced": true,
+        "temporary": false,
+        "invalid": null,
+        "active": false,
+        "confirmed": "0/F80319B8"
+      }
+    }
+  },
+  "acknowledged": 32,
+  "uniqueReceived": 32,
+  "duplicates": 0,
+  "finalPrimary": "s1",
+  "events": [
+    {
+      "phase": "event",
+      "id": "fc555fec-6b73-40c2-8484-4ad7d7c48e3a",
+      "seq": 2,
+      "partition": 1,
+      "offset": "20",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "60ca5c7e-085a-4d6f-abe9-1c9f57b72044",
+      "seq": 4,
+      "partition": 1,
+      "offset": "21",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "1642f7f5-a9da-4963-a706-ec33c0c4fdca",
+      "seq": 1,
+      "partition": 0,
+      "offset": "16",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "08e7d2ce-12e2-4a04-aff1-065a536c8913",
+      "seq": 3,
+      "partition": 0,
+      "offset": "17",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "cc24aa5b-ea61-4ef6-83ec-cdfdcaccfd39",
+      "seq": 6,
+      "partition": 1,
+      "offset": "22",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "d392e40a-11b1-4ecc-b6e9-aed540468cbf",
+      "seq": 8,
+      "partition": 1,
+      "offset": "23",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "19c591b9-3214-4e8a-a78f-38df3bc95734",
+      "seq": 5,
+      "partition": 0,
+      "offset": "18",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "db5380b3-26f7-4fa4-881a-49c8c890e782",
+      "seq": 7,
+      "partition": 0,
+      "offset": "19",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "0338d43e-5c47-46fb-a75e-de8bc9fa335e",
+      "seq": 10,
+      "partition": 1,
+      "offset": "24",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "6ad0b0f4-2627-465a-a4b1-6bd056341f86",
+      "seq": 12,
+      "partition": 1,
+      "offset": "25",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "e8430ca3-4649-42e5-8f81-f91d7a776f2d",
+      "seq": 9,
+      "partition": 0,
+      "offset": "20",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "fd21158b-bb4a-4a8f-9c55-17fbbdd4c968",
+      "seq": 11,
+      "partition": 0,
+      "offset": "21",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "2d5cd023-2e36-434c-9370-4e750a2630c0",
+      "seq": 14,
+      "partition": 1,
+      "offset": "26",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "83387a2b-7e78-4c02-bd99-e5a578c788f3",
+      "seq": 16,
+      "partition": 1,
+      "offset": "27",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "cfd7c4fd-41e9-4d96-9c3a-c14640e87fcb",
+      "seq": 13,
+      "partition": 0,
+      "offset": "22",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "576f93a3-da49-4541-b2a7-ce377af70566",
+      "seq": 15,
+      "partition": 0,
+      "offset": "23",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "98edd01f-9c63-48bd-8d0d-d94993131028",
+      "seq": 17,
+      "partition": 0,
+      "offset": "24",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "15b46fc7-ec65-41f7-921e-1d06aa9a3c93",
+      "seq": 19,
+      "partition": 0,
+      "offset": "25",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "cf00e64b-806c-43bd-8b89-276f1a73905d",
+      "seq": 18,
+      "partition": 1,
+      "offset": "28",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "5849df86-f346-49e5-8fbc-48680eaf575d",
+      "seq": 20,
+      "partition": 1,
+      "offset": "29",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "3dd22211-595d-4d0a-ba28-355fa4ddc80a",
+      "seq": 22,
+      "partition": 1,
+      "offset": "31",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "445f96a3-c344-4b22-8472-6fb970317111",
+      "seq": 24,
+      "partition": 1,
+      "offset": "32",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "66e04647-e154-436e-ad43-81a7e53fd4a9",
+      "seq": 21,
+      "partition": 0,
+      "offset": "26",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "f58fb4ac-3f97-4bca-a579-3565e4a113dd",
+      "seq": 23,
+      "partition": 0,
+      "offset": "27",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "bee63262-6ed1-4b38-af0e-4598410f9481",
+      "seq": 26,
+      "partition": 1,
+      "offset": "34",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "6cdfb721-ac12-497f-9fff-0e094801eb32",
+      "seq": 28,
+      "partition": 1,
+      "offset": "35",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "0391e0d6-34b8-4c89-ab07-c6dc28e7ea4b",
+      "seq": 25,
+      "partition": 0,
+      "offset": "28",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "320bb4df-93a7-4e2e-9ad0-ee8bbb4c4e8f",
+      "seq": 27,
+      "partition": 0,
+      "offset": "29",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "4bc3f999-2af9-4b31-aa42-ebdeb81d9dce",
+      "seq": 30,
+      "partition": 1,
+      "offset": "36",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "ad6c9d67-42e1-457d-b8b7-947e453b4224",
+      "seq": 32,
+      "partition": 1,
+      "offset": "37",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "be07797b-d04d-4d0c-bb88-ee7696e16b19",
+      "seq": 29,
+      "partition": 0,
+      "offset": "30",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "6128e3e9-c839-4506-9a1c-81769bd0b658",
+      "seq": 31,
+      "partition": 0,
+      "offset": "31",
+      "topic": "crawler.publication.validation.v1"
+    }
+  ]
+}

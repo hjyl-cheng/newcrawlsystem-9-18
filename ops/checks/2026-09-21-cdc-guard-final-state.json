@@ -1,0 +1,139 @@
+{
+  "status": "PASSED",
+  "nodes": {
+    "s1": {
+      "sourceSHA256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "testSlotsRemaining": 0,
+      "testFirewallRulesRemaining": 0,
+      "barrier": "s2,s3",
+      "service": "active",
+      "state": {
+        "checked_at": 1789960557.671659,
+        "node": "s1",
+        "state": "READY",
+        "candidates": [
+          "s2",
+          "s3"
+        ],
+        "generation": "1fa6038455594c9687debdf9d3438a0d"
+      },
+      "patroniPromotionHookLogs": [
+        "{\"time\": 1789960126.45408, \"event\": \"promotion_allowed\", \"node\": \"s1\", \"generation\": \"ed324e0f879f42d3bec572588698ab27\"}",
+        "2026-09-21 11:08:46,468 INFO: pre_promote script `/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py --pre-promote` exited with 0"
+      ]
+    },
+    "s2": {
+      "sourceSHA256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "testSlotsRemaining": 0,
+      "testFirewallRulesRemaining": 0,
+      "barrier": "s1,s3",
+      "service": "active",
+      "state": {
+        "checked_at": 1789960557.148174,
+        "node": "s2",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      },
+      "promotionWithoutLeaderLock": "denied",
+      "patroniPromotionHookLogs": [
+        "{\"time\": 1789960092.587883, \"event\": \"promotion_allowed\", \"node\": \"s2\", \"generation\": \"811b2383e10a4fd5a290640a27eaacf2\"}",
+        "2026-09-21 11:08:12,601 INFO: pre_promote script `/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py --pre-promote` exited with 0"
+      ]
+    },
+    "s3": {
+      "sourceSHA256": "dd5e9fef393d6baeb8204183e0e7c2c72c9796d8cff69d4154242eba9ab55b28",
+      "testSlotsRemaining": 0,
+      "testFirewallRulesRemaining": 0,
+      "barrier": "s1,s2",
+      "service": "active",
+      "state": {
+        "checked_at": 1789960557.9512966,
+        "node": "s3",
+        "state": "STANDBY_READY",
+        "leader": "s1"
+      },
+      "promotionWithoutLeaderLock": "denied"
+    }
+  },
+  "members": [
+    {
+      "name": "s1",
+      "role": "leader",
+      "state": "running",
+      "api_url": "https://10.4.4.2:8008/patroni",
+      "host": "10.4.4.2",
+      "port": 5432,
+      "timeline": 14
+    },
+    {
+      "name": "s2",
+      "role": "replica",
+      "state": "streaming",
+      "api_url": "https://10.4.4.8:8008/patroni",
+      "host": "10.4.4.8",
+      "port": 5432,
+      "timeline": 14,
+      "receive_lag": 0,
+      "receive_lsn": "0/FD007B28",
+      "replay_lag": 0,
+      "replay_lsn": "0/FD007B28",
+      "lag": 0,
+      "lsn": "0/FD007B28"
+    },
+    {
+      "name": "s3",
+      "role": "sync_standby",
+      "state": "streaming",
+      "api_url": "https://10.4.4.5:8008/patroni",
+      "host": "10.4.4.5",
+      "port": 5432,
+      "timeline": 14,
+      "receive_lag": 0,
+      "receive_lsn": "0/FD007B28",
+      "replay_lag": 0,
+      "replay_lsn": "0/FD007B28",
+      "lag": 0,
+      "lsn": "0/FD007B28"
+    }
+  ],
+  "strictSyncCount": 1,
+  "healthySyncedArgoApps": 7,
+  "pgBackup": {
+    "archive": {
+      "start": "0000000E00000000000000FB",
+      "stop": "0000000E00000000000000FB"
+    },
+    "backrest": {
+      "format": 5,
+      "version": "2.59.1"
+    },
+    "database": {
+      "id": 1,
+      "repo-key": 1
+    },
+    "error": false,
+    "info": {
+      "delta": 13724702,
+      "repository": {
+        "delta": 1753408,
+        "size": 9571040
+      },
+      "size": 68419245
+    },
+    "label": "20260920-172412F_20260921-111029D",
+    "lsn": {
+      "start": "0/FB000028",
+      "stop": "0/FB0068F8"
+    },
+    "prior": "20260920-172412F",
+    "reference": [
+      "20260920-172412F"
+    ],
+    "timestamp": {
+      "start": 1789960229,
+      "stop": 1789960234
+    },
+    "type": "diff"
+  },
+  "archiveCheck": "Passed after timeline 14; 0000000E00000000000000F9 archived"
+}

@@ -1,0 +1,25 @@
+[Unit]
+Description=CDC candidate barrier and native slot recovery guard
+After=network-online.target crawl-patroni.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=postgres
+Group=postgres
+ExecStart=/usr/bin/python3 /opt/crawlsystem/cdc/ha-guard.py
+Restart=always
+RestartSec=2
+StateDirectory=crawl-cdc-guard
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/crawl-cdc-guard
+MemoryMax=128M
+CPUQuota=20%
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
