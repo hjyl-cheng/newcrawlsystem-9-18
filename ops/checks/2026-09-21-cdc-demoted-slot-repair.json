@@ -1,0 +1,30 @@
+{
+  "node": "s3",
+  "upstream": "s2",
+  "after": {
+    "recovery": true,
+    "active": false,
+    "failover": true,
+    "synced": true,
+    "temporary": false,
+    "confirmed": "0/EF00ED80",
+    "restart": "0/EE09C240",
+    "plugin": "pgoutput",
+    "database": "crawler",
+    "invalid": null
+  },
+  "sampledUpstream": {
+    "recovery": false,
+    "active": true,
+    "failover": true,
+    "synced": true,
+    "temporary": false,
+    "confirmed": "0/EF00ED80",
+    "restart": "0/EE09C240",
+    "plugin": "pgoutput",
+    "database": "crawler",
+    "invalid": null
+  },
+  "promotionExclusionRestored": false,
+  "recovery": "Operator guarded repair: excluded demoted S3 before dropping inactive nonsynced standby slot. Native recreation initially temporary; synthetic probe commits and primary CHECKPOINT advanced normal decoding. Verified permanent synced slot caught up before restoring original nofailover=false. Not unattended recovery."
+}

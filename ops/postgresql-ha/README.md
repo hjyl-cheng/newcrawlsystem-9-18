@@ -46,4 +46,4 @@ Node pg 的 `statement_timeout` 与 `idle_in_transaction_session_timeout` 启动
 
 ## 与 24.4 的实施对应
 
-保持一个逻辑采集 PG，不分片；同步模式、稳定入口、事务池兼容均按现场冻结。采用独立 systemd Patroni/etcd 与集群内 HAProxy，不新装整套 Pigsty，也不假设云网络支持漂移 VIP。Temporal 保留会话语义，使用 5432 直连通道。**24.4 要求的 Debezium logical slot failover 尚未实施**：当前 wal_level=replica、尚无 CDC Connector，不能把本次物理 PG HA 写成 CDC/Publication 已 HA。该项需随外围 Kafka Connect/Debezium 建设补齐并单独演练。
+保持一个逻辑采集 PG，不分片；同步模式、稳定入口、事务池兼容均按现场冻结。采用独立 systemd Patroni/etcd 与集群内 HAProxy，不新装整套 Pigsty，也不假设云网络支持漂移 VIP。Temporal 保留会话语义，使用 5432 直连通道。**2026-09-21 已进一步启用 wal_level=logical、PG17 原生 failover slot 同步和双副本 Connect**，隔离 outbox 的计划切主/Pod 替换投递验证通过。CDC 等待两台指定备库，单备库失联可能暂停；首次旧主退为备库发生同名槽冲突，已受控人工修复。故仍不能把物理 PG HA 写成完整无人值守 CDC/Publication HA。配置、槽恢复和边界见 `ops/cdc/README.md` 与 `ops/checks/2026-09-21-cdc-reliability.md`。

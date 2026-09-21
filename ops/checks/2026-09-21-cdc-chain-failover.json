@@ -1,0 +1,373 @@
+{
+  "runId": "6e6b2b418c8f4ef88401d4f148f7ffb1",
+  "status": "PASSED",
+  "phases": [
+    {
+      "phase": "healthy",
+      "acknowledged": 4,
+      "uniqueReceived": 4,
+      "offsets": {
+        "offsets": [
+          {
+            "partition": {
+              "server": "crawl_cdc_validation"
+            },
+            "offset": {
+              "lsn_proc": 4010174776,
+              "messageType": "COMMIT",
+              "lsn_commit": 4010174776,
+              "lsn": 4010174776,
+              "txId": 73104,
+              "ts_usec": 1789958460090079
+            }
+          }
+        ]
+      }
+    },
+    {
+      "phase": "connect-replaced",
+      "acknowledged": 8,
+      "uniqueReceived": 8,
+      "offsets": {
+        "offsets": [
+          {
+            "partition": {
+              "server": "crawl_cdc_validation"
+            },
+            "offset": {
+              "lsn_proc": 4010190224,
+              "messageType": "INSERT",
+              "lsn_commit": 4010174776,
+              "lsn": 4010190224,
+              "txId": 73128,
+              "ts_usec": 1789958489986571
+            }
+          }
+        ]
+      }
+    },
+    {
+      "phase": "pg-switched",
+      "acknowledged": 12,
+      "uniqueReceived": 12,
+      "offsets": {
+        "offsets": [
+          {
+            "partition": {
+              "server": "crawl_cdc_validation"
+            },
+            "offset": {
+              "lsn_proc": 4026707664,
+              "messageType": "INSERT",
+              "lsn_commit": 4010190800,
+              "lsn": 4026707664,
+              "txId": 73142,
+              "ts_usec": 1789958511023901
+            }
+          }
+        ]
+      }
+    },
+    {
+      "phase": "preferred-primary-restored",
+      "acknowledged": 16,
+      "uniqueReceived": 16,
+      "offsets": {
+        "offsets": [
+          {
+            "partition": {
+              "server": "crawl_cdc_validation"
+            },
+            "offset": {
+              "lsn_proc": 4026723184,
+              "messageType": "COMMIT",
+              "lsn_commit": 4026723184,
+              "lsn": 4026723184,
+              "txId": 73150,
+              "ts_usec": 1789958518938978
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "slotsBeforeFailure": {
+    "primary": "s2",
+    "minimumConfirmedLSN": "0/EF066938",
+    "nodes": {
+      "s1": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      },
+      "s2": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      },
+      "s3": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      }
+    }
+  },
+  "connectReplacement": {
+    "oldWorker": "192.168.78.228:8083",
+    "newWorker": "192.168.141.170:8083",
+    "observedSeconds": 3.62,
+    "scope": "controlled Pod deletion; not whole-host loss"
+  },
+  "slotsBeforeSwitch": {
+    "primary": "s2",
+    "minimumConfirmedLSN": "0/EF066938",
+    "nodes": {
+      "s1": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      },
+      "s2": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      },
+      "s3": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/EF066938",
+        "caughtUp": true
+      }
+    }
+  },
+  "pgSwitchover": {
+    "from": "s2",
+    "to": "s1",
+    "response": "Successfully switched over to \"s1\"",
+    "observedSeconds": 15.72
+  },
+  "slotsAfterSwitch": {
+    "primary": "s1",
+    "minimumConfirmedLSN": "0/EF06A7D0",
+    "nodes": {
+      "s1": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002B320",
+        "caughtUp": true
+      },
+      "s2": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002B320",
+        "caughtUp": true
+      },
+      "s3": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002B320",
+        "caughtUp": true
+      }
+    }
+  },
+  "finalSlots": {
+    "primary": "s1",
+    "minimumConfirmedLSN": "0/F002EB70",
+    "nodes": {
+      "s1": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002EB70",
+        "caughtUp": true
+      },
+      "s2": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002EB70",
+        "caughtUp": true
+      },
+      "s3": {
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "wal_status": "reserved",
+        "invalidation_reason": null,
+        "confirmed_flush_lsn": "0/F002EB70",
+        "caughtUp": true
+      }
+    }
+  },
+  "acknowledged": 16,
+  "uniqueReceived": 16,
+  "duplicates": 0,
+  "finalPrimary": "s1",
+  "events": [
+    {
+      "phase": "event",
+      "id": "78ec6708-f83b-4a82-b87e-1368d5e38a4f",
+      "seq": 1,
+      "partition": 1,
+      "offset": "12",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "e12500b2-98d9-4310-b789-296ea0f1736e",
+      "seq": 3,
+      "partition": 1,
+      "offset": "13",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "b47d3d17-14c2-4837-a9a8-5befe165e34d",
+      "seq": 2,
+      "partition": 0,
+      "offset": "8",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "f46b8c11-0cac-4775-a866-3eb2deafcb66",
+      "seq": 4,
+      "partition": 0,
+      "offset": "9",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "e822ada0-a1a1-46ca-a230-005515d68846",
+      "seq": 5,
+      "partition": 1,
+      "offset": "14",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "97fbe976-4bc3-49e8-8fbf-742f103af48d",
+      "seq": 7,
+      "partition": 1,
+      "offset": "15",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "d8618375-1537-4bc4-978f-b5ee062a123d",
+      "seq": 6,
+      "partition": 0,
+      "offset": "10",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "f900b78a-602e-4540-82ea-7c327a9551bb",
+      "seq": 8,
+      "partition": 0,
+      "offset": "11",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "f1d68158-1341-4bc5-af79-394dcbb309f2",
+      "seq": 9,
+      "partition": 1,
+      "offset": "16",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "05320d6a-dff6-4356-b211-ff8cc71dab33",
+      "seq": 11,
+      "partition": 1,
+      "offset": "17",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "14ca6553-0249-489b-b50a-2273e7e20c69",
+      "seq": 10,
+      "partition": 0,
+      "offset": "12",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "c7439081-57a5-4030-8ff9-881cf6d8bbc9",
+      "seq": 12,
+      "partition": 0,
+      "offset": "13",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "44727c2b-1d55-4a0e-b14f-28a4cdcc580e",
+      "seq": 13,
+      "partition": 1,
+      "offset": "18",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "74e8e26d-5afd-4fc2-a1d5-25eaa1b78703",
+      "seq": 15,
+      "partition": 1,
+      "offset": "19",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "64775220-daf1-459a-a3c2-90532152f6ca",
+      "seq": 14,
+      "partition": 0,
+      "offset": "14",
+      "topic": "crawler.publication.validation.v1"
+    },
+    {
+      "phase": "event",
+      "id": "fd64f29b-5c2a-4705-a0f4-c73a9e1d3669",
+      "seq": 16,
+      "partition": 0,
+      "offset": "15",
+      "topic": "crawler.publication.validation.v1"
+    }
+  ],
+  "publicationScope": "cdc_validation.outbox only; excluded_noise transactions executed alongside probes"
+}

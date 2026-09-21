@@ -2,34 +2,40 @@
   "status": "PASSED",
   "topics": [
     {
-      "name": "crawl.connect.validation.configs",
-      "partitions": 1,
-      "replication": 3,
-      "minISR": 2
+      "topic": "crawl.connect.validation.configs",
+      "config": "Dynamic configs for topic crawl.connect.validation.configs are:\n  cleanup.policy=compact sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=compact, DEFAULT_CONFIG:log.cleanup.policy=delete}\n  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}",
+      "metadata": "Topic: crawl.connect.validation.configs\tTopicId: JIHVd5VnSPeOFcHQFdWH0Q\tPartitionCount: 1\tReplicationFactor: 3\tConfigs: min.insync.replicas=2,cleanup.policy=compact,segment.bytes=1073741824\n\tTopic: crawl.connect.validation.configs\tPartition: 0\tLeader: 2\tReplicas: 2,3,1\tIsr: 2,3,1\tElr: \tLastKnownElr:"
     },
     {
-      "name": "crawl.connect.validation.offsets",
-      "partitions": 3,
-      "replication": 3,
-      "minISR": 2
+      "topic": "crawl.connect.validation.offsets",
+      "config": "Dynamic configs for topic crawl.connect.validation.offsets are:\n  cleanup.policy=compact sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=compact, DEFAULT_CONFIG:log.cleanup.policy=delete}\n  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}",
+      "metadata": "Topic: crawl.connect.validation.offsets\tTopicId: 1lDUV9_8Qg2hY07iSgZG7Q\tPartitionCount: 3\tReplicationFactor: 3\tConfigs: min.insync.replicas=2,cleanup.policy=compact,segment.bytes=1073741824\n\tTopic: crawl.connect.validation.offsets\tPartition: 0\tLeader: 2\tReplicas: 2,3,1\tIsr: 2,3,1\tElr: \tLastKnownElr: \n\tTopic: crawl.connect.validation.offsets\tPartition: 1\tLeader: 3\tReplicas: 3,1,2\tIsr: 3,1,2\tElr: \tLastKnownElr: \n\tTopic: crawl.connect.validation.offsets\tPartition: 2\tLeader: 1\tReplicas: 1,2,3\tIsr: 1,2,3\tElr: \tLastKnownElr:"
     },
     {
-      "name": "crawl.connect.validation.status",
-      "partitions": 3,
-      "replication": 3,
-      "minISR": 2
+      "topic": "crawl.connect.validation.status",
+      "config": "Dynamic configs for topic crawl.connect.validation.status are:\n  cleanup.policy=compact sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=compact, DEFAULT_CONFIG:log.cleanup.policy=delete}\n  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}",
+      "metadata": "Topic: crawl.connect.validation.status\tTopicId: cQUSJlO7R2m836vkNtR-mA\tPartitionCount: 3\tReplicationFactor: 3\tConfigs: min.insync.replicas=2,cleanup.policy=compact,segment.bytes=1073741824\n\tTopic: crawl.connect.validation.status\tPartition: 0\tLeader: 1\tReplicas: 1,2,3\tIsr: 1,2,3\tElr: \tLastKnownElr: \n\tTopic: crawl.connect.validation.status\tPartition: 1\tLeader: 2\tReplicas: 2,3,1\tIsr: 2,3,1\tElr: \tLastKnownElr: \n\tTopic: crawl.connect.validation.status\tPartition: 2\tLeader: 3\tReplicas: 3,1,2\tIsr: 3,1,2\tElr: \tLastKnownElr:"
     },
     {
-      "name": "crawler.publication.validation.v1",
-      "partitions": 3,
-      "replication": 3,
-      "minISR": 2
+      "topic": "crawler.publication.validation.v1",
+      "config": "Dynamic configs for topic crawler.publication.validation.v1 are:\n  cleanup.policy=delete sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=delete, DEFAULT_CONFIG:log.cleanup.policy=delete}\n  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}\n  retention.bytes=268435456 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:retention.bytes=268435456, DEFAULT_CONFIG:log.retention.bytes=-1}\n  retention.ms=604800000 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:retention.ms=604800000}",
+      "metadata": "Topic: crawler.publication.validation.v1\tTopicId: x8LSCypURtabjd53PeD2vA\tPartitionCount: 3\tReplicationFactor: 3\tConfigs: min.insync.replicas=2,cleanup.policy=delete,segment.bytes=1073741824,retention.ms=604800000,retention.bytes=268435456\n\tTopic: crawler.publication.validation.v1\tPartition: 0\tLeader: 3\tReplicas: 3,1,2\tIsr: 3,1,2\tElr: \tLastKnownElr: \n\tTopic: crawler.publication.validation.v1\tPartition: 1\tLeader: 1\tReplicas: 1,2,3\tIsr: 1,2,3\tElr: \tLastKnownElr: \n\tTopic: crawler.publication.validation.v1\tPartition: 2\tLeader: 2\tReplicas: 2,3,1\tIsr: 2,3,1\tElr: \tLastKnownElr:"
     },
     {
-      "name": "__debezium-heartbeat.crawl_cdc_validation",
-      "partitions": 1,
-      "replication": 3,
-      "minISR": 2
+      "topic": "__debezium-heartbeat.crawl_cdc_validation",
+      "config": "Dynamic configs for topic __debezium-heartbeat.crawl_cdc_validation are:\n  cleanup.policy=compact sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=compact, DEFAULT_CONFIG:log.cleanup.policy=delete}\n  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}",
+      "metadata": "Topic: __debezium-heartbeat.crawl_cdc_validation\tTopicId: foPH1jdcSGijetmbT31Tqw\tPartitionCount: 1\tReplicationFactor: 3\tConfigs: min.insync.replicas=2,cleanup.policy=compact,segment.bytes=1073741824\n\tTopic: __debezium-heartbeat.crawl_cdc_validation\tPartition: 0\tLeader: 1\tReplicas: 1,2,3\tIsr: 1,2,3\tElr: \tLastKnownElr:"
     }
-  ]
+  ],
+  "inventory": [
+    "__consumer_offsets",
+    "__debezium-heartbeat.crawl_cdc_validation",
+    "crawl.connect.validation.configs",
+    "crawl.connect.validation.offsets",
+    "crawl.connect.validation.status",
+    "crawler.publication.v1",
+    "crawler.publication.validation.v1",
+    "crawler.results.validation.v1"
+  ],
+  "scope": "Explicit outbox publication only; no raw or excluded_noise CDC topics present"
 }

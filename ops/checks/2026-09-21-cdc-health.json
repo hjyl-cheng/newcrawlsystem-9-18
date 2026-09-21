@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-09-21T02:42:47.005596+00:00",
+  "nodes": {
+    "s1": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": true,
+        "restart_lsn": "0/F0000230",
+        "confirmed_flush_lsn": "0/F002EB70",
+        "wal_status": "reserved",
+        "safe_wal_size": 2163946520,
+        "invalidation_reason": null,
+        "retained_bytes": 313784
+      },
+      "pgWalBytes": 721423492
+    },
+    "s2": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": false,
+        "restart_lsn": "0/F0000230",
+        "confirmed_flush_lsn": "0/F002EB70",
+        "wal_status": "reserved",
+        "safe_wal_size": 6190792704,
+        "invalidation_reason": null,
+        "retained_bytes": 314216
+      },
+      "pgWalBytes": 721423492
+    },
+    "s3": {
+      "slot": {
+        "slot": "crawl_cdc_validation",
+        "failover": true,
+        "synced": true,
+        "temporary": false,
+        "active": false,
+        "restart_lsn": "0/F0000230",
+        "confirmed_flush_lsn": "0/F002EB70",
+        "wal_status": "reserved",
+        "safe_wal_size": 6190792704,
+        "invalidation_reason": null,
+        "retained_bytes": 16776656
+      },
+      "pgWalBytes": 704646275
+    }
+  },
+  "connector": {
+    "state": "RUNNING",
+    "tasks": [
+      {
+        "id": 0,
+        "state": "RUNNING",
+        "worker": "192.168.141.170:8083"
+      }
+    ]
+  },
+  "primary": "s1",
+  "publication": "cdc_validation.outbox",
+  "connectOffsets": {
+    "offsets": [
+      {
+        "partition": {
+          "server": "crawl_cdc_validation"
+        },
+        "offset": {
+          "lsn_proc": 4026723184,
+          "messageType": "COMMIT",
+          "lsn_commit": 4026723184,
+          "lsn": 4026723184,
+          "txId": 73150,
+          "ts_usec": 1789958518938978
+        }
+      }
+    ]
+  },
+  "status": "PASSED",
+  "issues": [],
+  "scope": "On-demand readiness and WAL budget check; not continuous alerts, whole-host failover certification, or proof of end-to-end business delivery"
+}

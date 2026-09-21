@@ -1,0 +1,147 @@
+{
+  "status": "PASSED",
+  "members": [
+    {
+      "name": "s1",
+      "role": "leader",
+      "state": "running",
+      "api_url": "https://10.4.4.2:8008/patroni",
+      "host": "10.4.4.2",
+      "port": 5432,
+      "timeline": 12
+    },
+    {
+      "name": "s2",
+      "role": "replica",
+      "state": "streaming",
+      "api_url": "https://10.4.4.8:8008/patroni",
+      "host": "10.4.4.8",
+      "port": 5432,
+      "timeline": 12,
+      "receive_lag": 0,
+      "receive_lsn": "0/F3036580",
+      "replay_lag": 0,
+      "replay_lsn": "0/F3036580",
+      "lag": 0,
+      "lsn": "0/F3036580"
+    },
+    {
+      "name": "s3",
+      "role": "sync_standby",
+      "state": "streaming",
+      "api_url": "https://10.4.4.5:8008/patroni",
+      "host": "10.4.4.5",
+      "port": 5432,
+      "timeline": 12,
+      "receive_lag": 0,
+      "receive_lsn": "0/F3036580",
+      "replay_lag": 0,
+      "replay_lsn": "0/F3036580",
+      "lag": 0,
+      "lsn": "0/F3036580"
+    }
+  ],
+  "strictSynchronousMode": true,
+  "synchronousNodeCount": 1,
+  "apps": [
+    {
+      "name": "crawl-infra-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-ingestor-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-kafka-connect-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-postgresql-entry-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-runtime-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-seaweed-s3-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    {
+      "name": "crawl-temporal-validation",
+      "sync": "Synced",
+      "health": "Healthy"
+    }
+  ],
+  "deployments": [
+    {
+      "name": "data-ingestor",
+      "available": 2
+    },
+    {
+      "name": "kafka-connect",
+      "available": 2
+    },
+    {
+      "name": "postgresql-entry",
+      "available": 2
+    },
+    {
+      "name": "runtime-smoke",
+      "available": 2
+    },
+    {
+      "name": "seaweed-s3-entry",
+      "available": 2
+    },
+    {
+      "name": "temporal",
+      "available": 2
+    }
+  ],
+  "postChangeBackup": {
+    "archive": {
+      "start": "0000000C00000000000000F2",
+      "stop": "0000000C00000000000000F2"
+    },
+    "backrest": {
+      "format": 5,
+      "version": "2.59.1"
+    },
+    "database": {
+      "id": 1,
+      "repo-key": 1
+    },
+    "error": false,
+    "info": {
+      "delta": 13707185,
+      "repository": {
+        "delta": 1741024,
+        "size": 9558784
+      },
+      "size": 68401816
+    },
+    "label": "20260920-172412F_20260921-104251D",
+    "lsn": {
+      "start": "0/F2000028",
+      "stop": "0/F2006FA8"
+    },
+    "prior": "20260920-172412F",
+    "reference": [
+      "20260920-172412F"
+    ],
+    "timestamp": {
+      "start": 1789958571,
+      "stop": 1789958576
+    },
+    "type": "diff"
+  },
+  "archiveCheck": "pgBackRest check passed after timeline 12 switch; WAL 0000000C00000000000000F0 archived"
+}

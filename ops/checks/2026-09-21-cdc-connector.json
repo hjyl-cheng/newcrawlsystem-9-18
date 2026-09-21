@@ -1,0 +1,25 @@
+{
+  "status": "PASSED",
+  "connect": {
+    "version": "4.3.0",
+    "commit": "a9ce3221537b8653",
+    "kafka_cluster_id": "cx9KTyt4dVjFvyvSx9P9ig"
+  },
+  "connector": {
+    "name": "crawl-publication-validation",
+    "connector": {
+      "state": "RUNNING",
+      "worker_id": "192.168.141.169:8083",
+      "version": "3.6.3.Final"
+    },
+    "tasks": [
+      {
+        "id": 0,
+        "state": "RUNNING",
+        "worker_id": "192.168.141.169:8083",
+        "version": "3.6.3.Final"
+      }
+    ],
+    "type": "source"
+  }
+}
