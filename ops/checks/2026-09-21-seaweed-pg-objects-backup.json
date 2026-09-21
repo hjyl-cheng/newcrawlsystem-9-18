@@ -1,0 +1,122 @@
+{
+  "status": "PASSED",
+  "file": "seaweed-pg-objects-20260921T013904Z.tar.gpg",
+  "bytes": 27226,
+  "sha256": "fe512681e33ea3510941ce3dcee204efb5ae6535585eebc2a4cee7cfb2c0cecc",
+  "copies": [
+    "a1",
+    "s2",
+    "s3"
+  ],
+  "manifest": {
+    "createdAt": "20260921T013904Z",
+    "scope": "quiesced PG object_metadata schema plus all cold volume replicas",
+    "sha256": {
+      "s2.tar.gz": "1d746dfd8369f5a29a3b323417a7abd8dbc358caf6ffefa47b5419f8db259143",
+      "s1.tar.gz": "cf686fb70bdd87a2a1b15311204668582584a840f49485ea8716b0be132b6e02",
+      "metadata.dump": "d398a5b01702c8e2f8b0871dc86571bc6f617c738ad2b471050b824321367a35",
+      "s3.tar.gz": "b864a0baf6ec454cd0f8d10cedd4803e4fa6022b2f5ec7feb383993c7a041e6a"
+    },
+    "expected": [
+      {
+        "path": "/buckets/.system/owners/.complete",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/buckets/.system/owners/crawl-object-operator/crawl-infra-private",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/buckets/.system/owners/crawl-object-operator/crawl-validation-objects",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/ha-seed.bin",
+        "bytes": 38912,
+        "sha256": "58f4563af84b3b2534d43d503106822b8dd91c7855d99e556d7e1d7e4ecf8099"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-entry-replacement-1d53b54129c14258a3364a86eb6893fb.bin",
+        "bytes": 3328,
+        "sha256": "72ac88314553642dfcb79de896577d79b32507d01e131e5bc923c7a145c28d57"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-1b400779128348a4b63ab359992677d3.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-56163653292e4647a8a49c4cb86630cf.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-933dece3cee24a85a1552f01bc5192c8.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-9458b79a63c84331865713bcce77e900.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-b35a00b8e1844e78a03061ab549f5378.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-healthy-dfefad2a65c14f2ba0c00017a61656fa.bin",
+        "bytes": 2048,
+        "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-pg-original-restored-4729600d25234d1fabab93304211b54b.bin",
+        "bytes": 3712,
+        "sha256": "948753d331fe9a3673a0b5fc3283cd72a045c0accc077a2098d5815da9db8ea4"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-pg-switched-459103a8ccef4ccea51240a686df96e0.bin",
+        "bytes": 2560,
+        "sha256": "1804640b09787d6b27b5a7cbaf84192ea5aa5cdea25efbe7ea73d2f283e87c93"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-pg-switched-993f0a99afa44a9180c0d7de2c826fed.bin",
+        "bytes": 2560,
+        "sha256": "1804640b09787d6b27b5a7cbaf84192ea5aa5cdea25efbe7ea73d2f283e87c93"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-pg-switched-b1a2f32d9d3b4bf89bac428f45dcb0d9.bin",
+        "bytes": 2560,
+        "sha256": "1804640b09787d6b27b5a7cbaf84192ea5aa5cdea25efbe7ea73d2f283e87c93"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-s1-down-0c622e67d09447c0b22430e217628dde.bin",
+        "bytes": 2048,
+        "sha256": "3d62da55ebc94c1bda15e80e2c0b416115461651e489d5e3c120ad8eb4219f67"
+      },
+      {
+        "path": "/buckets/crawl-validation-objects/infra/service-s1-restored-8b6c460397004ea89f0dbc32752da4ba.bin",
+        "bytes": 2560,
+        "sha256": "f9836a9c192616b3e29023b6be01c514f71ab22f39dcddcc94f7e92f2cebeecd"
+      },
+      {
+        "path": "/crawlsystem-infra/ready",
+        "bytes": 9,
+        "sha256": "2f7c927adf708a8e033985e76355336c0089f39b83de1687c0b8a209e6dfbcfa"
+      },
+      {
+        "path": "/crawlsystem-validation/metadata-migration-20260921T010949Z.bin",
+        "bytes": 262144,
+        "sha256": "2312394bd99545d9de131c24efb781e765ac1aec243f2ed9347597a793a415e9"
+      }
+    ],
+    "metadataFingerprint": "52|f3e2b4bc30a2c65640d0c905ef9f9f32",
+    "quiescedSeconds": 23.15
+  },
+  "independentRestore": "PASSED",
+  "restoreEvidence": "2026-09-21-seaweed-pg-objects-restore.json"
+}

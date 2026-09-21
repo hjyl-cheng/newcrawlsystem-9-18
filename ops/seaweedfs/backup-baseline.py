@@ -26,6 +26,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--execute', action='store_true', required=True)
     parser.parse_args()
+    # This legacy procedure cannot capture the shared PostgreSQL metadata.
+    for ip in NODES.values():
+        remote(ip, 'sudo test ! -f /etc/seaweedfs/filer.toml', capture_output=True)
     # This baseline procedure is intentionally limited to the tiny validation
     # deployment; do not let automatic recovery resume writes during a large copy.
     for ip in NODES.values():

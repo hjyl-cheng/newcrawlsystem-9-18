@@ -1,0 +1,121 @@
+{
+  "status": "PASSED",
+  "pgMembers": [
+    {
+      "name": "s1",
+      "role": "leader",
+      "state": "running"
+    },
+    {
+      "name": "s2",
+      "role": "sync_standby",
+      "state": "streaming"
+    },
+    {
+      "name": "s3",
+      "role": "replica",
+      "state": "streaming"
+    }
+  ],
+  "strictSync": true,
+  "synchronousNodeCount": 1,
+  "applications": {
+    "crawl-infra-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-ingestor-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-postgresql-entry-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-runtime-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-seaweed-s3-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    },
+    "crawl-temporal-validation": {
+      "sync": "Synced",
+      "health": "Healthy"
+    }
+  },
+  "seaweedTopology": {
+    "Topology": {
+      "Max": 24,
+      "Free": 2,
+      "DataCenters": [
+        {
+          "Id": "DefaultDataCenter",
+          "Racks": [
+            {
+              "Id": "DefaultRack",
+              "DataNodes": [
+                {
+                  "Url": "10.4.4.2:8080",
+                  "PublicUrl": "10.4.4.2:8080",
+                  "Volumes": 8,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 1-5 22-23 25"
+                },
+                {
+                  "Url": "10.4.4.5:8080",
+                  "PublicUrl": "10.4.4.5:8080",
+                  "Volumes": 6,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 1-2 6-7 22 24"
+                },
+                {
+                  "Url": "10.4.4.8:8080",
+                  "PublicUrl": "10.4.4.8:8080",
+                  "Volumes": 8,
+                  "EcShards": 0,
+                  "Max": 8,
+                  "VolumeIds": " 3-7 23-25"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Layouts": [
+        {
+          "replication": "001",
+          "ttl": "",
+          "writables": [
+            3,
+            5,
+            4,
+            2,
+            1,
+            7,
+            6
+          ],
+          "collection": "",
+          "diskType": "hdd"
+        },
+        {
+          "replication": "001",
+          "ttl": "",
+          "writables": [
+            23,
+            25,
+            22,
+            24
+          ],
+          "collection": "crawl-objects_crawl-validation-objects",
+          "diskType": "hdd"
+        }
+      ]
+    },
+    "TopologyId": "4a7ffbbd-b8fa-4b38-a6cb-03775cb1c71e",
+    "Version": "30GB 4.47 c5073360007d28385a33426a42ac3e4ec504c5a3"
+  }
+}

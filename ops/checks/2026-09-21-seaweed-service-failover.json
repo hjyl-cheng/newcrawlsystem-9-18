@@ -1,0 +1,40 @@
+{
+  "endpoint": "http://seaweed-s3.crawl-validation.svc:8333",
+  "status": "PASSED",
+  "probes": [
+    {
+      "phase": "healthy",
+      "key": "infra/service-healthy-b35a00b8e1844e78a03061ab549f5378.bin",
+      "bytes": 2048,
+      "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6",
+      "putGetList": "PASSED"
+    },
+    {
+      "phase": "s1-down",
+      "key": "infra/service-s1-down-0c622e67d09447c0b22430e217628dde.bin",
+      "bytes": 2048,
+      "sha256": "3d62da55ebc94c1bda15e80e2c0b416115461651e489d5e3c120ad8eb4219f67",
+      "putGetList": "PASSED"
+    },
+    {
+      "phase": "s1-restored",
+      "key": "infra/service-s1-restored-8b6c460397004ea89f0dbc32752da4ba.bin",
+      "bytes": 2560,
+      "sha256": "f9836a9c192616b3e29023b6be01c514f71ab22f39dcddcc94f7e92f2cebeecd",
+      "putGetList": "PASSED"
+    },
+    {
+      "phase": "entry-replacement",
+      "key": "infra/service-entry-replacement-1d53b54129c14258a3364a86eb6893fb.bin",
+      "bytes": 3328,
+      "sha256": "72ac88314553642dfcb79de896577d79b32507d01e131e5bc923c7a145c28d57",
+      "putGetList": "PASSED"
+    }
+  ],
+  "filerStop": "forced after stop request",
+  "stoppedBackend": "s1 Filer + S3 Gateway services; not whole-host failure",
+  "entryNodes": [
+    "a1",
+    "a2"
+  ]
+}

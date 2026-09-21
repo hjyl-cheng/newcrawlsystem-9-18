@@ -1,0 +1,35 @@
+{
+  "endpoint": "http://seaweed-s3.crawl-validation.svc:8333",
+  "status": "PASSED",
+  "probes": [
+    {
+      "phase": "healthy",
+      "key": "infra/service-healthy-933dece3cee24a85a1552f01bc5192c8.bin",
+      "bytes": 2048,
+      "sha256": "794cb8809e88f20827fccd0d95ffc856a830a8c67e51dc33d945d08e63d468c6",
+      "putGetList": "PASSED"
+    },
+    {
+      "phase": "pg-switched",
+      "key": "infra/service-pg-switched-b1a2f32d9d3b4bf89bac428f45dcb0d9.bin",
+      "bytes": 2560,
+      "sha256": "1804640b09787d6b27b5a7cbaf84192ea5aa5cdea25efbe7ea73d2f283e87c93",
+      "putGetList": "PASSED"
+    },
+    {
+      "phase": "pg-original-restored",
+      "key": "infra/service-pg-original-restored-4729600d25234d1fabab93304211b54b.bin",
+      "bytes": 3712,
+      "sha256": "948753d331fe9a3673a0b5fc3283cd72a045c0accc077a2098d5815da9db8ea4",
+      "putGetList": "PASSED"
+    }
+  ],
+  "pg": {
+    "original": "s1",
+    "candidate": "s3",
+    "response": "Successfully switched over to \"s3\"",
+    "firstSuccessfulRoundtripSeconds": 4.6,
+    "failedProbeAttempts": 1,
+    "cleanup": "original primary and synchronous_node_count restored; temporarily required two synchronous replicas for return"
+  }
+}
