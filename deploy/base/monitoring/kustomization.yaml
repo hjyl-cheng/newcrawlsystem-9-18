@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- resources.yaml
+configMapGenerator:
+- name: prometheus-config
+  files:
+  - prometheus.yaml
+  - rules.yaml
+- name: alertmanager-config
+  files:
+  - alertmanager.yaml
+- name: infra-exporter-code
+  files:
+  - infra-exporter.py
+- name: grafana-datasources
+  files:
+  - datasources.yaml
+- name: grafana-dashboard-provider
+  files:
+  - dashboards.yaml
+- name: grafana-dashboards
+  files:
+  - overview.json

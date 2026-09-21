@@ -1,0 +1,315 @@
+groups:
+- name: crawl-infrastructure
+  rules:
+  - alert: MonitoringTargetDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: 监控目标无法访问
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: MonitoringTargetMissing
+    expr: count(up{job="nodes"}) != 6
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: 节点采集目标数量不等于六
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LocalProbeFailed
+    expr: crawl_collector_success == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 本地基础设施探针失败
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: LocalProbeStale
+    expr: time() - crawl_collector_last_run_timestamp_seconds > 120
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: 本地探针数据停止刷新
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: HostDiskLow
+    expr: node_filesystem_avail_bytes{mountpoint="/",fstype!="tmpfs"} / node_filesystem_size_bytes{mountpoint="/",fstype!="tmpfs"}
+      < 0.15
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: 系统盘剩余空间低于 15%
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: HostMemoryLow
+    expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.10
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: 可用内存低于 10%
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: HostCpuHigh
+    expr: 1 - avg by (instance,node)(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+      > 0.9
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: CPU 持续超过 90%
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: CriticalServiceDown
+    expr: crawl_service_up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: 基础服务停止
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: PostgresPrimaryCount
+    expr: sum(crawl_pg_is_primary) != 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: PostgreSQL 主库数量异常
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: PostgresReplicationLag
+    expr: crawl_pg_replica_replay_lag_bytes > 16777216
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: PG 副本回放积压超过 16MiB
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: PostgresSyncReplicaMissing
+    expr: (crawl_pg_synchronous_replicas == 0) and on(node) (crawl_pg_is_primary ==
+      1)
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: PG 主库没有同步副本
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: PostgresConnectionPressure
+    expr: crawl_pg_connections / crawl_pg_max_connections > 0.8
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: PG 连接使用超过 80%
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: CdcSlotMissing
+    expr: crawl_pg_cdc_slot_present == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: CDC 槽缺失
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: CdcSlotInvalid
+    expr: crawl_pg_slot_valid{slot="crawl_cdc_validation"} == 0 or crawl_pg_slot_temporary{slot="crawl_cdc_validation"}
+      == 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: CDC 槽无效或为临时槽
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: ReplicationSlotRetainsWal
+    expr: crawl_pg_slot_retained_bytes > 1073741824
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: 复制槽滞留 WAL 超过 1GiB
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: ReplicationSlotWalBudgetLow
+    expr: crawl_pg_slot_safe_wal_size < 268435456
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 复制槽剩余 WAL 预算低于 256MiB
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: CdcGuardNotReady
+    expr: crawl_cdc_guard_ready == 0 or time() - crawl_cdc_guard_last_check_timestamp_seconds
+      > 30
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: CDC guard 未就绪或停止刷新
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: CdcBarrierMismatch
+    expr: crawl_cdc_guard_barrier_matches == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: CDC 等待屏障与候选名单不一致
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KafkaIsrBelowMinimum
+    expr: kafka_topic_partition_in_sync_replica < 2
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Kafka ISR 低于写入最低副本数
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KafkaReplicaDegraded
+    expr: kafka_topic_partition_in_sync_replica < kafka_topic_partition_replicas
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: Kafka 分区副本未全部同步
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KafkaConsumerLag
+    expr: sum by(consumergroup,topic)(kafka_consumergroup_lag) > 1000
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Kafka 消费积压持续超过 1000 条
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: ConnectNotRunning
+    expr: crawl_connect_connector_running == 0 or crawl_connect_tasks_running == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: CDC Connector 或 Task 未运行
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: ApplicationProbeFailed
+    expr: crawl_http_probe_success == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: 应用就绪接口检查失败
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: ApplicationProbeStale
+    expr: time() - crawl_http_probe_last_run_timestamp_seconds > 90
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: 应用探针停止刷新
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KubernetesNodeNotReady
+    expr: kube_node_status_condition{condition="Ready",status="true"} != 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: Kubernetes 节点未就绪
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KubernetesDeploymentUnavailable
+    expr: kube_deployment_status_replicas_available < kube_deployment_spec_replicas
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Deployment 可用副本不足
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KubernetesStatefulSetUnavailable
+    expr: kube_statefulset_status_replicas_ready < kube_statefulset_replicas
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: StatefulSet 可用副本不足
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: KubernetesContainerRestarting
+    expr: increase(kube_pod_container_status_restarts_total[15m]) > 3
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: 容器频繁重启
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: BackupStale
+    expr: (time() - crawl_backup_last_success_timestamp_seconds{backup!="seaweedfs"})
+      > 108000
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 备份超过 30 小时未成功
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: BackupMissing
+    expr: crawl_backup_archive_present == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 备份归档缺失
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: BackupScheduleDisabled
+    expr: crawl_backup_scheduled{backup!="seaweedfs"} == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 定时备份未启用
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: BackupLastRunFailed
+    expr: crawl_backup_last_run_success == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 最近一次备份任务失败
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: SeaweedContinuousBackupPending
+    expr: max by(backup)(crawl_backup_scheduled{backup="seaweedfs"}) == 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: 已知待办：SeaweedFS 目前只有维护备份
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。
+  - alert: AlertmanagerClusterDegraded
+    expr: alertmanager_cluster_members < 3
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Alertmanager 集群成员不足
+      description: instance={{ $labels.instance }} node={{ $labels.node }} value={{
+        $value }}；排查步骤见 ops/monitoring/README.md。

@@ -1,0 +1,50 @@
+rule_files:
+  - ../../deploy/base/monitoring/rules.yaml
+evaluation_interval: 15s
+tests:
+  - name: disconnected node must fire after a sustained outage
+    interval: 15s
+    input_series:
+      - series: 'up{job="nodes",node="a2",instance="10.4.4.3:9100"}'
+        values: '1 1 0 0 0 0 0 0 1 1 1 1'
+    promql_expr_test:
+      - expr: 'count(ALERTS{alertname="MonitoringTargetDown",alertstate="firing"})'
+        eval_time: 1m45s
+        exp_samples: [{labels: '{}', value: 1}]
+      - expr: 'ALERTS{alertname="MonitoringTargetDown",alertstate="firing"}'
+        eval_time: 2m15s
+        exp_samples: []
+  - name: failed collector cannot masquerade as healthy infrastructure
+    interval: 15s
+    input_series:
+      - series: 'crawl_collector_success{node="s1",collector="postgresql"}'
+        values: '0x16'
+    promql_expr_test:
+      - expr: 'count(ALERTS{alertname="LocalProbeFailed",alertstate="firing"})'
+        eval_time: 3m
+        exp_samples: [{labels: '{}', value: 1}]
+  - name: temporary or invalid CDC slot is critical
+    interval: 15s
+    input_series:
+      - series: 'crawl_pg_slot_valid{node="s2",slot="crawl_cdc_validation"}'
+        values: '0x16'
+      - series: 'crawl_pg_slot_temporary{node="s3",slot="crawl_cdc_validation"}'
+        values: '1x16'
+    promql_expr_test:
+      - expr: 'count(ALERTS{alertname="CdcSlotInvalid",severity="critical",alertstate="firing"})'
+        eval_time: 2m
+        exp_samples: [{labels: '{}', value: 2}]
+  - name: maintenance-only object backup stays a visible pending item
+    interval: 15s
+    input_series:
+      - series: 'crawl_backup_scheduled{backup="seaweedfs",node="s2"}'
+        values: '0x16'
+      - series: 'crawl_backup_scheduled{backup="seaweedfs",node="s3"}'
+        values: '0x16'
+    promql_expr_test:
+      - expr: 'count(ALERTS{alertname="SeaweedContinuousBackupPending",alertstate="firing"})'
+        eval_time: 2m
+        exp_samples: [{labels: '{}', value: 1}]
+      - expr: 'ALERTS{alertname="BackupScheduleDisabled",alertstate="firing"}'
+        eval_time: 2m
+        exp_samples: []

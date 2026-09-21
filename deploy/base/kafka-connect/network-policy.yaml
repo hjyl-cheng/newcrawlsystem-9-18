@@ -13,6 +13,13 @@ spec:
         matchLabels: {cdc-admin: 'true'}
     ports:
     - {protocol: TCP, port: 8083}
+  - from:
+      - namespaceSelector:
+          matchLabels: {kubernetes.io/metadata.name: crawl-monitoring}
+        podSelector:
+          matchLabels: {app: infra-exporter}
+    ports:
+      - {protocol: TCP, port: 8083}
   egress:
   - to:
     - namespaceSelector:

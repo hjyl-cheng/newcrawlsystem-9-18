@@ -1,0 +1,9 @@
+apiVersion: 1
+providers:
+- name: Infrastructure
+  folder: 基础设施
+  type: file
+  disableDeletion: true
+  editable: false
+  options:
+    path: /var/lib/grafana/dashboards

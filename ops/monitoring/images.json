@@ -1,0 +1,26 @@
+{
+  "kube-state-metrics": {
+    "tag": "v2.20.0",
+    "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b"
+  },
+  "grafana": {
+    "tag": "13.2.2",
+    "image": "docker.io/grafana/grafana:13.2.2@sha256:ac461fb352abc50da10a51c7d02462e9c05488f11f53f14b3ad79a8145f638a0"
+  },
+  "alertmanager": {
+    "tag": "v0.34.1",
+    "image": "docker.io/prom/alertmanager:v0.34.1@sha256:e9733bafb1bdef9b00e25a21f8f99dc26a22224bf16641ad754d1649f4c3357a"
+  },
+  "kafka-exporter": {
+    "tag": "v1.10.0",
+    "image": "docker.io/danielqsj/kafka-exporter:v1.10.0@sha256:346a53c2489a3530790d01f7b96632496d0d58926662f4c35bb65f569db2ab42"
+  },
+  "prometheus": {
+    "tag": "v3.14.0",
+    "image": "docker.io/prom/prometheus:v3.14.0@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+  },
+  "python": {
+    "tag": "3.12.13-slim-bookworm",
+    "image": "docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2"
+  }
+}
