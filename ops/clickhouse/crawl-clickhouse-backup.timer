@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily ClickHouse backup with cross-server encrypted copy
+[Timer]
+OnCalendar=*-*-* 04:10:00
+RandomizedDelaySec=300
+Persistent=true
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,46 @@
+{
+  "status": "PASSED",
+  "backup": {
+    "status": "PASSED",
+    "completedAt": "2026-09-21T01:58:58.474942+00:00",
+    "file": "clickhouse-20260921T015853Z-276f725d.zip.gpg",
+    "sha256": "e056402b0e7f9931b0ffd963ed5fa8f02fa782ad25a9acf0287d51ee9e03f920",
+    "nativeSha256": "25490079dab37c1f09972228ad1a9aa0b87902210d1b6860e5b99f2703fba0a2",
+    "bytes": 7035,
+    "nativeBackupId": "a73b7519-342a-4d2f-ab83-eb7069f0ef56",
+    "tables": [
+      {
+        "name": "infra_backup_probe_984e783b2484",
+        "engine": "MergeTree"
+      }
+    ],
+    "copies": [
+      "a1",
+      "s2"
+    ],
+    "database": "crawler_analytics",
+    "source": "s3",
+    "decryptionAndZipCRC": "PASSED",
+    "scope": "Native full analytics backup; no system logs/users; cross-table transactional consistency not promised"
+  },
+  "restore": {
+    "status": "PASSED",
+    "file": "clickhouse-20260921T015853Z-276f725d.zip.gpg",
+    "version": "26.8.6.5",
+    "tableInventoryMatches": true,
+    "tables": [
+      {
+        "name": "infra_backup_probe_984e783b2484",
+        "engine": "MergeTree"
+      }
+    ],
+    "probeRows": 3,
+    "probeSha256": "c574dfe2d826d7d98eaac87773f0f64a19e31d4c49c3deb573b7d4853190f3f4",
+    "postBackupRowExcluded": true,
+    "restoreStatus": "RESTORED",
+    "elapsedSeconds": 2.18,
+    "isolation": "fresh data directory and config; loopback HTTP 18123/Native 19001; live instance untouched",
+    "cleanup": "isolated instance stopped; temporary data and copied archive removed",
+    "liveRowsUnchanged": 4
+  }
+}

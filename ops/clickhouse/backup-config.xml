@@ -1,0 +1,15 @@
+<clickhouse>
+  <storage_configuration>
+    <disks>
+      <crawl_backups>
+        <type>local</type>
+        <path>/srv/crawlsystem/backups/clickhouse/native/</path>
+      </crawl_backups>
+    </disks>
+  </storage_configuration>
+  <backups><allowed_disk>crawl_backups</allowed_disk></backups>
+  <backup_threads>2</backup_threads>
+  <max_backups_io_thread_pool_size>4</max_backups_io_thread_pool_size>
+  <max_backups_io_thread_pool_free_size>1</max_backups_io_thread_pool_free_size>
+  <max_backup_bandwidth_for_server>16777216</max_backup_bandwidth_for_server>
+</clickhouse>

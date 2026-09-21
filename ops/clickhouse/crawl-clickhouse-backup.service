@@ -1,0 +1,14 @@
+[Unit]
+Description=Native ClickHouse backup encrypted on A1 and copied to S2
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/crawlsystem/backup/backup-clickhouse.py --execute
+TimeoutStartSec=20min
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+PrivateTmp=true
