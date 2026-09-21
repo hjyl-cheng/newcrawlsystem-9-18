@@ -1,3 +1,4 @@
+import {operatorTls,secureBrokers} from '../kafka/client.mjs';
 /** Real service acceptance. Writes bounded synthetic records only to the dedicated validation DB/topic. */
 import assert from 'node:assert/strict';
 import {readFile,writeFile} from 'node:fs/promises';
@@ -16,7 +17,7 @@ assert.equal(process.env.PGDATABASE,'crawler_validation_ingestor');
 assert.equal(process.env.PGUSER,'crawler');
 const owner=new pg.Pool({max:2});
 const consumer=new pg.Pool({host:process.env.CONSUMER_PGHOST??runtime.PGHOST,port:Number(process.env.CONSUMER_PGPORT??runtime.PGPORT),database:runtime.PGDATABASE,user:runtime.PGUSER,password:runtime.PGPASSWORD,max:2});
-const kafka=new sdk.KafkaJS.Kafka({kafkaJS:{brokers:['10.4.4.2:9092','10.4.4.8:9092','10.4.4.5:9092'],clientId:'ingestor-acceptance',logLevel:sdk.KafkaJS.logLevel.ERROR}});
+const kafka=new sdk.KafkaJS.Kafka({...operatorTls(),kafkaJS:{brokers:secureBrokers,clientId:'ingestor-acceptance',logLevel:sdk.KafkaJS.logLevel.ERROR}});
 const producer=resultProducer(kafka),admin=kafka.admin();
 const topic='crawler.results.validation.v1',groupId='crawler-results-apply-validation-v1';
 const fixtures=[],positions=[];

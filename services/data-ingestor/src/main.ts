@@ -1,5 +1,6 @@
 import pg from 'pg';
 import sdk from '@confluentinc/kafka-javascript';
+import { join } from 'node:path';
 import { readCredentials } from './config.js';
 import { createIngestorHttp } from './http.js';
 import { querySubmissionReceipt } from '../../ingestion/src/metrics-submission.js';
@@ -15,7 +16,11 @@ const {trust,clients}=readCredentials(process.env.CREDENTIALS_DIR??'/var/run/ing
 const pool=new pg.Pool({host:required('PGHOST'),port:Number(required('PGPORT')),database,user:required('PGUSER'),password:required('PGPASSWORD'),
   max:4,connectionTimeoutMillis:5000,idleTimeoutMillis:30000,statement_timeout:30000,idle_in_transaction_session_timeout:45000,
   application_name:'data-ingestor-validation'});
-const kafka=new sdk.KafkaJS.Kafka({kafkaJS:{brokers:required('KAFKA_BROKERS').split(','),clientId:'data-ingestor-'+(process.env.HOSTNAME??'local'),logLevel:sdk.KafkaJS.logLevel.ERROR}});
+const kafkaTlsDir=required('KAFKA_TLS_DIR');
+const kafka=new sdk.KafkaJS.Kafka({'security.protocol':'ssl','ssl.ca.location':join(kafkaTlsDir,'ca.crt'),
+  'ssl.certificate.location':join(kafkaTlsDir,'client.crt'),'ssl.key.location':join(kafkaTlsDir,'client.key'),
+  'enable.ssl.certificate.verification':true,'ssl.endpoint.identification.algorithm':'https',
+  kafkaJS:{brokers:required('KAFKA_BROKERS').split(','),clientId:'data-ingestor-'+(process.env.HOSTNAME??'local'),logLevel:sdk.KafkaJS.logLevel.ERROR}});
 const admin=kafka.admin();
 let runner:Awaited<ReturnType<typeof startResultConsumer>>|undefined,stopping=false,checkedAt=0,dependenciesOk=false;
 let applied=0,quarantined=0,retries=0,lag: {partition:number;lag:string;gap:boolean}[]=[];

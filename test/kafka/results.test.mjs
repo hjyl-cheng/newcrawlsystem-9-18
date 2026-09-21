@@ -1,3 +1,4 @@
+import {operatorTls,secureBrokers} from '../../ops/kafka/client.mjs';
 import assert from 'node:assert/strict';
 import {before,after,test} from 'node:test';
 import {randomUUID,generateKeyPairSync} from 'node:crypto';
@@ -12,7 +13,7 @@ const config=databaseConfig();assert.match(config.database,/^crawler_schema_test
 assert.equal(process.env.DB_ALLOW_TEST_WRITES,config.database);
 const brokers=process.env.KAFKA_BROKERS?.split(',').filter(Boolean);assert.ok(brokers?.length,'KAFKA_BROKERS required');
 const {Kafka,logLevel}=sdk.KafkaJS;
-const makeKafka=name=>new Kafka({kafkaJS:{brokers,clientId:name,logLevel:logLevel.ERROR}});
+const makeKafka=name=>new Kafka({...operatorTls(),kafkaJS:{brokers,clientId:name,logLevel:logLevel.ERROR}});
 const pool=new pg.Pool({...config,max:6});
 const admin=makeKafka('result-tests-admin').admin();
 const producer=resultProducer(makeKafka('result-tests-producer'));

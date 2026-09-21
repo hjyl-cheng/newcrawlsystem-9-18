@@ -1,3 +1,4 @@
+import {operatorTls,secureBrokers} from '../kafka/client.mjs';
 /** Re-send accepted synthetic submissions after/during a controlled rollout; never grants new work. */
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -13,7 +14,7 @@ const privateKey=createPrivateKey(await readFile(new URL('worker-private.pem',di
 assert.equal(process.env.PGDATABASE,'crawler_validation_ingestor');assert.equal(process.env.PGUSER,'crawler');
 const url=process.env.INGESTOR_URL??'http://127.0.0.1:18081';
 const pool=new pg.Pool({max:2});
-const kafka=new sdk.KafkaJS.Kafka({kafkaJS:{brokers:['10.4.4.2:9092','10.4.4.8:9092','10.4.4.5:9092'],clientId:'ingestor-replay-acceptance',logLevel:sdk.KafkaJS.logLevel.ERROR}});
+const kafka=new sdk.KafkaJS.Kafka({...operatorTls(),kafkaJS:{brokers:secureBrokers,clientId:'ingestor-replay-acceptance',logLevel:sdk.KafkaJS.logLevel.ERROR}});
 const producer=resultProducer(kafka),admin=kafka.admin();const positions=[];
 try{
   await producer.connect();await admin.connect();

@@ -1,13 +1,14 @@
+import {operatorTls,secureBrokers} from './client.mjs';
 import {readFile} from 'node:fs/promises';
 import {setTimeout as delay} from 'node:timers/promises';
 import sdk from '@confluentinc/kafka-javascript';
 const {Kafka,logLevel}=sdk.KafkaJS;
 
-const brokers=process.env.KAFKA_BROKERS?.split(',').filter(Boolean);
+const brokers=process.env.KAFKA_BROKERS?.split(',').filter(Boolean)??secureBrokers;
 if(!brokers?.length)throw new Error('KAFKA_BROKERS is required');
 const spec=JSON.parse(await readFile(new URL('../../infra/kafka/validation-results.json',import.meta.url),'utf8'));
 if(spec.topic!=='crawler.results.validation.v1')throw new Error('This provisioner only owns the validation result topic');
-const admin=new Kafka({kafkaJS:{clientId:'provision-validation-results',brokers,logLevel:logLevel.ERROR}}).admin();
+const admin=new Kafka({...operatorTls(),kafkaJS:{clientId:'provision-validation-results',brokers,logLevel:logLevel.ERROR}}).admin();
 try{
   await admin.connect();
   const exists=(await admin.listTopics()).includes(spec.topic);

@@ -1,9 +1,10 @@
+import {operatorTls,secureBrokers} from '../kafka/client.mjs';
 import sdk from '@confluentinc/kafka-javascript';
 import {setTimeout as delay} from 'node:timers/promises';
 const {Kafka,logLevel}=sdk.KafkaJS;
 const [runId,countText,timeoutText='360000']=process.argv.slice(2),target=Number(countText),timeout=Number(timeoutText);
 if(!/^[a-f0-9]{32}$/.test(runId)||!Number.isSafeInteger(target)||target<1||!Number.isSafeInteger(timeout)||timeout<1000||timeout>1800000)throw Error('Invalid probe arguments');
-const consumer=new Kafka({kafkaJS:{clientId:'cdc-probe',brokers:['10.4.4.2:9092','10.4.4.8:9092','10.4.4.5:9092'],logLevel:logLevel.NOTHING}}).consumer({kafkaJS:{groupId:'cdc-probe-'+runId,fromBeginning:true,autoCommit:false}});
+const consumer=new Kafka({...operatorTls(),kafkaJS:{clientId:'cdc-probe',brokers:secureBrokers,logLevel:logLevel.NOTHING}}).consumer({kafkaJS:{groupId:'cdc-probe-'+runId,fromBeginning:true,autoCommit:false}});
 const ids=new Set();let error,duplicates=0;
 try{
  await consumer.connect();await consumer.subscribe({topics:['crawler.publication.validation.v1']});

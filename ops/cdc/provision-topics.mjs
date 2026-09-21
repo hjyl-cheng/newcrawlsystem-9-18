@@ -1,8 +1,9 @@
+import {operatorTls,secureBrokers} from '../kafka/client.mjs';
 // Infrastructure-only topics; production publication topics are not created here.
 import {setTimeout as delay} from 'node:timers/promises';
 import sdk from '@confluentinc/kafka-javascript';
 const {Kafka,logLevel}=sdk.KafkaJS;
-const kafka=new Kafka({kafkaJS:{clientId:'cdc-provision',brokers:['10.4.4.2:9092','10.4.4.8:9092','10.4.4.5:9092'],logLevel:logLevel.NOTHING}});
+const kafka=new Kafka({...operatorTls(),kafkaJS:{clientId:'cdc-provision',brokers:secureBrokers,logLevel:logLevel.NOTHING}});
 const admin=kafka.admin();
 const specs=[['crawl.connect.validation.configs',1,'compact'],['crawl.connect.validation.offsets',3,'compact'],['crawl.connect.validation.status',3,'compact'],['crawler.publication.validation.v1',3,'delete'],['__debezium-heartbeat.crawl_cdc_validation',1,'compact']];
 try {

@@ -1,3 +1,4 @@
+import {operatorTls,secureBrokers} from './client.mjs';
 // Small, destructive-to-one-service infrastructure drill; never targets business topic data.
 // Run only in an authorized maintenance window: node ops/kafka/verify-broker-failover.mjs --execute
 import assert from 'node:assert/strict';
@@ -17,7 +18,7 @@ const strictTopic = `crawler.infra.strict-isr.${id}`;
 const unit = `crawl-kafka-recover-${id}`;
 const evidencePath = `ops/checks/kafka-failover-${id}.json`;
 const {Kafka, logLevel} = sdk.KafkaJS;
-const kafka = new Kafka({kafkaJS:{brokers:Object.values(nodes).map(ip=>`${ip}:9092`),
+const kafka = new Kafka({...operatorTls(),kafkaJS:{brokers:secureBrokers,
   clientId:`infra-${id}`, logLevel:logLevel.NOTHING}});
 const admin = kafka.admin();
 const producer = kafka.producer({'message.timeout.ms':30000,
@@ -60,7 +61,7 @@ async function waitIsr(n, names=[topic,strictTopic]) {
   });
 }
 async function quorum(ip) {
-  const raw = await ssh(ip,`sudo -u kafka /opt/kafka/bin/kafka-metadata-quorum.sh --bootstrap-server ${ip}:9092 describe --status`);
+  const raw = await ssh(ip,`sudo -u kafka /opt/kafka/bin/kafka-metadata-quorum.sh --bootstrap-server ${ip}:9094 --command-config /etc/kafka/tls/node-client.properties describe --status`);
   const leader=Number(raw.match(/^LeaderId:\s+(\d+)/m)?.[1]);
   assert.ok(nodes[leader], 'Unknown quorum leader');
   return {leader,raw};

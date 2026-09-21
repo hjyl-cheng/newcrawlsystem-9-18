@@ -1,9 +1,10 @@
+import {operatorTls,secureBrokers} from './client.mjs';
 // Read-only, on-demand inspection. Not a scheduled monitor or alert delivery service.
 import sdk from '@confluentinc/kafka-javascript';
 const {Kafka,logLevel}=sdk.KafkaJS;
 const topic='crawler.results.validation.v1', groupId='crawler-results-apply-validation-v1';
-const kafka=new Kafka({kafkaJS:{clientId:'infra-kafka-health',
-  brokers:['10.4.4.2:9092','10.4.4.8:9092','10.4.4.5:9092'],logLevel:logLevel.NOTHING}});
+const kafka=new Kafka({...operatorTls(),kafkaJS:{clientId:'infra-kafka-health',
+  brokers:secureBrokers,logLevel:logLevel.NOTHING}});
 const admin=kafka.admin();
 try {
   await admin.connect();
