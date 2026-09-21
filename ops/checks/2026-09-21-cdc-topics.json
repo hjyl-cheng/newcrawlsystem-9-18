@@ -1,0 +1,35 @@
+{
+  "status": "PASSED",
+  "topics": [
+    {
+      "name": "crawl.connect.validation.configs",
+      "partitions": 1,
+      "replication": 3,
+      "minISR": 2
+    },
+    {
+      "name": "crawl.connect.validation.offsets",
+      "partitions": 3,
+      "replication": 3,
+      "minISR": 2
+    },
+    {
+      "name": "crawl.connect.validation.status",
+      "partitions": 3,
+      "replication": 3,
+      "minISR": 2
+    },
+    {
+      "name": "crawler.publication.validation.v1",
+      "partitions": 3,
+      "replication": 3,
+      "minISR": 2
+    },
+    {
+      "name": "__debezium-heartbeat.crawl_cdc_validation",
+      "partitions": 1,
+      "replication": 3,
+      "minISR": 2
+    }
+  ]
+}
