@@ -12,7 +12,7 @@ node ops/kafka/check-health.mjs
 
 该脚本只读：检查全部 Topic leader/三副本 ISR、验证消费者成员、每分区保留起点/已提交 offset/末尾 offset/lag。未知 offset 不伪装为 0；已提交 offset 落到保留起点之前会报错。不收集业务正文或凭据。
 
-这是一次性巡检，不是已部署的监控系统，不判断 lag 的持续时间或生产吞吐目标。KRaft quorum 另在任一健康 S 节点运行：
+该脚本是一次性巡检，不判断 lag 的持续时间或生产吞吐目标。另已部署双 Prometheus、Kafka exporter、平台内告警与集中日志；参见 `ops/monitoring/`。KRaft quorum 另在任一健康 S 节点运行：
 
 ```sh
 sudo -u kafka /opt/kafka/bin/kafka-metadata-quorum.sh --bootstrap-server 10.4.4.2:9092 describe --status
@@ -41,11 +41,12 @@ minISR=3 测试是在仅停一台时人为提高专用测试队列要求，验�
 | 队列 | 当前保留条件 | 边界 |
 |---|---|---|
 | crawler.results.validation.v1 | retention.ms=604800000；retention.bytes=134217728/分区；segment.bytes=16 MiB；segment.ms=1 小时 | 时间或大小任一条件触发即可清理；128 MiB 是验证期配置，不保证 7 天，删除按段且可能延迟 |
-| crawler.publication.v1 | 继承 168 小时时间保留，默认无 retention.bytes 上限；segment.bytes=1 GiB | CDC 尚未部署，未来积压可占满磁盘；不能把当前空队列作为容量验收 |
+| crawler.publication.v1 | 继承 168 小时时间保留，默认无 retention.bytes 上限；segment.bytes=1 GiB | 预留正式队列，正式 Publication 尚未开发；不能把空队列作为容量验收 |
+| crawler.publication.validation.v1 | CDC 验证队列，配置源 `ops/cdc/provision-topics.mjs` | 双 Connect / Debezium 已接通 PG failover logical slot；独立验证，不代表正式发布业务完成 |
 
 结果消费者发现保留缺口必须明确报错并走恢复流程，不能直接跳到最新。Kafka 三份副本用于可用性，删除操作也会复制；PG 备份不包含 Kafka 中尚未入库的结果。现有 control backup 只覆盖 Kafka 配置，不备份实时日志目录。整个集群丢失时恢复未入库消息的路径尚未验收；Worker 结果重放/Journal 方案仍需单独完成，不引入 SQLite。
 
-监控阶段至少补齐：
+监控与运行验收需要持续覆盖以下边界（现有 exporter/主机探针与告警不等于全部完成）：
 
 - 无 leader、ISR 低于 minISR、KRaft 失去多数派、备份失败：严重异常。
 - 三副本下降为二副本：可用但降级，需及时恢复第三副本。
@@ -53,4 +54,4 @@ minISR=3 测试是在仅停一台时人为提高专用测试队列要求，验�
 - 磁盘剩余空间和增长速度、JVM 内存/GC、服务重启与生产失败率。
 - 监控采样过期本身也是异常；全局采集准入需响应入库积压和保留风险，不能等数据删掉后才减速。
 
-告警持续窗口/阈值需根据采样频率和实际流量冻结，定时抓取、告警触发/解除和下游背压尚未部署验收。当前仍为内网 PLAINTEXT，SASL/TLS/ACL 待安全阶段补齐；消息签名不能代替 Broker 访问控制。
+定时抓取及平台内告警触发/解除已验证；外部通知、生产阈值、最老待处理消息年龄和完整业务背压仍待。当前应用与内部连接仍使用9092/9093 PLAINTEXT；2026-09-21 已增加9094双向TLS兼容入口，跨机端口尚待放通，客户端/副本迁移、控制器加密与ACL尚未完成。步骤和回滚见 [SECURITY-MIGRATION.md](SECURITY-MIGRATION.md)。消息签名不能代替 Broker 访问控制。

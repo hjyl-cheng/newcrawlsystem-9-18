@@ -1,0 +1,20 @@
+{
+  "0": {
+    "targets": 14,
+    "allUp": true,
+    "firing": [
+      "SeaweedContinuousBackupPending",
+      "LogEventsDiscarded",
+      "LogEventsDiscarded"
+    ]
+  },
+  "1": {
+    "targets": 14,
+    "allUp": true,
+    "firing": [
+      "SeaweedContinuousBackupPending",
+      "LogEventsDiscarded",
+      "LogEventsDiscarded"
+    ]
+  }
+}

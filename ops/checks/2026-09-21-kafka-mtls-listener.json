@@ -1,0 +1,4186 @@
+{
+  "startedAt": "2026-09-21T06:15:01.525580+00:00",
+  "status": "LISTENER_STAGED",
+  "nodes": {
+    "s2": {
+      "tlsLocalApi": {
+        "TLSv1_2": {
+          "tls": "TLSv1.2",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "TLSv1_3": {
+          "tls": "TLSv1.3",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "wrongServerName": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "untrustedServer": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "missingClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
+        },
+        "untrustedClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+        }
+      },
+      "recovered": {
+        "health": {
+          "checkedAt": "2026-09-21T06:15:10.622Z",
+          "status": "PASS",
+          "topics": [
+            {
+              "topic": "crawl.connect.validation.configs",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__debezium-heartbeat.crawl_cdc_validation",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.status",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__consumer_offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 3,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 4,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 5,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 6,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 7,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 8,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 9,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 10,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 11,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 12,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 13,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 14,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 15,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 16,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 17,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 18,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 19,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 20,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 21,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 22,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 23,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 24,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 25,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 26,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 27,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 28,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 29,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 30,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 31,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 32,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 33,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 34,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 35,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 36,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 37,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 38,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 39,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 40,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 41,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 42,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 43,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 44,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 45,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 46,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 47,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 48,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 49,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            }
+          ],
+          "consumer": {
+            "groupId": "crawler-results-apply-validation-v1",
+            "members": 2,
+            "partitions": [
+              {
+                "partition": 0,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 1,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 2,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              }
+            ]
+          },
+          "problems": [],
+          "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+        },
+        "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               1\nLeaderEpoch:            46\nHighWatermark:          478702\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   0\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+      }
+    },
+    "s3": {
+      "tlsLocalApi": {
+        "TLSv1_2": {
+          "tls": "TLSv1.2",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "TLSv1_3": {
+          "tls": "TLSv1.3",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "wrongServerName": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "untrustedServer": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "missingClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
+        },
+        "untrustedClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+        }
+      },
+      "recovered": {
+        "health": {
+          "checkedAt": "2026-09-21T06:15:38.128Z",
+          "status": "PASS",
+          "topics": [
+            {
+              "topic": "crawl.connect.validation.configs",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__debezium-heartbeat.crawl_cdc_validation",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.status",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__consumer_offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 3,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 4,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 5,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 6,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 7,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 8,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 9,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 10,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 11,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 12,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 13,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 14,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 15,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 16,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 17,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 18,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 19,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 20,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 21,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 22,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 23,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 24,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 25,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 26,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 27,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 28,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 29,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 30,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 31,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 32,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 33,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 34,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 35,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 36,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 37,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 38,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 39,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 40,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 41,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 42,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 43,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 44,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 45,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 46,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 47,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 48,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 49,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 1,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 1,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
+            }
+          ],
+          "consumer": {
+            "groupId": "crawler-results-apply-validation-v1",
+            "members": 2,
+            "partitions": [
+              {
+                "partition": 0,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 1,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 2,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              }
+            ]
+          },
+          "problems": [],
+          "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+        },
+        "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               1\nLeaderEpoch:            46\nHighWatermark:          478898\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   0\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+      }
+    },
+    "s1": {
+      "tlsLocalApi": {
+        "TLSv1_2": {
+          "tls": "TLSv1.2",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "TLSv1_3": {
+          "tls": "TLSv1.3",
+          "apiVersions": 61,
+          "certificateVerified": true
+        },
+        "wrongServerName": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "untrustedServer": {
+          "rejected": true,
+          "reason": "CERTIFICATE_VERIFY_FAILED"
+        },
+        "missingClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_HANDSHAKE_FAILURE"
+        },
+        "untrustedClientCertificate": {
+          "rejected": true,
+          "reason": "SSLV3_ALERT_CERTIFICATE_UNKNOWN"
+        }
+      },
+      "recovered": {
+        "health": {
+          "checkedAt": "2026-09-21T06:16:03.109Z",
+          "status": "PASS",
+          "topics": [
+            {
+              "topic": "crawl.connect.validation.configs",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__debezium-heartbeat.crawl_cdc_validation",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.results.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.status",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.validation.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawler.publication.v1",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "__consumer_offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 3,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 4,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 5,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 6,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 7,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 8,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 9,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 10,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 11,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 12,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 13,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 14,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 15,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 16,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 17,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 18,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 19,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 20,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 21,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 22,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 23,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 24,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 25,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 26,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 27,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 28,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 29,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 30,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 31,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 32,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 33,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 34,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 35,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 36,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 37,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 38,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 39,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 40,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 41,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 42,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 43,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 44,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 45,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 46,
+                  "leader": 2,
+                  "replicas": [
+                    3,
+                    2,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 47,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 48,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    1,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 49,
+                  "leader": 3,
+                  "replicas": [
+                    1,
+                    3,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            },
+            {
+              "topic": "crawl.connect.validation.offsets",
+              "partitions": [
+                {
+                  "partition": 0,
+                  "leader": 2,
+                  "replicas": [
+                    2,
+                    3,
+                    1
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 1,
+                  "leader": 3,
+                  "replicas": [
+                    3,
+                    1,
+                    2
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                },
+                {
+                  "partition": 2,
+                  "leader": 2,
+                  "replicas": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "isr": [
+                    2,
+                    3,
+                    1
+                  ]
+                }
+              ]
+            }
+          ],
+          "consumer": {
+            "groupId": "crawler-results-apply-validation-v1",
+            "members": 2,
+            "partitions": [
+              {
+                "partition": 0,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 1,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              },
+              {
+                "partition": 2,
+                "offset": "66",
+                "high": "66",
+                "low": "0",
+                "committed": "66",
+                "lag": "0",
+                "retentionGap": false
+              }
+            ]
+          },
+          "problems": [],
+          "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+        },
+        "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               2\nLeaderEpoch:            47\nHighWatermark:          479086\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   364\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+      }
+    }
+  },
+  "scope": "Additional broker mTLS listener only; existing 9092/9093 and ACL migration pending",
+  "before": {
+    "health": {
+      "checkedAt": "2026-09-21T06:15:01.668Z",
+      "status": "PASS",
+      "topics": [
+        {
+          "topic": "crawl.connect.validation.configs",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__debezium-heartbeat.crawl_cdc_validation",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.results.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.status",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.validation.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawler.publication.v1",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "__consumer_offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 3,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 4,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 5,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 6,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 7,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 8,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 9,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 10,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 11,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 12,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 13,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 14,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 15,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 16,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 17,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 18,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 19,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 20,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 21,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 22,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 23,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 24,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 25,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 26,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 27,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 28,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 29,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 30,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 31,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 32,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 33,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 34,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 35,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 36,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 37,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 38,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 39,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 40,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 41,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 42,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 43,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 44,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 45,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 46,
+              "leader": 3,
+              "replicas": [
+                3,
+                2,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 47,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 48,
+              "leader": 2,
+              "replicas": [
+                2,
+                1,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 49,
+              "leader": 1,
+              "replicas": [
+                1,
+                3,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        },
+        {
+          "topic": "crawl.connect.validation.offsets",
+          "partitions": [
+            {
+              "partition": 0,
+              "leader": 2,
+              "replicas": [
+                2,
+                3,
+                1
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 1,
+              "leader": 3,
+              "replicas": [
+                3,
+                1,
+                2
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "partition": 2,
+              "leader": 1,
+              "replicas": [
+                1,
+                2,
+                3
+              ],
+              "isr": [
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      ],
+      "consumer": {
+        "groupId": "crawler-results-apply-validation-v1",
+        "members": 4,
+        "partitions": [
+          {
+            "partition": 0,
+            "offset": "66",
+            "high": "66",
+            "low": "0",
+            "committed": "66",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 1,
+            "offset": "66",
+            "high": "66",
+            "low": "0",
+            "committed": "66",
+            "lag": "0",
+            "retentionGap": false
+          },
+          {
+            "partition": 2,
+            "offset": "66",
+            "high": "66",
+            "low": "0",
+            "committed": "66",
+            "lag": "0",
+            "retentionGap": false
+          }
+        ]
+      },
+      "problems": [],
+      "scope": "Point-in-time topic ISR and result-consumer offsets; does not check quorum, disks, lag age, TLS, backups or deliver alerts"
+    },
+    "quorum": "ClusterId:              cx9KTyt4dVjFvyvSx9P9ig\nLeaderId:               1\nLeaderEpoch:            46\nHighWatermark:          478685\nMaxFollowerLag:         0\nMaxFollowerLagTimeMs:   0\nCurrentVoters:          [{\"id\": 1, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.2:9093\"]}, {\"id\": 2, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.8:9093\"]}, {\"id\": 3, \"directoryId\": null, \"endpoints\": [\"CONTROLLER://10.4.4.5:9093\"]}]\nCurrentObservers:       []\n"
+  },
+  "finishedAt": "2026-09-21T06:16:07.987606+00:00"
+}

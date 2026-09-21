@@ -5,6 +5,12 @@ NODE_IP="${2:?usage: $0 NODE_ID NODE_IP CLUSTER_ID}"
 CLUSTER_ID="${3:?usage: $0 NODE_ID NODE_IP CLUSTER_ID}"
 case "$NODE_ID" in 1|2|3) ;; *) echo 'NODE_ID must be 1, 2, or 3' >&2; exit 2;; esac
 
+# Bootstrap only: never overwrite a running cluster's TLS/ACL or storage identity.
+if sudo test -e /etc/kafka/server.properties || sudo test -e /srv/crawlsystem/kafka/logs/meta.properties; then
+  echo 'Existing Kafka configuration/storage found; use the reviewed rolling migration procedure.' >&2
+  exit 1
+fi
+
 KAFKA_VERSION=3.9.1
 KAFKA_HOME=/opt/kafka
 KAFKA_ARCHIVE="kafka_2.13-${KAFKA_VERSION}.tgz"
