@@ -15,3 +15,5 @@
 原始证据：`2026-09-21-cdc-guard-deploy.json`、`2026-09-21-cdc-guard-failover.json`、`2026-09-21-cdc-guard-health.json`、`2026-09-21-cdc-guard-kafka-health.json`。算法、维护及回滚见 `ops/cdc/HA-GUARD.md`。
 
 收尾检查见 `2026-09-21-cdc-guard-final-state.json`：三机安装源码 SHA256 与仓库一致，三个 guard 正常，临时槽与测试防火墙规则均已清理；无 leader 锁的备库直接调用晋升检查被拒绝。S2 自动接管与返回 S1 的两次实际 Patroni 日志均确认调用 hook 并通过。7 个 Argo 应用健康；切换到时间线 14 后 WAL 归档检查及差异备份 `20260920-172412F_20260921-111029D` 成功（13.1 MB）。
+
+收尾加密配置备份 `control-20260921T031727Z.tar.gpg` 已保存 A1/S2，密文 SHA256 一致（`7150eb299f79609936b6b56970166584290eed6a13ef7762fee6295f1591a97a`），源码版本 `2ec69c9`。包含当前 etcd 候选政策和六节点配置/受保护凭据；guard 程序按该 Git 版本安装，不等同 Kafka 数据或 CDC 联合灾备。证据见 `2026-09-21-cdc-guard-control-backup.json`。

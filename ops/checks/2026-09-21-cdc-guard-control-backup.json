@@ -1,0 +1,24 @@
+{
+  "status": "PASSED",
+  "file": "control-20260921T031727Z.tar.gpg",
+  "sha256": "7150eb299f79609936b6b56970166584290eed6a13ef7762fee6295f1591a97a",
+  "bytes": 25305975,
+  "copies": [
+    "a1",
+    "s2"
+  ],
+  "etcdSnapshot": {
+    "hash": 641233035,
+    "revision": 465725,
+    "totalKey": 1876,
+    "totalSize": 13623296
+  },
+  "pgEtcdSnapshot": {
+    "hash": 1857837273,
+    "revision": 49720,
+    "totalKey": 4477,
+    "totalSize": 2174976
+  },
+  "sourceRevision": "2ec69c9963ac1313a48c586da735ddefc28df63f",
+  "scope": "Encrypted etcd policy, node configuration and credentials; source program restored from pinned Git revision; not Kafka data/offset disaster recovery"
+}
