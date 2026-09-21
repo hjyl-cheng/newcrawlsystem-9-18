@@ -1,0 +1,34 @@
+{
+  "control": {
+    "status": "PASSED",
+    "file": "control-20260921T080105Z.tar.gpg",
+    "sha256": "ed485ede7e65f7761299693947fd8dd68482d58a940d62d49718ed9156aab2b7",
+    "bytes": 25528126,
+    "copies": [
+      "a1",
+      "s2"
+    ],
+    "etcdSnapshot": {
+      "hash": 140720236,
+      "revision": 501806,
+      "totalKey": 1784,
+      "totalSize": 13623296
+    },
+    "pgEtcdSnapshot": {
+      "hash": 3184086113,
+      "revision": 63402,
+      "totalKey": 3590,
+      "totalSize": 2179072
+    }
+  },
+  "sourceRevision": "6b899a9e980019697a1f05aebe9faf89d2db1f4b",
+  "verification": {
+    "manifestHashes": "all matched",
+    "crossHostCiphertext": "A1/S2 matched",
+    "kafkaConfigs": "three SECURE listeners; old transports explicitly retained",
+    "nodeKeysCertificates": "all match, protected permissions",
+    "operatorCAAndKey": "present and matched; CA private key absent from host Kafka directories",
+    "applicationKeysCertificates": "ingestor/connect/monitoring all present and matched"
+  },
+  "scope": "Configuration/identity recoverability only, not live Kafka messages or joint PG/Kafka disaster recovery"
+}
