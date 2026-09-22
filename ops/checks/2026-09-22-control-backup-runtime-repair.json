@@ -1,6 +1,6 @@
 {
   "checkedAt": "2026-09-22T11:05:00+08:00",
-  "status": "IN_PROGRESS",
+  "status": "PASSED",
   "trigger": "containerd 2.4 ctr run requires an argument boundary and its bind-mount path failed with the existing backup tool container invocation",
   "replacement": {
     "component": "official etcd release binaries",
@@ -11,9 +11,24 @@
   },
   "archiveSizeFinding": {
     "previousBytes": 648706993,
+    "currentBytes": 30596954,
     "cause": "each A node had about 2.3 GiB under /etc/kubernetes/tmp, primarily six kubeadm-backup-etcd directories from the sequential Kubernetes upgrades",
     "action": "back up explicit current recovery files and exclude kubeadm temporary upgrade backups",
     "deletion": "none; existing encrypted archives and host temporary backups remain available"
   },
-  "verification": "pending fresh backup and isolated restore"
+  "backup": {
+    "file": "control-20260922T031520Z.tar.gpg",
+    "sha256": "c875ce1e0cecf6166e3758e4e9c65b999e951de2de42f7d76b91053626d64271",
+    "copies": ["a1", "s2"],
+    "kubernetesEtcdVersion": "3.7.0"
+  },
+  "isolatedRestore": {
+    "status": "PASSED",
+    "filesVerified": 9,
+    "kubernetesRegistryKeys": 817,
+    "kubernetesSecretKeys": 20,
+    "kubernetesDeploymentKeys": 18,
+    "pgCoordinationKeys": 11,
+    "pgAuthenticationRestored": true
+  }
 }
