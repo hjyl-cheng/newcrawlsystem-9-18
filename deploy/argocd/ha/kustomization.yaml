@@ -6,15 +6,15 @@ resources:
 - availability.yaml
 images:
 - name: quay.io/argoproj/argocd
-  digest: sha256:17c471916f3e14c01c599a534944c83a7905c1ba42a486e4ef9b87f58c788658
+  digest: sha256:dd3f47d5a5e4da563a7a398506e892481b358a7cec50abdf320c71aa55904bfa
 - name: ghcr.io/dexidp/dex
-  digest: sha256:bc7cfce7c17f52864e2bb2a4dc1d2f86a41e3019f6d42e81d92a301fad0c8a1d
+  digest: sha256:8499afd690c437f52301efd2b05b2455da5bd2dfc20332cd697dc9937f808462
 - name: public.ecr.aws/docker/library/redis
   newName: docker.io/library/redis
-  digest: sha256:c9d92d840fd011c908f040592857c724ae6d877f2aba5c40ad963276507386b2
+  digest: sha256:08ad0b1d280850169a790dba1393ff7a90aef951fc19632cf4d3ce4f78e679ba
 - name: public.ecr.aws/docker/library/haproxy
   newName: docker.io/library/haproxy
-  digest: sha256:14772bafca418146ade0acba20ebb17a06ac2ad720a93baa6d6792ce1e0f57d9
+  digest: sha256:e11f034e651603f10a365e5ad5a0321825e18eded9620e40c4f4d6ae58419bfe
 patches:
 - target:
     kind: Deployment

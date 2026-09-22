@@ -1,22 +1,33 @@
 # Argo CD 验证部署
 
-2026-09-20 更新：当前以 `deploy/argocd/ha` 官方 HA overlay 为准，入口/副本/恢复边界见 `ops/kubernetes-ha/README.md`。下文旧单机安装命令仅保留为首次安装历史，不要再用于覆盖已部署的 HA 配置。发布控制器仍是官方稳定方案的单活组件，整机失联接管需先完成旧节点隔离。
+2026-09-22 更新：当前以 `deploy/argocd/ha` 中的 Argo CD 3.5.3 官方 HA overlay 为准，入口、副本和恢复边界见 `ops/kubernetes-ha/README.md`。镜像全部固定到现场验收过的 digest。
 
-Argo CD 固定部署到 `argocd` 命名空间。官方安装清单本身不创建命名空间，因此必须先执行：
+Argo CD 固定部署到 `argocd` 命名空间。部署和恢复使用 server-side apply，并沿用固定字段管理者：
 
 ```bash
 kubectl apply -f deploy/argocd/namespace.yaml
-kubectl apply -n argocd -f deploy/argocd/argo-cd-v2.13.5-install.yaml
+kubectl apply --server-side \
+  --field-manager=crawl-argocd-ha \
+  -k deploy/argocd/ha
 ```
 
 检查：
 
 ```bash
-kubectl get pods -n argocd
-kubectl get pods -n default -l app.kubernetes.io/part-of=argocd
+kubectl rollout status deployment \
+  -n argocd \
+  -l app.kubernetes.io/part-of=argocd \
+  --timeout=300s
+
+kubectl rollout status statefulset \
+  -n argocd \
+  -l app.kubernetes.io/part-of=argocd \
+  --timeout=600s
+
+kubectl get application -n argocd
 ```
 
-第二条命令应当没有资源。生产环境再将 Argo CD 的副本、持久化、入口和 Secret 纳入对应 overlay。
+`kubectl rollout status` 没有 `--all` 参数；同一类型的全部资源使用 `-l/--selector`。Deployment 与 StatefulSet 必须分别检查。
 
 ## 新仓库 GitOps 验证
 
