@@ -938,9 +938,15 @@ spec:
           failureThreshold: 6
         args:
         - --config.file=/config/postgres-exporter.yaml
+        - --no-collector.database
+        - --no-collector.locks
         - --no-collector.stat_user_tables
         - --no-collector.statio_user_tables
+        - --no-collector.stat_database
         - --no-collector.stat_progress_vacuum
+        - --no-collector.stat_bgwriter
+        - --no-collector.stat_archiver
+        - --no-collector.wal
         - --no-collector.database_wraparound
         env:
         - name: DATA_SOURCE_URI
