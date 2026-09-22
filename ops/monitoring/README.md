@@ -10,6 +10,7 @@
 - Grafana 两副本：复用现有 PG HA 的独立逻辑数据库 `crawler_grafana`，专用最小权限角色；通过稳定入口 5432 连接，避开事务池的迁移锁问题。面板/数据源由 Git 配置；SQLite 未启用。数据库连接已使用 verify-full TLS，校验专用 CA 与稳定入口名称；三台 PG 均拒绝 Grafana 角色明文连接。
 - kube-state-metrics、Kafka exporter、只读 HTTP 探针各两副本。副本互斥分散到 A 节点。所有容器有资源上限，镜像 tag/digest 固定在 `images.json`。
 - JSON Exporter 0.8.0 与 Blackbox Exporter 0.28.0 各两副本，只读对照 Connect 状态和 Ingestor 健康接口。它们尚未接替 `infra-exporter` 的告警。JSON Exporter 0.8.0 统计数组中的任务对象，不能把响应里的状态字符串直接映射成数值。
+- postgres_exporter 0.20.1 两副本，只读对照主库复制、槽位、活动和设置。专用角色 `crawl_pg_exporter` 只有 `pg_monitor`，经稳定入口 verify-full 连接 `postgres`；来源限定三台应用节点。它不采集业务库和 WAL 目录，也不接替 `crawl_pg_*` 告警。角色和 HBA 由 `prepare-pg-exporter.py` 建立，密码留在 `secrets/monitoring/pg-exporter-password`。
 
 配置源：`render.py` → `deploy/base/monitoring` → validation overlay → 独立 Argo Project/Application。监控应用仅管理 `crawl-monitoring`，不能修改集群级 RBAC/PV。`cluster-resources.yaml` 的本地 PV/StorageClass/只读 KSM RBAC 由运维显式引导。Secrets 不入 Git。
 
