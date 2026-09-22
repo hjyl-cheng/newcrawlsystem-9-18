@@ -20,6 +20,14 @@ spec:
             matchLabels: {kubernetes.io/metadata.name: crawl-monitoring}
           podSelector:
             matchLabels: {app: infra-exporter}
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: crawl-monitoring}
+          podSelector:
+            matchLabels: {app: json-exporter}
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: crawl-monitoring}
+          podSelector:
+            matchLabels: {app: blackbox-exporter}
       ports:
         - {protocol: TCP, port: 8080}
   egress:

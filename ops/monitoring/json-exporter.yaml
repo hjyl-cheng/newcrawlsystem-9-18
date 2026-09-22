@@ -12,15 +12,14 @@ modules:
         UNASSIGNED: 0
         RESTARTING: 0
         STOPPED: 0
-    - name: crawl_json_connect_tasks
+    - name: crawl_json_connect_task_running
       type: object
       path: '{.tasks[*]}'
-      help: Kafka Connect task states
+      help: One when a Kafka Connect task reports RUNNING
       labels:
         task_id: '{.id}'
-        state: '{.state}'
       values:
-        present: 1
+        '{.state}': 1
   ingestor_ready:
     metrics:
     - name: crawl_json_ingestor_ready
