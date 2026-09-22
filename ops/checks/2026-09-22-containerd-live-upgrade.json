@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-09-22T09:50:00+08:00",
+  "status": "PASSED",
+  "upgradePath": ["2.2.1", "2.3.5", "2.4.0"],
+  "artifacts": {
+    "containerd": {
+      "version": "2.4.0",
+      "sha256": "b30cb53c6a212fcf3c3ac384db280c0e09be5a02e547f7f73cc27c62cbe2d8e7",
+      "source": "official GitHub release archive"
+    },
+    "runc": {
+      "version": "1.5.1",
+      "sha256": "177df879d50c913eb205e898d5c1c05a18f574053c0ce5524c471208eaf06f6f",
+      "source": "official GitHub release binary"
+    }
+  },
+  "nodes": [
+    {
+      "name": "a1",
+      "kubernetes": "v1.37.0",
+      "runtime": "containerd://2.4.0",
+      "runc": "1.5.1",
+      "ready": true,
+      "criConditions": {
+        "RuntimeReady": true,
+        "NetworkReady": true,
+        "ContainerdHasNoDeprecationWarnings": true,
+        "SystemdCgroup": true
+      }
+    },
+    {
+      "name": "a2",
+      "kubernetes": "v1.37.0",
+      "runtime": "containerd://2.4.0",
+      "runc": "1.5.1",
+      "ready": true,
+      "criConditions": {
+        "RuntimeReady": true,
+        "NetworkReady": true,
+        "ContainerdHasNoDeprecationWarnings": true,
+        "SystemdCgroup": true
+      }
+    },
+    {
+      "name": "a3",
+      "kubernetes": "v1.37.0",
+      "runtime": "containerd://2.4.0",
+      "runc": "1.5.1",
+      "ready": true,
+      "criConditions": {
+        "RuntimeReady": true,
+        "NetworkReady": true,
+        "ContainerdHasNoDeprecationWarnings": true,
+        "SystemdCgroup": true
+      }
+    }
+  ],
+  "clusterGates": {
+    "allNonCompletedPodsReady": true,
+    "argoApplications": "8/8 Synced and Healthy",
+    "applicationControllerPdbMinAvailable": 1,
+    "crossNodePodServiceDnsAndStorageReachability": "passed from A1, A2 and A3",
+    "networkPolicy": "an untrusted Redis source timed out; an allowed temporary identity reached the Service and both HAProxy endpoints 100/100; temporary Pod removed",
+    "kubernetesEtcd": "3/3 version 3.7.0, storage 3.7.0, matching revision 669988 and applied index 962420",
+    "argoRedis": {
+      "service": "100/100 authenticated PING",
+      "haproxyEndpoint1": "100/100 authenticated PING",
+      "haproxyEndpoint2": "100/100 authenticated PING"
+    },
+    "postgresql": "S1 leader, S2 synchronous standby, S3 replica; both replay lags 0",
+    "kafka": "PASS; all inspected partitions had three ISR and result consumer lag was 0 on all three partitions",
+    "seaweedfs": "S1 leader, S2/S3 peers, all three volume nodes present"
+  },
+  "configurationOwnership": {
+    "method": "Ansible",
+    "playbook": "ops/ansible/playbooks/container-runtime.yml",
+    "systemdDropIn": "/etc/systemd/system/containerd.service.d/10-crawl-runtime.conf",
+    "binaryPaths": ["/usr/local/bin/containerd", "/usr/local/sbin/runc"],
+    "idempotence": "A1/A2/A3 second run: changed=0, unreachable=0, failed=0"
+  },
+  "limits": [
+    "This closes the container runtime batch. It does not claim that Argo CD or the remaining application components have already been upgraded."
+  ]
+}

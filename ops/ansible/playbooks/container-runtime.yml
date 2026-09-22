@@ -1,0 +1,184 @@
+---
+- name: Manage the Kubernetes container runtime from verified upstream releases
+  hosts: application
+  gather_facts: false
+  serial: 1
+  any_errors_fatal: true
+  vars:
+    containerd_version: 2.4.0
+    containerd_archive_sha256: b30cb53c6a212fcf3c3ac384db280c0e09be5a02e547f7f73cc27c62cbe2d8e7
+    runc_version: 1.5.1
+    runc_sha256: 177df879d50c913eb205e898d5c1c05a18f574053c0ce5524c471208eaf06f6f
+    runtime_cache_dir: /var/cache/crawlsystem/runtime
+    runtime_release_dir: /opt/crawlsystem/runtime/containerd-{{ containerd_version }}
+    containerd_binaries:
+      - containerd
+      - containerd-shim-runc-v2
+      - ctr
+      - containerd-stress
+
+  tasks:
+    - name: Confirm the existing containerd v3 configuration is compatible
+      ansible.builtin.command: /usr/local/bin/containerd config dump
+      changed_when: false
+      register: containerd_config
+
+    - name: Require systemd cgroups and the Kubernetes pause image
+      ansible.builtin.assert:
+        that:
+          - "'SystemdCgroup = true' in containerd_config.stdout"
+          - "'registry.k8s.io/pause:3.10.1' in containerd_config.stdout"
+        fail_msg: Refusing to replace the runtime until its existing CRI configuration is compatible.
+
+    - name: Create versioned runtime staging directories
+      ansible.builtin.file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      loop:
+        - '{{ runtime_cache_dir }}'
+        - '{{ runtime_release_dir }}'
+        - /etc/systemd/system/containerd.service.d
+
+    - name: Download the official containerd archive
+      ansible.builtin.get_url:
+        url: https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-linux-amd64.tar.gz
+        dest: '{{ runtime_cache_dir }}/containerd-{{ containerd_version }}-linux-amd64.tar.gz'
+        checksum: sha256:{{ containerd_archive_sha256 }}
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Expand containerd into its immutable version directory
+      ansible.builtin.unarchive:
+        src: '{{ runtime_cache_dir }}/containerd-{{ containerd_version }}-linux-amd64.tar.gz'
+        dest: '{{ runtime_release_dir }}'
+        remote_src: true
+        creates: '{{ runtime_release_dir }}/bin/containerd'
+
+    - name: Install verified containerd binaries
+      ansible.builtin.copy:
+        src: '{{ runtime_release_dir }}/bin/{{ item }}'
+        dest: /usr/local/bin/{{ item }}
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
+      loop: '{{ containerd_binaries }}'
+      register: containerd_binary_copy
+
+    - name: Download the official runc binary
+      ansible.builtin.get_url:
+        url: https://github.com/opencontainers/runc/releases/download/v{{ runc_version }}/runc.amd64
+        dest: '{{ runtime_cache_dir }}/runc-{{ runc_version }}.amd64'
+        checksum: sha256:{{ runc_sha256 }}
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Install verified runc
+      ansible.builtin.copy:
+        src: '{{ runtime_cache_dir }}/runc-{{ runc_version }}.amd64'
+        dest: /usr/local/sbin/runc
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
+      register: runc_copy
+
+    - name: Select the upstream containerd binary in systemd
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/containerd.service.d/10-crawl-runtime.conf
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          [Service]
+          ExecStart=
+          ExecStart=/usr/local/bin/containerd
+      register: containerd_dropin
+
+    - name: Configure an explicit CRI endpoint for crictl
+      ansible.builtin.copy:
+        dest: /etc/crictl.yaml
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          runtime-endpoint: unix:///run/containerd/containerd.sock
+          image-endpoint: unix:///run/containerd/containerd.sock
+          timeout: 10
+          debug: false
+
+    - name: Reload systemd unit metadata
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: Determine whether the runtime process needs a restart
+      ansible.builtin.set_fact:
+        runtime_restart_required: >-
+          {{
+            (containerd_binary_copy.results | selectattr('changed') | list | length > 0)
+            or runc_copy.changed
+            or containerd_dropin.changed
+          }}
+
+    - name: Restart a changed runtime while the other control-plane nodes remain available
+      when: runtime_restart_required
+      block:
+        - name: Prevent new scheduling on this node
+          ansible.builtin.command: kubectl cordon {{ inventory_hostname }}
+          delegate_to: localhost
+          become: false
+          changed_when: true
+
+        - name: Stop kubelet before replacing the runtime process
+          ansible.builtin.systemd_service:
+            name: kubelet
+            state: stopped
+
+        - name: Restart containerd from the verified binary
+          ansible.builtin.systemd_service:
+            name: containerd
+            state: restarted
+
+        - name: Start kubelet
+          ansible.builtin.systemd_service:
+            name: kubelet
+            state: started
+
+        - name: Wait for Kubernetes to report the node Ready
+          ansible.builtin.command: kubectl wait node/{{ inventory_hostname }} --for=condition=Ready --timeout=180s
+          delegate_to: localhost
+          become: false
+          changed_when: false
+      always:
+        - name: Return the node to normal scheduling
+          ansible.builtin.command: kubectl uncordon {{ inventory_hostname }}
+          delegate_to: localhost
+          become: false
+          changed_when: true
+
+    - name: Read CRI status from the explicit endpoint
+      ansible.builtin.command: crictl info
+      changed_when: false
+      register: cri_info
+
+    - name: Read installed component versions
+      ansible.builtin.command: '{{ item }}'
+      loop:
+        - /usr/local/bin/containerd --version
+        - /usr/local/sbin/runc --version
+      changed_when: false
+      register: runtime_versions
+
+    - name: Require the expected versions and healthy CRI conditions
+      ansible.builtin.assert:
+        that:
+          - "('v' + containerd_version) in runtime_versions.results[0].stdout"
+          - "('runc version ' + runc_version) in runtime_versions.results[1].stdout"
+          - (cri_info.stdout | from_json).config.containerd.runtimes.runc.options.SystemdCgroup
+          - (cri_info.stdout | from_json).status.conditions | rejectattr('status', 'equalto', true) | list | length == 0
+        fail_msg: The node did not return with the expected runtime versions and healthy CRI conditions.

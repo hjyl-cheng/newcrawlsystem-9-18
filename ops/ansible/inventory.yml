@@ -10,7 +10,6 @@ all:
         monitored_units: [kubelet, containerd, crawl-kube-api, crawl-vector]
       hosts:
         a1:
-          ansible_connection: local
           ansible_host: 10.4.4.12
         a2:
           ansible_host: 10.4.4.3
