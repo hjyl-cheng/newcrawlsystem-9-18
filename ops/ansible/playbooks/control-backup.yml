@@ -1,0 +1,100 @@
+---
+- name: Manage the encrypted control-plane backup on A1
+  hosts: a1
+  gather_facts: false
+  any_errors_fatal: true
+  vars:
+    etcd_version: 3.7.0
+    etcd_archive_sha256: b05cb07f5686dab8f9cdab89986b44f0dd24aaf5c627176aff325e21fa56f9f0
+    backup_root: /opt/crawlsystem/backup
+    etcd_release_dir: '{{ backup_root }}/releases/etcd-{{ etcd_version }}'
+
+  tasks:
+    - name: Create backup program and release directories
+      ansible.builtin.file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: root
+        mode: '0750'
+      loop:
+        - '{{ backup_root }}'
+        - '{{ backup_root }}/bin'
+        - '{{ backup_root }}/releases'
+        - '{{ etcd_release_dir }}'
+
+    - name: Download the official etcd release archive
+      ansible.builtin.get_url:
+        url: https://github.com/etcd-io/etcd/releases/download/v{{ etcd_version }}/etcd-v{{ etcd_version }}-linux-amd64.tar.gz
+        dest: '{{ backup_root }}/releases/etcd-v{{ etcd_version }}-linux-amd64.tar.gz'
+        checksum: sha256:{{ etcd_archive_sha256 }}
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Expand the verified etcd tools
+      ansible.builtin.unarchive:
+        src: '{{ backup_root }}/releases/etcd-v{{ etcd_version }}-linux-amd64.tar.gz'
+        dest: '{{ etcd_release_dir }}'
+        remote_src: true
+        extra_opts:
+          - --strip-components=1
+        creates: '{{ etcd_release_dir }}/etcdctl'
+
+    - name: Install versioned Kubernetes etcd backup tools
+      ansible.builtin.copy:
+        src: '{{ etcd_release_dir }}/{{ item.source }}'
+        dest: '{{ backup_root }}/bin/{{ item.dest }}'
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
+      loop:
+        - {source: etcd, dest: k8s-etcd}
+        - {source: etcdctl, dest: k8s-etcdctl}
+        - {source: etcdutl, dest: k8s-etcdutl}
+
+    - name: Install reviewed backup and restore programs
+      ansible.builtin.copy:
+        src: ../../backup/{{ item }}
+        dest: '{{ backup_root }}/{{ item }}'
+        owner: root
+        group: root
+        mode: '0750'
+        backup: true
+      loop:
+        - backup-control.py
+        - verify-control-restore.py
+
+    - name: Install control backup systemd units
+      ansible.builtin.copy:
+        src: ../../backup/{{ item }}
+        dest: /etc/systemd/system/{{ item }}
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - crawl-control-backup.service
+        - crawl-control-backup.timer
+
+    - name: Enable the daily backup timer
+      ansible.builtin.systemd_service:
+        name: crawl-control-backup.timer
+        enabled: true
+        state: started
+        daemon_reload: true
+
+    - name: Verify installed Kubernetes etcd tool versions
+      ansible.builtin.command: '{{ backup_root }}/bin/{{ item.binary }} {{ item.argument }}'
+      loop:
+        - {binary: k8s-etcd, argument: --version}
+        - {binary: k8s-etcdctl, argument: version}
+        - {binary: k8s-etcdutl, argument: version}
+      changed_when: false
+      register: etcd_tool_versions
+
+    - name: Require the selected official etcd release
+      ansible.builtin.assert:
+        that:
+          - etcd_tool_versions.results | map(attribute='stdout') | select('search', etcd_version) | list | length == 3
+        fail_msg: One or more Kubernetes backup tools do not match the pinned etcd release.

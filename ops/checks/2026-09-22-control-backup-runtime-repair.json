@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-09-22T11:05:00+08:00",
+  "status": "IN_PROGRESS",
+  "trigger": "containerd 2.4 ctr run requires an argument boundary and its bind-mount path failed with the existing backup tool container invocation",
+  "replacement": {
+    "component": "official etcd release binaries",
+    "version": "3.7.0",
+    "archiveSha256": "b05cb07f5686dab8f9cdab89986b44f0dd24aaf5c627176aff325e21fa56f9f0",
+    "managedBy": "ops/ansible/playbooks/control-backup.yml",
+    "tools": ["etcd", "etcdctl", "etcdutl"]
+  },
+  "archiveSizeFinding": {
+    "previousBytes": 648706993,
+    "cause": "each A node had about 2.3 GiB under /etc/kubernetes/tmp, primarily six kubeadm-backup-etcd directories from the sequential Kubernetes upgrades",
+    "action": "back up explicit current recovery files and exclude kubeadm temporary upgrade backups",
+    "deletion": "none; existing encrypted archives and host temporary backups remain available"
+  },
+  "verification": "pending fresh backup and isolated restore"
+}

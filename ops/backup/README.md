@@ -45,7 +45,7 @@ python3 ops/backup/verify-pg-restore.py
 - root 服务执行 `/opt/crawlsystem/backup/backup-control.py`；源文件位于本仓库，更新后以 root-owned 0750 安装。不能让系统服务直接执行可被普通用户修改的脚本。
 - 使用集群已固定的 etcd 3.5.24 镜像及 healthcheck 证书生成一致快照，不复制正在使用的 etcd 数据目录充当备份。
 - 另对 PG 专用 etcd 创建一致快照，自动尝试三个成员；备份使用 root-owned `/opt/crawlsystem/backup/bin/` 固定版本工具和 `/etc/crawl-backup/pg-etcd-pki/` 管理员凭据，不执行普通用户可修改的二进制。
-- 包含六节点服务配置、Kubernetes PKI、必要数据库配置/密钥、操作者 kubeconfig/SSH 和本地 secrets。所有明文只在 0700 临时目录处理，完成后清理。
+- 包含六节点服务配置、Kubernetes PKI/静态 Pod 清单/kubeconfig/kubelet 配置、必要数据库配置/密钥、操作者 kubeconfig/SSH 和本地 secrets。所有明文只在 0700 临时目录处理，完成后清理。明确排除 `/etc/kubernetes/tmp` 中 kubeadm 每次升级留下的历史 etcd 副本；当前一致快照已单独生成，重复打包这些历史目录只会让每日档案膨胀。
 - 生成 manifest（原文件 SHA-256、etcd revision、Git revision），GPG AES256 加密，再复制密文到 S2，校验两边 SHA-256 后重命名完成。只有复制成功才执行保留清理，两地各保留最近 14 份完成文件。
 - 密文位于 A1/S2 `/srv/crawlsystem/backups/control`（root 0700）。A1 的 `last-success.json` 提供后续监控读取的最近成功记录，不含凭据。
 - 解密口令位于 A1/S3 的 `/etc/crawl-backup/control-cipher-pass`（root 0600），本机忽略目录也有一份。S3 是当前跨机密钥保管副本；仍需独立账号/地域的外部保管，不能只依赖这六台服务器。

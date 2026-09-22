@@ -11,13 +11,14 @@ import shlex
 import subprocess
 import tarfile
 import tempfile
-import uuid
 
 os.umask(0o077)
 DEST = Path('/srv/crawlsystem/backups/control')
 CONFIG = Path('/etc/crawl-backup')
 SOURCE = Path('/home/ubuntu/workspace/newcrawlSystem')
-IMAGE = 'registry.k8s.io/etcd@sha256:251e7e490f64859d329cd963bc879dc04acf3d7195bb52c4c50b4a07bedf37d6'
+K8S_ETCD = Path('/opt/crawlsystem/backup/bin/k8s-etcd')
+K8S_ETCDCTL = Path('/opt/crawlsystem/backup/bin/k8s-etcdctl')
+K8S_ETCDUTL = Path('/opt/crawlsystem/backup/bin/k8s-etcdutl')
 SSH = ['ssh', '-i', '/home/ubuntu/.ssh/id_ed25519_crawl_infra', '-o', 'BatchMode=yes',
        '-o', 'ConnectTimeout=10', '-o', 'StrictHostKeyChecking=yes',
        '-o', 'UserKnownHostsFile=/home/ubuntu/.ssh/known_hosts']
@@ -33,14 +34,6 @@ with tarfile.open(fileobj=sys.stdout.buffer,mode='w|gz') as archive:
 def run(args, **kwargs):
     return subprocess.run(args, check=True, timeout=300, **kwargs)
 
-def container(work, command, network=False):
-    args = ['ctr', '-n', 'k8s.io', 'run', '--rm']
-    if network: args += ['--net-host']
-    args += ['--mount', f'type=bind,src={work},dst=/backup,options=rbind:rw',
-             '--mount', 'type=bind,src=/etc/kubernetes/pki/etcd,dst=/certs,options=rbind:ro',
-             IMAGE, 'crawl-backup-' + uuid.uuid4().hex[:12], *command]
-    return run(args, capture_output=True, text=True)
-
 def main():
     assert os.geteuid() == 0, 'Run as root; archives contain cluster credentials'
     DEST.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -51,10 +44,14 @@ def main():
         assert not final.exists()
         with tempfile.TemporaryDirectory(prefix='.pending-', dir=DEST) as tmp:
             work = Path(tmp)
-            container(work, ['etcdctl', '--endpoints=https://127.0.0.1:2379',
-                '--cacert=/certs/ca.crt', '--cert=/certs/healthcheck-client.crt', '--key=/certs/healthcheck-client.key',
-                'snapshot', 'save', '/backup/etcd.db'], network=True)
-            status = json.loads(container(work, ['etcdutl', 'snapshot', 'status', '/backup/etcd.db', '-w', 'json']).stdout)
+            k8s_pki = Path('/etc/kubernetes/pki/etcd')
+            run([str(K8S_ETCDCTL), '--endpoints=https://127.0.0.1:2379',
+                '--cacert=' + str(k8s_pki / 'ca.crt'),
+                '--cert=' + str(k8s_pki / 'healthcheck-client.crt'),
+                '--key=' + str(k8s_pki / 'healthcheck-client.key'),
+                'snapshot', 'save', str(work / 'etcd.db')], capture_output=True, text=True)
+            status = json.loads(run([str(K8S_ETCDUTL), 'snapshot', 'status',
+                str(work / 'etcd.db'), '-w', 'json'], capture_output=True, text=True).stdout)
             pg_bin = Path('/opt/crawlsystem/backup/bin')
             pg_pki = CONFIG / 'pg-etcd-pki'
             pg_args = [str(pg_bin / 'etcdctl'), '--command-timeout=20s',
@@ -74,7 +71,13 @@ def main():
                                        str(work / 'pg-etcd.db'), '-w', 'json'], capture_output=True, text=True).stdout)
             for node, ip in NODES.items():
                 paths = ['etc/hosts', 'etc/systemd/system', 'etc/sysctl.d', 'etc/security/limits.d', 'etc/chrony', 'etc/crawl-node-exporter', 'opt/crawlsystem/monitoring', 'etc/crawl-vector', 'opt/crawlsystem/logging']
-                paths += (['etc/kubernetes', 'etc/containerd', 'etc/cni/net.d', 'etc/crawl-kube-api'] if node.startswith('a') else
+                paths += (['etc/kubernetes/admin.conf', 'etc/kubernetes/controller-manager.conf',
+                           'etc/kubernetes/kubelet.conf', 'etc/kubernetes/scheduler.conf',
+                           'etc/kubernetes/super-admin.conf', 'etc/kubernetes/manifests',
+                           'etc/kubernetes/pki', 'etc/kubernetes/ha-test-disabled',
+                           'var/lib/kubelet/config.yaml', 'var/lib/kubelet/kubeadm-flags.env',
+                           'var/lib/kubelet/pki', 'etc/default/kubelet', 'etc/crictl.yaml',
+                           'etc/containerd', 'etc/cni/net.d', 'etc/crawl-kube-api'] if node.startswith('a') else
                           ['etc/postgresql', 'etc/pgbackrest', 'etc/kafka', 'etc/seaweedfs',
                            'etc/pgbouncer', 'etc/clickhouse-server', 'usr/local/libexec',
                            'etc/crawl-pg-etcd', 'etc/crawl-patroni', 'etc/udev/rules.d',
@@ -93,7 +96,8 @@ def main():
             files = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in work.iterdir() if p.is_file()}
             manifest = {'createdAt': datetime.now(timezone.utc).isoformat(), 'etcdSnapshot': status, 'pgEtcdSnapshot': pg_status,
                         'sourceRevision': subprocess.check_output(['git', '-C', str(SOURCE), '-c', 'safe.directory=' + str(SOURCE), 'rev-parse', 'HEAD'], text=True).strip(),
-                        'sha256': files, 'scope': 'etcd and configuration; not Kafka/SeaweedFS/ClickHouse data'}
+                        'sha256': files,
+                        'scope': 'current etcd snapshots and recovery configuration; excludes kubeadm temporary backups and Kafka/SeaweedFS/ClickHouse data'}
             (work / 'manifest.json').write_text(json.dumps(manifest, indent=2))
             with tarfile.open(work / 'payload.tar.gz', 'w:gz') as archive:
                 for child in sorted(work.iterdir()):

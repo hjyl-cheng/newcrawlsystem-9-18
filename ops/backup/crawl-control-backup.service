@@ -1,6 +1,6 @@
 [Unit]
 Description=Encrypted etcd and configuration backup to A1 and S2
-After=network-online.target containerd.service
+After=network-online.target
 Wants=network-online.target
 [Service]
 Type=oneshot

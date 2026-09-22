@@ -11,7 +11,6 @@ import subprocess
 import tarfile
 import tempfile
 import time
-import uuid
 
 os.umask(0o077)
 m = runpy.run_path(str(Path(__file__).with_name('backup-control.py')))
@@ -31,11 +30,11 @@ with tempfile.TemporaryDirectory(prefix='control-restore-', dir=root.parent) as 
     for name, sha in manifest['sha256'].items():
         assert Path(name).name == name
         assert hashlib.sha256((work / name).read_bytes()).hexdigest() == sha, name + ' checksum mismatch'
-    m['container'](work, ['etcdutl', 'snapshot', 'restore', '/backup/etcd.db',
-        '--data-dir=/backup/restored-etcd', '--name=backup-verify',
+    subprocess.run([str(m['K8S_ETCDUTL']), 'snapshot', 'restore', str(work / 'etcd.db'),
+        '--data-dir=' + str(work / 'restored-etcd'), '--name=backup-verify',
         '--initial-cluster=backup-verify=http://127.0.0.1:12380',
         '--initial-advertise-peer-urls=http://127.0.0.1:12380',
-        '--initial-cluster-token=crawl-offline-verification'])
+        '--initial-cluster-token=crawl-offline-verification'], check=True, capture_output=True)
     # PG coordination is a separate authenticated quorum; restore its snapshot independently.
     pg_private = m['SOURCE'] / 'secrets/postgresql-ha'
     pg_bin = Path('/opt/crawlsystem/backup/bin')
@@ -80,10 +79,8 @@ with tempfile.TemporaryDirectory(prefix='control-restore-', dir=root.parent) as 
             pg_proc.terminate()
             try: pg_proc.wait(timeout=10)
             except subprocess.TimeoutExpired: pg_proc.kill(); pg_proc.wait(timeout=5)
-    task = 'crawl-etcd-restore-' + uuid.uuid4().hex[:12]
-    args = ['ctr', '-n', 'k8s.io', 'run', '--rm', '--net-host', '--mount',
-        f'type=bind,src={work},dst=/backup,options=rbind:rw', m['IMAGE'], task, 'etcd',
-        '--data-dir=/backup/restored-etcd', '--name=backup-verify',
+    args = [str(m['K8S_ETCD']),
+        '--data-dir=' + str(work / 'restored-etcd'), '--name=backup-verify',
         '--listen-client-urls=http://127.0.0.1:12379', '--advertise-client-urls=http://127.0.0.1:12379',
         '--listen-peer-urls=http://127.0.0.1:12380', '--initial-advertise-peer-urls=http://127.0.0.1:12380',
         '--initial-cluster=backup-verify=http://127.0.0.1:12380',
@@ -93,8 +90,9 @@ with tempfile.TemporaryDirectory(prefix='control-restore-', dir=root.parent) as 
         try:
             for _ in range(30):
                 try:
-                    m['container'](work, ['etcdctl', '--endpoints=http://127.0.0.1:12379',
-                        '--dial-timeout=1s', '--command-timeout=2s', 'endpoint', 'health'], network=True)
+                    subprocess.run([str(m['K8S_ETCDCTL']), '--endpoints=http://127.0.0.1:12379',
+                        '--dial-timeout=1s', '--command-timeout=2s', 'endpoint', 'health'],
+                        check=True, capture_output=True, text=True)
                     break
                 except subprocess.CalledProcessError:
                     if proc.poll() is not None: raise RuntimeError('Restored etcd exited')
@@ -103,8 +101,9 @@ with tempfile.TemporaryDirectory(prefix='control-restore-', dir=root.parent) as 
             counts = {}
             for prefix in ['/registry/', '/registry/secrets/', '/registry/deployments/']:
                 try:
-                    response = m['container'](work, ['etcdctl', '--endpoints=http://127.0.0.1:12379',
-                        'get', prefix, '--prefix', '--count-only', '--write-out=fields'], network=True)
+                    response = subprocess.run([str(m['K8S_ETCDCTL']), '--endpoints=http://127.0.0.1:12379',
+                        'get', prefix, '--prefix', '--count-only', '--write-out=fields'],
+                        check=True, capture_output=True, text=True)
                 except subprocess.CalledProcessError as error:
                     raise RuntimeError(error.stderr) from None
                 match = re.search(r'"?Count"?\s*:\s*(\d+)', response.stdout)
@@ -114,8 +113,8 @@ with tempfile.TemporaryDirectory(prefix='control-restore-', dir=root.parent) as 
             print(json.dumps(dict(status='PASSED', archive=archive.name,
                 filesVerified=len(manifest['sha256']), restoredKeyCounts=counts, pgCoordinationKeys=pg_count, pgAuthRestored=True)))
         finally:
-            subprocess.run(['ctr', '-n', 'k8s.io', 'tasks', 'kill', '--signal', 'SIGTERM', task], check=False)
+            proc.terminate()
             try: proc.wait(timeout=15)
             except subprocess.TimeoutExpired:
-                subprocess.run(['ctr', '-n', 'k8s.io', 'tasks', 'kill', '--signal', 'SIGKILL', task], check=False)
+                proc.kill()
                 proc.wait(timeout=10)
