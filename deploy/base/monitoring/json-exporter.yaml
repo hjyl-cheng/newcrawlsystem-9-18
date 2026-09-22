@@ -18,8 +18,14 @@ modules:
       help: One when a Kafka Connect task reports RUNNING
       labels:
         task_id: '{.id}'
+        state: '{.state}'
       values:
-        '{.state}': 1
+        RUNNING: 1
+        FAILED: 0
+        PAUSED: 0
+        UNASSIGNED: 0
+        RESTARTING: 0
+        STOPPED: 0
   ingestor_ready:
     metrics:
     - name: crawl_json_ingestor_ready
