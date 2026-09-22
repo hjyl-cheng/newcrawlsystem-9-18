@@ -1,20 +1,13 @@
 modules:
-  connect_status:
+  connect_tasks:
     metrics:
-    - name: crawl_json_connect_connector_running
-      path: '{..state[?(@ == "RUNNING")]}'
+    - name: crawl_json_connect_tasks
+      path: '{.tasks[*].id}'
       type: value
-      help: Connector and task states currently reporting RUNNING
+      help: Number of Kafka Connect tasks reported by the status API
       valuetype: gauge
-    - name: crawl_json_connect_task_running
-      path: '{.tasks[?(@.state == "RUNNING")].state}'
+    - name: crawl_json_connect_tasks_failed
+      path: '{.tasks[?(@.state == "FAILED")].id}'
       type: value
-      help: Kafka Connect task states currently reporting RUNNING
-      valuetype: gauge
-  ingestor_ready:
-    metrics:
-    - name: crawl_json_ingestor_ready
-      path: '{.status[?(@ == "ready")]}'
-      type: value
-      help: One when the data ingestor readiness reports ready
+      help: Number of Kafka Connect tasks reporting FAILED
       valuetype: gauge

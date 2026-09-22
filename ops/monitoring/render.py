@@ -66,10 +66,12 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('kube-state-metrics
  if name in ['prometheus','alertmanager']:targets=[name+'-'+str(i)+'.'+name+'-headless:'+str(port) for i in range(2 if name=='prometheus' else 3)]
  prom['scrape_configs'].append({'job_name':name,'static_configs':[{'targets':targets}]})
 json_targets=[
- {'targets':['http://kafka-connect.crawl-validation.svc:8083/connectors/crawl-publication-validation/status'],'labels':{'component':'connect','module':'connect_status'}},
- {'targets':['http://data-ingestor.crawl-validation.svc:8080/health/ready'],'labels':{'component':'ingestor','module':'ingestor_ready'}}]
+ {'targets':['http://kafka-connect.crawl-validation.svc:8083/connectors/crawl-publication-validation/status'],'labels':{'component':'connect','module':'connect_tasks'}}]
 prom['scrape_configs'].append({'job_name':'json','metrics_path':'/probe','params':{'module':['{module}']},'relabel_configs':[{'source_labels':['module'],'target_label':'__param_module'},{'source_labels':['__address__'],'target_label':'__param_target'},{'source_labels':['__param_target'],'target_label':'instance'},{'target_label':'__address__','replacement':'json-exporter:7979'}],'static_configs':json_targets})
-blackbox_targets=[{'targets':['http://data-ingestor.crawl-validation.svc:8080/health/live'],'labels':{'component':'ingestor'}}]
+blackbox_targets=[
+ {'targets':['http://data-ingestor.crawl-validation.svc:8080/health/live'],'labels':{'component':'ingestor','endpoint':'live'}},
+ {'targets':['http://data-ingestor.crawl-validation.svc:8080/health/ready'],'labels':{'component':'ingestor','endpoint':'ready'}},
+ {'targets':['http://kafka-connect.crawl-validation.svc:8083/connectors/crawl-publication-validation/status'],'labels':{'component':'connect','endpoint':'status'}}]
 prom['scrape_configs'].append({'job_name':'blackbox','metrics_path':'/probe','params':{'module':['http_2xx']},'relabel_configs':[{'source_labels':['__address__'],'target_label':'__param_target'},{'source_labels':['__param_target'],'target_label':'instance'},{'target_label':'__address__','replacement':'blackbox-exporter:9115'}],'static_configs':blackbox_targets})
 write(BASE/'prometheus.yaml',prom)
 
