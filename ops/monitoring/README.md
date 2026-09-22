@@ -9,6 +9,7 @@
 - A1/A2/A3：Alertmanager 各一份，本地 1Gi PV，TCP/UDP 9094 私有 Pod 网络组网。两份 Prometheus 删除 replica 告警标签后投递全部三成员，减少重复告警。只展示平台内告警，没有短信、邮件、Webhook 接收器。
 - Grafana 两副本：复用现有 PG HA 的独立逻辑数据库 `crawler_grafana`，专用最小权限角色；通过稳定入口 5432 连接，避开事务池的迁移锁问题。面板/数据源由 Git 配置；SQLite 未启用。数据库连接已使用 verify-full TLS，校验专用 CA 与稳定入口名称；三台 PG 均拒绝 Grafana 角色明文连接。
 - kube-state-metrics、Kafka exporter、只读 HTTP 探针各两副本。副本互斥分散到 A 节点。所有容器有资源上限，镜像 tag/digest 固定在 `images.json`。
+- JSON Exporter 0.8.0 与 Blackbox Exporter 0.28.0 各两副本，只读对照 Connect 状态和 Ingestor 健康接口。它们尚未接替 `infra-exporter` 的告警。JSON Exporter 0.8.0 统计数组中的任务对象，不能把响应里的状态字符串直接映射成数值。
 
 配置源：`render.py` → `deploy/base/monitoring` → validation overlay → 独立 Argo Project/Application。监控应用仅管理 `crawl-monitoring`，不能修改集群级 RBAC/PV。`cluster-resources.yaml` 的本地 PV/StorageClass/只读 KSM RBAC 由运维显式引导。Secrets 不入 Git。
 
