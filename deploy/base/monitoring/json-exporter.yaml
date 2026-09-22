@@ -2,19 +2,19 @@ modules:
   connect_status:
     metrics:
     - name: crawl_json_connect_connector_running
-      path: '{[$.connector][?(@.state == "RUNNING")]}'
+      path: '{..state[?(@ == "RUNNING")]}'
       type: value
-      help: One when the Kafka Connect connector reports RUNNING
+      help: Connector and task states currently reporting RUNNING
       valuetype: gauge
     - name: crawl_json_connect_task_running
-      path: '{.tasks[?(@.state == "RUNNING")]}'
+      path: '{.tasks[?(@.state == "RUNNING")].state}'
       type: value
-      help: Number of Kafka Connect tasks reporting RUNNING
+      help: Kafka Connect task states currently reporting RUNNING
       valuetype: gauge
   ingestor_ready:
     metrics:
     - name: crawl_json_ingestor_ready
-      path: '{[$.][?(@.status == "ready")]}'
+      path: '{.status[?(@ == "ready")]}'
       type: value
       help: One when the data ingestor readiness reports ready
       valuetype: gauge
