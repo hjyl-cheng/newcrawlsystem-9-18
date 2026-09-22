@@ -2,12 +2,18 @@ modules:
   connect_tasks:
     metrics:
     - name: crawl_json_connect_tasks
-      path: '{.tasks[*].id}'
-      type: value
-      help: Number of Kafka Connect tasks reported by the status API
-      valuetype: gauge
+      path: '{.tasks[*]}'
+      type: object
+      help: Kafka Connect tasks reported by the status API
+      labels:
+        task_id: '{.id}'
+      values:
+        present: 1
     - name: crawl_json_connect_tasks_failed
-      path: '{.tasks[?(@.state == "FAILED")].id}'
-      type: value
-      help: Number of Kafka Connect tasks reporting FAILED
-      valuetype: gauge
+      path: '{.tasks[?(@.state == "FAILED")]}'
+      type: object
+      help: Kafka Connect tasks reporting FAILED
+      labels:
+        task_id: '{.id}'
+      values:
+        present: 1
