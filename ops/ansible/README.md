@@ -15,3 +15,5 @@ ansible-playbook playbooks/container-runtime.yml
 Do not use this playbook to skip containerd minor releases. A future 2.x minor upgrade must follow the upstream supported sequence and pass the same per-node and whole-cluster gates recorded under `ops/checks/`.
 
 `playbooks/cdc-guard.yml` only maintains the temporary CDC promotion guard. It remains until Pigsty/Patroni and the CDC failover path have an accepted mature replacement or an explicitly retained boundary.
+
+`playbooks/node-exporter.yml` enables the native node_exporter 1.12.1 systemd collector for the reviewed service list on each node. It keeps the existing textfile probes and alerts running so both sources can be compared before any probe is removed. The collector uses the installed binary and certificates; it does not open a new port or change database, Kafka, or object-storage state.

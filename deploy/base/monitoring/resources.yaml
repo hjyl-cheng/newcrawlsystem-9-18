@@ -652,6 +652,228 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: json-exporter
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: json-exporter
+  template:
+    metadata:
+      labels:
+        app: json-exporter
+    spec:
+      automountServiceAccountToken: false
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ''
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: json-exporter
+        image: docker.io/prometheuscommunity/json-exporter:v0.8.0@sha256:a314db88543ef9be5ec4960b22fd1962737e316964e45aa02d6576f97b265b5b
+        ports:
+        - containerPort: 7979
+          name: http
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 20
+          failureThreshold: 6
+        args:
+        - --config.file=/config/json-exporter.yaml
+        volumeMounts:
+        - name: json-exporter-config
+          mountPath: /config
+          readOnly: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: json-exporter
+            topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: json-exporter-config
+        configMap:
+          name: json-exporter-config
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: json-exporter
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: json-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: json-exporter
+spec:
+  selector:
+    app: json-exporter
+  ports:
+  - name: http
+    port: 7979
+    targetPort: 7979
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox-exporter
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: blackbox-exporter
+  template:
+    metadata:
+      labels:
+        app: blackbox-exporter
+    spec:
+      automountServiceAccountToken: false
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ''
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: blackbox-exporter
+        image: docker.io/prom/blackbox-exporter:v0.28.0@sha256:43027b43fb785b7c5adc53bd3b5dbc1a258270a2e8aff24f477b45c4e38dac68
+        ports:
+        - containerPort: 9115
+          name: http
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 20
+          failureThreshold: 6
+        args:
+        - --config.file=/config/blackbox.yaml
+        volumeMounts:
+        - name: blackbox-exporter-config
+          mountPath: /config
+          readOnly: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: blackbox-exporter
+            topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: blackbox-exporter-config
+        configMap:
+          name: blackbox-exporter-config
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: blackbox-exporter
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: blackbox-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox-exporter
+spec:
+  selector:
+    app: blackbox-exporter
+  ports:
+  - name: http
+    port: 9115
+    targetPort: 9115
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: grafana
 spec:
   replicas: 2
@@ -917,6 +1139,20 @@ spec:
     - protocol: TCP
       port: 9189
   - to:
+    - podSelector:
+        matchLabels:
+          app: json-exporter
+    ports:
+    - protocol: TCP
+      port: 7979
+  - to:
+    - podSelector:
+        matchLabels:
+          app: blackbox-exporter
+    ports:
+    - protocol: TCP
+      port: 9115
+  - to:
     - ipBlock:
         cidr: 10.4.4.12/32
     - ipBlock:
@@ -1167,6 +1403,106 @@ spec:
     ports:
     - protocol: TCP
       port: 9189
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: crawl-validation
+      podSelector:
+        matchLabels:
+          app: kafka-connect
+    ports:
+    - protocol: TCP
+      port: 8083
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: crawl-validation
+      podSelector:
+        matchLabels:
+          app: data-ingestor
+    ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: json-exporter
+spec:
+  podSelector:
+    matchLabels:
+      app: json-exporter
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 7979
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: crawl-validation
+      podSelector:
+        matchLabels:
+          app: kafka-connect
+    ports:
+    - protocol: TCP
+      port: 8083
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: crawl-validation
+      podSelector:
+        matchLabels:
+          app: data-ingestor
+    ports:
+    - protocol: TCP
+      port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: blackbox-exporter
+spec:
+  podSelector:
+    matchLabels:
+      app: blackbox-exporter
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9115
   egress:
   - to:
     - namespaceSelector:

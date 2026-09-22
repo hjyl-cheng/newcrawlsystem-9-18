@@ -1,0 +1,105 @@
+---
+- name: Enable the native node_exporter systemd collector beside the existing probes
+  hosts: all
+  gather_facts: false
+  serial: 1
+  any_errors_fatal: true
+  vars:
+    exporter_unit: /etc/systemd/system/crawl-node-exporter.service
+    systemd_units:
+      a1: [kubelet, containerd, crawl-kube-api, crawl-vector]
+      a2: [kubelet, containerd, crawl-kube-api, crawl-vector]
+      a3: [kubelet, containerd, crawl-kube-api, crawl-vector]
+      s1: [crawl-patroni, crawl-pg-etcd, crawl-cdc-guard, pgbouncer, kafka, seaweedfs-master, seaweedfs-volume, seaweedfs-filer, seaweedfs-s3, crawl-seaweed-pg, crawl-vector]
+      s2: [crawl-patroni, crawl-pg-etcd, crawl-cdc-guard, pgbouncer, kafka, seaweedfs-master, seaweedfs-volume, seaweedfs-filer, seaweedfs-s3, crawl-seaweed-pg, crawl-vector]
+      s3: [crawl-patroni, crawl-pg-etcd, crawl-cdc-guard, pgbouncer, kafka, seaweedfs-master, seaweedfs-volume, seaweedfs-filer, seaweedfs-s3, crawl-seaweed-pg, crawl-vector, clickhouse-server]
+
+  tasks:
+    - name: Read the installed exporter unit
+      ansible.builtin.slurp:
+        src: '{{ exporter_unit }}'
+      register: exporter_unit_file
+
+    - name: Require the reviewed exporter command before changing it
+      ansible.builtin.assert:
+        that:
+          - "'/usr/local/bin/crawl-node-exporter' in exporter_unit_text"
+          - "'--collector.disable-defaults' in exporter_unit_text"
+          - "'--collector.textfile' in exporter_unit_text"
+          - "'--web.config.file=/etc/crawl-node-exporter/web.yml' in exporter_unit_text"
+        fail_msg: Refusing to edit an exporter unit that does not match the reviewed command.
+      vars:
+        exporter_unit_text: '{{ exporter_unit_file.content | b64decode }}'
+
+    - name: Select the units that exist on this node
+      ansible.builtin.set_fact:
+        selected_units: '{{ systemd_units[inventory_hostname] }}'
+        systemd_unit_pattern: '^({{ systemd_units[inventory_hostname] | join("|") }})\.service$'
+
+    - name: Enable only the selected systemd units
+      ansible.builtin.lineinfile:
+        path: '{{ exporter_unit }}'
+        regexp: '^ExecStart=/usr/local/bin/crawl-node-exporter\s'
+        line: >-
+          ExecStart=/usr/local/bin/crawl-node-exporter
+          --web.listen-address={{ hostvars[inventory_hostname].ansible_host }}:9100
+          --web.config.file=/etc/crawl-node-exporter/web.yml
+          --collector.textfile.directory=/var/lib/crawl-node-exporter/textfile
+          --collector.disable-defaults
+          --collector.cpu --collector.meminfo --collector.filesystem
+          --collector.diskstats --collector.netdev --collector.loadavg
+          --collector.time --collector.uname --collector.stat
+          --collector.textfile
+          --collector.systemd
+          --collector.systemd.unit-include='{{ systemd_unit_pattern }}'
+          --no-collector.systemd.enable-task-metrics
+          --no-collector.systemd.enable-restarts-metrics
+          --no-collector.systemd.enable-start-time-metrics
+        owner: root
+        group: root
+        mode: '0644'
+      register: exporter_command
+
+    - name: Reload and restart the exporter after its command changes
+      when: exporter_command.changed
+      ansible.builtin.systemd_service:
+        name: crawl-node-exporter
+        daemon_reload: true
+        state: restarted
+
+    - name: Confirm the exporter is active
+      ansible.builtin.command: systemctl is-active crawl-node-exporter
+      changed_when: false
+      register: exporter_active
+
+    - name: Read the native unit states with the existing Prometheus client certificate
+      delegate_to: localhost
+      become: false
+      when: not ansible_check_mode
+      ansible.builtin.command:
+        argv:
+          - /usr/bin/python3
+          - -c
+          - |
+            import ssl, urllib.request
+            root = "{{ playbook_dir }}/../../../secrets/monitoring"
+            context = ssl.create_default_context(cafile=root + "/ca.crt")
+            context.load_cert_chain(root + "/prometheus-client.crt", root + "/prometheus-client.key")
+            url = "https://{{ ansible_host }}:9100/metrics"
+            metrics = urllib.request.urlopen(url, context=context, timeout=8).read().decode()
+            expected = {{ selected_units | to_json }}
+            found = set()
+            for line in metrics.splitlines():
+                if not line.startswith("node_systemd_unit_state{") or ',state="active"' not in line or not line.endswith(" 1"):
+                    continue
+                name = line.split('name="', 1)[1].split('"', 1)[0].removesuffix(".service")
+                found.add(name)
+            missing = sorted(set(expected) - found)
+            unexpected = sorted(found - set(expected))
+            if missing or unexpected:
+                raise SystemExit("missing=%s unexpected=%s" % (missing, unexpected))
+      changed_when: false
+
+    - name: Keep the existing textfile probe running
+      ansible.builtin.command: systemctl is-active crawl-metrics-collect.timer
+      changed_when: false

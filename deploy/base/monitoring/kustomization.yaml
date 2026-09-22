@@ -13,6 +13,12 @@ configMapGenerator:
 - name: infra-exporter-code
   files:
   - infra-exporter.py
+- name: json-exporter-config
+  files:
+  - json-exporter.yaml
+- name: blackbox-exporter-config
+  files:
+  - blackbox.yaml
 - name: grafana-datasources
   files:
   - datasources.yaml

@@ -22,5 +22,13 @@
   "python": {
     "tag": "3.12.13-slim-bookworm",
     "image": "docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2"
+  },
+  "json-exporter": {
+    "tag": "v0.8.0",
+    "image": "docker.io/prometheuscommunity/json-exporter:v0.8.0@sha256:a314db88543ef9be5ec4960b22fd1962737e316964e45aa02d6576f97b265b5b"
+  },
+  "blackbox-exporter": {
+    "tag": "v0.28.0",
+    "image": "docker.io/prom/blackbox-exporter:v0.28.0@sha256:43027b43fb785b7c5adc53bd3b5dbc1a258270a2e8aff24f477b45c4e38dac68"
   }
 }
