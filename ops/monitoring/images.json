@@ -30,5 +30,9 @@
   "blackbox-exporter": {
     "tag": "v0.28.0",
     "image": "docker.io/prom/blackbox-exporter:v0.28.0@sha256:43027b43fb785b7c5adc53bd3b5dbc1a258270a2e8aff24f477b45c4e38dac68"
+  },
+  "postgres-exporter": {
+    "tag": "v0.20.1",
+    "image": "docker.io/prometheuscommunity/postgres-exporter:v0.20.1@sha256:4f3d82803c1f99ea5e767890de3557d2479ebbc711f63f2e04c663daa840057a"
   }
 }

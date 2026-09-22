@@ -61,7 +61,7 @@ def envs(data):return [{'name':k,'value':str(v)} for k,v in data.items()]
 
 tls={'ca_file':'/etc/monitoring-tls/ca.crt','cert_file':'/etc/monitoring-tls/prometheus-client.crt','key_file':'/etc/monitoring-tls/prometheus-client.key'}
 prom={'global':{'scrape_interval':'30s','scrape_timeout':'10s','evaluation_interval':'15s','external_labels':{'cluster':'crawl-validation','replica':'${POD_NAME}'}},'rule_files':['/etc/prometheus/rules.yaml'],'alerting':{'alert_relabel_configs':[{'action':'labeldrop','regex':'replica'}],'alertmanagers':[{'static_configs':[{'targets':['alertmanager-'+str(i)+'.alertmanager-headless:9093' for i in range(3)]}]}]},'scrape_configs':[{'job_name':'nodes','scheme':'https','tls_config':tls,'static_configs':[{'targets':[ip+':9100'],'labels':{'node':n}} for n,ip in NODES.items()]}]}
-for name,port in [('prometheus',9090),('alertmanager',9093),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115)]:
+for name,port in [('prometheus',9090),('alertmanager',9093),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115),('postgres-exporter',9187)]:
  targets=[name+':'+str(port)]
  if name in ['prometheus','alertmanager']:targets=[name+'-'+str(i)+'.'+name+'-headless:'+str(port) for i in range(2 if name=='prometheus' else 3)]
  prom['scrape_configs'].append({'job_name':name,'static_configs':[{'targets':targets}]})
@@ -135,6 +135,12 @@ v,m=volume('json-exporter-config','/config')
 workload('json-exporter','json-exporter',7979,mem='64Mi',cpu='100m',health='/',args=['--config.file=/config/json-exporter.yaml'],volumes=[v],mounts=[m])
 v,m=volume('blackbox-exporter-config','/config')
 workload('blackbox-exporter','blackbox-exporter',9115,mem='64Mi',cpu='100m',health='/',args=['--config.file=/config/blackbox.yaml'],volumes=[v],mounts=[m])
+# Official collector beside the local textfile probe. Password stays in a Secret; alerts still use crawl_pg_*.
+cv,cm=volume('postgres-exporter-config','/config')
+v,m=volume('postgresql-sql-ca','/etc/postgresql-sql-tls','secret')
+pv={'name':'pg-exporter-private','secret':{'secretName':'pg-exporter-private','defaultMode':0o400}}
+pm={'name':'pg-exporter-private','mountPath':'/etc/pg-exporter','readOnly':True}
+workload('postgres-exporter','postgres-exporter',9187,mem='96Mi',cpu='100m',health='/metrics',args=['--config.file=/config/postgres-exporter.yaml','--no-collector.stat_user_tables','--no-collector.statio_user_tables','--no-collector.stat_progress_vacuum','--no-collector.database_wraparound'],env=envs({'DATA_SOURCE_URI':'postgres-rw.crawl-validation.svc:5432/postgres?sslmode=verify-full&sslrootcert=/etc/postgresql-sql-tls/ca.crt','DATA_SOURCE_USER':'crawl_pg_exporter','DATA_SOURCE_PASS_FILE':'/etc/pg-exporter/password'}),volumes=[cv,v,pv],mounts=[cm,m,pm])
 
 write(BASE/'datasources.yaml',{'apiVersion':1,'datasources':[{'name':'Prometheus','uid':'prometheus','type':'prometheus','access':'proxy','url':'http://prometheus:9090','isDefault':True,'editable':False},{'name':'Alertmanager','uid':'alertmanager','type':'alertmanager','access':'proxy','url':'http://alertmanager:9093','jsonData':{'implementation':'prometheus','handleGrafanaManagedAlerts':False},'editable':False}]})
 datasources=yaml.safe_load((BASE/'datasources.yaml').read_text())
@@ -182,12 +188,12 @@ def ns(namespace,app=None):
 def same(app):return {'podSelector':{'matchLabels':{'app':app}}}
 def ports(*numbers):return [{'protocol':'TCP','port':p} for p in numbers]
 dns={'to':[ns('kube-system')],'ports':ports(53)+[{'protocol':'UDP','port':53}]}
-for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115)]:
+for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115),('postgres-exporter',9187)]:
  ingress=[{'from':[same('prometheus')],'ports':ports(port)}]
  egress=[dns]
  if name=='prometheus':
   ingress += [{'from':[same('grafana')],'ports':ports(port)}]
-  egress += [{'to':[same(app)],'ports':ports(p)} for app,p in [('prometheus',9090),('alertmanager',9093),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115)]]
+  egress += [{'to':[same(app)],'ports':ports(p)} for app,p in [('prometheus',9090),('alertmanager',9093),('kube-state-metrics',8080),('kafka-exporter',9308),('infra-exporter',9189),('json-exporter',7979),('blackbox-exporter',9115),('postgres-exporter',9187)]]
   egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for ip in NODES.values()],'ports':ports(9100)}]
  if name=='alertmanager':
   ingress += [{'from':[same('grafana')],'ports':ports(9093)},{'from':[same('alertmanager')],'ports':ports(9094)+[{'protocol':'UDP','port':9094}]}]
@@ -200,12 +206,13 @@ for name,port in [('prometheus',9090),('alertmanager',9093),('grafana',3000),('k
  if name=='kafka-exporter':egress += [{'to':[{'ipBlock':{'cidr':ip+'/32'}} for n,ip in NODES.items() if n.startswith('s')],'ports':ports(9094)}]
  if name=='infra-exporter':egress += [{'to':[ns('crawl-validation','kafka-connect')],'ports':ports(8083)},{'to':[ns('crawl-validation','data-ingestor')],'ports':ports(8080)}]
  if name in ['json-exporter','blackbox-exporter']:egress += [{'to':[ns('crawl-validation','kafka-connect')],'ports':ports(8083)},{'to':[ns('crawl-validation','data-ingestor')],'ports':ports(8080)}]
+ if name=='postgres-exporter':egress += [{'to':[ns('crawl-validation','postgresql-entry')],'ports':ports(5432)}]
  objects.append(resource('NetworkPolicy',name,{'podSelector':{'matchLabels':{'app':name}},'policyTypes':['Ingress','Egress'],'ingress':ingress,'egress':egress},'networking.k8s.io/v1'))
 (BASE/'resources.yaml').write_text(yaml.safe_dump_all(objects,sort_keys=False))
 (BASE/'infra-exporter.py').write_text((ROOT/'ops/monitoring/infra-exporter.py').read_text())
-for source,dest in [('json-exporter.yaml','json-exporter.yaml'),('blackbox.yaml','blackbox.yaml')]:
+for source,dest in [('json-exporter.yaml','json-exporter.yaml'),('blackbox.yaml','blackbox.yaml'),('postgres-exporter.yaml','postgres-exporter.yaml')]:
  (BASE/dest).write_text((ROOT/'ops/monitoring'/source).read_text())
-write(BASE/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','resources':['resources.yaml'],'configMapGenerator':[{'name':n,'files':f} for n,f in [('prometheus-config',['prometheus.yaml','rules.yaml']),('alertmanager-config',['alertmanager.yaml']),('infra-exporter-code',['infra-exporter.py']),('json-exporter-config',['json-exporter.yaml']),('blackbox-exporter-config',['blackbox.yaml']),('grafana-datasources',['datasources.yaml']),('grafana-dashboard-provider',['dashboards.yaml']),('grafana-dashboards',['overview.json','logs.json'])]]})
+write(BASE/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','resources':['resources.yaml'],'configMapGenerator':[{'name':n,'files':f} for n,f in [('prometheus-config',['prometheus.yaml','rules.yaml']),('alertmanager-config',['alertmanager.yaml']),('infra-exporter-code',['infra-exporter.py']),('json-exporter-config',['json-exporter.yaml']),('blackbox-exporter-config',['blackbox.yaml']),('postgres-exporter-config',['postgres-exporter.yaml']),('grafana-datasources',['datasources.yaml']),('grafana-dashboard-provider',['dashboards.yaml']),('grafana-dashboards',['overview.json','logs.json'])]]})
 overlay=ROOT/'deploy/overlays/validation/monitoring';overlay.mkdir(parents=True,exist_ok=True)
 write(overlay/'kustomization.yaml',{'apiVersion':'kustomize.config.k8s.io/v1beta1','kind':'Kustomization','namespace':'crawl-monitoring','resources':['../../../base/monitoring']})
 project=resource('AppProject','crawl-monitoring',{'sourceRepos':['https://github.com/hjyl-cheng/newcrawlsystem-9-18.git'],'destinations':[{'server':'https://kubernetes.default.svc','namespace':'crawl-monitoring'}],'clusterResourceWhitelist':[],'namespaceResourceWhitelist':[{'group':g,'kind':k} for g,k in [('','ConfigMap'),('','Service'),('','ServiceAccount'),('','PersistentVolumeClaim'),('apps','Deployment'),('apps','StatefulSet'),('networking.k8s.io','NetworkPolicy'),('policy','PodDisruptionBudget')]]},'argoproj.io/v1alpha1');project['metadata']['namespace']='argocd'

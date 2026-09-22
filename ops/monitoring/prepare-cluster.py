@@ -56,6 +56,9 @@ def main():
     secret('monitoring-client-tls', {n: (private / n).read_text() for n in ['ca.crt', 'prometheus-client.crt', 'prometheus-client.key']})
     secret('postgresql-sql-ca', {'ca.crt': sql_ca.read_text()})
     secret('grafana-private', {'GF_DATABASE_PASSWORD': password, 'GF_SECURITY_SECRET_KEY': (private / 'grafana-secret-key').read_text().strip(), 'GF_SECURITY_ADMIN_PASSWORD': admin.read_text().strip()})
+    exporter_password_file = private / 'pg-exporter-password'
+    if exporter_password_file.exists():
+        secret('pg-exporter-private', {'password': exporter_password_file.read_text().strip()})
     for node in ['a1', 'a2', 'a3']:
         paths = ['/srv/crawlsystem/monitoring/alertmanager']
         if node != 'a1': paths.append('/srv/crawlsystem/monitoring/prometheus')

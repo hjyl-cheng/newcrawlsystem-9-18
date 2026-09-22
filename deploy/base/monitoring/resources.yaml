@@ -874,6 +874,141 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: postgres-exporter
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: postgres-exporter
+  template:
+    metadata:
+      labels:
+        app: postgres-exporter
+    spec:
+      automountServiceAccountToken: false
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ''
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: postgres-exporter
+        image: docker.io/prometheuscommunity/postgres-exporter:v0.20.1@sha256:4f3d82803c1f99ea5e767890de3557d2479ebbc711f63f2e04c663daa840057a
+        ports:
+        - containerPort: 9187
+          name: http
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 96Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: http
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /metrics
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: http
+          periodSeconds: 20
+          failureThreshold: 6
+        args:
+        - --config.file=/config/postgres-exporter.yaml
+        - --no-collector.stat_user_tables
+        - --no-collector.statio_user_tables
+        - --no-collector.stat_progress_vacuum
+        - --no-collector.database_wraparound
+        env:
+        - name: DATA_SOURCE_URI
+          value: postgres-rw.crawl-validation.svc:5432/postgres?sslmode=verify-full&sslrootcert=/etc/postgresql-sql-tls/ca.crt
+        - name: DATA_SOURCE_USER
+          value: crawl_pg_exporter
+        - name: DATA_SOURCE_PASS_FILE
+          value: /etc/pg-exporter/password
+        volumeMounts:
+        - name: postgres-exporter-config
+          mountPath: /config
+          readOnly: true
+        - name: postgresql-sql-ca
+          mountPath: /etc/postgresql-sql-tls
+          readOnly: true
+        - name: pg-exporter-private
+          mountPath: /etc/pg-exporter
+          readOnly: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: postgres-exporter
+            topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: postgres-exporter-config
+        configMap:
+          name: postgres-exporter-config
+      - name: postgresql-sql-ca
+        secret:
+          secretName: postgresql-sql-ca
+      - name: pg-exporter-private
+        secret:
+          secretName: pg-exporter-private
+          defaultMode: 256
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: postgres-exporter
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: postgres-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-exporter
+spec:
+  selector:
+    app: postgres-exporter
+  ports:
+  - name: http
+    port: 9187
+    targetPort: 9187
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: grafana
 spec:
   replicas: 2
@@ -1152,6 +1287,13 @@ spec:
     ports:
     - protocol: TCP
       port: 9115
+  - to:
+    - podSelector:
+        matchLabels:
+          app: postgres-exporter
+    ports:
+    - protocol: TCP
+      port: 9187
   - to:
     - ipBlock:
         cidr: 10.4.4.12/32
@@ -1533,3 +1675,43 @@ spec:
     ports:
     - protocol: TCP
       port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-exporter
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres-exporter
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9187
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: crawl-validation
+      podSelector:
+        matchLabels:
+          app: postgresql-entry
+    ports:
+    - protocol: TCP
+      port: 5432

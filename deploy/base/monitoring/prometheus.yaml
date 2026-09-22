@@ -80,6 +80,10 @@ scrape_configs:
   static_configs:
   - targets:
     - blackbox-exporter:9115
+- job_name: postgres-exporter
+  static_configs:
+  - targets:
+    - postgres-exporter:9187
 - job_name: json
   metrics_path: /probe
   params:

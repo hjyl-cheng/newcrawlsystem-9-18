@@ -21,6 +21,13 @@ spec:
             matchLabels: {app: grafana}
       ports:
         - {protocol: TCP, port: 5432}
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: crawl-monitoring}
+          podSelector:
+            matchLabels: {app: postgres-exporter}
+      ports:
+        - {protocol: TCP, port: 5432}
   egress:
     - to:
         - ipBlock: {cidr: 10.4.4.2/32}

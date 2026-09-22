@@ -19,6 +19,9 @@ configMapGenerator:
 - name: blackbox-exporter-config
   files:
   - blackbox.yaml
+- name: postgres-exporter-config
+  files:
+  - postgres-exporter.yaml
 - name: grafana-datasources
   files:
   - datasources.yaml
